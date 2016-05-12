@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<celerioPack xmlns="http://www.jaxio.com/schema/celerio">
+    <packName value="pack-angular"/>
+    <packDescription value="Generate Angular app backend"/>
+    <packDescription2 value=""/>
+    <packCommand value="mvn -Pdb,metadata,gen generate-sources"/>
+    <packCommandHelp value=""/>
+    <projectLink value="https://github.com/jaxio/celerio-angular-quickstart"/>
+    <celerioTemplateContext>
+        <!--<properties>-->
+            <!-- property value can be accessed in templates using
+            $pack.getProperty('pagination')
+            -->
+            <!--<property name="pagination" value="todo_default"/>-->
+        <!--</properties>-->
+        <entityContextProperties>
+            <entityContextProperty property="rest" subPackage="rest" suffix="Resource"/>
+        </entityContextProperties>
+    </celerioTemplateContext>
+</celerioPack>

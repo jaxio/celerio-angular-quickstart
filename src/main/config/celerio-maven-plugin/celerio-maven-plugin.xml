@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<celerio xmlns="http://www.jaxio.com/schema/celerio" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.jaxio.com/schema/celerio ./celerio.xsd">
+    <configuration rootPackage="com.mycompany.myapp" applicationName="jhipavrilApp">
+        <!-- Which tables are used for generation -->
+        <tables>
+            <!-- <table include="false" pattern="*_AUDIT"/> -->
+            <table include="false" pattern="jhi_persistent_*"/>
+        </tables>
+
+        <!-- global number mapping (optional) -->
+        <numberMappings>
+            <numberMapping mappedType="M_BOOLEAN" columnSizeMin="1" columnSizeMax="2" columnDecimalDigitsMin="0"
+                           columnDecimalDigitsMax="0"/>
+            <!-- <numberMapping mappedType="M_BIGDECIMAL" columnSizeMin="10" columnDecimalDigitsMin="4"/> -->
+        </numberMappings>
+
+        <!-- global date mapping (optional) -->
+        <dateMappings>
+            <!-- <dateMapping columnNameRegExp="VERSION" mappedType="M_UTILDATE"/> -->
+            <dateMapping columnJdbcType="TIMESTAMP" mappedType="M_ZONEDDATETIME"/>
+            <dateMapping columnJdbcType="DATE" mappedType="M_LOCALDATE"/>
+        </dateMappings>
+
+    </configuration>
+
+
+    <entityConfigs>
+    </entityConfigs>
+</celerio>
