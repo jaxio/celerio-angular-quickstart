@@ -14,3 +14,7 @@ hs_err_pid*
 # Intellij
 .idea/
 *.iml
+
+# app
+src/main/webapp/node_modules
+src/main/webapp/typings

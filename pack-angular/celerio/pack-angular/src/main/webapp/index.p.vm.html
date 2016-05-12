@@ -1,0 +1,33 @@
+$output.webapp("index.html")##
+<!doctype html>
+<html>
+
+<head>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <title>PrimeNG QuickStart with SystemJS</title>
+
+    <link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css"/>
+    <link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="app/resources/css/site.css"/>
+
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/primeui/primeui-ng-all.min.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) {
+            console.error(err);
+        });
+    </script>
+</head>
+
+<body>
+<a href="swagger-ui.html">Api Docs</a>
+<hr/>
+<my-app>Loading...</my-app>
+</body>
+
+</html>

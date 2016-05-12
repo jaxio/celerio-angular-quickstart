@@ -1,0 +1,42 @@
+$output.webapp("app/entities/${entity.model.var}/${entity.model.var}list.component.html")##
+<datatable-demos></datatable-demos>
+
+<div class="ContentSideSections">
+    <div class="Content100 overHidden TextShadow">
+        <span class="fontSize30 TextShadow orange mediumFont marginBottom20 dispBlock">PrimeNG Sample with System.js</span>
+        <span class="defaultText dispTable">This sample demonstrates a sample setup using System.js.</span>
+    </div>
+</div>
+
+<div class="ContentSideSections Implementation">
+    <p-dataTable [value]="${entity.model.vars}" selectionMode="single" [(selection)]="selected${entity.model.type}" (onRowSelect)="onRowSelect(${dollar}event)" [paginator]="true" [rows]="10" [responsive]="true">
+        <header>CRUD for ${entity.model.type}</header>
+        <p-column field="id" header="ID" [sortable]="true"></p-column>
+#foreach($attr in $entity.simpleAttributes.list)
+        <p-column field="$attr.var" header="$attr.varUp" [sortable]="true"></p-column>
+#end
+        <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></footer>
+    </p-dataTable>
+
+    <p-dialog header="${entity.model.type} Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="${entity.model.var}">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="id">ID</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="id" [(ngModel)]="${entity.model.var}.id" /></div>
+            </div>
+
+#foreach($attr in $entity.simpleAttributes.list)
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
+                <div class="ui-grid-col-8"><input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" /></div>
+            </div>
+#end
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+                <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+            </div>
+        </footer>
+    </p-dialog>
+</div>

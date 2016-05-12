@@ -1,0 +1,17 @@
+$output.webapp("app/entities/${entity.model.var}/${entity.model.var}service.ts")##
+import {Injectable} from '@angular/core';
+import {Http, Response} from '@angular/http';
+import {${entity.model.type}} from './${entity.model.var}';
+
+@Injectable()
+export class ${entity.service.type} {
+
+    constructor(private http: Http) {}
+
+    getAll() {
+        return this.http.get('api/${entity.model.vars}/')
+                    .toPromise()
+                    .then(res => <${entity.model.type}[]> res.json())
+                    .then(data => { return data; });
+    }
+}
