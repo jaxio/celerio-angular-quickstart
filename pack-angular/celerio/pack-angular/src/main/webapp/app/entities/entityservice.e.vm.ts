@@ -11,7 +11,6 @@ export class ${entity.service.type} {
     getAll() {
         return this.http.get('api/${entity.model.vars}/')
                     .toPromise()
-                    .then(res => <${entity.model.type}[]> res.json())
-                    .then(data => { return data; });
+                    .then(res => { return <${entity.model.type}[]> res.json(); });
     }
 }

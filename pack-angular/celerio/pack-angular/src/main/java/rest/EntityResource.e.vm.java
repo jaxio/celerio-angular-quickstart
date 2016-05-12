@@ -41,6 +41,7 @@ $output.require("org.springframework.web.bind.annotation.*")##
 $output.require("org.springframework.http.MediaType")##
 $output.require("org.springframework.http.ResponseEntity")##
 $output.require("org.springframework.web.bind.annotation.RequestBody")##
+$output.require("org.springframework.data.domain.Example")##
 $output.require("org.springframework.data.domain.Pageable")##
 $output.require("org.springframework.data.domain.Page")##
 $output.require("org.springframework.http.HttpHeaders")##
@@ -98,6 +99,17 @@ public class $output.currentClass{
         log.debug("Find all $entity.model.varsUp");
         Page<${entity.model.type}> page = ${entity.repository.var}.findAll(pageable);
         return new ResponseEntity<>(page.getContent(), new HttpHeaders(), HttpStatus.OK);
+    }
+
+    /**
+    * Find $entity.model.type by Example.
+    */
+    @RequestMapping(value = "/byexample", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<$entity.model.type>> findByExample(@RequestBody $entity.model.type $entity.model.var) throws URISyntaxException {
+        log.debug("Find by example: " + $entity.model.var);
+        // TODO mix pageable + example
+        List<$entity.model.type> page = ${entity.repository.var}.findAll(Example.of($entity.model.var));
+        return new ResponseEntity<>(page, new HttpHeaders(), HttpStatus.OK);
     }
 
     /**

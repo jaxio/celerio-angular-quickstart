@@ -15,7 +15,11 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}list.compone
 #foreach($attr in $entity.simpleAttributes.list)
         <p-column field="$attr.var" header="$attr.varUp" [sortable]="true"></p-column>
 #end
-        <footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button></div></footer>
+        <footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add"></button>
+            </div>
+        </footer>
     </p-dataTable>
 
     <p-dialog header="${entity.model.type} Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
