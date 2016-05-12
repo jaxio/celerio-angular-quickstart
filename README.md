@@ -2,6 +2,10 @@
 
 Using Celerio, reverse an existing database schema and generate an Angular/PrimeNG/Spring CRUD web application.
 
+The generated project leverages [PrimeNG](primefaces.org/primeng/).
+
+The generated code is a generalization of [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart)
+
 ## Install dependencies
 
     cd src/main/webapp
@@ -23,3 +27,10 @@ From the root folder:
 From the root folder:
     
     mvn spring-boot:run
+
+## TODOS
+
+* [done] load from DB
+* save to DB
+* update to DB
+* etc...
