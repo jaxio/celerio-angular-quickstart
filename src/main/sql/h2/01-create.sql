@@ -46,3 +46,5 @@ INSERT INTO AUTHOR  VALUES (19, 'John19', 'Doe19');
 INSERT INTO AUTHOR  VALUES (20, 'John20', 'Doe20');
 INSERT INTO AUTHOR  VALUES (21, 'John21', 'Doe21');
 INSERT INTO AUTHOR  VALUES (22, 'John22', 'Doe22');
+
+INSERT INTO BOOK VALUES (1, 'Learn Angular', 'Angular for beginners', 1, 123.50);
