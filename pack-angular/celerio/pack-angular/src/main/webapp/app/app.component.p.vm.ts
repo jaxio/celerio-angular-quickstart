@@ -1,10 +1,11 @@
 $output.webapp("app/app.component.ts")##
 import { Component } from '@angular/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
+import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}service';
-import { ${entity.model.type}ListComponent } from './entities/${entity.model.var}/${entity.model.var}list.component';
+import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}.service';
+import { ${entity.model.type}ListComponent } from './entities/${entity.model.var}/${entity.model.var}-list.component';
+import { ${entity.model.type}DetailComponent } from './entities/${entity.model.var}/${entity.model.var}-detail.component';
 #end
 
 @Component({
@@ -13,7 +14,7 @@ import { ${entity.model.type}ListComponent } from './entities/${entity.model.var
     <h1>{{title}}</h1>
     <nav>
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-      <a [routerLink]="['${entity.model.type}List']">${entity.model.type} List</a><br/>
+      <a [routerLink]="['/${entity.model.var}list']">${entity.model.type} List</a><br/>
 #end
     </nav>
     <router-outlet></router-outlet>
@@ -21,7 +22,7 @@ import { ${entity.model.type}ListComponent } from './entities/${entity.model.var
     directives: [
         ROUTER_DIRECTIVES
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-        , ${entity.model.type}ListComponent
+        , ${entity.model.type}ListComponent, ${entity.model.type}DetailComponent
 #end
     ],
     providers: [
@@ -31,16 +32,13 @@ import { ${entity.model.type}ListComponent } from './entities/${entity.model.var
 #end
     ]
 })
-@RouteConfig([
+@Routes([
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
 #if($velocityCount > 1)
     ,
 #end
-    {
-        path: '/${entity.model.var}list',
-        name: '${entity.model.type}List',
-        component: ${entity.model.type}ListComponent
-    }
+    { path: '/${entity.model.var}list', component: ${entity.model.type}ListComponent },
+    { path: '/${entity.model.var}/:id', component: ${entity.model.type}DetailComponent }
 #end
 ])
 export class AppComponent {

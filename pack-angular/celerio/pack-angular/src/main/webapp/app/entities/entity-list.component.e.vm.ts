@@ -1,14 +1,16 @@
-$output.webapp("app/entities/${entity.model.var}/${entity.model.var}list.component.ts")##
+$output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
 import {Component} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
+import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/primeng';
-import {${entity.model.type}} from './${entity.model.var}';
-import {${entity.service.type}} from './${entity.model.var}service';
+import {${entity.model.type},Prime${entity.model.type}} from './${entity.model.var}';
+import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
+import {${entity.service.type}} from './${entity.model.var}.service';
 
 @Component({
-	templateUrl: 'app/entities/${entity.model.var}/${entity.model.var}list.component.html',
+	templateUrl: 'app/entities/${entity.model.var}/${entity.model.var}-list.component.html',
 	selector: '${entity.model.var}-list',
-    directives: [InputText,DataTable,Button,Dialog,Column,Header,Footer],
+    directives: [ROUTER_DIRECTIVES, InputText,DataTable,Button,Dialog,Column,Header,Footer],
 	providers: [HTTP_PROVIDERS, ${entity.service.type}]
 })
 export class ${entity.model.type}ListComponent {
@@ -23,7 +25,7 @@ export class ${entity.model.type}ListComponent {
 
     ${entity.model.vars}: ${entity.model.type}[];
 
-    constructor(private ${entity.service.var}: ${entity.service.type}) { }
+    constructor(private router:Router, private ${entity.service.var}: ${entity.service.type}) { }
 
     ngOnInit() {
         this.${entity.service.var}.getAll().then(${entity.model.vars} => this.${entity.model.vars} = ${entity.model.vars});
@@ -54,7 +56,8 @@ export class ${entity.model.type}ListComponent {
     onRowSelect(event) {
         this.new${entity.model.type} = false;
         this.${entity.model.var} = this.clone${entity.model.type}(event.data);
-        this.displayDialog = true;
+        //this.displayDialog = true;
+        this.router.navigate(['/${entity.model.var}', this.${entity.model.var}.id]);
     }
 
     clone${entity.model.type}(c: ${entity.model.type}): ${entity.model.type} {
@@ -68,9 +71,4 @@ export class ${entity.model.type}ListComponent {
     findSelectedIndex(): number {
         return this.${entity.model.vars}.indexOf(this.selected${entity.model.type});
     }
-}
-
-class Prime${entity.model.type} implements ${entity.model.type} {
-
-    constructor(public ${entity.primaryKey.attribute.var}? #foreach($attr in $entity.simpleAttributes.list), public ${attr.var}?#end, public idSet? ){}
 }
