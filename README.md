@@ -2,7 +2,7 @@
 
 Using [Celerio](http://www.jaxio.com/documentation/celerio), reverse an existing database schema and generate an Angular/PrimeNG/Spring CRUD web application.
 
-The generated project leverages [PrimeNG](primefaces.org/primeng/), [Angular](http://angular.io/) and [Spring Boot](http://projects.spring.io/spring-boot/).
+The generated project leverages [PrimeNG](http://primefaces.org/primeng/), [Angular](http://angular.io/) and [Spring Boot](http://projects.spring.io/spring-boot/).
 
 The generated code is based on [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart) and Angular QuickStart.
 
