@@ -13,6 +13,15 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                 <div class="ui-grid-col-8"><input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" /></div>
             </div>
 #end
+
+#foreach ($manyToOne in $entity.manyToOne.list)
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="$manyToOne.to.var">$manyToOne.to.varUp</label></div>
+                <div class="ui-grid-col-8">
+                    <button (click)="goto${manyToOne.to.varUp}()">Click to view...</button>
+                </div>
+            </div>
+#end
         </div>
     </p-panel>
 </div>
