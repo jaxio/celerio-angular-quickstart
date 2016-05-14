@@ -21,19 +21,19 @@ The generated code is based on [PrimeNG QuickStart](https://github.com/primeface
 * `src/main/sql`: contains SQL script that get reversed... you may add more tables/columns.
 
 
-## 1/ Generate the app sources
+## 1/ Create/populate the H2 database schema, reverse it and generate the source code
 
 From the root folder:
 
     mvn -Pdb,metadata,gen generate-sources
 
-Advanced: to delete all generated files, simply run:
+To delete all generated files, simply run:
     
     mvn -PcleanGen clean
 
-It won't delete any generated file that you modify manually.
+It won't delete any generated file that was manually modified.
 
-## 2/ Install dependencies
+## 2/ Install JavaScript dependencies
 
     cd src/main/webapp
     npm install
