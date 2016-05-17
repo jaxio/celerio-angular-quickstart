@@ -3,7 +3,11 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
     <p-dataTable [value]="${entity.model.vars}" selectionMode="single" [(selection)]="selected${entity.model.type}" (onRowSelect)="onRowSelect(${dollar}event)" [paginator]="true" [rows]="10" [responsive]="true">
         <header>{{header}}</header>
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
+#if ($attr.hasXToOneRelation())
+        <p-column field="${attr.xToOneRelation.to.var}.${identifiableProperty.var}" header="$attr.xToOneRelation.to.varUp" [sortable]="true"></p-column>
+#else
         <p-column field="$attr.var" header="$attr.varUp" [sortable]="true"></p-column>
+#end
 #end
         <footer>
             <div class="ui-helper-clearfix" style="width:100%">

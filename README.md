@@ -37,17 +37,11 @@ It mainly follows Maven conventions.
 
 # To run the web app, please follow these 4 easy steps:
 
-## Step 1/ Create/populate the H2 database schema, reverse it and generate the source code
+## Step 1/ Create DB/Reverse it and generate
 
 From the root folder:
 
     mvn -Pdb,metadata,gen generate-sources
-
-To delete all generated files, simply run:
-    
-    mvn -PcleanGen clean
-
-It won't delete any generated file that was manually modified.
 
 ## Step 2/ Install JavaScript dependencies
 
@@ -69,6 +63,13 @@ From the root folder:
 
 Then access it at http://localhost:8080/
 
+## Extra Step (optional): delete all generated files
+
+From the root folder, to delete all generated files, simply run:
+    
+    mvn -PcleanGen clean
+
+It won't delete any generated file that was manually modified.
 
 ## Contribute
 

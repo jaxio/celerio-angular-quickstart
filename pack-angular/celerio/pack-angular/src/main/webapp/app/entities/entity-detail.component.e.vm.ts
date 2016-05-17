@@ -34,7 +34,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 
 #foreach ($manyToOne in $entity.manyToOne.list)
     goto${manyToOne.to.varUp}() {
-        this.router.navigate([`/${manyToOne.toEntity.model.var}`, this.${entity.model.var}.${manyToOne.to.var}.id]);
+        this.router.navigate([`/${manyToOne.toEntity.model.var}`, this.${entity.model.var}.${manyToOne.to.var}.${identifiableProperty.var}]);
     }
 #end
 

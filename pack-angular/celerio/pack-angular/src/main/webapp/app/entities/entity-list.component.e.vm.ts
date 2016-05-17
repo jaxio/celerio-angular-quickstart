@@ -51,13 +51,13 @@ export class ${entity.model.type}ListComponent {
 
         let example : $entity.model.type = new ${entity.model.type}Impl();
         example.$manyToOne.to.var = new ${manyToOne.to.type}Impl();
-        example.${manyToOne.to.var}.id = this._${manyToOne.to.var}.id;
+        example.${manyToOne.to.var}.${identifiableProperty.var} = this._${manyToOne.to.var}.${identifiableProperty.var};
 
         this.${entity.service.var}.getByExample(example).then($entity.model.vars => this.$entity.model.vars = $entity.model.vars);
     }
 
 #end
     onRowSelect(event) {
-        this.router.navigate(['/${entity.model.var}', event.data.id]);
+        this.router.navigate(['/${entity.model.var}', event.data.${identifiableProperty.var}]);
     }
 }
