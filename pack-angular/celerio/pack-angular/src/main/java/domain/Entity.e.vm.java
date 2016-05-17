@@ -112,6 +112,7 @@ $output.require($oneToVirtualOne.to)##
 $output.require($entity.collectionType.fullType)##
 $output.require($entity.collectionType.implementationFullType)##
 $output.require($oneToMany.to)##
+    $output.dynamicAnnotation("com.fasterxml.jackson.annotation.JsonIgnore")##
     private ${entity.collectionType.type}<$oneToMany.to.type> $oneToMany.to.vars = new ${entity.collectionType.implementationType}<$oneToMany.to.type>();
 #end
 ## --------------- Many to many

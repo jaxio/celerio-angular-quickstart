@@ -1,74 +1,61 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
-import {Component} from '@angular/core';
+import {Component#if($entity.manyToOne.size > 0), Input#{end}} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/primeng';
-import {${entity.model.type},Prime${entity.model.type}} from './${entity.model.var}';
+import {$entity.model.type, Prime$entity.model.type} from './${entity.model.var}';
 import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
-import {${entity.service.type}} from './${entity.model.var}.service';
+import {$entity.service.type} from './${entity.model.var}.service';
+#foreach ($manyToOne in $entity.manyToOne.list)
+import {$manyToOne.to.type, Prime$manyToOne.to.type} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
+#end
 
 @Component({
 	templateUrl: 'app/entities/${entity.model.var}/${entity.model.var}-list.component.html',
 	selector: '${entity.model.var}-list',
-    directives: [ROUTER_DIRECTIVES, InputText,DataTable,Button,Dialog,Column,Header,Footer],
-	providers: [HTTP_PROVIDERS, ${entity.service.type}]
+    directives: [ROUTER_DIRECTIVES, InputText, DataTable, Button, Dialog, Column, Header, Footer],
+	providers: [HTTP_PROVIDERS, $entity.service.type]
 })
 export class ${entity.model.type}ListComponent {
 
-	displayDialog: boolean;
-
-    $entity.model.var: $entity.model.type = new Prime${entity.model.type}();
-
-    selected${entity.model.type}: ${entity.model.type};
-
-    new${entity.model.type}: boolean;
-
     ${entity.model.vars}: ${entity.model.type}[];
+## --------------- Many to One
+#foreach ($manyToOne in $entity.manyToOne.list)
+#if ($velocityCount == 1)
+    // Many to one: input param is used to filter the list when displayed
+    // as a one-to-many list by the other side.
+#end
+    private _$manyToOne.to.var : $manyToOne.to.type;
+#end
 
-    constructor(private router:Router, private ${entity.service.var}: ${entity.service.type}) { }
+    constructor(private router:Router, private $entity.service.var : $entity.service.type) { }
 
     ngOnInit() {
-        this.${entity.service.var}.getAll().then(${entity.model.vars} => this.${entity.model.vars} = ${entity.model.vars});
+        this.${entity.service.var}.getAll().then($entity.model.vars => this.$entity.model.vars = $entity.model.vars);
     }
 
-    showDialogToAdd() {
-        this.new${entity.model.type} = true;
-        this.${entity.model.var} = new Prime${entity.model.type}();
-        this.displayDialog = true;
-    }
-
-    save() {
-        if(this.new${entity.model.type})
-            this.${entity.model.vars}.push(this.${entity.model.var});
-        else
-            this.${entity.model.vars}[this.findSelectedIndex()] = this.${entity.model.var};
-
-        this.${entity.model.var} = null;
-        this.displayDialog = false;
-    }
-
-    delete() {
-        this.${entity.model.vars}.splice(this.findSelectedIndex(), 1);
-        this.${entity.model.var} = null;
-        this.displayDialog = false;
-    }
-
-    onRowSelect(event) {
-        this.new${entity.model.type} = false;
-        this.${entity.model.var} = this.clone${entity.model.type}(event.data);
-        //this.displayDialog = true;
-        this.router.navigate(['/${entity.model.var}', this.${entity.model.var}.id]);
-    }
-
-    clone${entity.model.type}(c: ${entity.model.type}): ${entity.model.type} {
-        let ${entity.model.var} = new Prime${entity.model.type}();
-        for(let prop in c) {
-            ${entity.model.var}[prop] = c[prop];
+## --------------- Many to One
+#foreach ($manyToOne in $entity.manyToOne.list)
+#if ($velocityCount == 1)
+    // Many to one: input param is used to filter the list when displayed
+    // as a one-to-many list by the other side.
+#end
+    @Input()
+    set ${manyToOne.to.var}($manyToOne.to.var : $manyToOne.to.type) {
+        if ($manyToOne.to.var == null) {
+            return;
         }
-        return ${entity.model.var};
+        this._$manyToOne.to.var = $manyToOne.to.var;
+
+        let example : $entity.model.type = new Prime${entity.model.type}();
+        example.$manyToOne.to.var = new Prime${manyToOne.to.type}();
+        example.${manyToOne.to.var}.id = this._${manyToOne.to.var}.id;
+
+        this.${entity.service.var}.getByExample(example).then($entity.model.vars => this.$entity.model.vars = $entity.model.vars);
     }
 
-    findSelectedIndex(): number {
-        return this.${entity.model.vars}.indexOf(this.selected${entity.model.type});
+#end
+    onRowSelect(event) {
+        this.router.navigate(['/${entity.model.var}', event.data.id]);
     }
 }

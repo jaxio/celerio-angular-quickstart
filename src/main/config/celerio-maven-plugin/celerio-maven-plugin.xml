@@ -26,5 +26,12 @@
 
 
     <entityConfigs>
+        <entityConfig tableName="BOOK">
+            <columnConfigs>
+                <columnConfig columnName="author_id">
+                    <oneToManyConfig elementVar="book" var="books"/>
+                </columnConfig>
+            </columnConfigs>
+        </entityConfig>
     </entityConfigs>
 </celerio>

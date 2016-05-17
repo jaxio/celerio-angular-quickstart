@@ -1,7 +1,9 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.component.html")##
+<p-messages [value]="msgs"></p-messages>
+
 <div class="ContentSideSections Implementation">
-    <p-panel header="${entity.model.type} Details">
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="${entity.model.var}">
+    <p-panel header="$entity.model.type Details">
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="$entity.model.var">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="id">ID</label></div>
                 <div class="ui-grid-col-8"><input pInputText id="id" [(ngModel)]="${entity.model.var}.id" /></div>
@@ -23,5 +25,10 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
             </div>
 #end
         </div>
+        <button pButton type="button" (click)="onupdate()" label="Save"></button>
     </p-panel>
+#foreach ($relation in $entity.oneToMany.flatUp.list)
+    <${relation.toEntity.model.var}-list [$entity.model.var]="$entity.model.var"></${relation.toEntity.model.var}-list>
+#end
+
 </div>
