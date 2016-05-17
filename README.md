@@ -1,6 +1,8 @@
 ## celerio-angular-quickstart (Alpha)
 
-This project demonstrates how to generate from an existing database schema an Angular2 CRUD web application.
+This project demonstrates how to generate from an existing database schema an Angular 2 CRUD web application.
+
+We provide a database schema example, but you may try it with your own schema (you need to edit the `pom.xml`).
 
 The generated source code relies on:
 
@@ -9,8 +11,6 @@ The generated source code relies on:
 * [Spring Boot](http://projects.spring.io/spring-boot/)
 
 Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio).
-
-We provide a database schema example, but you may try it with your own schema (you need to edit the `pom.xml`).
 
 The generated source code is based on: 
 
@@ -82,9 +82,11 @@ You may of course [report issues](https://github.com/jaxio/celerio-angular-quick
 
 ## TODOS
 
+* one to one relation
+* many to many relation
 * use lazy data table
-* support all column types including blob
-* support many-to-may
+* support all column types including blob (file upload)
+* support LocalDateTime 
 * validation
 * i18n
 * security
