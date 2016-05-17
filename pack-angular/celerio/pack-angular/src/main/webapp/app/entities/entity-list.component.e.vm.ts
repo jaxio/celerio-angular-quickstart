@@ -1,13 +1,13 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
-import {Component#if($entity.manyToOne.size > 0), Input#{end}} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/primeng';
-import {$entity.model.type, Prime$entity.model.type} from './${entity.model.var}';
+import {$entity.model.type, ${entity.model.type}Impl} from './${entity.model.var}';
 import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
 import {$entity.service.type} from './${entity.model.var}.service';
 #foreach ($manyToOne in $entity.manyToOne.list)
-import {$manyToOne.to.type, Prime$manyToOne.to.type} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
+import {$manyToOne.to.type, ${manyToOne.to.type}Impl} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
 #end
 
 @Component({
@@ -17,6 +17,8 @@ import {$manyToOne.to.type, Prime$manyToOne.to.type} from '../$manyToOne.toEntit
 	providers: [HTTP_PROVIDERS, $entity.service.type]
 })
 export class ${entity.model.type}ListComponent {
+
+    @Input() header = "All ${entity.model.varsUp}...";
 
     ${entity.model.vars}: ${entity.model.type}[];
 ## --------------- Many to One
@@ -47,8 +49,8 @@ export class ${entity.model.type}ListComponent {
         }
         this._$manyToOne.to.var = $manyToOne.to.var;
 
-        let example : $entity.model.type = new Prime${entity.model.type}();
-        example.$manyToOne.to.var = new Prime${manyToOne.to.type}();
+        let example : $entity.model.type = new ${entity.model.type}Impl();
+        example.$manyToOne.to.var = new ${manyToOne.to.type}Impl();
         example.${manyToOne.to.var}.id = this._${manyToOne.to.var}.id;
 
         this.${entity.service.var}.getByExample(example).then($entity.model.vars => this.$entity.model.vars = $entity.model.vars);

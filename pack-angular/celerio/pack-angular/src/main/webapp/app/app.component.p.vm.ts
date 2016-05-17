@@ -1,6 +1,7 @@
 $output.webapp("app/app.component.ts")##
 import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import {Menubar} from 'primeng/primeng';
 
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
 import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}.service';
@@ -11,16 +12,35 @@ import { ${entity.model.type}DetailComponent } from './entities/${entity.model.v
 @Component({
     selector: 'my-app',
     template: `
-    <h1>{{title}}</h1>
-    <nav>
+    <p-menubar>
+     <ul>
+         <li><a href="/"><span>Home</span></a>
+         <li><a data-icon="fa-search"><span>Entities</span></a>
+             <ul>
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-      <a [routerLink]="['/${entity.model.var}list']">${entity.model.type} List</a><br/>
+                <li><a [routerLink]="['/${entity.model.var}list']"><span>${entity.model.type} List</span></a></li>
 #end
-    </nav>
-    <router-outlet></router-outlet>
+             </ul>
+         </li>
+         <li><a data-icon="fa-gear" href="/swagger-ui.html">Swagger</a></li>
+         <li><a data-icon="fa-question"><span>Documentation</span></a>
+             <ul>
+                <li><a href="https://github.com/jaxio/celerio-angular-quickstart">Source code on github for this project</a></li>
+                <li><a href="http://www.jaxio.com/documentation/celerio/">Celerio Documentation</a></li>
+                <li><a href="http://www.primefaces.org/primeng">PrimeNG Showcase</a></li>
+                <li><a href="http://angular.io/">Angular 2</a></li>
+                <li><a href="http://projects.spring.io/spring-boot/">Spring Boot</a></li>
+             </ul>
+         </li>
+     </ul>
+    </p-menubar>
+    <router-outlet>
+    <h1>{{title}}</h1>
+    <p></p>
+    </router-outlet>
   `,
     directives: [
-        ROUTER_DIRECTIVES
+        ROUTER_DIRECTIVES, Menubar
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
         , ${entity.model.type}ListComponent, ${entity.model.type}DetailComponent
 #end

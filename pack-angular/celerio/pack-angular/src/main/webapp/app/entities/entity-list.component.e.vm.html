@@ -1,9 +1,8 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.html")##
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="${entity.model.vars}" selectionMode="single" [(selection)]="selected${entity.model.type}" (onRowSelect)="onRowSelect(${dollar}event)" [paginator]="true" [rows]="10" [responsive]="true">
-        <header>CRUD for ${entity.model.type}</header>
-        <p-column field="id" header="ID" [sortable]="true"></p-column>
-#foreach($attr in $entity.simpleAttributes.list)
+        <header>{{header}}</header>
+#foreach($attr in $entity.searchResultAttributes.flatUp.list)
         <p-column field="$attr.var" header="$attr.varUp" [sortable]="true"></p-column>
 #end
         <footer>

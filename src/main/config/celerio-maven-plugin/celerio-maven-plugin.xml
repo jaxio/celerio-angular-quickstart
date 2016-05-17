@@ -26,6 +26,11 @@
 
 
     <entityConfigs>
+        <entityConfig tableName="AUTHOR">
+            <columnConfigs>
+                <columnConfig columnName="civility" sharedEnumName="Civility"/>
+            </columnConfigs>
+        </entityConfig>
         <entityConfig tableName="BOOK">
             <columnConfigs>
                 <columnConfig columnName="author_id">
@@ -34,4 +39,24 @@
             </columnConfigs>
         </entityConfig>
     </entityConfigs>
+
+    <!-- Generate enums used by the entities above -->
+    <sharedEnumConfigs>
+        <sharedEnumConfig name="Civility" type="STRING">
+            <enumValues>
+                <enumValue value="MR">
+                    <labels>
+                        <label value="Mister"/>
+                        <label value="Monsieur" lang="fr"/>
+                    </labels>
+                </enumValue>
+                <enumValue value="MS">
+                    <labels>
+                        <label value="Miss"/>
+                        <label value="Madame" lang="fr"/>
+                    </labels>
+                </enumValue>
+            </enumValues>
+        </sharedEnumConfig>
+    </sharedEnumConfigs>
 </celerio>

@@ -2,7 +2,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.ts")##
 
 ## --------------- Many to One
 #foreach ($manyToOne in $entity.manyToOne.list)
-import {${manyToOne.to.type},Prime${manyToOne.to.type}} from '../${manyToOne.toEntity.model.var}/${manyToOne.toEntity.model.var}';
+import {${manyToOne.to.type},${manyToOne.to.type}Impl} from '../${manyToOne.toEntity.model.var}/${manyToOne.toEntity.model.var}';
 #end
 
 export interface $entity.model.type {
@@ -26,7 +26,7 @@ export interface $entity.model.type {
     idSet;
 }
 
-export class Prime${entity.model.type} implements ${entity.model.type} {
+export class ${entity.model.type}Impl implements ${entity.model.type} {
     constructor(
 ## --------------- Raw attributes (exception the one involved in XtoOneRelation)
 #foreach ($attribute in $entity.nonCpkAttributes.list)
