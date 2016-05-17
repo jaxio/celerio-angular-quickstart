@@ -1,22 +1,23 @@
 ## celerio-angular-quickstart (Alpha)
 
-This project demonstrates how to generate from an existing database schema an Angular2 CRUD based web application.
+This project demonstrates how to generate from an existing database schema an Angular2 CRUD web application.
 
 The generated source code relies on:
 
 * [Angular 2](http://angular.io/)
 * [PrimeNG](http://primefaces.org/primeng/)
-* [Spring Boot](http://projects.spring.io/spring-boot/).
+* [Spring Boot](http://projects.spring.io/spring-boot/)
 
-Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio)
+Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio).
 
-We provide a database schema example, but you may try it with your own schema (you need to edit the `pom.xml`)
+We provide a database schema example, but you may try it with your own schema (you need to edit the `pom.xml`).
 
-Note, the generated source code is based: 
+The generated source code is based on: 
+
 * [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart) and Angular QuickStart.
 * Angular2 quickstart
 * Some Jaxio's projects
-* Jhipster
+* a bit of Jhipster
 
 ## Prerequisites
 
@@ -24,7 +25,9 @@ Note, the generated source code is based:
 * Maven 3
 * NPM
 
-## Folders
+## Folders organization
+
+It mainly follows Maven conventions.
 
 * `pack-angular`: contains Celerio dynamic Templates (interpreted or copied by Celerio Engine)
 
@@ -32,9 +35,9 @@ Note, the generated source code is based:
 
 * `src/main/sql`: contains sample SQL script that get reversed... you may add more tables/columns.
 
-# How to run it:
+# To run the web app, please follow these 4 easy steps:
 
-## 1/ Create/populate the H2 database schema, reverse it and generate the source code
+## Step 1/ Create/populate the H2 database schema, reverse it and generate the source code
 
 From the root folder:
 
@@ -46,19 +49,19 @@ To delete all generated files, simply run:
 
 It won't delete any generated file that was manually modified.
 
-## 2/ Install JavaScript dependencies
+## Step 2/ Install JavaScript dependencies
 
     cd src/main/webapp
     npm install
 
 Note: need to be run once, you may may skip it as you regenerate over and over. 
 
-## 3/ Compile TypeScript files
+## Step 3/ Compile TypeScript files
 
     cd src/main/webapp
     npm run tsc
 
-## 4/ Start the application
+## Step 4/ Start the application
 
 From the root folder:
     
