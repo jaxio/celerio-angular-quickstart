@@ -8,12 +8,15 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                 </div>
             </div>
 #end
+#macro(required $attribute)
+#if($attribute.isRequired()) required#end
+#end
 ## -- [/MACROS]
 <p-growl [value]="msgs"></p-growl>
 
 <div class="ContentSideSections Implementation">
     <p-fieldset legend="$entity.model.type Details">
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="$entity.model.var">
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="$entity.model.var" ngForm>
 ## ---------------------------------------------------------
 #foreach($attr in $entity.formAttributes.flatUp.list)
 #if ($attr.isSimplePk() && !$attr.jpa.isManuallyAssigned())
@@ -52,7 +55,14 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isString())
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" /></div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+#if($attr.isRequired())
+                    <div [hidden]="${attr.var}.valid || ${attr.var}.pristine" class="alert alert-danger">
+                        $attr.varUp is required
+                    </div>
+#end
+                </div>
             </div>
 #elseif($attr.isDate() && !$attr.isVersion())
 #if($attr.isJavaUtilOnlyDate())
@@ -94,7 +104,14 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #else
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
-                <div class="ui-grid-col-8"><input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" /></div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+#if($attr.isRequired())
+                    <div [hidden]="${attr.var}.valid || ${attr.var}.pristine" class="alert alert-danger">
+                        $attr.varUp is required
+                    </div>
+#end
+                </div>
             </div>
 #end
 #end

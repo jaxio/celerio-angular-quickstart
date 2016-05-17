@@ -1,6 +1,7 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.component.ts")##
 import {Component} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
+import { NgForm }    from '@angular/common';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
 import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,Message,Growl,TabView,TabPanel,Fieldset} from 'primeng/primeng';
 import {${entity.model.type},${entity.model.type}Impl} from './${entity.model.var}';
