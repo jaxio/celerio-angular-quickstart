@@ -9,10 +9,10 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
             </div>
 #end
 ## -- [/MACROS]
-<p-messages [value]="msgs"></p-messages>
+<p-growl [value]="msgs"></p-growl>
 
 <div class="ContentSideSections Implementation">
-    <p-panel header="$entity.model.type Details">
+    <p-fieldset legend="$entity.model.type Details">
         <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="$entity.model.var">
 ## ---------------------------------------------------------
 #foreach($attr in $entity.formAttributes.flatUp.list)
@@ -63,7 +63,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isJavaUtilDateAndTime())
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
-                <div class="ui-grid-col-6"><p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm" showAnim="slideDown"></p-calendar></div>
+                <div class="ui-grid-col-6">date and time not supported yet</div>
             </div>
 #elseif($attr.isLocalDate())
             <div class="ui-grid-row">
@@ -73,7 +73,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isLocalDateTime())
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
-                <div class="ui-grid-col-6"><p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm" showAnim="slideDown"></p-calendar></div>
+                <div class="ui-grid-col-6">localdatetime not supported yet</div>
             </div>
 #else
             <div class="ui-grid-row">
@@ -103,9 +103,17 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 ## ---------------------------------------------------------
         </div>
         <button pButton type="button" (click)="onupdate()" label="Save"></button>
-    </p-panel>
+    </p-fieldset>
+#if($entity.oneToMany.flatUp.size > 0)
+    <p-tabView>
+#end
 #foreach ($relation in $entity.oneToMany.flatUp.list)
-    <${relation.toEntity.model.var}-list [$entity.model.var]="$entity.model.var" [header]="'$relation.to.varsUp of this $entity.model.var'"></${relation.toEntity.model.var}-list>
+        <p-tabPanel header="$relation.to.varsUp">
+            <${relation.toEntity.model.var}-list [$entity.model.var]="$entity.model.var" [header]="'$relation.to.varsUp of this $entity.model.var'"></${relation.toEntity.model.var}-list>
+        </p-tabPanel>
+#end
+#if($entity.oneToMany.flatUp.size > 0)
+    </p-tabView>
 #end
 
 </div>

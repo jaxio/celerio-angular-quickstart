@@ -1,15 +1,27 @@
-# celerio-angular-quickstart
+## celerio-angular-quickstart (Alpha)
 
-Using [Celerio](http://www.jaxio.com/documentation/celerio), reverse an existing database schema and generate an Angular/PrimeNG/Spring CRUD web application.
+This project demonstrates how to generate from an existing database schema an Angular2 CRUD based web application.
 
-The generated project leverages [PrimeNG](http://primefaces.org/primeng/), [Angular](http://angular.io/) and [Spring Boot](http://projects.spring.io/spring-boot/).
+The generated source code relies on:
 
-The generated code is based on [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart) and Angular QuickStart.
+* [Angular 2](http://angular.io/)
+* [PrimeNG](http://primefaces.org/primeng/)
+* [Spring Boot](http://projects.spring.io/spring-boot/).
+
+Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio)
+
+We provide a database schema example, but you may try it with your own schema (you need to edit the `pom.xml`)
+
+Note, the generated source code is based: 
+* [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart) and Angular QuickStart.
+* Angular2 quickstart
+* Some Jaxio's projects
+* Jhipster
 
 ## Prerequisites
 
 * JDK 8
-* Maven
+* Maven 3
 * NPM
 
 ## Folders
@@ -18,8 +30,9 @@ The generated code is based on [PrimeNG QuickStart](https://github.com/primeface
 
 * `src/main/config`: contains Celerio conf
 
-* `src/main/sql`: contains SQL script that get reversed... you may add more tables/columns.
+* `src/main/sql`: contains sample SQL script that get reversed... you may add more tables/columns.
 
+# How to run it:
 
 ## 1/ Create/populate the H2 database schema, reverse it and generate the source code
 
@@ -51,6 +64,8 @@ From the root folder:
     
     mvn spring-boot:run
 
+Then access it at http://localhost:8080/
+
 
 ## Contribute
 
@@ -62,16 +77,10 @@ You may contribute in several ways:
 
 You may of course [report issues](https://github.com/jaxio/celerio-angular-quickstart/issues) and/or submit pull requests.
 
-
 ## TODOS
 
-* [done] load from DB
-* save to DB
-* update to DB
-* leverage more PrimeNG components
+* use lazy data table
 * support all column types including blob
-* support one-to-many
-* [in progress] support many-to-one
 * support many-to-may
 * validation
 * i18n

@@ -11,6 +11,7 @@ CREATE TABLE AUTHOR (
     civility                 char(2) default 'MR',
     first_name          varchar(100) not null,
     last_name           varchar(100),
+    birth_date_time    timestamp,
 
     primary key (id)
 );
@@ -28,17 +29,6 @@ CREATE TABLE BOOK (
     primary key (id)
 );
 
-CREATE TABLE DEMO_MORE_TYPE (
-    id                 int not null IDENTITY,
-    password           varchar(100) not null,
-    birth_date_time    timestamp,
-    doc_binary         bytea,
-    doc_file_name      varchar(100),
-    doc_content_type   varchar(100),
-    doc_size           int,
-    version            int default 0,
-    primary key (id)
-);
 
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (1,  'John01', 'Doe01');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (2,  'John02', 'Doe02');

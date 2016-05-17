@@ -2,7 +2,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 import {Component} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
-import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,Message,Messages} from 'primeng/primeng';
+import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,Message,Growl,TabView,TabPanel,Fieldset} from 'primeng/primeng';
 import {${entity.model.type},${entity.model.type}Impl} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 #foreach ($relation in $entity.oneToMany.flatUp.list)
@@ -12,7 +12,7 @@ import {${relation.to.type}ListComponent} from '../$relation.toEntity.model.var/
 @Component({
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
-    directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, Messages#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent#{end}],
+    directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, Growl, TabView, TabPanel,Fieldset#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent#{end}],
 	providers: [HTTP_PROVIDERS, $entity.service.type]
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
@@ -37,7 +37,6 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
         this.router.navigate([`/${manyToOne.toEntity.model.var}`, this.${entity.model.var}.${manyToOne.to.var}.id]);
     }
 #end
-
 
     onupdate() {
         this.${entity.service.var}.update(this.$entity.model.var).then($entity.model.var => {
