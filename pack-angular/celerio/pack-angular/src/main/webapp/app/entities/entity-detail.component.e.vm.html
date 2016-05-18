@@ -4,7 +4,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
             <div class="ui-grid-row">
                 <div class="ui-grid-col-4"><label for="$relation.to.var">$relation.to.varUp</label></div>
                 <div class="ui-grid-col-2">
-                    <button pButton id="$relation.to.var" type="button" (click)="goto${relation.to.varUp}()" label="edit $relation.to.varUp {{ ${entity.model.var}.${relation.to.var}.${identifiableProperty.var} }}"></button>
+                    <button pButton id="$relation.to.var" type="button" (click)="goto${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" label="edit $relation.to.varUp {{ ${entity.model.var}.${relation.to.var}.${identifiableProperty.var} }}"></button>
                 </div>
             </div>
 #end
