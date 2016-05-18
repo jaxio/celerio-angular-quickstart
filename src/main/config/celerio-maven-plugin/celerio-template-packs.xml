@@ -17,6 +17,7 @@
 					<!--<property name="pagination" value="todo"/>-->
 				<!--</properties>-->
 			</pack>
+			<pack name="pack-angular-static" path="pack-angular-static" enable="true"/>
 		</packs>
 	</configuration>
 </celerio>

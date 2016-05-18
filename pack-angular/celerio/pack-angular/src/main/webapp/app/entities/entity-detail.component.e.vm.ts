@@ -30,6 +30,13 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 
     routerOnActivate(curr: RouteSegment): void {
         let id = +curr.getParam('id');
+
+        // to avoid race condition, let's set at least the id
+        // so it can be used by xxx-list as input param.
+        // TODO: sthg cleaner?
+        this.$entity.model.var = new ${entity.model.type}Impl();
+        this.${entity.model.var}.${identifiableProperty.var} = id;
+
         this.${entity.service.var}.${entity.model.getter}(id).then($entity.model.var => this.$entity.model.var = $entity.model.var);
     }
 

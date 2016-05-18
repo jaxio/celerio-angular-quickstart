@@ -2,10 +2,11 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 import {Component, Input} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
-import {InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/primeng';
+import {InputText,DataTable,Button,Dialog,Column,Header,Footer,LazyLoadEvent} from 'primeng/primeng';
 import {$entity.model.type, ${entity.model.type}Impl} from './${entity.model.var}';
 import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
 import {$entity.service.type} from './${entity.model.var}.service';
+import {PageResponse} from "../../support/paging";
 #foreach ($manyToOne in $entity.manyToOne.list)
 import {$manyToOne.to.type, ${manyToOne.to.type}Impl} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
 #end
@@ -19,8 +20,10 @@ import {$manyToOne.to.type, ${manyToOne.to.type}Impl} from '../$manyToOne.toEnti
 export class ${entity.model.type}ListComponent {
 
     @Input() header = "All ${entity.model.varsUp}...";
+    private example : $entity.model.type = null;
+    currentPage : PageResponse<$entity.model.type> = new PageResponse<$entity.model.type>(0,0,[]);
 
-    ${entity.model.vars}: ${entity.model.type}[];
+
 ## --------------- Many to One
 #foreach ($manyToOne in $entity.manyToOne.list)
 #if ($velocityCount == 1)
@@ -33,7 +36,10 @@ export class ${entity.model.type}ListComponent {
     constructor(private router:Router, private $entity.service.var : $entity.service.type) { }
 
     ngOnInit() {
-        this.${entity.service.var}.getAll().then($entity.model.vars => this.$entity.model.vars = $entity.model.vars);
+    }
+
+    loadPage(event : LazyLoadEvent) {
+        this.${entity.service.var}.getPage(this.example, event).then(pageResponse => {this.currentPage = pageResponse;});
     }
 
 ## --------------- Many to One
@@ -49,11 +55,11 @@ export class ${entity.model.type}ListComponent {
         }
         this._$manyToOne.to.var = $manyToOne.to.var;
 
-        let example : $entity.model.type = new ${entity.model.type}Impl();
-        example.$manyToOne.to.var = new ${manyToOne.to.type}Impl();
-        example.${manyToOne.to.var}.${identifiableProperty.var} = this._${manyToOne.to.var}.${identifiableProperty.var};
+        this.example = new ${entity.model.type}Impl();
+        this.example.$manyToOne.to.var = new ${manyToOne.to.type}Impl();
+        this.example.${manyToOne.to.var}.${identifiableProperty.var} = this._${manyToOne.to.var}.${identifiableProperty.var};
 
-        this.${entity.service.var}.getByExample(example).then($entity.model.vars => this.$entity.model.vars = $entity.model.vars);
+        //this.${entity.service.var}.getByExample(example).then(pageResponse => this.currentPage = pageResponse);
     }
 
 #end

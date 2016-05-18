@@ -26,6 +26,10 @@ $output.require($entity.root.primaryKey)##
 $output.require($enumAttribute)##
 #end
 
+$output.require("${Root.packageName}.rest.support.LazyLoadEvent")##
+$output.require("${Root.packageName}.rest.support.PageResponse")##
+$output.require("${Root.packageName}.rest.support.PageRequestByExample")##
+
 $output.require($entity.repository)##
 $output.require("java.util.List")##
 $output.require("java.net.URISyntaxException")##
@@ -100,6 +104,24 @@ public class $output.currentClass{
         Page<${entity.model.type}> page = ${entity.repository.var}.findAll(pageable);
         return new ResponseEntity<>(page.getContent(), new HttpHeaders(), HttpStatus.OK);
     }
+
+    /**
+     * Find a Page of $entity.model.type.
+     */
+    @RequestMapping(value = "/page", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResponse<$entity.model.type>> findAll(@RequestBody PageRequestByExample<$entity.model.type> req) throws URISyntaxException {
+        Example<$entity.model.type> example = req.toExample();
+
+        Page<$entity.model.type> page;
+        if (example != null){
+            page = ${entity.repository.var}.findAll(example, req.toPageable());
+        } else {
+            page = ${entity.repository.var}.findAll(req.toPageable());
+        }
+
+        return new ResponseEntity<>(new PageResponse<>(page), new HttpHeaders(), HttpStatus.OK);
+    }
+
 
     /**
     * Find $entity.model.type by Example.
