@@ -9,6 +9,7 @@ The generated source code relies on:
 * [Angular 2](http://angular.io/)
 * [PrimeNG](http://primefaces.org/primeng/)
 * [Spring Boot](http://projects.spring.io/spring-boot/)
+* [Spring Data JPA](http://projects.spring.io/spring-data-jpa/)
 
 Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio).
 
@@ -25,37 +26,36 @@ The generated source code is based on:
 * Maven 3
 * NPM
 
-## Folders organization
+## Folders' organization
 
 It mainly follows Maven conventions.
 
-* `pack-angular`: contains Celerio dynamic Templates (interpreted or copied by Celerio Engine)
-
+* `pack-angular`: contains Celerio dynamic Templates (interpreted by Celerio Engine). If you want to help us write templates, please take a look at [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html) 
+* `pack-angular-static`: static files that Celerio copies as is.
 * `src/main/config`: contains Celerio conf
-
 * `src/main/sql`: contains sample SQL script that get reversed... you may add more tables/columns.
 
 # To run the web app, please follow these 4 easy steps:
 
-## Step 1/ Create DB/Reverse it and generate
+## Step 1: Create DB/Reverse it and generate
 
 From the root folder:
 
     mvn -Pdb,metadata,gen generate-sources
 
-## Step 2/ Install JavaScript dependencies
+## Step 2: Install JavaScript dependencies
 
     cd src/main/webapp
     npm install
 
 Note: need to be run once, you may may skip it as you regenerate over and over. 
 
-## Step 3/ Compile TypeScript files
+## Step 3: Compile TypeScript files
 
     cd src/main/webapp
     npm run tsc
 
-## Step 4/ Start the application
+## Step 4: Start the application
 
 From the root folder:
     
