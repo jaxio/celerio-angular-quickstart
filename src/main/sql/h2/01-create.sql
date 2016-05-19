@@ -34,7 +34,7 @@ CREATE TABLE BOOK (
 CREATE TABLE PROJECT (
     id                      int not null IDENTITY,
     name                    varchar(100) not null,
-    url                     varchar(100) not null,
+    url                     varchar(100),
     author_id               int,
     open_source             boolean default false,
 

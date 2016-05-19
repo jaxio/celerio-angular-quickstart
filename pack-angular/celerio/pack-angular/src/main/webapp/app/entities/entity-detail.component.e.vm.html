@@ -11,6 +11,9 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #macro(required $attribute)
 #if($attribute.isRequired()) required#end
 #end
+#macro(asterisk $attribute)
+#if($attribute.isRequired()) *#end
+#end
 ## -- [/MACROS]
 <p-growl [value]="msgs"></p-growl>
 
@@ -31,30 +34,30 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #end
 #if($attr.springMvc.isPassword())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8"><input type="text" pPassword [(ngModel)]="$attr.fullVar"/></div>
             </div>
 #elseif($attr.isHtml())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label>$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8">todo html</div>
             </div>
 #elseif($attr.isTextArea())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8"><textarea pInputTextarea id="$attr.var" [(ngModel)]="$attr.fullVar" autoResize="true"></textarea></div>
             </div>
 #elseif($attr.isEnum())
             <div class="ui-grid-row">
 
-                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
 #foreach($enumValue in $attr.getEnumConfig().getEnumValues())
                 <div class="ui-grid-col-1"><p-radioButton name="$attr.var" value="$enumValue.name" [(ngModel)]="$attr.fullVar"></p-radioButton><label class="ui-widget">$enumValue.name</label></div>
 #end
             </div>
 #elseif($attr.isString())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8">
                     <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #if($attr.isRequired())
@@ -67,43 +70,43 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isDate() && !$attr.isVersion())
 #if($attr.isJavaUtilOnlyDate())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label>$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-6"><p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar></div>
             </div>
 #elseif($attr.isJavaUtilDateAndTime())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label>$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-6">date and time not supported yet</div>
             </div>
 #elseif($attr.isLocalDate())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label>$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-6"><p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar></div>
             </div>
 #elseif($attr.isLocalDateTime())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label>$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-6">localdatetime not supported yet</div>
             </div>
 #else
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label>$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8">Date type not supported, do it manually and send us the solution!</div>
             </div>
 #end
 #elseif($attr.isBoolean())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8"><p-checkbox [(ngModel)]="$attr.fullVar"></p-checkbox>{{$attr.fullVar}}</div>
             </div>
 #elseif($attr.isFile())
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label>$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label>$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8">todo file updload</div>
             </div>
 #else
             <div class="ui-grid-row">
-                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp</label></div>
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-8">
                     <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #if($attr.isRequired())
@@ -119,17 +122,16 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #end
 ## ---------------------------------------------------------
         </div>
-        <button pButton type="button" (click)="onupdate()" label="Save"></button>
+        <button pButton type="button" (click)="onCancel()" label="Cancel" *ngIf="sub"></button>
+        <button pButton type="button" (click)="onSave()" label="Save"></button>
     </p-fieldset>
 #if($entity.oneToMany.flatUp.size > 0)
     <p-tabView *ngIf="$entity.model.var && ${entity.model.var}.$identifiableProperty.var">
 #end
 #foreach ($relation in $entity.oneToMany.flatUp.list)
-        <p-tabPanel header="$relation.to.varsUp" *ngIf="show$relation.to.varsUp">
-            <${relation.toEntity.model.var}-list [$entity.model.var]="$entity.model.var" sub="true" [header]="'$relation.to.varsUp of this $entity.model.var'" (onAddNewClicked)="show$relation.to.varsUp = false"></${relation.toEntity.model.var}-list>
-        </p-tabPanel>
-        <p-tabPanel header="Add new $relation.to.varUp" *ngIf="!show$relation.to.varsUp">
-            <${relation.toEntity.model.var}-detail [$entity.model.var]="$entity.model.var" sub="true" (onSaveClicked)="show$relation.to.varsUp = true"></${relation.toEntity.model.var}-detail>
+        <p-tabPanel header="$relation.to.varsUp">
+            <${relation.toEntity.model.var}-list *ngIf="show$relation.to.varsUp" [$entity.model.var]="$entity.model.var" sub="true" [header]="'$relation.to.varsUp of this $entity.model.var'" (onAddNewClicked)="show$relation.to.varsUp = false"></${relation.toEntity.model.var}-list>
+            <${relation.toEntity.model.var}-detail *ngIf="!show$relation.to.varsUp" [$entity.model.var]="$entity.model.var" sub="true" (onSaveClicked)="show$relation.to.varsUp = true" (onCancelClicked)="show$relation.to.varsUp = true"></${relation.toEntity.model.var}-detail>
         </p-tabPanel>
 #end
 #if($entity.oneToMany.flatUp.size > 0)

@@ -35,6 +35,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
     }
 #end
     @Output() onSaveClicked = new EventEmitter<$entity.model.type>();
+    @Output() onCancelClicked = new EventEmitter();
 
     msgs: Message[] = [];
 
@@ -70,7 +71,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
     }
 #end
 
-    onupdate() {
+    onSave() {
         this.${entity.service.var}.update(this.$entity.model.var).
             subscribe(
                 $entity.model.var => {
@@ -82,5 +83,11 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
                     }
                 },
                 error => this.showError(error));
+    }
+
+    onCancel() {
+        if (this.sub) {
+            this.onCancelClicked.emit("cancel");
+        }
     }
 }
