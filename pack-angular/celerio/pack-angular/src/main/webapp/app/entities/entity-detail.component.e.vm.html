@@ -125,8 +125,11 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
     <p-tabView *ngIf="$entity.model.var && ${entity.model.var}.$identifiableProperty.var">
 #end
 #foreach ($relation in $entity.oneToMany.flatUp.list)
-        <p-tabPanel header="$relation.to.varsUp">
-            <${relation.toEntity.model.var}-list [$entity.model.var]="$entity.model.var" [header]="'$relation.to.varsUp of this $entity.model.var'"></${relation.toEntity.model.var}-list>
+        <p-tabPanel header="$relation.to.varsUp" *ngIf="show$relation.to.varsUp">
+            <${relation.toEntity.model.var}-list [$entity.model.var]="$entity.model.var" sub="true" [header]="'$relation.to.varsUp of this $entity.model.var'" (onAddNewClicked)="show$relation.to.varsUp = false"></${relation.toEntity.model.var}-list>
+        </p-tabPanel>
+        <p-tabPanel header="Add new $relation.to.varUp" *ngIf="!show$relation.to.varsUp">
+            <${relation.toEntity.model.var}-detail [$entity.model.var]="$entity.model.var" sub="true" (onSaveClicked)="show$relation.to.varsUp = true"></${relation.toEntity.model.var}-detail>
         </p-tabPanel>
 #end
 #if($entity.oneToMany.flatUp.size > 0)

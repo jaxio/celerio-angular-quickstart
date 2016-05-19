@@ -1,5 +1,5 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.component.ts")##
-import {Component} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import { NgForm } from '@angular/common';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
@@ -7,17 +7,34 @@ import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataT
 import {${entity.model.type},${entity.model.type}Impl} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 #foreach ($relation in $entity.oneToMany.flatUp.list)
+import {${relation.to.type}DetailComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-detail.component';
 import {${relation.to.type}ListComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-list.component';
+#end
+#foreach ($relation in $entity.manyToOne.list)
+import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
 #end
 
 @Component({
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
-    directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, Growl, TabView, TabPanel,Fieldset#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent#{end}],
+    directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, Growl, TabView, TabPanel,Fieldset#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}],
 	providers: [HTTP_PROVIDERS, $entity.service.type]
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
-    $entity.model.var: $entity.model.type;
+    $entity.model.var : $entity.model.type;
+#foreach ($relation in $entity.oneToMany.flatUp.list)
+    show$relation.to.varsUp : boolean = true;
+#end
+
+    @Input() sub : boolean = false;
+#foreach ($manyToOne in $entity.manyToOne.list)
+    @Input()
+    set ${manyToOne.to.var}($manyToOne.to.var : $manyToOne.to.type) {
+        this.$entity.model.var = new ${entity.model.type}Impl();
+        this.${entity.model.var}.$manyToOne.to.var = $manyToOne.to.var;
+    }
+#end
+    @Output() onSaveClicked = new EventEmitter<$entity.model.type>();
 
     msgs: Message[] = [];
 
@@ -58,7 +75,11 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
             subscribe(
                 $entity.model.var => {
                     this.$entity.model.var = $entity.model.var;
-                    this.showInfoSaved();
+                    if (this.sub) {
+                        this.onSaveClicked.emit(this.$entity.model.var);
+                    } else {
+                        this.showInfoSaved();
+                    }
                 },
                 error => this.showError(error));
     }

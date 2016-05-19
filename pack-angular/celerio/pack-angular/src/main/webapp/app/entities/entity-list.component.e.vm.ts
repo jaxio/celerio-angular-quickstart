@@ -1,5 +1,5 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer,LazyLoadEvent} from 'primeng/primeng';
@@ -20,7 +20,17 @@ import {$manyToOne.to.type, ${manyToOne.to.type}Impl} from '../$manyToOne.toEnti
 export class ${entity.model.type}ListComponent {
 
     @Input() header = "All ${entity.model.varsUp}...";
-    private example : $entity.model.type = null;
+
+    // when sub is true, it means this list is a one-to-many list.
+    // It belongs to a parent entity, as a result the addNew operation
+    // must prefill the parent entity. The prefill is not done here, instead we
+    // emit an event.
+    @Input() sub : boolean;
+    @Output() onAddNewClicked = new EventEmitter();
+
+    private example : $entity.model.type = null; // used to query by example...
+
+    // list is paginated
     currentPage : PageResponse<$entity.model.type> = new PageResponse<$entity.model.type>(0,0,[]);
 
 
@@ -66,7 +76,11 @@ export class ${entity.model.type}ListComponent {
         this.router.navigate(['/${entity.model.var}', event.data.${identifiableProperty.var}]);
     }
 
-    onClickAdd() {
-        this.router.navigate(['/${entity.model.var}', 'new']);
+    addNew() {
+        if (this.sub) {
+            this.onAddNewClicked.emit("addNew");
+        } else {
+            this.router.navigate(['/${entity.model.var}', 'new']);
+        }
     }
 }
