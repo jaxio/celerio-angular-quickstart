@@ -14,16 +14,14 @@ export class ${entity.service.type} {
 
     ${entity.model.getter}(id?) {
         return this.http.get('api/${entity.model.vars}/' + id)
-            .toPromise()
-            .then(res => { return <${entity.model.type}> res.json(); });
+            .map(response => <${entity.model.type}> response.json());
     }
 
     update($entity.model.var : $entity.model.type) {
         let body = JSON.stringify($entity.model.var);
 
         return this.http.put('api/$entity.model.vars/', body, this.options)
-            .toPromise()
-            .then(res => { return <$entity.model.type> res.json(); });
+            .map(response => <$entity.model.type> response.json());
     }
 
     getPage($entity.model.var : $entity.model.type, event : LazyLoadEvent) {
@@ -31,7 +29,6 @@ export class ${entity.service.type} {
         let body = JSON.stringify(req);
 
         return this.http.post('api/$entity.model.vars/page', body, this.options)
-            .toPromise()
-            .then(res => { return <PageResponse<$entity.model.type>> res.json(); });
+            .map(response => <PageResponse<$entity.model.type>> response.json());
     }
 }

@@ -1,7 +1,7 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.component.ts")##
 import {Component} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
-import { NgForm }    from '@angular/common';
+import { NgForm } from '@angular/common';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
 import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,Message,Growl,TabView,TabPanel,Fieldset} from 'primeng/primeng';
 import {${entity.model.type},${entity.model.type}Impl} from './${entity.model.var}';
@@ -26,18 +26,25 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
         this.msgs.push({severity:'info', summary:'Saved OK...', detail:'PrimeNG rocks ;-)'});
     }
 
+    showError(error?) {
+        this.msgs = [];
+        this.msgs.push({severity:'error', summary:'Error...' + error, detail:'PrimeNG rocks ;-)'});
+        console.log(error);
+    }
+
     constructor(private router:Router, private ${entity.service.var}: ${entity.service.type}) { }
 
     routerOnActivate(curr: RouteSegment): void {
-        let id = +curr.getParam('id');
+        let id = curr.getParam('id');
 
-        // to avoid race condition, let's set at least the id
-        // so it can be used by xxx-list as input param.
-        // TODO: sthg cleaner?
-        this.$entity.model.var = new ${entity.model.type}Impl();
-        this.${entity.model.var}.${identifiableProperty.var} = id;
-
-        this.${entity.service.var}.${entity.model.getter}(id).then($entity.model.var => this.$entity.model.var = $entity.model.var);
+        if (id === 'new') {
+            this.$entity.model.var = new ${entity.model.type}Impl();
+        } else {
+            this.${entity.service.var}.${entity.model.getter}(id)
+                .subscribe(
+                    $entity.model.var => this.$entity.model.var = $entity.model.var,
+                    error => this.showError(error));
+        }
     }
 
 #foreach ($manyToOne in $entity.manyToOne.list)
@@ -47,9 +54,12 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 #end
 
     onupdate() {
-        this.${entity.service.var}.update(this.$entity.model.var).then($entity.model.var => {
-            this.$entity.model.var = $entity.model.var;
-            this.showInfoSaved();
-        });
+        this.${entity.service.var}.update(this.$entity.model.var).
+            subscribe(
+                $entity.model.var => {
+                    this.$entity.model.var = $entity.model.var;
+                    this.showInfoSaved();
+                },
+                error => this.showError(error));
     }
 }

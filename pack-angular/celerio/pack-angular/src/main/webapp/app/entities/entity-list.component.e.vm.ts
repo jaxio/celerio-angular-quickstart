@@ -39,7 +39,8 @@ export class ${entity.model.type}ListComponent {
     }
 
     loadPage(event : LazyLoadEvent) {
-        this.${entity.service.var}.getPage(this.example, event).then(pageResponse => {this.currentPage = pageResponse;});
+        this.${entity.service.var}.getPage(this.example, event).
+            subscribe(pageResponse => this.currentPage = pageResponse);
     }
 
 ## --------------- Many to One
@@ -63,5 +64,9 @@ export class ${entity.model.type}ListComponent {
 #end
     onRowSelect(event) {
         this.router.navigate(['/${entity.model.var}', event.data.${identifiableProperty.var}]);
+    }
+
+    onClickAdd() {
+        this.router.navigate(['/${entity.model.var}', 'new']);
     }
 }

@@ -38,6 +38,14 @@
                 </columnConfig>
             </columnConfigs>
         </entityConfig>
+        <entityConfig tableName="PROJECT">
+            <columnConfigs>
+                <columnConfig columnName="author_id">
+                    <oneToManyConfig elementVar="project" var="projects"/>
+                </columnConfig>
+            </columnConfigs>
+        </entityConfig>
+
     </entityConfigs>
 
     <!-- Generate enums used by the entities above -->

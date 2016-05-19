@@ -31,6 +31,17 @@ CREATE TABLE BOOK (
 );
 
 
+CREATE TABLE PROJECT (
+    id                      int not null IDENTITY,
+    name                    varchar(100) not null,
+    url                     varchar(100) not null,
+    author_id               int,
+    open_source             boolean default false,
+
+    constraint project_fk_1 foreign key (author_id) references AUTHOR,
+    primary key (id)
+);
+
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (1,  'John01', 'Doe01');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (2,  'John02', 'Doe02');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (3,  'John03', 'Doe03');
@@ -56,3 +67,5 @@ INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (22, 'John22', 'Doe22');
 
 INSERT INTO BOOK VALUES (1, 'Learn Angular', 'Angular for beginners', 1, null, false, 12.34);
 INSERT INTO BOOK VALUES (2, 'Learn Angular2', 'Angular2 for beginners', 2, null, true, 32.00);
+
+INSERT INTO PROJECT VALUES (1, 'PrimeNG', 'http://www.primefaces.org/primeng/', 1, true);
