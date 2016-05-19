@@ -27,5 +27,4 @@ $output.require($enumAttribute)##
 #end
 $output.require("org.springframework.data.jpa.repository.*")##
 public interface $output.currentClass extends JpaRepository<$entity.model.type, $entity.root.primaryKey.type> {
-
 }

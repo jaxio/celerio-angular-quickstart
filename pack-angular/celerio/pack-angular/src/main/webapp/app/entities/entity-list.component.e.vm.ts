@@ -58,8 +58,6 @@ export class ${entity.model.type}ListComponent {
         this.example = new ${entity.model.type}Impl();
         this.example.$manyToOne.to.var = new ${manyToOne.to.type}Impl();
         this.example.${manyToOne.to.var}.${identifiableProperty.var} = this._${manyToOne.to.var}.${identifiableProperty.var};
-
-        //this.${entity.service.var}.getByExample(example).then(pageResponse => this.currentPage = pageResponse);
     }
 
 #end

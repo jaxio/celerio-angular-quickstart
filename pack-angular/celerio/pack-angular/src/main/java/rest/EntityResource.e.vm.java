@@ -78,6 +78,22 @@ public class $output.currentClass{
     }
 
     /**
+    * Find by id $entity.model.type.
+    */
+    @RequestMapping(value = "/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<$entity.model.type> findById(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
+        log.debug("Find by id $entity.model.varsUp : {}", $entity.primaryKey.var);
+
+        return Optional.ofNullable(${entity.repository.var}.findOne($entity.primaryKey.var))
+            .map(${entity.model.var} -> new ResponseEntity<>(
+            ${entity.model.var},
+            HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
      * Update $entity.model.type.
      */
     @RequestMapping(value = "/",
@@ -91,18 +107,6 @@ public class $output.currentClass{
         $entity.model.type result = ${entity.repository.var}.save($entity.model.var);
         return ResponseEntity.ok()
             .body(result);
-    }
-
-    /**
-     * Find all $entity.model.type.
-     */
-    @RequestMapping(value = "/",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<$entity.model.type>> findAll(Pageable pageable) throws URISyntaxException {
-        log.debug("Find all $entity.model.varsUp");
-        Page<${entity.model.type}> page = ${entity.repository.var}.findAll(pageable);
-        return new ResponseEntity<>(page.getContent(), new HttpHeaders(), HttpStatus.OK);
     }
 
     /**
@@ -120,33 +124,6 @@ public class $output.currentClass{
         }
 
         return new ResponseEntity<>(new PageResponse<>(page), new HttpHeaders(), HttpStatus.OK);
-    }
-
-
-    /**
-    * Find $entity.model.type by Example.
-    */
-    @RequestMapping(value = "/byexample", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<$entity.model.type>> findByExample(@RequestBody $entity.model.type $entity.model.var) throws URISyntaxException {
-        log.debug("Find by example: " + $entity.model.var);
-        // TODO mix pageable + example
-        List<$entity.model.type> page = ${entity.repository.var}.findAll(Example.of($entity.model.var));
-        return new ResponseEntity<>(page, new HttpHeaders(), HttpStatus.OK);
-    }
-
-    /**
-     * Find by id $entity.model.type.
-     */
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<$entity.model.type> findById(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
-        log.debug("Find by id $entity.model.varsUp : {}", $entity.primaryKey.var);
-        return Optional.ofNullable(${entity.repository.var}.findOne($entity.primaryKey.var))
-            .map(${entity.model.var} -> new ResponseEntity<>(
-                ${entity.model.var},
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**

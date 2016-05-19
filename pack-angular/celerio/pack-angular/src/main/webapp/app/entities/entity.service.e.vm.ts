@@ -8,13 +8,9 @@ import {PageResponse, PageRequestByExample} from '../../support/paging';
 @Injectable()
 export class ${entity.service.type} {
 
-    constructor(private http: Http) {}
+    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    getAll() {
-        return this.http.get('api/${entity.model.vars}/')
-                    .toPromise()
-                    .then(res => { return <${entity.model.type}[]> res.json(); });
-    }
+    constructor(private http: Http) {}
 
     ${entity.model.getter}(id?) {
         return this.http.get('api/${entity.model.vars}/' + id)
@@ -22,22 +18,10 @@ export class ${entity.service.type} {
             .then(res => { return <${entity.model.type}> res.json(); });
     }
 
-    getByExample($entity.model.var : $entity.model.type) {
-        let body = JSON.stringify($entity.model.var);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this.http.post('api/$entity.model.vars/byexample', body, options)
-            .toPromise()
-            .then(res => { return <${entity.model.type}[]> res.json(); });
-    }
-
     update($entity.model.var : $entity.model.type) {
         let body = JSON.stringify($entity.model.var);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
 
-        return this.http.put('api/$entity.model.vars/', body, options)
+        return this.http.put('api/$entity.model.vars/', body, this.options)
             .toPromise()
             .then(res => { return <$entity.model.type> res.json(); });
     }
@@ -45,10 +29,8 @@ export class ${entity.service.type} {
     getPage($entity.model.var : $entity.model.type, event : LazyLoadEvent) {
         let req = new PageRequestByExample($entity.model.var, event);
         let body = JSON.stringify(req);
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
 
-        return this.http.post('api/$entity.model.vars/page', body, options)
+        return this.http.post('api/$entity.model.vars/page', body, this.options)
             .toPromise()
             .then(res => { return <PageResponse<$entity.model.type>> res.json(); });
     }

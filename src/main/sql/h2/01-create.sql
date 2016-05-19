@@ -8,10 +8,11 @@ CREATE SEQUENCE hibernate_sequence START WITH 1000;
 
 CREATE TABLE AUTHOR (
     id                  int not null IDENTITY,
-    civility                 char(2) default 'MR',
+    civility            char(2) default 'MR',
     first_name          varchar(100) not null,
     last_name           varchar(100),
-    birth_date_time    timestamp,
+    birth_date          date,
+    birth_date_time     timestamp,
 
     primary key (id)
 );

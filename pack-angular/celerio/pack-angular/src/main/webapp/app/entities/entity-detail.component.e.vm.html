@@ -122,7 +122,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
         <button pButton type="button" (click)="onupdate()" label="Save"></button>
     </p-fieldset>
 #if($entity.oneToMany.flatUp.size > 0)
-    <p-tabView>
+    <p-tabView *ngIf="$entity.model.var">
 #end
 #foreach ($relation in $entity.oneToMany.flatUp.list)
         <p-tabPanel header="$relation.to.varsUp">
@@ -132,5 +132,4 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #if($entity.oneToMany.flatUp.size > 0)
     </p-tabView>
 #end
-
 </div>

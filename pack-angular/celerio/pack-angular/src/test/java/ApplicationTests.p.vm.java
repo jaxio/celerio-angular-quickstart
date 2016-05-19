@@ -18,13 +18,14 @@ $output.require("org.junit.Test")##
 $output.require("org.junit.runner.RunWith")##
 $output.require("org.springframework.boot.test.SpringApplicationConfiguration")##
 $output.require("org.springframework.test.context.junit4.SpringJUnit4ClassRunner")##
+$output.require("org.springframework.test.context.web.WebAppConfiguration")##
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
 public class ApplicationTests {
 
     @Test
     public void contextLoads() {
     }
-
 }
