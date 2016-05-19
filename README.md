@@ -15,8 +15,8 @@ Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio)
 
 The generated source code is based on: 
 
-* [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart) and Angular QuickStart.
-* Angular2 quickstart
+* [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart)
+* [Angular2 quickstart](https://angular.io/docs/ts/latest/quickstart.html)
 * Some Jaxio's projects
 * a bit of Jhipster
 
@@ -37,11 +37,16 @@ It mainly follows Maven conventions.
 
 # To run the web app, please follow these 4 easy steps:
 
-## Step 1: Create DB/Reverse it and generate
 
-From the root folder:
+## Step 1: Generate the source code
+
+From the root folder, run Maven:
 
     mvn -Pdb,metadata,gen generate-sources
+
+* `db` profile creates the database
+* `metadata` profile reverses the database
+* `gen` profile generates the source code
 
 ## Step 2: Install JavaScript dependencies
 
