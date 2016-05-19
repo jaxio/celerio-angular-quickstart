@@ -1,7 +1,8 @@
 $output.webapp("app/app.component.ts")##
 import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
-import {Menubar} from 'primeng/primeng';
+import { Menubar} from 'primeng/primeng';
+import { HomeComponent } from './home.component';
 
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
 import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}.service';
@@ -26,12 +27,10 @@ import { ${entity.model.type}DetailComponent } from './entities/${entity.model.v
     ]
 })
 @Routes([
+    { path : '/',  component: HomeComponent }#if($project.withoutManyToManyJoinEntities.size > 0), #end
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-#if($velocityCount > 1)
-    ,
-#end
     { path: '/${entity.model.var}list', component: ${entity.model.type}ListComponent },
-    { path: '/${entity.model.var}/:id', component: ${entity.model.type}DetailComponent }
+    { path: '/${entity.model.var}/:id', component: ${entity.model.type}DetailComponent }#if($velocityHasNext), #end
 #end
 ])
 export class AppComponent {
