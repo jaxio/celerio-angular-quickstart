@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
 import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}.service';
+import { ${entity.model.type}Component } from './entities/${entity.model.var}/${entity.model.var}.component';
 import { ${entity.model.type}ListComponent } from './entities/${entity.model.var}/${entity.model.var}-list.component';
 import { ${entity.model.type}DetailComponent } from './entities/${entity.model.var}/${entity.model.var}-detail.component';
 #end
@@ -29,8 +30,7 @@ import { ${entity.model.type}DetailComponent } from './entities/${entity.model.v
 @Routes([
     { path : '/',  component: HomeComponent }#if($project.withoutManyToManyJoinEntities.size > 0), #end
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-    { path: '/${entity.model.var}list', component: ${entity.model.type}ListComponent },
-    { path: '/${entity.model.var}/:id', component: ${entity.model.type}DetailComponent }#if($velocityHasNext), #end
+    { path: '/${entity.model.var}', component: ${entity.model.type}Component }#if($velocityHasNext), #end
 #end
 ])
 export class AppComponent {

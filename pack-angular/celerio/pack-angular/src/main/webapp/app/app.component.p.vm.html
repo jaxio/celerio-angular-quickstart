@@ -5,7 +5,7 @@ $output.webapp("app/app.component.html")##
         <li><a data-icon="fa-search"><span>Entities</span></a>
             <ul>
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-                <li><a [routerLink]="['/${entity.model.var}list']"><span>${entity.model.type} List</span></a></li>
+                <li><a [routerLink]="['/${entity.model.var}']"><span>${entity.model.type} List</span></a></li>
 #end
             </ul>
         </li>
