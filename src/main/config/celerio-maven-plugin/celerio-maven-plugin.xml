@@ -25,6 +25,7 @@
     </configuration>
 
 
+    <!-- CHANGE IT OR COMMENT IT IF YOU USE YOUR OWN DATABASE -->
     <entityConfigs>
         <entityConfig tableName="AUTHOR">
             <columnConfigs>
@@ -48,6 +49,7 @@
 
     </entityConfigs>
 
+    <!-- CHANGE IT OR COMMENT IT IF YOU USE YOUR OWN DATABASE -->
     <!-- Generate enums used by the entities above -->
     <sharedEnumConfigs>
         <sharedEnumConfig name="Civility" type="STRING">
