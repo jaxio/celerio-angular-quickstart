@@ -67,6 +67,18 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #end
                 </div>
             </div>
+#elseif($attr.isNumeric())
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-4"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
+                <div class="ui-grid-col-8">
+                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+#if($attr.isRequired())
+                    <div [hidden]="${attr.var}.valid || ${attr.var}.pristine" class="ui-messages-error">
+                        $attr.varUp is required
+                    </div>
+#end
+                </div>
+            </div>
 #elseif($attr.isDate() && !$attr.isVersion())
 #if($attr.isJavaUtilOnlyDate())
             <div class="ui-grid-row">

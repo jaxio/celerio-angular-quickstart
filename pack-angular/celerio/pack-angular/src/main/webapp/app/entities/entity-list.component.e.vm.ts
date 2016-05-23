@@ -1,6 +1,5 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {HTTP_PROVIDERS} from '@angular/http';
 import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer,LazyLoadEvent} from 'primeng/primeng';
 import {$entity.model.type, ${entity.model.type}Impl} from './${entity.model.var}';
@@ -15,7 +14,6 @@ import {$manyToOne.to.type, ${manyToOne.to.type}Impl} from '../$manyToOne.toEnti
 	templateUrl: 'app/entities/${entity.model.var}/${entity.model.var}-list.component.html',
 	selector: '${entity.model.var}-list',
     directives: [ROUTER_DIRECTIVES, InputText, DataTable, Button, Dialog, Column, Header, Footer],
-	providers: [HTTP_PROVIDERS, $entity.service.type]
 })
 export class ${entity.model.type}ListComponent {
 
@@ -44,9 +42,6 @@ export class ${entity.model.type}ListComponent {
 #end
 
     constructor(private router:Router, private $entity.service.var : $entity.service.type) { }
-
-    ngOnInit() {
-    }
 
     loadPage(event : LazyLoadEvent) {
         this.${entity.service.var}.getPage(this.example, event).

@@ -2,7 +2,6 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.component.t
 
 import {Component} from '@angular/core';
 import {Routes,ROUTER_DIRECTIVES} from '@angular/router';
-import {${entity.service.type}} from './${entity.model.var}.service';
 import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
 import {${entity.model.type}ListComponent} from './${entity.model.var}-list.component';
 
@@ -11,7 +10,6 @@ import {${entity.model.type}ListComponent} from './${entity.model.var}-list.comp
         <h4>Hello from ${entity.model.type}Component</h4>
         <router-outlet></router-outlet>`,
     directives: [ROUTER_DIRECTIVES],
-    providers:  [${entity.service.type}]
 })
 @Routes([
     {path: '',     component: ${entity.model.type}ListComponent}, // , useAsDefault: true}, // coming soon

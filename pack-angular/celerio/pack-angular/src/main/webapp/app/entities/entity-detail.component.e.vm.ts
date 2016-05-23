@@ -1,6 +1,5 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.component.ts")##
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {HTTP_PROVIDERS} from '@angular/http';
 import { NgForm } from '@angular/common';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
 import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,Message,Growl,TabView,TabPanel,Fieldset} from 'primeng/primeng';
@@ -18,7 +17,6 @@ import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.to
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
     directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, Growl, TabView, TabPanel,Fieldset#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}],
-	providers: [HTTP_PROVIDERS, $entity.service.type]
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
     $entity.model.var : $entity.model.type;

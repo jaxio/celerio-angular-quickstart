@@ -1,6 +1,7 @@
 $output.webapp("app/app.component.ts")##
 import { Component } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { Menubar} from 'primeng/primeng';
 import { HomeComponent } from './home.component';
 
@@ -21,7 +22,8 @@ import { ${entity.model.type}DetailComponent } from './entities/${entity.model.v
 #end
     ],
     providers: [
-        ROUTER_PROVIDERS
+        ROUTER_PROVIDERS,
+        HTTP_PROVIDERS,
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
         , ${entity.service.type}
 #end
