@@ -1,8 +1,8 @@
-## celerio-angular-quickstart (Alpha)
+## celerio-angular-quickstart
 
-This project demonstrates how to generate from an existing database schema an Angular 2 CRUD web application.
+From an existing relational database, generate an Angular 2 CRUD web application.
 
-We provide a database schema example, but you may try it with your own schema (explained below).
+This quickstart provides a database schema example, but you may try it with your own schema (explained below).
 
 The generated source code relies on:
 
@@ -13,7 +13,7 @@ The generated source code relies on:
 
 Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio), our Open Source code generator.
 
-Some useful reference: 
+Some useful references: 
 
 * [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart)
 * [Angular2 quickstart](https://angular.io/docs/ts/latest/quickstart.html)
@@ -35,11 +35,17 @@ It mainly follows Maven conventions.
 
 # HOW-TO RUN IT
 
+## 0: Get the quickstart
+
+Clone this quickstart or download it. 
+
 ## 1: Generate the source code
 
-From the root folder, run Maven:
+From the quickstart root folder, run:
 
     mvn -Pdb,metadata,gen generate-sources
+
+It runs Maven with the following 3 profiles (defined in the `pom.xml` file):
 
 * `db` profile creates the database in the `target/db` folder.
 * `metadata` profile reverses the database. It creates the file `metadata.xml` under `src/main/config/celerio-maven-plugin`.
@@ -58,12 +64,15 @@ Note: need to be run once, you may may skip it as you regenerate over and over.
 
 ## 3: Compile TypeScript files
 
+The step 1 above has copied or generated some [TypeScript](https://www.typescriptlang.org/) files.
+You must transpile (compile) them to JavaScript.
+
     cd src/main/webapp
     npm run tsc
 
 ## 4: Start the application
 
-From the root folder:
+From the root folder, run:
     
     mvn spring-boot:run
 
@@ -88,8 +97,8 @@ Make sure your project is clean. Delete all previously generated files.
 
 ## 2: Edit pom.xml
 
-You need to edit the [pom.xml](https://github.com/jaxio/celerio-angular-quickstart/blob/master/pom.xml) and change the jdbc settings
-in order for Celerio to connect to your database and extract its metadata.
+You need to edit the [pom.xml](https://github.com/jaxio/celerio-angular-quickstart/blob/master/pom.xml) and change the JDBC settings
+in order for Celerio to connect to your database and extract its metadata and for you application to access the database.
 Search for `CHANGE THE PROPERTIES BELOW TO USE YOUR OWN DATABASE`.
 
 Since you don't need to create the database, there is no need to activate the `db` profile. 
@@ -133,12 +142,10 @@ You may of course [report issues](https://github.com/jaxio/celerio-angular-quick
 
 ## TODOS
 
+* support LocalDateTime, blob (file upload)
 * one to one relation
 * many to many relation
-* use lazy data table
-* support all column types including blob (file upload)
-* support LocalDateTime 
-* validation
+* more validation
 * i18n
 * security
-* etc...
+* etc.
