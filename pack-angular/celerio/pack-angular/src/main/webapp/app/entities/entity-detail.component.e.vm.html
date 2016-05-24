@@ -19,8 +19,6 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #if($attribute.isRequired()) *#end
 #end
 ## -- [/MACROS]
-<p-growl [value]="msgs"></p-growl>
-
 <div class="ContentSideSections Implementation">
     <p-fieldset legend="$entity.model.type Details">
         <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="$entity.model.var" ngForm #${entity.model.var}Form="ngForm">
