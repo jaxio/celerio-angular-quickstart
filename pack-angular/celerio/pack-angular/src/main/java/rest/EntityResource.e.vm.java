@@ -26,6 +26,7 @@ $output.require($entity.root.primaryKey)##
 $output.require($enumAttribute)##
 #end
 
+$output.require("${Root.packageName}.rest.support.AutoCompleteQuery")##
 $output.require("${Root.packageName}.rest.support.LazyLoadEvent")##
 $output.require("${Root.packageName}.rest.support.PageResponse")##
 $output.require("${Root.packageName}.rest.support.PageRequestByExample")##
@@ -45,6 +46,7 @@ $output.require("org.springframework.web.bind.annotation.*")##
 $output.require("org.springframework.http.MediaType")##
 $output.require("org.springframework.http.ResponseEntity")##
 $output.require("org.springframework.web.bind.annotation.RequestBody")##
+$output.require("org.springframework.web.bind.annotation.RequestParam")##
 $output.require("org.springframework.data.domain.Example")##
 $output.require("org.springframework.data.domain.Pageable")##
 $output.require("org.springframework.data.domain.Page")##
@@ -124,6 +126,15 @@ public class $output.currentClass{
         }
 
         return new ResponseEntity<>(new PageResponse<>(page), new HttpHeaders(), HttpStatus.OK);
+    }
+
+    /**
+    * Auto complete
+    */
+    @RequestMapping(value = "/complete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<$entity.model.type>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
+        List<$entity.model.type> results = ${entity.repository.var}.complete(acq.query, acq.maxResults);
+        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 
     /**

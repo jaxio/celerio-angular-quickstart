@@ -31,4 +31,10 @@ export class ${entity.service.type} {
         return this.http.post('api/$entity.model.vars/page', body, this.options)
             .map(response => <PageResponse<$entity.model.type>> response.json());
     }
+
+    complete(query : string) {
+        let body = JSON.stringify({'query': query, 'maxResults': 10});
+        return this.http.post('api/$entity.model.vars/complete', body, this.options)
+            .map(response => <${entity.model.type}[]> response.json());
+    }
 }

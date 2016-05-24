@@ -11,12 +11,13 @@ import {${relation.to.type}ListComponent} from '../$relation.toEntity.model.var/
 #end
 #foreach ($relation in $entity.manyToOne.list)
 import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
+import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-auto-complete.component';
 #end
 
 @Component({
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
-    directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, Growl, TabView, TabPanel,Fieldset#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}],
+    directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, Growl, TabView, TabPanel,Fieldset#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.manyToOne.list),${relation.to.type}CompleteComponent#end],
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
     $entity.model.var : $entity.model.type;

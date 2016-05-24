@@ -8,12 +8,13 @@ import {$entity.service.type} from './${entity.model.var}.service';
 import {PageResponse} from "../../support/paging";
 #foreach ($manyToOne in $entity.manyToOne.list)
 import {$manyToOne.to.type, ${manyToOne.to.type}Impl} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
+import {${manyToOne.to.type}LineComponent} from '../$manyToOne.toEntity.model.var/${manyToOne.toEntity.model.var}-line.component';
 #end
 
 @Component({
 	templateUrl: 'app/entities/${entity.model.var}/${entity.model.var}-list.component.html',
 	selector: '${entity.model.var}-list',
-    directives: [ROUTER_DIRECTIVES, InputText, DataTable, Button, Dialog, Column, Header, Footer],
+    directives: [ROUTER_DIRECTIVES, InputText, DataTable, Button, Dialog, Column, Header, Footer#foreach ($manyToOne in $entity.manyToOne.list), ${manyToOne.to.type}LineComponent#{end}],
 })
 export class ${entity.model.type}ListComponent {
 

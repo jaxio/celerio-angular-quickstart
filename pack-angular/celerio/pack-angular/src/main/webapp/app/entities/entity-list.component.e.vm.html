@@ -13,9 +13,13 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
         <header>{{header}}</header>
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
 #if ($attr.hasXToOneRelation())
-        <p-column field="${attr.xToOneRelation.to.var}.${identifiableProperty.var}" header="$attr.xToOneRelation.to.varUp" [sortable]="true"></p-column>
+        <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
+            <template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']">
+                <${attr.xToOneRelation.toEntity.model.var}-line [${attr.xToOneRelation.to.var}]="${attr.xToOneRelation.to.var}"></${attr.xToOneRelation.toEntity.model.var}-line>
+            </template>
+        </p-column>
 #else
-        <p-column field="$attr.var" header="$attr.varUp" [sortable]="true"></p-column>
+        <p-column field="$attr.var" header="$attr.varUp" sortable="true"></p-column>
 #end
 #end
         <footer>
