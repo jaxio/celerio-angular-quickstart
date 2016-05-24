@@ -1,8 +1,8 @@
-## celerio-angular-quickstart
+## Generate an Angular 2 / PrimeNG / SpringBoot CRUD web app
 
 From an existing relational database, generate an Angular 2 CRUD web application.
 
-This quickstart provides a database schema example, but you may try it with your own schema (explained below).
+This quickstart comes with an H2 database example, but you may try it with your own database schema (explained below).
 
 The generated source code relies on:
 
