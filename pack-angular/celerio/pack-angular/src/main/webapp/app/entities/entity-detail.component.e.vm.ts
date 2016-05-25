@@ -3,7 +3,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { NgForm } from '@angular/common';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
 import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,TabView,TabPanel,Fieldset} from 'primeng/primeng';
-import {${entity.model.type},${entity.model.type}Impl} from './${entity.model.var}';
+import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 import {MessageService} from '../../service/message.service';
 #foreach ($relation in $entity.oneToMany.flatUp.list)
@@ -30,7 +30,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 #foreach ($manyToOne in $entity.manyToOne.list)
     @Input()
     set ${manyToOne.to.var}($manyToOne.to.var : $manyToOne.to.type) {
-        this.$entity.model.var = new ${entity.model.type}Impl();
+        this.$entity.model.var = new ${entity.model.type}();
         this.${entity.model.var}.$manyToOne.to.var = $manyToOne.to.var;
     }
 #end
@@ -43,7 +43,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
         let id = curr.getParam('id');
 
         if (id === 'new') {
-            this.$entity.model.var = new ${entity.model.type}Impl();
+            this.$entity.model.var = new ${entity.model.type}();
         } else {
             this.${entity.service.var}.${entity.model.getter}(id)
                 .subscribe(

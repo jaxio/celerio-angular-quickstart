@@ -1,7 +1,7 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-auto-complete.component.ts")##
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {AutoComplete} from 'primeng/primeng';
-import {${entity.model.type},${entity.model.type}Impl} from './${entity.model.var}';
+import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 import {${entity.model.type}LineComponent} from './${entity.model.var}-line.component';
 

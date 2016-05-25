@@ -1,18 +1,20 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.ts")##
-
+#macro(tstype $attr)
+#if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#end
+#end
 ## --------------- Many to One
 #foreach ($manyToOne in $entity.manyToOne.list)
-import {${manyToOne.to.type},${manyToOne.to.type}Impl} from '../${manyToOne.toEntity.model.var}/${manyToOne.toEntity.model.var}';
+import {${manyToOne.to.type}} from '../${manyToOne.toEntity.model.var}/${manyToOne.toEntity.model.var}';
 #end
 
-export interface $entity.model.type {
+export class $entity.model.type {
 ## --------------- Raw attributes (exception the one involved in XtoOneRelation)
 #foreach ($attribute in $entity.nonCpkAttributes.list)
 #if ($velocityCount == 1)
     // Raw attributes
 #end
 #if(!$attribute.isInFk() || $attribute.isSimplePk())
-    $attribute.var;
+    ${attribute.var}#tstype($attribute);
 #end
 #end
 ## --------------- Many to One
@@ -20,20 +22,6 @@ export interface $entity.model.type {
 #if ($velocityCount == 1)
     // Many to one
 #end
-    $manyToOne.to.var;
+    $manyToOne.to.var : $manyToOne.to.type;
 #end
-    // extra, is it useful?
-    idSet;
-}
-
-export class ${entity.model.type}Impl implements ${entity.model.type} {
-    constructor(
-## --------------- Raw attributes (exception the one involved in XtoOneRelation)
-#foreach ($attribute in $entity.nonCpkAttributes.list)
-#if(!$attribute.isInFk() || $attribute.isSimplePk())#if ($velocityCount > 1), #{end}public ${attribute.var}?#{end}
-#end
-#foreach ($manyToOne in $entity.manyToOne.list), public ${manyToOne.to.var}?
-#end
-    // extra, is it useful?
-    , public idSet?) {}
 }

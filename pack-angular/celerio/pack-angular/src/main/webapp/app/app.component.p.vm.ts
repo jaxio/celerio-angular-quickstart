@@ -20,16 +20,23 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
         HTTP_PROVIDERS,
         MessageService,
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-        , ${entity.service.type}
-#end
+        ${entity.service.type}#if($velocityHasNext),
+#else
+
     ]
+#end
+#end
 })
 @Routes([
-    { path : '/',  component: HomeComponent }#if($project.withoutManyToManyJoinEntities.size > 0), #end
-#foreach($entity in $project.withoutManyToManyJoinEntities.list)
-    { path: '/${entity.model.var}', component: ${entity.model.type}Component }#if($velocityHasNext), #end
+    { path : '/',  component: HomeComponent }#if($project.withoutManyToManyJoinEntities.size > 0),
 #end
-])
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+    { path: '/${entity.model.var}', component: ${entity.model.type}Component }#if($velocityHasNext),
+#else
+
+    ])
+#end
+#end
 export class AppComponent {
     msgs : Message[] = [];
 

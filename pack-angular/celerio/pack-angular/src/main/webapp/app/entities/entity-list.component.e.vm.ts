@@ -2,12 +2,12 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer,LazyLoadEvent} from 'primeng/primeng';
-import {$entity.model.type, ${entity.model.type}Impl} from './${entity.model.var}';
+import {$entity.model.type} from './${entity.model.var}';
 import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
 import {$entity.service.type} from './${entity.model.var}.service';
 import {PageResponse} from "../../support/paging";
 #foreach ($manyToOne in $entity.manyToOne.list)
-import {$manyToOne.to.type, ${manyToOne.to.type}Impl} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
+import {$manyToOne.to.type} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
 import {${manyToOne.to.type}LineComponent} from '../$manyToOne.toEntity.model.var/${manyToOne.toEntity.model.var}-line.component';
 #end
 
@@ -62,8 +62,8 @@ export class ${entity.model.type}ListComponent {
         }
         this._$manyToOne.to.var = $manyToOne.to.var;
 
-        this.example = new ${entity.model.type}Impl();
-        this.example.$manyToOne.to.var = new ${manyToOne.to.type}Impl();
+        this.example = new ${entity.model.type}();
+        this.example.$manyToOne.to.var = new ${manyToOne.to.type}();
         this.example.${manyToOne.to.var}.${identifiableProperty.var} = this._${manyToOne.to.var}.${identifiableProperty.var};
     }
 
