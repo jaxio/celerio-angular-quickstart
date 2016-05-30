@@ -65,6 +65,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
                     this.$entity.model.var = $entity.model.var;
                     if (this.sub) {
                         this.onSaveClicked.emit(this.$entity.model.var);
+                        this.messageService.info('Saved OK and msg emitted', 'PrimeNG Rocks ;-)')
                     } else {
                         this.messageService.info('Saved OK', 'PrimeNG Rocks ;-)')
                     }
@@ -75,6 +76,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
     onCancel() {
         if (this.sub) {
             this.onCancelClicked.emit("cancel");
+            this.messageService.info('Cancel clicked and msg emitted', 'PrimeNG Rocks ;-)')
         }
     }
 }
