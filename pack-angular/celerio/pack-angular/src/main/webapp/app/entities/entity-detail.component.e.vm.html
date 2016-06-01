@@ -59,7 +59,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isLocalDate())
                 <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
 #elseif($attr.isLocalDateTime())
-                localdatetime not supported yet
+                <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm:ss" showAnim="slideDown"></p-calendar>
 #else
                 Date type not supported, do it manually and send us the solution!
 #end
