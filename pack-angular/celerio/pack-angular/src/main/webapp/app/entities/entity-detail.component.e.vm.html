@@ -74,7 +74,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                 </div>
                 <div class="ui-grid-col-4">
 #if($attr.isRequired())
-                    <div class="ui-message ui-messages-error ui-corner-all" [hidden]="${attr.var}.valid || ${attr.var}.pristine">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors.required">
                         <i class="fa fa-close"></i>
                         $attr.varUp is required
                     </div>
