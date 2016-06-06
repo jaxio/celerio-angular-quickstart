@@ -4,7 +4,9 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.ts")##
 #end
 ## --------------- Many to One
 #foreach ($manyToOne in $entity.manyToOne.list)
+#if(!$manyToOne.to.type.equals($entity.model.type))
 import {${manyToOne.to.type}} from '../${manyToOne.toEntity.model.var}/${manyToOne.toEntity.model.var}';
+#end
 #end
 
 export class $entity.model.type {

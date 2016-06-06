@@ -37,6 +37,7 @@ public class $output.currentClass {
     @Inject
     private $entity.repository.type $entity.repository.var;
 #foreach ($relation in $entity.xToOne.list)
+#if(!$relation.to.type.equals($entity.model.type))
 #if($output.requireFirstTime($relation.toEntity.dtoservice))
     @Inject
     private $relation.toEntity.dtoservice.type $relation.toEntity.dtoservice.var;
@@ -45,6 +46,7 @@ public class $output.currentClass {
 $output.require($relation.toEntity.model) ##
     @Inject
     private $relation.toEntity.repository.type $relation.toEntity.repository.var;
+#end
 #end
 #end
 
@@ -148,7 +150,11 @@ $output.require($relation.toEntity.model) ##
 #end
         if (depth-- > 0) {
 #foreach ($relation in $entity.xToOne.list)
+#if($relation.to.type.equals($entity.model.type))
+            dto.$relation.to.var = toDTO(${entity.model.var}.${relation.to.getter}(), depth);
+#else
             dto.$relation.to.var = ${relation.toEntity.dtoservice.var}.toDTO(${entity.model.var}.${relation.to.getter}(), depth);
+#end
 #end
         }
 
@@ -179,7 +185,11 @@ $output.require($relation.toEntity.model) ##
 #end
         if (depth-- > 0) {
 #foreach ($relation in $entity.xToOne.list)
+#if($relation.to.type.equals($entity.model.type))
+            ${entity.model.var}.${relation.to.setter}(toEntity(dto.${relation.to.var}, depth));
+#else
             ${entity.model.var}.${relation.to.setter}(${relation.toEntity.dtoservice.var}.toEntity(dto.${relation.to.var}, depth));
+#end
 #end
         }
 

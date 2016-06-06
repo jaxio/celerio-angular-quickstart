@@ -7,7 +7,9 @@ import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.
 import {$entity.service.type} from './${entity.model.var}.service';
 import {PageResponse} from "../../support/paging";
 #foreach ($manyToOne in $entity.manyToOne.list)
+#if(!$manyToOne.to.type.equals($entity.model.type))
 import {$manyToOne.to.type} from '../$manyToOne.toEntity.model.var/$manyToOne.toEntity.model.var';
+#end
 import {${manyToOne.to.type}LineComponent} from '../$manyToOne.toEntity.model.var/${manyToOne.toEntity.model.var}-line.component';
 #end
 

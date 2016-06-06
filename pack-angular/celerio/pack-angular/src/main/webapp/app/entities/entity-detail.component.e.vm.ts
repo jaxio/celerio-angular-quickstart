@@ -11,7 +11,9 @@ import {${relation.to.type}DetailComponent} from '../$relation.toEntity.model.va
 import {${relation.to.type}ListComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-list.component';
 #end
 #foreach ($relation in $entity.manyToOne.list)
+#if(!$relation.to.type.equals($entity.model.type))
 import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
+#end
 import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-auto-complete.component';
 #end
 

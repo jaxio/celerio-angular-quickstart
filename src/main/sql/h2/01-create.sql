@@ -13,9 +13,11 @@ CREATE TABLE AUTHOR (
     last_name           varchar(100),
     birth_date          date,
     birth_date_time     timestamp,
-
+    favorite_author_id  int,
     primary key (id)
 );
+
+ALTER TABLE AUTHOR ADD constraint account_fk_1 foreign key (favorite_author_id) references AUTHOR;
 
 CREATE TABLE BOOK (
     id                      int not null IDENTITY,
