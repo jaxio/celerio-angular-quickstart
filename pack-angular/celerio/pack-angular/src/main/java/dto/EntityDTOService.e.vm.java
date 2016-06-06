@@ -1,0 +1,188 @@
+## Copyright 2015 JAXIO http://www.jaxio.com
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##    http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+$output.java($entity.dtoservice)##
+
+$output.require("javax.inject.Inject")##
+$output.require("java.util.List")##
+$output.require("java.util.stream.Collectors")##
+
+$output.require($entity.model)##
+$output.require("org.springframework.transaction.annotation.Transactional")##
+$output.require("org.springframework.stereotype.Service") ##
+$output.require("org.springframework.data.domain.Example")##
+$output.require("org.springframework.data.domain.Page")##
+$output.require("${Root.packageName}.dto.support.PageResponse")##
+$output.require("${Root.packageName}.dto.support.PageRequestByExample")##
+
+$output.require($entity.repository)##
+
+/**
+ * A simple DTO Facility for ${entity.model.type}.
+ */
+@Service
+public class $output.currentClass {
+
+    @Inject
+    private $entity.repository.type $entity.repository.var;
+#foreach ($relation in $entity.xToOne.list)
+#if($output.requireFirstTime($relation.toEntity.dtoservice))
+    @Inject
+    private $relation.toEntity.dtoservice.type $relation.toEntity.dtoservice.var;
+#end
+#if($output.requireFirstTime($relation.toEntity.repository))
+$output.require($relation.toEntity.model) ##
+    @Inject
+    private $relation.toEntity.repository.type $relation.toEntity.repository.var;
+#end
+#end
+
+    @Transactional(readOnly = true)
+    public $entity.dto.type findOne($entity.primaryKey.type $entity.primaryKey.var) {
+        return toDTO(${entity.repository.var}.findOne($entity.primaryKey.var));
+    }
+
+    @Transactional(readOnly = true)
+    public List<$entity.dto.type> complete(String query, int maxResults) {
+        List<$entity.model.type> results = ${entity.repository.var}.complete(query, maxResults);
+        return results.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public PageResponse<$entity.dto.type> findAll(PageRequestByExample<$entity.dto.type> req) {
+        Example<$entity.model.type> example = null;
+        $entity.model.type $entity.model.var = toEntity(req.example);
+
+        if($entity.model.var != null){
+            example = Example.of($entity.model.var);
+        }
+
+        Page<$entity.model.type> page;
+        if (example != null){
+            page = ${entity.repository.var}.findAll(example, req.toPageable());
+        } else {
+            page = ${entity.repository.var}.findAll(req.toPageable());
+        }
+
+        List<$entity.dto.type> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
+        return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
+    }
+
+    /**
+     * Save the passed dto as a new entity or update the corresponding entity if any.
+     */
+    @Transactional
+    public $entity.dto.type save($entity.dto.type dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        $entity.model.type $entity.model.var;
+        if (dto.isIdSet()) {
+            $entity.model.var = ${entity.repository.var}.findOne(dto.$identifiableProperty.var);
+        } else {
+            $entity.model.var = new ${entity.model.type}();
+        }
+
+#foreach ($attribute in $entity.nonCpkAttributes.list)
+#if(!$attribute.isInFk() && !$attribute.isSimplePk())
+        ${entity.model.var}.${attribute.setter}(dto.$attribute.var);
+#end
+#end
+#foreach ($relation in $entity.xToOne.list)
+
+        if (dto.$relation.to.var == null) {
+            ${entity.model.var}.${relation.to.setter}(null);
+        } else {
+            $relation.to.type $relation.to.var = ${entity.model.var}.${relation.to.getter}();
+            if ($relation.to.var == null || (${relation.to.var}.getId().compareTo(dto.${relation.to.var}.id) != 0)) {
+                ${entity.model.var}.${relation.to.setter}(${relation.toEntity.repository.var}.findOne(dto.${relation.to.var}.id));
+            }
+        }
+#end
+
+        return toDTO(${entity.repository.var}.save($entity.model.var));
+    }
+
+    /**
+     * Converts the passed $entity.model.var to a DTO.
+     */
+    public $entity.dto.type toDTO($entity.model.type $entity.model.var){
+        return toDTO($entity.model.var, 1);
+    }
+
+    /**
+     * Converts the passed $entity.model.var to a DTO. The depth is used to control the
+     * amount of association you want. It also prevents potential infinite serialization cycles.
+     *
+     * @param $entity.model.var
+     * @param depth the depth of the serialization. A depth equals to 0, means no x-to-one association will be serialized.
+     *              A depth equals to 1 means that xToOne associations will be serialized. 2 means, xToOne associations of
+     *              xToOne associations will be serialized, etc.
+     */
+    public $entity.dto.type toDTO($entity.model.type $entity.model.var, int depth) {
+        if ($entity.model.var == null) {
+            return null;
+        }
+
+        $entity.dto.type dto = new ${entity.dto.type}();
+
+#if ($entity.isRoot() && $entity.primaryKey.isComposite())
+        dto.$entity.primaryKey.var = ${entity.model.var}.${entity.primaryKey.getter}();
+#end
+#foreach ($attribute in $entity.nonCpkAttributes.list)
+#if(!$attribute.isInFk())
+        dto.$attribute.var = ${entity.model.var}.${attribute.getter}();
+#end
+#end
+        if (depth-- > 0) {
+#foreach ($relation in $entity.xToOne.list)
+            dto.$relation.to.var = ${relation.toEntity.dtoservice.var}.toDTO(${entity.model.var}.${relation.to.getter}(), depth);
+#end
+        }
+
+        return dto;
+    }
+
+    /**
+     * Converts the passed dto to a ${entity.model.type}.
+     */
+    public $entity.model.type toEntity($entity.dto.type dto){
+        return toEntity(dto, 1);
+    }
+
+    public $entity.model.type toEntity($entity.dto.type dto, int depth) {
+        if (dto == null) {
+            return null;
+        }
+
+        $entity.model.type $entity.model.var = new ${entity.model.type}();
+
+#if ($entity.isRoot() && $entity.primaryKey.isComposite())
+        ${entity.model.var}.${entity.primaryKey.setter}(dto.id);
+#end
+#foreach ($attribute in $entity.nonCpkAttributes.list)
+#if(!$attribute.isInFk())
+        ${entity.model.var}.${attribute.setter}(dto.$attribute.var);
+#end
+#end
+        if (depth-- > 0) {
+#foreach ($relation in $entity.xToOne.list)
+            ${entity.model.var}.${relation.to.setter}(${relation.toEntity.dtoservice.var}.toEntity(dto.${relation.to.var}, depth));
+#end
+        }
+
+        return $entity.model.var;
+    }
+}

@@ -20,6 +20,7 @@ $output.require("java.math.BigInteger")##
 #if($entity.hasUniqueDateAttribute()||$entity.root.hasDatePk())
 $output.require("java.util.Date")##
 #end
+$output.require($entity.dto)##
 $output.require($entity.model)##
 $output.require($entity.root.primaryKey)##
 #foreach($enumAttribute in $entity.uniqueEnumAttributes.list)
@@ -27,11 +28,11 @@ $output.require($enumAttribute)##
 #end
 
 $output.require("${Root.packageName}.rest.support.AutoCompleteQuery")##
-$output.require("${Root.packageName}.rest.support.LazyLoadEvent")##
-$output.require("${Root.packageName}.rest.support.PageResponse")##
-$output.require("${Root.packageName}.rest.support.PageRequestByExample")##
+$output.require("${Root.packageName}.dto.support.PageResponse")##
+$output.require("${Root.packageName}.dto.support.PageRequestByExample")##
 
 $output.require($entity.repository)##
+$output.require($entity.dtoservice)##
 $output.require("java.util.List")##
 $output.require("java.net.URISyntaxException")##
 $output.require("java.net.URI")##
@@ -42,109 +43,94 @@ $output.require("javax.inject.Inject")##
 $output.require("org.slf4j.LoggerFactory")##
 $output.require("org.slf4j.Logger")##
 
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.GET")##
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.POST")##
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.PUT")##
+$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.DELETE")##
 $output.require("org.springframework.web.bind.annotation.*")##
-$output.require("org.springframework.http.MediaType")##
+$output.requireStatic("org.springframework.http.MediaType.APPLICATION_JSON_VALUE")##
 $output.require("org.springframework.http.ResponseEntity")##
 $output.require("org.springframework.web.bind.annotation.RequestBody")##
 $output.require("org.springframework.web.bind.annotation.RequestParam")##
-$output.require("org.springframework.data.domain.Example")##
-$output.require("org.springframework.data.domain.Pageable")##
-$output.require("org.springframework.data.domain.Page")##
 $output.require("org.springframework.http.HttpHeaders")##
 $output.require("org.springframework.http.HttpStatus")##
-
 
 @RestController
 @RequestMapping("/api/${entity.model.vars}")
 public class $output.currentClass{
 
-    private final Logger log=LoggerFactory.getLogger(${output.currentClass}.class);
+    private final Logger log = LoggerFactory.getLogger(${output.currentClass}.class);
 
     @Inject
     private $entity.repository.type $entity.repository.var;
+    @Inject
+    private $entity.dtoservice.type $entity.dtoservice.var;
 
     /**
-     * Create a new $entity.model.type.
+     * Create a new ${entity.model.type}.
      */
-    @RequestMapping(value = "/",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<$entity.model.type> create(@RequestBody $entity.model.type $entity.model.var) throws URISyntaxException {
-        log.debug("Create $entity.model.varUp : {}",$entity.model.var);
-        if (${entity.model.var}.getId() != null) {
-            return ResponseEntity.badRequest().header("Failure","Cannot create ${entity.model.varUp} with existing ID").body(null);
+    @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<$entity.dto.type> create(@RequestBody $entity.dto.type $entity.dto.var) throws URISyntaxException {
+        log.debug("Create $entity.dto.type : {}", $entity.dto.var);
+        if (${entity.dto.var}.isIdSet()) {
+            return ResponseEntity.badRequest().header("Failure","Cannot create ${entity.model.type} with existing ID").body(null);
         }
-        $entity.model.type result = ${entity.repository.var}.save($entity.model.var);
-        return ResponseEntity.created(new URI("/api/${entity.model.vars}/"+result.getId()))
-            .body(result);
+
+        $entity.dto.type result = ${entity.dtoservice.var}.save($entity.dto.var);
+        return ResponseEntity.
+            created(new URI("/api/${entity.model.vars}/" + result.id)).
+            body(result);
     }
 
     /**
-    * Find by id $entity.model.type.
+    * Find by id ${entity.model.type}.
     */
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<$entity.model.type> findById(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
-        log.debug("Find by id $entity.model.varsUp : {}", $entity.primaryKey.var);
+    @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<$entity.dto.type> findById(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
+        log.debug("Find by id $entity.model.type : {}", $entity.primaryKey.var);
 
-        return Optional.ofNullable(${entity.repository.var}.findOne($entity.primaryKey.var))
-            .map(${entity.model.var} -> new ResponseEntity<>(
-            ${entity.model.var},
-            HttpStatus.OK))
+        return Optional.ofNullable(${entity.dtoservice.var}.findOne($entity.primaryKey.var))
+            .map(${entity.dto.var} -> new ResponseEntity<>(${entity.dto.var}, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
-     * Update $entity.model.type.
+     * Update ${entity.model.type}.
      */
-    @RequestMapping(value = "/",
-            method = RequestMethod.PUT,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<$entity.model.type> update(@RequestBody $entity.model.type $entity.model.var) throws URISyntaxException {
-        log.debug("Update $entity.model.varUp : {}",$entity.model.var);
-        if (${entity.model.var}.getId() == null) {
-            return create(${entity.model.var});
+    @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<$entity.dto.type> update(@RequestBody $entity.dto.type $entity.dto.var) throws URISyntaxException {
+        log.debug("Update $entity.dto.type : {}", $entity.dto.var);
+        if (!${entity.dto.var}.isIdSet()) {
+            return create($entity.dto.var);
         }
-        $entity.model.type result = ${entity.repository.var}.save($entity.model.var);
-        return ResponseEntity.ok()
-            .body(result);
+        $entity.dto.type result = ${entity.dtoservice.var}.save($entity.dto.var);
+        return ResponseEntity.ok().body(result);
     }
 
     /**
-     * Find a Page of $entity.model.type.
+     * Find a Page of $entity.model.type using query by example.
      */
-    @RequestMapping(value = "/page", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PageResponse<$entity.model.type>> findAll(@RequestBody PageRequestByExample<$entity.model.type> req) throws URISyntaxException {
-        Example<$entity.model.type> example = req.toExample();
-
-        Page<$entity.model.type> page;
-        if (example != null){
-            page = ${entity.repository.var}.findAll(example, req.toPageable());
-        } else {
-            page = ${entity.repository.var}.findAll(req.toPageable());
-        }
-
-        return new ResponseEntity<>(new PageResponse<>(page), new HttpHeaders(), HttpStatus.OK);
+    @RequestMapping(value = "/page", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<PageResponse<$entity.dto.type>> findAll(@RequestBody PageRequestByExample<$entity.dto.type> prbe) throws URISyntaxException {
+        PageResponse<$entity.dto.type> pageResponse = ${entity.dtoservice.var}.findAll(prbe);
+        return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
     /**
-    * Auto complete
+    * Auto complete support.
     */
-    @RequestMapping(value = "/complete", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<$entity.model.type>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
-        List<$entity.model.type> results = ${entity.repository.var}.complete(acq.query, acq.maxResults);
+    @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<$entity.dto.type>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
+        List<$entity.dto.type> results = ${entity.dtoservice.var}.complete(acq.query, acq.maxResults);
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 
     /**
-     * Delete by id $entity.model.type.
+     * Delete by id ${}entity.model.type}.
      */
-    @RequestMapping(value = "/{id}",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
-        log.debug("Delete by id $entity.model.varsUp : {}", $entity.primaryKey.var);
+        log.debug("Delete by id $entity.model.type : {}", $entity.primaryKey.var);
         ${entity.repository.var}.delete($entity.primaryKey.var);
         return ResponseEntity.ok().build();
     }

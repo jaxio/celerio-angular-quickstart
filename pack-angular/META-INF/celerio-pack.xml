@@ -15,6 +15,8 @@
         <!--</properties>-->
         <entityContextProperties>
             <entityContextProperty property="rest" subPackage="rest" suffix="Resource"/>
+            <entityContextProperty property="dto" subPackage="dto" suffix="DTO"/>
+            <entityContextProperty property="dtoservice" subPackage="dto" suffix="DTOService"/>
         </entityContextProperties>
     </celerioTemplateContext>
 </celerioPack>

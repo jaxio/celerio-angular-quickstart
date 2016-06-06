@@ -7,6 +7,6 @@ export class PageResponse<E> {
 }
 
 export class PageRequestByExample<E> {
-    constructor(public entity : E,
+    constructor(public example : E,
                 public lazyLoadEvent : LazyLoadEvent) { }
 }

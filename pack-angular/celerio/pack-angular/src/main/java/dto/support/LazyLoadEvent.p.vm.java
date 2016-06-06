@@ -1,4 +1,4 @@
-$output.java("${Root.packageName}.rest.support","LazyLoadEvent")##
+$output.java("${Root.packageName}.dto.support","LazyLoadEvent")##
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

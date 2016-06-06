@@ -1,6 +1,6 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.ts")##
 #macro(tstype $attr)
-#if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#end
+#if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#elseif($attr.isDate()) : string#end
 #end
 ## --------------- Many to One
 #foreach ($manyToOne in $entity.manyToOne.list)
