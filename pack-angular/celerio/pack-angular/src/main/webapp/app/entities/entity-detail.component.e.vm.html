@@ -37,36 +37,36 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                 <div class="ui-grid-col-2"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
                 <div class="ui-grid-col-6">
 #if($attr.springMvc.isPassword())
-                <input type="text" pPassword [(ngModel)]="$attr.fullVar"/>
+                    <input type="text" pPassword [(ngModel)]="$attr.fullVar"/>
 #elseif($attr.isHtml())
                 todo html
 #elseif($attr.isTextArea())
-                <textarea pInputTextarea id="$attr.var" [(ngModel)]="$attr.fullVar" autoResize="true"></textarea>
+                    <textarea pInputTextarea id="$attr.var" [(ngModel)]="$attr.fullVar" autoResize="true"></textarea>
 #elseif($attr.isEnum())
-                <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$attr.fullVar"></p-dropdown>
+                    <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$attr.fullVar"></p-dropdown>
 #elseif($attr.isString())
-                <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #elseif($attr.isNumeric())
-                <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #elseif($attr.isDate() && !$attr.isVersion())
 #if($attr.isJavaUtilOnlyDate())
-                <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
 #elseif($attr.isJavaUtilDateAndTime())
                 date and time not supported yet
 #elseif($attr.isLocalDate())
-                <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
 #elseif($attr.isLocalDateTime())
-                <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm:ss" showAnim="slideDown"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm:ss" showAnim="slideDown"></p-calendar>
 #else
                 Date type not supported, do it manually and send us the solution!
 #end
 #elseif($attr.isBoolean())
-                <p-checkbox [(ngModel)]="$attr.fullVar"></p-checkbox>{{$attr.fullVar}}
+                    <p-checkbox [(ngModel)]="$attr.fullVar"></p-checkbox>{{$attr.fullVar}}
 #elseif($attr.isFile())
                 todo file updload
 #else
 
-                <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #end
                 </div>
                 <div class="ui-grid-col-4">
