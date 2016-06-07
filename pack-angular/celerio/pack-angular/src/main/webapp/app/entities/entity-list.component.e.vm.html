@@ -9,8 +9,9 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
                  selectionMode="single"
                  (onRowSelect)="onRowSelect(${dollar}event)"
                  [(selection)]="selected${entity.model.type}"
+                 [rowsPerPageOptions]="[5,10,20]"
                  [responsive]="true">
-        <header>{{header}}</header>
+        <header>{{header}} (count: {{currentPage.totalElements}})</header>
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
 #if ($attr.hasXToOneRelation())
         <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
