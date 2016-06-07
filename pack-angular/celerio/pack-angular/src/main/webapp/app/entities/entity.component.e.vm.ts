@@ -9,6 +9,9 @@ import {${entity.model.type}ListComponent} from './${entity.model.var}-list.comp
     template: `
         <h4>Hello from ${entity.model.type}Component</h4>
         <router-outlet></router-outlet>`,
+    styles: [`
+             h4 {color: green;}
+             `],
     directives: [ROUTER_DIRECTIVES],
 })
 @Routes([
