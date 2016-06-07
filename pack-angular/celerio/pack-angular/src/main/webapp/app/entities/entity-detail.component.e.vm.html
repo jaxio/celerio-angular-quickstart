@@ -43,10 +43,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isTextArea())
                 <textarea pInputTextarea id="$attr.var" [(ngModel)]="$attr.fullVar" autoResize="true"></textarea>
 #elseif($attr.isEnum())
-#foreach($enumValue in $attr.getEnumConfig().getEnumValues())
-                <div class="ui-grid-col-1"><p-radioButton name="$attr.var" value="$enumValue.name" [(ngModel)]="$attr.fullVar"></p-radioButton></div>
-                <div class="ui-grid-col-1"><label class="ui-widget">$enumValue.name</label></div>
-#end
+                <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$attr.fullVar"></p-dropdown>
 #elseif($attr.isString())
                 <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #elseif($attr.isNumeric())

@@ -2,7 +2,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { NgForm } from '@angular/common';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
-import {InputText,InputTextarea,RadioButton, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,TabView,TabPanel,Panel} from 'primeng/primeng';
+import {InputText,InputTextarea,Dropdown, SelectItem, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,TabView,TabPanel,Panel} from 'primeng/primeng';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 import {MessageService} from '../../service/message.service';
@@ -20,7 +20,7 @@ import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.
 @Component({
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
-    directives: [InputText, InputTextarea, RadioButton, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.manyToOne.list),${relation.to.type}CompleteComponent#end],
+    directives: [InputText, InputTextarea, Dropdown, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.manyToOne.list),${relation.to.type}CompleteComponent#end],
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
     $entity.model.var : $entity.model.type;
@@ -38,8 +38,18 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 #end
     @Output() onSaveClicked = new EventEmitter<$entity.model.type>();
     @Output() onCancelClicked = new EventEmitter();
+#foreach($attr in $entity.enumAttributes.list)
+    ${attr.var}Options: SelectItem[];
+#end
 
-    constructor(private router:Router, private messageService : MessageService, private ${entity.service.var}: ${entity.service.type}) { }
+    constructor(private router:Router, private messageService : MessageService, private ${entity.service.var}: ${entity.service.type}) {
+#foreach($attr in $entity.enumAttributes.list)
+        this.${attr.var}Options = [];
+#foreach($enumValue in $attr.getEnumConfig().getEnumValues())
+        this.${attr.var}Options.push({"label": "$enumValue.name", 'value': "$enumValue.name"});
+#end
+#end
+    }
 
     routerOnActivate(curr: RouteSegment): void {
         let id = curr.getParam('id');
