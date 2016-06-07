@@ -37,12 +37,13 @@ It mainly follows Maven conventions.
 
 ## 0: Get the quickstart
 
-Clone this quickstart or download it. 
+Clone this quickstart:
+
+    git clone git@github.com:jaxio/celerio-angular-quickstart.git
 
 ## 1: Generate the source code
 
-From the quickstart root folder, run:
-
+    cd celerio-angular-quickstart
     mvn -Pdb,metadata,gen generate-sources
 
 It runs Maven with the following 3 profiles (defined in the `pom.xml` file):
@@ -67,13 +68,11 @@ Note: need to be run once, you may may skip it as you regenerate over and over.
 The step 1 above has copied or generated some [TypeScript](https://www.typescriptlang.org/) files.
 You must transpile (compile) them to JavaScript.
 
-    cd src/main/webapp
     npm run tsc
 
 ## 4: Start the application
 
-From the root folder, run:
-    
+    cd ../../..
     mvn spring-boot:run
 
 Then access it at http://localhost:8080/
@@ -142,7 +141,7 @@ You may of course [report issues](https://github.com/jaxio/celerio-angular-quick
 
 ## TODOS
 
-* support LocalDateTime, blob (file upload)
+* support blob (file upload)
 * one to one relation
 * many to many relation
 * more validation
