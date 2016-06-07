@@ -2,10 +2,10 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.ts")##
 #macro(tstype $attr)
 #if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#elseif($attr.isDate()) : string#end
 #end
-## --------------- Many to One
-#foreach ($manyToOne in $entity.manyToOne.list)
-#if(!$manyToOne.to.type.equals($entity.model.type))
-import {${manyToOne.to.type}} from '../${manyToOne.toEntity.model.var}/${manyToOne.toEntity.model.var}';
+## --------------- X to One
+#foreach ($relation in $entity.xToOne.list)
+#if(!$relation.to.type.equals($entity.model.type))
+import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
 #end
 #end
 
@@ -19,11 +19,11 @@ export class $entity.model.type {
     ${attribute.var}#tstype($attribute);
 #end
 #end
-## --------------- Many to One
-#foreach ($manyToOne in $entity.manyToOne.list)
+## --------------- X to One
+#foreach ($relation in $entity.xToOne.list)
 #if ($velocityCount == 1)
-    // Many to one
+    // x-to-one
 #end
-    $manyToOne.to.var : $manyToOne.to.type;
+    $relation.to.var : $relation.to.type;
 #end
 }

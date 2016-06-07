@@ -7,7 +7,7 @@ import {${entity.model.type}LineComponent} from './${entity.model.var}-line.comp
 
 @Component({
 	template: `
-        <p-autoComplete [(ngModel)]="$entity.model.var" field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${dollar}event)" (onSelect)="select(${dollar}event)">
+        <p-autoComplete [(ngModel)]="$entity.model.var" [disabled]="disabled" placeholder="Hint: type to search..." field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${dollar}event)" (onSelect)="select(${dollar}event)">
             <template let-$entity.model.var>
                 <li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                     <${entity.model.var}-line [$entity.model.var]="$entity.model.var"></${entity.model.var}-line>
@@ -19,6 +19,7 @@ import {${entity.model.type}LineComponent} from './${entity.model.var}-line.comp
     directives: [AutoComplete,${entity.model.type}LineComponent],
 })
 export class ${entity.model.type}CompleteComponent {
+    @Input() disabled : boolean = false;
     @Input() $entity.model.var : $entity.model.type;
     @Output() input  = new EventEmitter<$entity.model.type>();
     private suggestions : ${entity.model.type}[] = [];

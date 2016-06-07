@@ -10,7 +10,7 @@ import {MessageService} from '../../service/message.service';
 import {${relation.to.type}DetailComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-detail.component';
 import {${relation.to.type}ListComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-list.component';
 #end
-#foreach ($relation in $entity.manyToOne.list)
+#foreach ($relation in $entity.xToOne.list)
 #if(!$relation.to.type.equals($entity.model.type))
 import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
 #end
@@ -20,7 +20,7 @@ import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.
 @Component({
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
-    directives: [InputText, InputTextarea, Dropdown, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.manyToOne.list),${relation.to.type}CompleteComponent#end],
+    directives: [InputText, InputTextarea, Dropdown, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.xToOne.list),${relation.to.type}CompleteComponent#end],
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
     $entity.model.var : $entity.model.type;
@@ -29,11 +29,11 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 #end
 
     @Input() sub : boolean = false;
-#foreach ($manyToOne in $entity.manyToOne.list)
+#foreach ($relation in $entity.xToOne.list)
     @Input()
-    set ${manyToOne.to.var}($manyToOne.to.var : $manyToOne.to.type) {
+    set ${relation.to.var}($relation.to.var : $relation.to.type) {
         this.$entity.model.var = new ${entity.model.type}();
-        this.${entity.model.var}.$manyToOne.to.var = $manyToOne.to.var;
+        this.${entity.model.var}.$relation.to.var = $relation.to.var;
     }
 #end
     @Output() onSaveClicked = new EventEmitter<$entity.model.type>();
@@ -64,9 +64,9 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
         }
     }
 
-#foreach ($manyToOne in $entity.manyToOne.list)
-    goto${manyToOne.to.varUp}() {
-        this.router.navigate([`/${manyToOne.toEntity.model.var}`, this.${entity.model.var}.${manyToOne.to.var}.${identifiableProperty.var}]);
+#foreach ($relation in $entity.xToOne.list)
+    goto${relation.to.varUp}() {
+        this.router.navigate([`/${relation.toEntity.model.var}`, this.${entity.model.var}.${relation.to.var}.${identifiableProperty.var}]);
     }
 #end
 
