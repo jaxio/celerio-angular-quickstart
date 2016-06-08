@@ -11,6 +11,7 @@ CREATE TABLE AUTHOR (
     civility            char(2) default 'MR',
     first_name          varchar(100) not null,
     last_name           varchar(100),
+    email               varchar(100),
     birth_date          date,
     birth_date_time     timestamp,
     favorite_author_id  int,

@@ -6,6 +6,7 @@ import {InputText,InputTextarea,Dropdown, SelectItem, Checkbox, Calendar, Passwo
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 import {MessageService} from '../../service/message.service';
+import {EmailValidator} from '../../support/email.validator';
 #foreach ($relation in $entity.oneToMany.flatUp.list)
 import {${relation.to.type}DetailComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-detail.component';
 import {${relation.to.type}ListComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-list.component';
@@ -20,7 +21,7 @@ import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.
 @Component({
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
-    directives: [InputText, InputTextarea, Dropdown, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.xToOne.list),${relation.to.type}CompleteComponent#end],
+    directives: [InputText, InputTextarea, Dropdown, EmailValidator, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.xToOne.list),${relation.to.type}CompleteComponent#end],
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
     $entity.model.var : $entity.model.type;
