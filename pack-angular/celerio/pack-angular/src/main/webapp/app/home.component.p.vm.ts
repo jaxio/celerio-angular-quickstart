@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
 @Component({
     templateUrl: 'app/home.component.html',
     styles: [`
-             h2 {color: red;}
+             h3 {color: blue;}
+             h4 {color: green;}
              `]
 })
 export class HomeComponent {

@@ -2,8 +2,8 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="currentPage.content"
                  [lazy]="true"
-                 [rows]="5"
-                 [paginator]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
                  [totalRecords]="currentPage.totalElements"
                  (onLazyLoad)="loadPage(${dollar}event)"
                  selectionMode="single"
