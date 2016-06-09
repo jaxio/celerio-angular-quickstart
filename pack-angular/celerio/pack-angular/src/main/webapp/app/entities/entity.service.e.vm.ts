@@ -12,6 +12,7 @@ export class ${entity.service.type} {
 
     constructor(private http: Http) {}
 
+    // get by id
     ${entity.model.getter}(id?) {
         return this.http.get('api/${entity.model.vars}/' + id)
             .map(response => <${entity.model.type}> response.json());
@@ -24,17 +25,27 @@ export class ${entity.service.type} {
             .map(response => <$entity.model.type> response.json());
     }
 
+    // load a page of ${entity.model.type} results
     getPage($entity.model.var : $entity.model.type, event : LazyLoadEvent) {
         let req = new PageRequestByExample($entity.model.var, event);
         let body = JSON.stringify(req);
 
         return this.http.post('api/$entity.model.vars/page', body, this.options)
-            .map(response => <PageResponse<$entity.model.type>> response.json());
+            .map(response => {
+                let pr = <PageResponse<$entity.model.type>> response.json();
+                return new PageResponse<$entity.model.type>(pr.totalPages, pr.totalElements, pr.content);
+            });
     }
 
+    // used by ${entity.model.type}CompleteComponent
     complete(query : string) {
         let body = JSON.stringify({'query': query, 'maxResults': 10});
         return this.http.post('api/$entity.model.vars/complete', body, this.options)
             .map(response => <${entity.model.type}[]> response.json());
+    }
+
+    // delete by id
+    delete(id?) {
+        return this.http.delete('api/${entity.model.vars}/' + id);
     }
 }

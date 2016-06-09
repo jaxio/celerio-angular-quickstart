@@ -92,9 +92,14 @@ export class ${entity.model.type}ListComponent {
         this.displayDeleteDialog = true;
     }
 
+    // delete + remove from current page
     delete() {
-        this.displayDeleteDialog = false;
-        this.${entity.model.var}ToDelete = null;
-        this.messageService.info('TODO... really delete it', 'PrimeNG Rocks ;-)')
+        this.${entity.service.var}.delete(this.${entity.model.var}ToDelete.${identifiableProperty.var}).
+            subscribe(response => {
+                this.currentPage.remove(this.${entity.model.var}ToDelete);
+                this.displayDeleteDialog = false;
+                this.${entity.model.var}ToDelete = null;
+                this.messageService.info('Deleted OK', 'PrimeNG Rocks ;-)');
+            });
     }
 }
