@@ -6,6 +6,8 @@ import {$entity.model.type} from './${entity.model.var}';
 import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
 import {$entity.service.type} from './${entity.model.var}.service';
 import {PageResponse} from "../../support/paging";
+import {MessageService} from '../../service/message.service';
+
 #foreach ($relation in $entity.xToOne.list)
 #if(!$relation.to.type.equals($entity.model.type))
 import {$relation.to.type} from '../$relation.toEntity.model.var/$relation.toEntity.model.var';
@@ -29,6 +31,9 @@ export class ${entity.model.type}ListComponent {
     @Input() sub : boolean;
     @Output() onAddNewClicked = new EventEmitter();
 
+    ${entity.model.var}ToDelete : $entity.model.type;
+    displayDeleteDialog : boolean;
+
     private example : $entity.model.type = null; // used to query by example...
 
     // list is paginated
@@ -44,7 +49,7 @@ export class ${entity.model.type}ListComponent {
     private _$relation.to.var : $relation.to.type;
 #end
 
-    constructor(private router:Router, private $entity.service.var : $entity.service.type) { }
+    constructor(private router:Router, private $entity.service.var : $entity.service.type, private messageService : MessageService) { }
 
     loadPage(event : LazyLoadEvent) {
         this.${entity.service.var}.getPage(this.example, event).
@@ -80,5 +85,16 @@ export class ${entity.model.type}ListComponent {
         } else {
             this.router.navigate(['/${entity.model.var}', 'new']);
         }
+    }
+
+    showDeleteDialog(rowData) {
+        this.${entity.model.var}ToDelete = <$entity.model.type> rowData;
+        this.displayDeleteDialog = true;
+    }
+
+    delete() {
+        this.displayDeleteDialog = false;
+        this.${entity.model.var}ToDelete = null;
+        this.messageService.info('TODO... really delete it', 'PrimeNG Rocks ;-)')
     }
 }
