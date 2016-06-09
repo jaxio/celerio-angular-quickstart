@@ -1,10 +1,10 @@
-## CRUD web app leveraging Angular 2 / PrimeNG / SpringBoot / Spring Data 
+## Generate an Angular 2 / Prime NG / Spring Boot / Spring Data project
 
 From an existing relational database, generate an Angular 2 CRUD web application.
 
 This quickstart comes with an H2 database example, but you may try it with your own database schema (scroll down).
 
-# Generate it and run it (short version)
+## Generate it and run it (short version)
 
 Assuming, JDK 8, Maven 3 and NPM are already installed:
 
