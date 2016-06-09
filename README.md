@@ -41,11 +41,9 @@ Some useful references:
 
 It mainly follows Maven conventions.
 
-* `pack-angular`: contains Celerio dynamic Templates (interpreted by Celerio Engine). If you want to help us write templates, please take a look at [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html) 
-* `pack-angular-static`: static files that Celerio copies as is.
+* `pack-angular`: contains Celerio dynamic/static Templates (interpreted/copied by Celerio Engine). If you want to help us write templates, please take a look at [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html) 
 * `src/main/config`: contains Celerio conf
 * `src/main/sql/h2`: contains [sample SQL script](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql) that get reversed... you may add more tables/columns.
-
 
 # Generate it and run it (long version)
 
