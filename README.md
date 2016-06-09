@@ -1,8 +1,27 @@
-## Generate an Angular 2 / PrimeNG / SpringBoot CRUD web app
+## CRUD web app leveraging Angular 2 / PrimeNG / SpringBoot / Spring Data 
 
 From an existing relational database, generate an Angular 2 CRUD web application.
 
-This quickstart comes with an H2 database example, but you may try it with your own database schema (explained below).
+This quickstart comes with an H2 database example, but you may try it with your own database schema (scroll down).
+
+# Generate it and run it (short version)
+
+Assuming, JDK 8, Maven 3 and NPM are already installed:
+
+From a console, run:
+
+    git clone git@github.com:jaxio/celerio-angular-quickstart.git
+    cd celerio-angular-quickstart
+    mvn -Pdb,metadata,gen generate-sources
+    cd src/main/webapp
+    npm install
+    npm run tsc
+    cd ../../..
+    mvn spring-boot:run
+
+Then access it at http://localhost:8080/
+
+## Technology used
 
 The generated source code relies on:
 
@@ -18,12 +37,6 @@ Some useful references:
 * [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart)
 * [Angular2 quickstart](https://angular.io/docs/ts/latest/quickstart.html)
 
-## Prerequisites
-
-* JDK 8
-* Maven 3
-* NPM
-
 ## Folders' organization
 
 It mainly follows Maven conventions.
@@ -33,7 +46,8 @@ It mainly follows Maven conventions.
 * `src/main/config`: contains Celerio conf
 * `src/main/sql/h2`: contains [sample SQL script](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql) that get reversed... you may add more tables/columns.
 
-# HOW-TO RUN IT
+
+# Generate it and run it (long version)
 
 ## 0: Get the quickstart
 
