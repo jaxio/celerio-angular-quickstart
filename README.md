@@ -18,7 +18,8 @@ Generation templates are located in the `pack-angular` folder, they are written 
 
 * [Generate it and run it (short version)](#generate-it-and-run-it)
 * [Technology used by the generated app](#technology-used-by-the-generated-app)
-* [Generate it and run it (with explanations)](#generate-it-and-run-it-decomposed)
+* [Project structure](#project-structure)
+* [Generate it and run it decomposed](#generate-it-and-run-it-decomposed)
 * [Delete all generated files](#delete-all-generated-files)
 * [How-to use your own database](#how-to-use-your-own-database)
 * [Contribute](#contribute)
@@ -56,24 +57,31 @@ Some useful references:
 * [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart)
 * [Angular2 quickstart](https://angular.io/docs/ts/latest/quickstart.html)
 
-## Folders' organization
+## Project structure
 
-It mainly follows Maven's conventions.
+Project mainly follows Maven's conventions.
 
 * `pom.xml` Maven POM file
 * `src/main/config`: contains Celerio conf
 * `src/main/sql/h2`: contains [sample SQL script](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql) that get reversed... you may add more tables/columns.
 * `pack-angular`: contains Celerio dynamic/static Templates (interpreted/copied by Celerio Engine). If you want to help us write templates, please take a look at [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html) 
 
-# Generate it and run it decomposed
+After running the code generation, you get more folders:
 
-## 0: Get the quickstart
+* `src/main/webapp/app`: the front end Angular components etc...
+* `src/main/generated-java`: the backend, in Java
+* etc...
+ 
+
+## Generate it and run it decomposed
+
+### 0: Get the quickstart
 
 Clone this quickstart:
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
 
-## 1: Generate the source code
+### 1: Generate the source code
 
     cd celerio-angular-quickstart
     mvn -Pdb,metadata,gen generate-sources
@@ -88,28 +96,28 @@ For example, the template [entity.service.e.vm.ts](https://github.com/jaxio/cele
 leads to the creation of 1 file per entity: `src/main/webapp/app/entities/xxx/xxx.service.ts
 
 
-## 2: Install JavaScript dependencies
+### 2: Install JavaScript dependencies
 
     cd src/main/webapp
     npm install
 
 Note: need to be run once, you may may skip it as you regenerate over and over. 
 
-## 3: Compile TypeScript files
+### 3: Compile TypeScript files
 
 The step 1 above has copied or generated some [TypeScript](https://www.typescriptlang.org/) files.
 You must transpile (compile) them to JavaScript.
 
     npm run tsc
 
-## 4: Start the application
+### 4: Start the application
 
     cd ../../..
     mvn spring-boot:run
 
 Then access it at http://localhost:8080/
 
-# Delete all generated files
+## Delete all generated files
 
 When developing templates, you often need to delete the generated files.
 To do so, from the root folder, simply run:
@@ -118,15 +126,15 @@ To do so, from the root folder, simply run:
 
 Note that it won't delete any generated file that was manually modified.
 
-# How-to use your own database
+## How-to use your own database
 
 `DO NOT TRY THIS WITH YOUR PRODUCTION DATABASE`
 
-## 1: Clean up
+### 1: Clean up
  
 Make sure your project is clean. Delete all previously generated files.
 
-## 2: Edit pom.xml
+### 2: Edit pom.xml
 
 You need to edit the [pom.xml](https://github.com/jaxio/celerio-angular-quickstart/blob/master/pom.xml) and change the JDBC settings
 in order for Celerio to connect to your database and extract its metadata and for you application to access the database.
@@ -135,7 +143,7 @@ Search for `CHANGE THE PROPERTIES BELOW TO USE YOUR OWN DATABASE`.
 Since you don't need to create the database, there is no need to activate the `db` profile. 
 Make sure you comment it in your `pom.xml` to avoid any surprise.
 
-## 3: Reverse your database 
+### 3: Reverse your database 
 
 To reverse your database, run:
 
@@ -143,20 +151,20 @@ To reverse your database, run:
     
 If all goes well it creates the file `metadata.xml` under `src/main/config/celerio-maven-plugin`.
 
-## 4: Edit celerio-maven-plugin.xml
+### 4: Edit celerio-maven-plugin.xml
 
 Edit the `src/main/config/celerio-maven-plugin/celerio-maven-plugin.xml` configuration file and comment or modify 
 the `<entity-configs>` and `<sharedEnumConfigs>`. These are database schema specific conf.
 
 Please refer to [Celerio Configuration](http://www.jaxio.com/documentation/celerio/configuration.html) for more info.
 
-## 5: Generate the source code
+### 5: Generate the source code
 
 To generate the source code, run:
 
     mvn -Pgen generate-sources
 
-## 6: follow same steps as above
+### 6: follow same steps as above
 
 Follow the steps 2-3-4 from the `HOW TO RUN` section.
 
