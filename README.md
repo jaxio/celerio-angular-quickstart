@@ -2,7 +2,7 @@
 
 From an existing relational database, generate an Angular 2 CRUD web application.
 
-This quickstart comes with an H2 database example, but you may try it with your [own database schema](#how-to-use-your-own-database).
+This quickstart comes with an [H2 database example](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql), but you may try it with your [own database schema](#how-to-use-your-own-database).
 
 Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source code generator.
 
@@ -178,13 +178,3 @@ You may contribute in several ways:
 * By using the generated app and trying to find its limits
 
 You may of course [report issues](https://github.com/jaxio/celerio-angular-quickstart/issues) and/or submit pull requests.
-
-## TODOS
-
-* support blob (file upload)
-* one to one relation
-* many to many relation
-* more validation
-* i18n
-* security
-* etc.
