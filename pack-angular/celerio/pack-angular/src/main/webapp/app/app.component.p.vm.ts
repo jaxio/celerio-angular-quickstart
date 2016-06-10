@@ -18,7 +18,7 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
         <div class="ui-g">
             <div class="ui-g-12 ui-md-1">The West...</div>
             <div class="ui-g-12 ui-md-11 ui-g-nopad">
-                <div class="ui-g-12">
+                <div class="ui-g-12 ui-g-nopad">
                     <p-menubar [model]="items"></p-menubar>
                 </div>
                 <div class="ui-g-12 ui-g-nopad">
