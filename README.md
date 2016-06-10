@@ -1,10 +1,29 @@
-## Generate an Angular 2 / Prime NG / Spring Boot / Spring Data project
+# Celerio Angular Quickstart
 
 From an existing relational database, generate an Angular 2 CRUD web application.
 
-This quickstart comes with an H2 database example, but you may try it with your own database schema (scroll down).
+This quickstart comes with an H2 database example, but you may try it with your [own database schema](#how-to-use-your-own-database).
 
-## Generate it and run it (short version)
+Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source code generator.
+
+Generation templates are located in the `pack-angular` folder, they are written in Velocity.
+
+## Prerequisites
+
+* Java Development Kit (jdk) 8
+* Maven 3
+* Npm
+
+## Table of Contents
+
+* [Generate it and run it (short version)](#generate-it-and-run-it)
+* [Technology used by the generated app](#technology-used-by-the-generated-app)
+* [Generate it and run it (with explanations)](#generate-it-and-run-it-decomposed)
+* [Delete all generated files](#delete-all-generated-files)
+* [How-to use your own database](#how-to-use-your-own-database)
+* [Contribute](#contribute)
+
+## Generate it and run it
 
 Assuming, JDK 8, Maven 3 and NPM are already installed:
 
@@ -21,7 +40,7 @@ From a console, run:
 
 Then access it at http://localhost:8080/
 
-## Technology used
+## Technology used by the generated app
 
 The generated source code relies on:
 
@@ -39,13 +58,14 @@ Some useful references:
 
 ## Folders' organization
 
-It mainly follows Maven conventions.
+It mainly follows Maven's conventions.
 
-* `pack-angular`: contains Celerio dynamic/static Templates (interpreted/copied by Celerio Engine). If you want to help us write templates, please take a look at [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html) 
+* `pom.xml` Maven POM file
 * `src/main/config`: contains Celerio conf
 * `src/main/sql/h2`: contains [sample SQL script](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql) that get reversed... you may add more tables/columns.
+* `pack-angular`: contains Celerio dynamic/static Templates (interpreted/copied by Celerio Engine). If you want to help us write templates, please take a look at [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html) 
 
-# Generate it and run it (long version)
+# Generate it and run it decomposed
 
 ## 0: Get the quickstart
 
@@ -89,7 +109,7 @@ You must transpile (compile) them to JavaScript.
 
 Then access it at http://localhost:8080/
 
-## (optional): delete all generated files
+# Delete all generated files
 
 When developing templates, you often need to delete the generated files.
 To do so, from the root folder, simply run:
@@ -98,9 +118,9 @@ To do so, from the root folder, simply run:
 
 Note that it won't delete any generated file that was manually modified.
 
-# HOW-TO USE YOUR OWN DATABASE
+# How-to use your own database
 
-DO NOT TRY THIS WITH YOUR PRODUCTION DATABASE.
+`DO NOT TRY THIS WITH YOUR PRODUCTION DATABASE`
 
 ## 1: Clean up
  
