@@ -21,7 +21,7 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
                 <div class="ui-g-12 ui-g-nopad">
                     <p-menubar [model]="items"></p-menubar>
                 </div>
-                <div class="ui-g-12 ui-g-nopad">
+                <div class="ui-g-12">
                     <router-outlet></router-outlet>
                 </div>
                 <div class="ui-g-12" style="text-align: center;">
@@ -32,8 +32,8 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
                `,
     styles:[`
         .ui-g div {
-            background-color: #f5f7f8;
-            border: 1px solid white;
+            background-color: white;
+            border: 1px solid #f5f7f8;
         }
     `],
     directives: [ROUTER_DIRECTIVES, Menubar, Growl],
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
         this.items = [
             { label: 'Home', url : "/", icon: 'fa-home' },
 
-            { label: 'Entities', icon: 'fa-binoculars', items: [
+            { label: 'Entities', icon: 'fa-search', items: [
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
                 {label: '${entity.model.type} List', routerLink: ['/${entity.model.var}']}#if($velocityHasNext),
 #end
