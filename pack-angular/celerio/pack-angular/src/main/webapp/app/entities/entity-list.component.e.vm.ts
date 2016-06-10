@@ -75,7 +75,7 @@ export class ${entity.model.type}ListComponent {
     }
 
 #end
-    onRowSelect(event) {
+    onRowSelect(event : any) {
         this.router.navigate(['/${entity.model.var}', event.data.${identifiableProperty.var}]);
     }
 
@@ -87,7 +87,7 @@ export class ${entity.model.type}ListComponent {
         }
     }
 
-    showDeleteDialog(rowData) {
+    showDeleteDialog(rowData : any) {
         this.${entity.model.var}ToDelete = <$entity.model.type> rowData;
         this.displayDeleteDialog = true;
     }

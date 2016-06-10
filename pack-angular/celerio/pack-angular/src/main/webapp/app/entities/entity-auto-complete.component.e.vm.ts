@@ -74,7 +74,7 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
         this._onTouchedCallback = fn;
     }
 
-    complete(event) {
+    complete(event:any) {
         this.${entity.service.var}.complete(event.query).subscribe(
             results => this.suggestions = results,
             error => console.error(error));

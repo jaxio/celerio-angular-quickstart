@@ -13,7 +13,7 @@ export class ${entity.service.type} {
     constructor(private http: Http) {}
 
     // get by id
-    ${entity.model.getter}(id?) {
+    ${entity.model.getter}(id : any) {
         return this.http.get('api/${entity.model.vars}/' + id)
             .map(response => <${entity.model.type}> response.json());
     }
@@ -45,7 +45,7 @@ export class ${entity.service.type} {
     }
 
     // delete by id
-    delete(id?) {
+    delete(id : any) {
         return this.http.delete('api/${entity.model.vars}/' + id);
     }
 }
