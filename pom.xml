@@ -105,13 +105,19 @@
             <artifactId>hibernate-java8</artifactId>
             <version>5.0.2.Final</version>
         </dependency>
+        <!-- Celerio code completion support in velocity templates -->
+        <!-- See pack-angular/META-INF/velocity_implicit.vm -->
         <dependency>
-            <!-- Celerio code completion support in velocity templates -->
-            <!-- See pack-angular/META-INF/velocity_implicit.vm -->
             <groupId>com.jaxio.celerio</groupId>
             <artifactId>celerio-engine</artifactId>
             <version>4.0.5</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -224,6 +230,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>com.jaxio.celerio</groupId>
+                            <artifactId>celerio-engine</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <plugin>

@@ -1,7 +1,9 @@
 #* @implicitly included *#
-
+##
+##  HELPER FOR CODE COMPLETION IN VELOCITY TEMPLATES
+##  see https://www.jetbrains.com/help/idea/2016.1/template-languages-velocity-and-freemarker.html#d742870e210
+##
 ## for all templates
-#* @vtlvariable name="output" type="com.jaxio.celerio.template.TemplateExecution" *#
 #* @vtlvariable name="output" type="com.jaxio.celerio.template.TemplateExecution" *#
 #* @vtlvariable name="identifiableProperty" type="com.jaxio.celerio.util.IdentifiableProperty" *#
 #* @vtlvariable name="project" type="com.jaxio.celerio.model.Project" *#
