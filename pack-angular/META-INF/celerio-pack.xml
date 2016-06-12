@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <celerioPack xmlns="http://www.jaxio.com/schema/celerio">
     <packName value="pack-angular"/>
-    <packDescription value="Generate Angular app backend"/>
+    <packDescription value="Generate Angular app and backend"/>
     <packDescription2 value=""/>
     <packCommand value="mvn -Pdb,metadata,gen generate-sources"/>
     <packCommandHelp value=""/>

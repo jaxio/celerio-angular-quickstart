@@ -1,0 +1,23 @@
+#* @implicitly included *#
+
+## for all templates
+#* @vtlvariable name="output" type="com.jaxio.celerio.template.TemplateExecution" *#
+#* @vtlvariable name="output" type="com.jaxio.celerio.template.TemplateExecution" *#
+#* @vtlvariable name="identifiableProperty" type="com.jaxio.celerio.util.IdentifiableProperty" *#
+#* @vtlvariable name="project" type="com.jaxio.celerio.model.Project" *#
+#* @vtlvariable name="brand" type="com.jaxio.celerio.Brand" *#
+#* @vtlvariable name="brandUtil" type="com.jaxio.celerio.util.BrandUtil" *#
+#* @vtlvariable name="config" type="com.jaxio.celerio.Config" *#
+#* @vtlvariable name="configuration" type="com.jaxio.celerio.configuration.Configuration" *#
+#* @vtlvariable name="generation" type="com.jaxio.celerio.configuration.Generation" *#
+#* @vtlvariable name="databaseInfo" type="com.jaxio.celerio.configuration.database.DatabaseInfo" *#
+#* @vtlvariable name="jdbcConnectivity" type="com.jaxio.celerio.configuration.database.JdbcConnectivity" *#
+#* @vtlvariable name="metadata" type="com.jaxio.celerio.configuration.database.Metadata" *#
+#* @vtlvariable name="pack" type="com.jaxio.celerio.template.pack.TemplatePackInfo" *#
+
+## For each 'entity' template
+#* @vtlvariable name="entity" type="com.jaxio.celerio.model.Entity" *#
+#* @vtlvariable name="primaryKey" type="com.jaxio.celerio.model.PrimaryKey" *#
+
+## For each 'enum' template
+#* @vtlvariable name="enum" type="com.jaxio.celerio.model.EnumType" *#
