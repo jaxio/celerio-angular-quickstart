@@ -49,6 +49,19 @@ $output.require($relation.toEntity.model) ##
 #end
 #end
 #end
+#foreach ($relation in $entity.manyToMany.list)
+#if(!$relation.to.type.equals($entity.model.type))
+#if($output.requireFirstTime($relation.toEntity.dtoservice))
+    @Inject
+    private $relation.toEntity.dtoservice.type $relation.toEntity.dtoservice.var;
+#end
+#if($output.requireFirstTime($relation.toEntity.repository))
+$output.require($relation.toEntity.model) ##
+    @Inject
+    private $relation.toEntity.repository.type $relation.toEntity.repository.var;
+#end
+#end
+#end
 
     @Transactional(readOnly = true)
     public $entity.dto.type findOne($entity.primaryKey.type $entity.primaryKey.var) {
@@ -113,6 +126,14 @@ $output.require($relation.toEntity.model) ##
             }
         }
 #end
+#foreach ($relation in $entity.manyToMany.list)
+
+        ${entity.model.var}.${relation.to.getters}().clear();
+        if (dto.$relation.to.vars != null) {
+            dto.${relation.to.vars}.stream().forEach(
+                $relation.to.var -> ${entity.model.var}.${relation.to.adder}(${relation.toEntity.repository.var}.findOne(${relation.to.var}.id)));
+        }
+#end
 
         return toDTO(${entity.repository.var}.save($entity.model.var));
     }
@@ -156,6 +177,16 @@ $output.require($relation.toEntity.model) ##
             dto.$relation.to.var = ${relation.toEntity.dtoservice.var}.toDTO(${entity.model.var}.${relation.to.getter}(), depth);
 #end
 #end
+#foreach ($relation in $entity.manyToMany.list)
+            final int fdepth = depth;
+#if($relation.to.type.equals($entity.model.type))
+            dto.$relation.to.vars = ${entity.model.var}.${relation.to.getters}().stream().
+                map($relation.to.var -> toDTO($relation.to.var, fdepth)).collect(Collectors.toList());
+#else
+            dto.$relation.to.vars = ${entity.model.var}.${relation.to.getters}().stream().
+                map($relation.to.var -> ${relation.toEntity.dtoservice.var}.toDTO($relation.to.var, fdepth)).collect(Collectors.toList());
+#end
+#end
         }
 
         return dto;
@@ -163,11 +194,16 @@ $output.require($relation.toEntity.model) ##
 
     /**
      * Converts the passed dto to a ${entity.model.type}.
+     * Convenient for query by example.
      */
     public $entity.model.type toEntity($entity.dto.type dto){
         return toEntity(dto, 1);
     }
 
+    /**
+    * Converts the passed dto to a ${entity.model.type}.
+    * Convenient for query by example.
+    */
     public $entity.model.type toEntity($entity.dto.type dto, int depth) {
         if (dto == null) {
             return null;

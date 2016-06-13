@@ -2,7 +2,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { NgForm } from '@angular/common';
 import { Router, OnActivate, RouteSegment } from '@angular/router';
-import {InputText,InputTextarea,Dropdown, SelectItem, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,TabView,TabPanel,Panel} from 'primeng/primeng';
+import {InputText,InputTextarea,Dropdown, SelectItem, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,PickList,TabView,TabPanel,Panel} from 'primeng/primeng';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 import {MessageService} from '../../service/message.service';
@@ -10,6 +10,10 @@ import {EmailValidator} from '../../support/email.validator';
 #foreach ($relation in $entity.oneToMany.flatUp.list)
 import {${relation.to.type}DetailComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-detail.component';
 import {${relation.to.type}ListComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-list.component';
+#end
+#foreach ($relation in $entity.manyToMany.flatUp.list)
+import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
+import {${relation.toEntity.service.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}.service';
 #end
 #foreach ($relation in $entity.xToOne.list)
 #if(!$relation.to.type.equals($entity.model.type))
@@ -21,12 +25,17 @@ import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.
 @Component({
 	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
-    directives: [InputText, InputTextarea, Dropdown, EmailValidator, Checkbox, Calendar, Password, DataTable, Button, Dialog, Column, Header, Footer, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.xToOne.list),${relation.to.type}CompleteComponent#end],
+    directives: [InputText, InputTextarea, Dropdown, EmailValidator,
+        Checkbox, Calendar, Password, DataTable, Button, Dialog, Column,
+        Header, Footer, PickList, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.xToOne.list),${relation.to.type}CompleteComponent#{end}],
 })
 export class ${entity.model.type}DetailComponent implements OnActivate {
     $entity.model.var : $entity.model.type;
 #foreach ($relation in $entity.oneToMany.flatUp.list)
     show$relation.to.varsUp : boolean = true;
+#end
+#foreach ($relation in $entity.manyToMany.list)
+    source$relation.to.varsUp : ${relation.toEntity.model.type}[] = [];
 #end
 
     @Input() sub : boolean = false;
@@ -43,12 +52,17 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
     ${attr.var}Options: SelectItem[];
 #end
 
-    constructor(private router:Router, private messageService : MessageService, private ${entity.service.var}: ${entity.service.type}) {
+    constructor(private router : Router, private messageService : MessageService, private ${entity.service.var} : ${entity.service.type}#foreach ($relation in $entity.manyToMany.list), private ${relation.toEntity.service.var} : ${relation.toEntity.service.type}#end) {
 #foreach($attr in $entity.enumAttributes.list)
         this.${attr.var}Options = [];
 #foreach($enumValue in $attr.getEnumConfig().getEnumValues())
         this.${attr.var}Options.push({"label": "$enumValue.name", 'value': "$enumValue.name"});
 #end
+#end
+#foreach ($relation in $entity.manyToMany.list)
+        ${relation.toEntity.service.var}.complete(null).
+            subscribe($relation.to.vars => this.source$relation.to.varsUp = $relation.to.vars,
+                        error =>  this.messageService.error('Error: ' + error, 'PrimeNG Rocks ;-)'));
 #end
     }
 

@@ -8,6 +8,12 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.ts")##
 import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
 #end
 #end
+## --------------- Many to Many
+#foreach ($relation in $entity.manyToMany.list)
+#if(!$relation.to.type.equals($entity.model.type))
+import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
+#end
+#end
 
 export class $entity.model.type {
 ## --------------- Raw attributes (exception the one involved in XtoOneRelation)
@@ -25,5 +31,12 @@ export class $entity.model.type {
     // x-to-one
 #end
     $relation.to.var : $relation.to.type;
+#end
+## --------------- X to One
+#foreach ($relation in $entity.manyToMany.list)
+#if ($velocityCount == 1)
+// many-to-many
+#end
+$relation.to.vars : ${relation.to.type}[];
 #end
 }

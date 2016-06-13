@@ -27,6 +27,11 @@
 
     <!-- CHANGE IT OR COMMENT IT IF YOU USE YOUR OWN DATABASE -->
     <entityConfigs>
+        <entityConfig tableName="USER">
+            <columnConfigs>
+                <columnConfig columnName="civility" sharedEnumName="Civility"/>
+            </columnConfigs>
+        </entityConfig>
         <entityConfig tableName="AUTHOR">
             <columnConfigs>
                 <columnConfig columnName="civility" sharedEnumName="Civility"/>

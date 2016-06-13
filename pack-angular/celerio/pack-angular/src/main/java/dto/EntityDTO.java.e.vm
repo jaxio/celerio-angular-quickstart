@@ -29,9 +29,12 @@ $output.require($attribute)##
     public $attribute.type $attribute.var;
 #end
 #end
-
 #foreach ($relation in $entity.xToOne.list)
     public $relation.toEntity.dto.type $relation.to.var;
+#end
+#foreach ($relation in $entity.manyToMany.list)
+$output.require("java.util.List");
+    public List<$relation.toEntity.dto.type> $relation.to.vars;
 #end
 
     $output.dynamicAnnotation("com.fasterxml.jackson.annotation.JsonIgnore")##

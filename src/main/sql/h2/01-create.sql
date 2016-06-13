@@ -6,6 +6,42 @@ DROP ALL OBJECTS;
 
 CREATE SEQUENCE hibernate_sequence START WITH 1000;
 
+
+CREATE TABLE USER (
+    id                       int not null IDENTITY,
+    login                    varchar(100) not null,
+    password                 varchar(100) not null,
+    email                    varchar(100),
+    is_enabled               bool not null default true,
+    civility                 char(2) default 'MR',
+    first_name               varchar(100),
+    last_name                varchar(100),
+    version                  int default 0,
+
+    constraint user_unique_1 unique (login),
+    primary key (id)
+);
+
+COMMENT ON TABLE USER IS 'The User is a human that can connect to this web application';
+COMMENT ON COLUMN USER.LOGIN IS 'The login used to login';
+
+CREATE TABLE ROLE (
+    id              int not null IDENTITY,
+    role_name       varchar(100) not null,
+    constraint role_unique_1 unique (role_name),
+    primary key (id)
+);
+
+CREATE TABLE USER_ROLE (
+    user_id     int not null,
+    role_id     int not null,
+
+    constraint user_role_fk_1 foreign key (user_id) references USER,
+    constraint user_role_fk_2 foreign key (role_id) references ROLE,
+    primary key (user_id, role_id)
+);
+
+
 CREATE TABLE AUTHOR (
     id                  int not null IDENTITY,
     civility            char(2) default 'MR',
@@ -44,6 +80,17 @@ CREATE TABLE PROJECT (
     constraint project_fk_1 foreign key (author_id) references AUTHOR,
     primary key (id)
 );
+
+
+INSERT INTO USER (id, login, password, email, is_enabled, version) VALUES (-1, 'admin', 'admin', 'admin@example.com', true, 1);
+
+INSERT INTO ROLE (id, role_name) VALUES (-1, 'ROLE_ADMIN');
+INSERT INTO ROLE (id, role_name) VALUES (-2, 'ROLE_USER');
+INSERT INTO ROLE (id, role_name) VALUES (-3, 'ROLE_MONITORING');
+
+INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -1);
+INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -2);
+INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -3);
 
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (1,  'John01', 'Doe01');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (2,  'John02', 'Doe02');
