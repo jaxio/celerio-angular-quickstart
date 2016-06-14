@@ -25,7 +25,8 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
                     <router-outlet></router-outlet>
                 </div>
                 <div class="ui-g-12" style="text-align: center;">
-                    <a href="https://github.com/jaxio/celerio-angular-quickstart">https://github.com/jaxio/celerio-angular-quickstart</a>
+                    <i class="fa fa-twitter"></i> <a href="https://twitter.com/jaxiosoft">@jaxiosoft</a> -
+                    <i class="fa fa-github-alt"></i> <a href="https://github.com/jaxio/celerio-angular-quickstart">https://github.com/jaxio/celerio-angular-quickstart</a>
                 </div>
             </div>
         </div>
