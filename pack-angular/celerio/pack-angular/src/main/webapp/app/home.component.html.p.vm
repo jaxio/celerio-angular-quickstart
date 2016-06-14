@@ -39,7 +39,7 @@ $output.webapp("app/home.component.html")##
             <img src="img/springdata.gif" width="auto" height="50px"/>
         </div>
         <div class="ui-g-4">
-            <h4>You...</h4>
+            <img src="img/jaxio.gif" width="auto" height="50px"/>
         </div>
     </div>
 
@@ -59,7 +59,7 @@ $output.webapp("app/home.component.html")##
         </div>
         <div class="ui-g-4">
             <p>
-                We generated the basic UI/backend blocks from your data schema... it is up to you to make a great application or simply learn from the generated code.
+                Celerio, by Jaxio, the Open Source code generator used to generate this project.
             </p>
         </div>
     </div>
