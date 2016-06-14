@@ -20,10 +20,10 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
             </template>
         </p-column>
 #else
-        <p-column field="$attr.var" header="$attr.varUp" sortable="true"></p-column>
+        <p-column field="$attr.var" header="$attr.labels.label" sortable="true"></p-column>
 #end
 #end
-        <p-column styleClass="col-button">
+        <p-column styleClass="col-icon">
             <template let-$entity.model.var="rowData">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog($entity.model.var)" style="float:left"></button>
             </template>
@@ -39,7 +39,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
         <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="${entity.model.var}ToDelete">
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
             <div class="ui-grid-row" *ngIf="${entity.model.var}ToDelete.${attr.var}">
-                <div class="ui-grid-col-4">${attr.varUp}:</div>
+                <div class="ui-grid-col-4">${attr.labels.label}:</div>
                 <div class="ui-grid-col-8">{{ ${entity.model.var}ToDelete.${attr.var} }}</div>
             </div>
 #end

@@ -2,12 +2,12 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 ## -- [MACRO]
 #macro(xToOneEdit $relation)
             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="$relation.to.var">$relation.to.varUp</label></div>
+                <div class="ui-grid-col-2"><label for="$relation.to.var">$relation.labels.label</label></div>
                 <div class="ui-grid-col-4">
                     <${relation.toEntity.model.var}-auto-complete [(ngModel)]="${entity.model.var}.${relation.to.var}" [disabled]="sub"></${relation.toEntity.model.var}-auto-complete>
                 </div>
                 <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="$relation.to.var" type="button" (click)="goto${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" label="Edit"></button>
+                    <button pButton id="$relation.to.var" type="button" (click)="goto${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-pencil" label="Edit"></button>
                 </div>
             </div>
 #end
@@ -34,7 +34,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #set( $valuePath = "${entity.model.var}.${attr.var}")##
 #end
             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="$attr.var">$attr.varUp #asterisk($attr)</label></div>
+                <div class="ui-grid-col-2"><label for="$attr.var">$attr.labels.label #asterisk($attr)</label></div>
                 <div class="ui-grid-col-6">
 #if($attr.springMvc.isPassword())
                     <input type="password" pPassword [(ngModel)]="$attr.fullVar"/>
@@ -100,10 +100,10 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 ## ---------------------------------------------------------
             <div class="ui-grid-row">
                 <div class="ui-grid-col-1" *ngIf="sub">
-                    <button pButton type="button" (click)="onCancel()" label="Cancel"></button>
+                    <button pButton type="button" (click)="onCancel()" icon="fa-ban" label="Cancel"></button>
                 </div>
                 <div class="ui-grid-col-1">
-                    <button pButton type="button" (click)="onSave()" label="Save" [disabled]="!${entity.model.var}Form.form.valid"></button>
+                    <button pButton type="button" (click)="onSave()" icon="fa-floppy-o" label="Save" [disabled]="!${entity.model.var}Form.form.valid"></button>
                 </div>
             </div>
         </div>
