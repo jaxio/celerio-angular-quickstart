@@ -78,10 +78,14 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
                 error =>  this.messageService.error('Error: ' + error, 'PrimeNG Rocks ;-)'));
         }
     }
-
 #foreach ($relation in $entity.xToOne.list)
+
     goto${relation.to.varUp}() {
         this.router.navigate([`/${relation.toEntity.model.var}`, this.${entity.model.var}.${relation.to.var}.${identifiableProperty.var}]);
+    }
+
+    clear${relation.to.varUp}() {
+        this.${entity.model.var}.${relation.to.var} = null;
     }
 #end
 

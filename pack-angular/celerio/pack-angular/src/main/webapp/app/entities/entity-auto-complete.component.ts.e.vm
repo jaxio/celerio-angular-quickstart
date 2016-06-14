@@ -16,7 +16,7 @@ const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR = 
 
 @Component({
 	template: `
-        <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${dollar}event)">
+        <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${dollar}event)" (onSelect)="select(${dollar}event)">
             <template let-$entity.model.var>
                 <li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
                     <${entity.model.var}-line [$entity.model.var]="$entity.model.var"></${entity.model.var}-line>
@@ -48,10 +48,10 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
 
     //set accessor including call the onchange callback
     set value(v: any) {
-        if (<$entity.model.type> v !== this._value) {
-            this._value = <$entity.model.type> v;
-            this._onChangeCallback(v);
+        if (this._value != null && (v == null || v == "")) {
+            this.select(null);
         }
+        // nop, see writeValue and select method
     }
 
     //Set touched on blur
@@ -78,5 +78,10 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
         this.${entity.service.var}.complete(event.query).subscribe(
             results => this.suggestions = results,
             error => console.error(error));
+    }
+
+    select(v : any) {
+        this._value = v;
+        this._onChangeCallback(v);
     }
 }
