@@ -45,9 +45,11 @@ Then access it at http://localhost:8080/
 
 The generated source code relies on:
 
-* [Angular 2](http://angular.io/)
+* [Angular 2](http://angular.io/) web framework
+* [TypeScript](https://www.typescriptlang.org/)
 * [PrimeNG](http://primefaces.org/primeng/)
 * [Spring Boot](http://projects.spring.io/spring-boot/)
+* [Spring Security](http://projects.spring.io/spring-security/)
 * [Spring Data JPA](http://projects.spring.io/spring-data-jpa/)
 
 Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio), our Open Source code generator.
