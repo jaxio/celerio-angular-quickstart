@@ -1,0 +1,77 @@
+$output.java("${configuration.rootPackage}.config", "SecurityConfiguration")##
+
+$output.require("org.springframework.context.annotation.Bean")##
+$output.require("org.springframework.context.annotation.Configuration")##
+$output.require("org.springframework.http.HttpMethod")##
+$output.require("org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder")##
+$output.require("org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity")##
+$output.require("org.springframework.security.config.annotation.web.builders.HttpSecurity")##
+$output.require("org.springframework.security.config.annotation.web.builders.WebSecurity")##
+$output.require("org.springframework.security.config.annotation.web.configuration.EnableWebSecurity")##
+$output.require("org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter")##
+$output.require("org.springframework.security.core.userdetails.UserDetailsService")##
+$output.require("org.springframework.security.data.repository.query.SecurityEvaluationContextExtension")##
+$output.require($Security, "AjaxAuthenticationFailureHandler") ##
+$output.require($Security, "AjaxAuthenticationSuccessHandler") ##
+$output.require("javax.inject.Inject")##
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Inject
+    private UserDetailsService userDetailsService;
+
+    @Inject
+    private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
+
+    @Inject
+    private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
+
+    @Inject
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring(). //
+            antMatchers(HttpMethod.OPTIONS, "/**"). //
+            antMatchers("/"). //
+            antMatchers("/*.{js,html}"). //
+            antMatchers("/img/**"). //
+            antMatchers("/node_modules/**"). //
+            antMatchers("/**/*.{js,html,css}");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http. //
+            csrf().disable(). //
+            formLogin(). //
+            loginProcessingUrl("/api/login"). //
+            defaultSuccessUrl("/", true). //
+            successHandler(ajaxAuthenticationSuccessHandler). //
+            failureHandler(ajaxAuthenticationFailureHandler). //
+            usernameParameter("j_username"). //
+            passwordParameter("j_password"). //
+            permitAll(). //
+        and(). //
+            logout(). //
+            logoutUrl("/api/logout"). //
+            logoutSuccessUrl("/"). //
+            deleteCookies("JSESSIONID"). //
+            permitAll(). //
+        and(). //
+            authorizeRequests(). //
+            antMatchers("/api/authenticated").permitAll().//
+            antMatchers("/**").authenticated(). //
+            antMatchers("/swagger-ui/index.html").hasAuthority("ROLE_ADMIN");
+    }
+
+    @Bean
+    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+        return new SecurityEvaluationContextExtension();
+    }
+}

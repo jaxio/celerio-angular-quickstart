@@ -11,9 +11,18 @@ export class MessageService {
 
     info(summary : string, detail : string) {
         this.messageSource.next({severity:'info', summary: summary, detail: detail});
+        console.log("INFO: " + summary + " DETAIL: " + detail);
     }
 
     error(summary : string, detail : string) {
         this.messageSource.next({severity:'error', summary: summary, detail: detail});
+        console.log("ERROR: " + summary + " DETAIL: " + detail);
+    }
+
+    logError(error: any) {
+        let msg = (error.message) ? error.message :
+                        error.status ? `Status Code: ${dollar}{error.status} Status Text: ${dollar}{error.statusText}` : 'Server error';
+        console.error(msg);
+        this.error(msg, '');
     }
 }

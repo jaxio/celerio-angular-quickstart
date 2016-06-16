@@ -1,8 +1,8 @@
 $output.webapp("app/app.component.ts")##
 import { Component,OnInit } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
-import { HTTP_PROVIDERS } from '@angular/http';
-import {Message,Growl, Menubar, MenuItem} from 'primeng/primeng';
+import { HTTP_PROVIDERS, Http, Response, Headers, RequestOptions} from '@angular/http';
+import { Message,Growl, Menubar, MenuItem, Dialog, Button, InputText, Password} from 'primeng/primeng';
 import { HomeComponent } from './home.component';
 import { MessageService } from './service/message.service';
 
@@ -15,7 +15,8 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
     selector: 'my-app',
     template: `
         <p-growl [value]="msgs"></p-growl>
-        <div class="ui-g">
+
+        <div class="ui-g layout">
             <div class="ui-g-12 ui-md-1">The West...</div>
             <div class="ui-g-12 ui-md-11 ui-g-nopad">
                 <div class="ui-g-12 ui-g-nopad">
@@ -30,14 +31,45 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
                 </div>
             </div>
         </div>
+        <p-dialog header="Please login" [visible]="displayLoginDialog" [responsive]="true" showEffect="fade" [modal]="true" [closable]="false" *ngIf="!authenticated">
+            <p>When using the sample database, use admin/admin</p>
+            <div ngForm class="ui-g">
+                <div class="ui-g-12" *ngIf="loginFailed">
+                    <div class="ui-message ui-messages-error ui-corner-all">
+                        Invalid login or password
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="j_username">Username</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="j_username" [(ngModel)]="j_username"/>
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="j_password">Password</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input type="password" pPassword id="j_password" [(ngModel)]="j_password"/>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button pButton (click)="login()" icon="fa-sign-in" label="Login"></button>
+                </div>
+            </footer>
+        </p-dialog>
                `,
     styles:[`
-        .ui-g div {
+        .layout div {
             background-color: white;
             border: 1px solid #f5f7f8;
         }
     `],
-    directives: [ROUTER_DIRECTIVES, Menubar, Growl],
+    directives: [ROUTER_DIRECTIVES, Menubar, Growl, Dialog, Button, InputText, Password],
     providers: [
         ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
@@ -61,11 +93,17 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
 #end
 #end
 export class AppComponent implements OnInit {
+    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })});
     private items : MenuItem[] = [{label: 'hello'}];
-
     msgs : Message[] = [];
 
-    constructor(private messageService: MessageService) {
+    displayLoginDialog : boolean = false;
+    loginFailed : boolean = false;
+    authenticated : boolean = false;
+    j_username : string = "admin";
+    j_password : string = "admin";
+
+    constructor(private http: Http, private messageService: MessageService) {
         messageService.messageSource${dollar}.subscribe(
             msg => {
                 this.msgs.push(msg);
@@ -74,7 +112,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.items = [
-            { label: 'Home', url : "/", icon: 'fa-home' },
+            { label: 'Home', routerLink: ['/'], icon: 'fa-home' },
 
             { label: 'Entities', icon: 'fa-search', items: [
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
@@ -97,5 +135,52 @@ export class AppComponent implements OnInit {
                 ]
             }
         ];
+
+        this.isAuthenticated().subscribe(
+            resp => {
+                        this.authenticated = resp;
+                        this.displayLoginDialog = !this.authenticated;
+                        if (this.authenticated) {
+                            this.items.push({label: 'Sign out', url: '/api/logout', icon: 'fa-sign-out' });
+                            this.messageService.info('You are authenticated...', '');
+                        } else {
+                            this.messageService.info('You NOT are authenticated...', '');
+                        }
+                    },
+            error =>  this.messageService.error('Error: ' + error, 'not authenticated'));;
+    }
+
+    isAuthenticated() {
+        return this.http.get('/api/authenticated').
+            map(response => <boolean> response.json());
+    }
+
+    login() {
+        console.log("login for " + this.j_username);
+        let body = 'j_username=' + this.j_username + '&j_password=' + this.j_password + '&submit=Login';
+
+        this.http.post('/api/login', body, this.options).
+        map( res => res.status == 200).
+        subscribe(
+            loginOk => {
+                        if (loginOk) {
+                            this.displayLoginDialog = false;
+                            this.authenticated = true;
+                            this.items.push({label: 'Sign out', url: '/api/logout', icon: 'fa-sign-out' });
+                            this.loginFailed = false;
+                            this.messageService.info('You are now logged in.', '');
+                        } else {
+                            this.loginFailed = true;
+                            this.displayLoginDialog = true;
+                            this.authenticated = false;
+                        }
+                    },
+            error =>    {
+                            this.messageService.logError(error);
+                            this.loginFailed = true;
+                            this.displayLoginDialog = true;
+                            this.authenticated = false;
+                        }
+        );
     }
 }

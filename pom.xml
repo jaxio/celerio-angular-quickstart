@@ -31,6 +31,7 @@
 
 
         <hibernate.version>5.0.2.Final</hibernate.version>
+        <spring-security.version>4.0.4.RELEASE</spring-security.version>
 
         <!-- ~~~~~~~~ -->
         <!-- Database -->
@@ -142,6 +143,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-data</artifactId>
         </dependency>
 
         <dependency>

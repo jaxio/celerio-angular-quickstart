@@ -34,6 +34,18 @@ $output.require("org.springframework.data.domain.Example")##
 $output.requireMetamodel($entity.model)##
 
 public interface $output.currentClass extends JpaRepository<$entity.model.type, $entity.root.primaryKey.type> {
+#foreach ($uniqueAttribute in $entity.uniqueAttributes.list)
+
+    /**
+     * Return the persistent instance of {@link $entity.model.type} with the given unique property value ${uniqueAttribute.var},
+     * or null if there is no such persistent instance.
+     *
+     * @param $uniqueAttribute.var the unique value
+     * @return the corresponding {@link $entity.model.type} persistent instance or null
+     */
+$output.require("$uniqueAttribute.fullType")##
+    $entity.model.type ${uniqueAttribute.uniqueGetter}($uniqueAttribute.type ${uniqueAttribute.var});
+#end
 
     default List<$entity.model.type> complete(String query, int maxResults) {
         $entity.model.type probe = new ${entity.model.type}();
