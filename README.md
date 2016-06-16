@@ -1,4 +1,4 @@
-# Celerio Angular Quickstart
+# Celerio Angular RC.2 Quickstart
 
 From an existing relational database, generate an Angular 2 CRUD web application.
 
@@ -11,8 +11,8 @@ Generation templates are located in the `pack-angular` folder, they are written 
 ## Prerequisites
 
 * Java Development Kit (jdk) 8
-* Maven 3
-* Npm
+* Maven 3.3.3
+* Npm 3.x.x
 
 ## Table of Contents
 
@@ -45,7 +45,7 @@ Then access it at http://localhost:8080/
 
 The generated source code relies on:
 
-* [Angular 2](http://angular.io/) web framework
+* [Angular 2 RC.2](http://angular.io/) web framework
 * [TypeScript](https://www.typescriptlang.org/)
 * [PrimeNG](http://primefaces.org/primeng/)
 * [Spring Boot](http://projects.spring.io/spring-boot/)
