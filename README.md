@@ -4,15 +4,13 @@ From an existing relational database, generate an Angular 2 CRUD web application
 
 This quickstart comes with an [H2 database example](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql), but you may try it with your [own database schema](#how-to-use-your-own-database).
 
-Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source code generator.
-
-Generation templates are located in the `pack-angular` folder, they are written in Velocity.
+Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source code generator. Code generation templates are also Open Source. 
 
 ## Prerequisites
 
-* Java Development Kit (jdk) 8
-* Maven 3.3.3
-* Npm 3.x.x
+* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Maven 3.3.3](https://maven.apache.org/download.cgi)
+* [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
 
 ## Table of Contents
 
