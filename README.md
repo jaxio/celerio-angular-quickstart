@@ -24,8 +24,6 @@ Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an 
 
 ## Generate it and run it
 
-Assuming, JDK 8, Maven 3 and NPM are already installed:
-
 From a console, run:
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
@@ -37,7 +35,7 @@ From a console, run:
     cd ../../..
     mvn spring-boot:run
 
-Then access it at http://localhost:8080/
+Then access it at [http://localhost:8080/](http://localhost:8080/)
 
 ## Technology used by the generated app
 

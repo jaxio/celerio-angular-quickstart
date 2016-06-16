@@ -18,7 +18,6 @@ public class $output.currentClass extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
         Authentication authentication) throws IOException, ServletException {
-        System.out.println("=======> $output.currentClass");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }
