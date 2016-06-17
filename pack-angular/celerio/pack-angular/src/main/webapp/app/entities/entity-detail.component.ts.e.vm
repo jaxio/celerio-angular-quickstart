@@ -23,7 +23,8 @@ import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.
 #end
 
 @Component({
-	templateUrl: 'app/entities/$entity.model.var/${entity.model.var}-detail.component.html',
+    moduleId: module.id,
+	templateUrl: '${entity.model.var}-detail.component.html',
 	selector: '${entity.model.var}-detail',
     directives: [InputText, InputTextarea, Dropdown, EmailValidator,
         Checkbox, Calendar, Password, DataTable, Button, Dialog, Column,

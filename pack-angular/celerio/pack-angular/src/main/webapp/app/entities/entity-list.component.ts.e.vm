@@ -16,7 +16,8 @@ import {${relation.to.type}LineComponent} from '../$relation.toEntity.model.var/
 #end
 
 @Component({
-	templateUrl: 'app/entities/${entity.model.var}/${entity.model.var}-list.component.html',
+    moduleId: module.id,
+	templateUrl: '${entity.model.var}-list.component.html',
 	selector: '${entity.model.var}-list',
     directives: [ROUTER_DIRECTIVES, InputText, DataTable, Button, Dialog, Column, Header, Footer#foreach ($relation in $entity.xToOne.list), ${relation.to.type}LineComponent#{end}],
 })
