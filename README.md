@@ -1,30 +1,9 @@
 # Celerio Angular RC.2 Quickstart
 
-From an existing relational database, generate an Angular 2 CRUD web application.
+Celerio code generation templates to generate an Angular 2 + PrimeNG + 
+Spring Boot + Spring Data JPA + Spring Security CRUD web application.
 
-This quickstart comes with an [H2 database example](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql), but you may try it with your [own database schema](#how-to-use-your-own-database).
-
-Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source code generator. Code generation templates are also Open Source. 
-
-## Prerequisites
-
-* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Maven 3.3.3](https://maven.apache.org/download.cgi)
-* [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
-
-## Table of Contents
-
-* [Generate it and run it (short version)](#generate-it-and-run-it)
-* [Technology used by the generated app](#technology-used-by-the-generated-app)
-* [Project structure](#project-structure)
-* [Generate it and run it decomposed](#generate-it-and-run-it-decomposed)
-* [Delete all generated files](#delete-all-generated-files)
-* [How-to use your own database](#how-to-use-your-own-database)
-* [Contribute](#contribute)
-
-## Generate it and run it
-
-From a console, run:
+For the impatient, to generate and run the application, from a console run:
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
     cd celerio-angular-quickstart
@@ -35,7 +14,28 @@ From a console, run:
     cd ../../..
     mvn spring-boot:run
 
-Then access it at [http://localhost:8080/](http://localhost:8080/)
+Then open [http://localhost:8080/](http://localhost:8080/)
+
+Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` that reverses relational database schema. 
+
+This quickstart comes with an [H2 database example](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql),
+but you may try it with your [own database schema](#how-to-use-your-own-database).
+
+
+## Prerequisites
+
+* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Maven 3.3.3](https://maven.apache.org/download.cgi)
+* [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
+
+## Table of Contents
+
+* [Technology used by the generated app](#technology-used-by-the-generated-app)
+* [Project structure](#project-structure)
+* [Generate it and run it decomposed](#generate-it-and-run-it-decomposed)
+* [Delete all generated files](#delete-all-generated-files)
+* [How-to use your own database](#how-to-use-your-own-database)
+* [Contribute](#contribute)
 
 ## Technology used by the generated app
 
