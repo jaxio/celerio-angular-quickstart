@@ -3,7 +3,7 @@
 Celerio code generation templates to generate an Angular 2 + PrimeNG + 
 Spring Boot + Spring Data JPA + Spring Security CRUD web application.
 
-For the impatient, to generate and run the application, from a console run:
+For the impatient, here are the commands to run in order to generate and run the application:
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
     cd celerio-angular-quickstart
