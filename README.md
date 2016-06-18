@@ -3,7 +3,7 @@
 Celerio code generation templates to generate an Angular 2 + PrimeNG + 
 Spring Boot + Spring Data JPA + Spring Security CRUD web application.
 
-For the impatient, here are the commands to run in order to generate and run the application:
+### Run these commands to generate and run the Angular 2 web app:
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
     cd celerio-angular-quickstart
@@ -15,6 +15,8 @@ For the impatient, here are the commands to run in order to generate and run the
     mvn spring-boot:run
 
 Then open [http://localhost:8080/](http://localhost:8080/)
+
+These commands are detailed [here](#generate-it-and-run-it).
 
 Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` that reverses relational database schema. 
 
@@ -32,7 +34,7 @@ but you may try it with your [own database schema](#how-to-use-your-own-database
 
 * [Technology used by the generated app](#technology-used-by-the-generated-app)
 * [Project structure](#project-structure)
-* [Generate it and run it decomposed](#generate-it-and-run-it-decomposed)
+* [Generate it and run it](#generate-it-and-run-it)
 * [Delete all generated files](#delete-all-generated-files)
 * [How-to use your own database](#how-to-use-your-own-database)
 * [Contribute](#contribute)
@@ -71,7 +73,7 @@ After running the code generation, you get more folders:
 * etc...
  
 
-## Generate it and run it decomposed
+## Generate it and run it
 
 ### 0: Get the quickstart
 
