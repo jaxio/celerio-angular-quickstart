@@ -165,7 +165,7 @@ To generate the source code, run:
 
 ### 6: follow same steps as above
 
-Follow the steps 2-3-4 from the `HOW TO RUN` section.
+Follow the steps 2-3-4 from the [Generate it and run it](#generate-it-and-run-it) section.
 
 
 ## Contribute
