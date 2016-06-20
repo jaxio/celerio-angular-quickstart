@@ -5,7 +5,6 @@ import { HTTP_PROVIDERS, Http, Response, Headers, RequestOptions} from '@angular
 import { Message,Growl, Menubar, MenuItem, Dialog, Button, InputText, Password} from 'primeng/primeng';
 import { HomeComponent } from './home.component';
 import { MessageService } from './service/message.service';
-
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
 import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}.service';
 import { ${entity.model.type}Component } from './entities/${entity.model.var}/${entity.model.var}.component';
