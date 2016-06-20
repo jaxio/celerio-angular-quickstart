@@ -63,7 +63,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 #foreach ($relation in $entity.manyToMany.list)
         ${relation.toEntity.service.var}.complete(null).
             subscribe($relation.to.vars => this.source$relation.to.varsUp = $relation.to.vars,
-                        error =>  this.messageService.error('Error: ' + error, 'PrimeNG Rocks ;-)'));
+                        error =>  this.messageService.error('Constructor error', error));
 #end
     }
 
@@ -76,7 +76,8 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
             this.${entity.service.var}.${entity.model.getter}(id)
                 .subscribe(
                     $entity.model.var => this.$entity.model.var = $entity.model.var,
-                error =>  this.messageService.error('Error: ' + error, 'PrimeNG Rocks ;-)'));
+                    error =>  this.messageService.error('routerOnActivate error', error)
+                );
         }
     }
 #foreach ($relation in $entity.xToOne.list)
@@ -102,7 +103,8 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
                         this.messageService.info('Saved OK', 'PrimeNG Rocks ;-)')
                     }
                 },
-                error =>  this.messageService.error('Error: ' + error, 'PrimeNG Rocks ;-)'));
+                error =>  this.messageService.error('Could not save', error)
+            );
     }
 
     onCancel() {

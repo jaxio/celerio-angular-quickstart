@@ -5,6 +5,7 @@ import {AutoComplete} from 'primeng/primeng';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 import {${entity.model.type}LineComponent} from './${entity.model.var}-line.component';
+import {MessageService} from '../../service/message.service';
 
 // Resource: http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
 
@@ -40,7 +41,7 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
     private _onTouchedCallback: () => void = () => {};
     private _onChangeCallback: (_:any) => void = () => {};
 
-    constructor(private $entity.service.var : ${entity.service.type}) {
+    constructor(private $entity.service.var : ${entity.service.type}, private messageService : MessageService) {
     }
 
     //get accessor
@@ -75,9 +76,11 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
     }
 
     complete(event:any) {
-        this.${entity.service.var}.complete(event.query).subscribe(
-            results => this.suggestions = results,
-            error => console.error(error));
+        this.${entity.service.var}.complete(event.query).
+            subscribe(
+                results => this.suggestions = results,
+                error => this.messageService.error(error, 'Error during auto-complete')
+            );
     }
 
     select(v : any) {

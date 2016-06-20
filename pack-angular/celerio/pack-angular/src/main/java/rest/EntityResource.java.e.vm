@@ -131,7 +131,12 @@ public class $output.currentClass{
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
         log.debug("Delete by id $entity.model.type : {}", $entity.primaryKey.var);
-        ${entity.repository.var}.delete($entity.primaryKey.var);
-        return ResponseEntity.ok().build();
+        try {
+            ${entity.repository.var}.delete($entity.primaryKey.var);
+            return ResponseEntity.ok().build();
+        } catch (Exception x) {
+            // todo: dig exception, most likely org.hibernate.exception.ConstraintViolationException
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
     }
 }

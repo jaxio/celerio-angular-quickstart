@@ -54,7 +54,10 @@ export class ${entity.model.type}ListComponent {
 
     loadPage(event : LazyLoadEvent) {
         this.${entity.service.var}.getPage(this.example, event).
-            subscribe(pageResponse => this.currentPage = pageResponse);
+            subscribe(
+                pageResponse => this.currentPage = pageResponse,
+                error => this.messageService.error('Could not get the results', error)
+            );
     }
 
 ## --------------- Many to One
@@ -96,11 +99,14 @@ export class ${entity.model.type}ListComponent {
     // delete + remove from current page
     delete() {
         this.${entity.service.var}.delete(this.${entity.model.var}ToDelete.${identifiableProperty.var}).
-            subscribe(response => {
-                this.currentPage.remove(this.${entity.model.var}ToDelete);
-                this.displayDeleteDialog = false;
-                this.${entity.model.var}ToDelete = null;
-                this.messageService.info('Deleted OK', 'PrimeNG Rocks ;-)');
-            });
+            subscribe(
+                response => {
+                    this.currentPage.remove(this.${entity.model.var}ToDelete);
+                    this.displayDeleteDialog = false;
+                    this.${entity.model.var}ToDelete = null;
+                    this.messageService.info('Deleted OK', 'PrimeNG Rocks ;-)');
+                },
+                error => this.messageService.error('Could not delete!', error)
+            );
     }
 }

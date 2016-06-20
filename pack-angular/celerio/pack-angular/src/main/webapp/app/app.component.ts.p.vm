@@ -2,6 +2,7 @@ $output.webapp("app/app.component.ts")##
 import { Component,OnInit } from '@angular/core';
 import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
 import { HTTP_PROVIDERS, Http, Response, Headers, RequestOptions} from '@angular/http';
+import { Observable }     from 'rxjs/Observable';
 import { Message,Growl, Menubar, MenuItem, Dialog, Button, InputText, Password} from 'primeng/primeng';
 import { HomeComponent } from './home.component';
 import { MessageService } from './service/message.service';
@@ -135,23 +136,27 @@ export class AppComponent implements OnInit {
             }
         ];
 
-        this.isAuthenticated().subscribe(
-            resp => {
+        this.isAuthenticated().
+            subscribe(
+                resp =>
+                    {
                         this.authenticated = resp;
                         this.displayLoginDialog = !this.authenticated;
                         if (this.authenticated) {
                             this.items.push({label: 'Sign out', url: '/api/logout', icon: 'fa-sign-out' });
                             this.messageService.info('You are authenticated...', '');
                         } else {
-                            this.messageService.info('You NOT are authenticated...', '');
+                            this.messageService.info('You are NOT authenticated...', '');
                         }
                     },
-            error =>  this.messageService.error('Error: ' + error, 'not authenticated'));;
+                error =>  this.messageService.error('isAuthenticated Error', error)
+            );
     }
 
-    isAuthenticated() {
+    isAuthenticated() : Observable<boolean> {
         return this.http.get('/api/authenticated').
-            map(response => <boolean> response.json());
+            map(response => <boolean> response.json()).
+            catch(this.handleError);
     }
 
     login() {
@@ -159,7 +164,7 @@ export class AppComponent implements OnInit {
         let body = 'j_username=' + this.j_username + '&j_password=' + this.j_password + '&submit=Login';
 
         this.http.post('/api/login', body, this.options).
-        map( res => res.status == 200).
+        map( res => res.status == 200).catch(this.handleError).
         subscribe(
             loginOk => {
                         if (loginOk) {
@@ -175,11 +180,19 @@ export class AppComponent implements OnInit {
                         }
                     },
             error =>    {
-                            this.messageService.logError(error);
+                            this.messageService.error('Login error', error);
                             this.loginFailed = true;
                             this.displayLoginDialog = true;
                             this.authenticated = false;
                         }
         );
+    }
+
+    // sample method from angular doc
+    private handleError (error: any) {
+        let errMsg = (error.message) ? error.message :
+        error.status ? `Status: ${dollar}{error.status} - Text: ${dollar}{error.statusText}` : 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
     }
 }
