@@ -1,9 +1,6 @@
 # Celerio Angular RC.2 Quickstart
 
-Celerio code generation templates to generate an Angular 2 + PrimeNG + 
-Spring Boot + Spring Data JPA + Spring Security CRUD web application.
-
-### Run these commands to generate and run the Angular 2 web app:
+### Run these commands to generate and run an Angular 2 web app:
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
     cd celerio-angular-quickstart
@@ -16,7 +13,16 @@ Spring Boot + Spring Data JPA + Spring Security CRUD web application.
 
 Then open [http://localhost:8080/](http://localhost:8080/)
 
-These commands are detailed [here](#generate-it-and-run-it).
+**Note 1**: it may be long as it downloads, Maven dependencies + JavaScript dependencies.
+
+**Note 2**: commands run below are detailed [here](#generate-it-and-run-it).
+
+### About the project
+
+This projects provides:
+
+ * some code generation templates to generate an Angular 2 + PrimeNG + Spring Boot + Spring Data JPA + Spring Security CRUD web application
+ * a bootstrap to interpret these templates and run the application 
 
 Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` that reverses relational database schema. 
 
