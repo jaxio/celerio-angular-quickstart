@@ -4,6 +4,7 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {${entity.model.type}} from './${entity.model.var}';
 import {LazyLoadEvent} from 'primeng/primeng';
 import {PageResponse, PageRequestByExample} from '../../support/paging';
+import { Observable }     from 'rxjs/Observable';
 
 @Injectable()
 export class ${entity.service.type} {
@@ -12,21 +13,31 @@ export class ${entity.service.type} {
 
     constructor(private http: Http) {}
 
-    // get by id
-    ${entity.model.getter}(id : any) {
+    /**
+     * Get a $entity.model.type by id.
+     */
+    ${entity.model.getter}(id : any) : Observable<$entity.model.type> {
         return this.http.get('api/${entity.model.vars}/' + id)
-            .map(response => <${entity.model.type}> response.json());
+            .map(response => <${entity.model.type}> response.json())
+            .catch(this.handleError);
     }
 
-    update($entity.model.var : $entity.model.type) {
+    /**
+     * Update the passed ${entity.model.var}.
+     */
+    update($entity.model.var : $entity.model.type) : Observable<$entity.model.type> {
         let body = JSON.stringify($entity.model.var);
 
         return this.http.put('api/$entity.model.vars/', body, this.options)
-            .map(response => <$entity.model.type> response.json());
+            .map(response => <$entity.model.type> response.json())
+            .catch(this.handleError);
     }
 
-    // load a page of ${entity.model.type} results
-    getPage($entity.model.var : $entity.model.type, event : LazyLoadEvent) {
+    /**
+     * Load a page (for paginated datatable) of $entity.model.type using the passed
+     * $entity.model.var as an example for the search by example facility.
+     */
+    getPage($entity.model.var : $entity.model.type, event : LazyLoadEvent) : Observable<PageResponse<$entity.model.type>> {
         let req = new PageRequestByExample($entity.model.var, event);
         let body = JSON.stringify(req);
 
@@ -34,18 +45,35 @@ export class ${entity.service.type} {
             .map(response => {
                 let pr = <PageResponse<$entity.model.type>> response.json();
                 return new PageResponse<$entity.model.type>(pr.totalPages, pr.totalElements, pr.content);
-            });
+            })
+            .catch(this.handleError);
     }
 
-    // used by ${entity.model.type}CompleteComponent
-    complete(query : string) {
+    /**
+     * Performs a search by example on 1 attribute (defined on server side) and returns at most 10 results.
+     * Used by ${entity.model.type}CompleteComponent.
+     */
+    complete(query : string) : Observable<${entity.model.type}[]> {
         let body = JSON.stringify({'query': query, 'maxResults': 10});
         return this.http.post('api/$entity.model.vars/complete', body, this.options)
-            .map(response => <${entity.model.type}[]> response.json());
+            .map(response => <${entity.model.type}[]> response.json())
+            .catch(this.handleError);
     }
 
-    // delete by id
+    /**
+     * Delete an $entity.model.type by id.
+     */
     delete(id : any) {
-        return this.http.delete('api/${entity.model.vars}/' + id);
+        return this.http.delete('api/${entity.model.vars}/' + id).catch(this.handleError);
+    }
+
+    // sample code from angular quickstart
+    private handleError (error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        let errMsg = (error.message) ? error.message :
+        error.status ? `Status: ${dollar}{error.status} - Text: ${dollar}{error.statusText}` : 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
     }
 }
