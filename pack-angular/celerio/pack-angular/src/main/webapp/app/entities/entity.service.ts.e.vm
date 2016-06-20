@@ -70,6 +70,7 @@ export class ${entity.service.type} {
 
     // sample method from angular doc
     private handleError (error: any) {
+        // TODO: seems we cannot use messageService from here...
         let errMsg = (error.message) ? error.message :
         error.status ? `Status: ${dollar}{error.status} - Text: ${dollar}{error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
