@@ -56,8 +56,8 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
     constructor(private router : Router, private messageService : MessageService, private ${entity.service.var} : ${entity.service.type}#foreach ($relation in $entity.manyToMany.list), private ${relation.toEntity.service.var} : ${relation.toEntity.service.type}#end) {
 #foreach($attr in $entity.enumAttributes.list)
         this.${attr.var}Options = [];
-#foreach($enumValue in $attr.getEnumConfig().getEnumValues())
-        this.${attr.var}Options.push({"label": "$enumValue.name", 'value': "$enumValue.name"});
+#foreach($enumValue in $attr.enumConfig.enumValues)
+        this.${attr.var}Options.push({"label": "$attr.enumType.getLabelsByEnumValue($enumValue).label", 'value': "$enumValue.name"});
 #end
 #end
 #foreach ($relation in $entity.manyToMany.list)
