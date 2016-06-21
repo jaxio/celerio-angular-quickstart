@@ -13,9 +13,9 @@
 
 Then open [http://localhost:8080/](http://localhost:8080/)
 
-**Note 1**: it may be long as it downloads, Maven dependencies + JavaScript dependencies.
+> **Note 1**: commands above are explained [here](#generate-it-and-run-it).
 
-**Note 2**: commands run below are detailed [here](#generate-it-and-run-it).
+> **Note 2**: it may be long to start as it needs to download Maven dependencies + JavaScript dependencies.
 
 ### About the project
 
@@ -28,7 +28,6 @@ Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an 
 
 This quickstart comes with an [H2 database example](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql),
 but you may try it with your [own database schema](#how-to-use-your-own-database).
-
 
 ## Prerequisites
 
