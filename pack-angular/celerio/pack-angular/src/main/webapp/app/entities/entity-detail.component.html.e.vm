@@ -17,6 +17,9 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #macro(required $attribute)
 #if($attribute.isRequired() && $attribute.isString()) required placeholder="Required"#end
 #end
+#macro(minlength $attribute)
+#if($attribute.columnConfig.hasMin()) minlength="$attribute.columnConfig.min"#end
+#end
 #macro(asterisk $attribute)
 #if($attribute.isRequired()) *#end
 #end
@@ -48,11 +51,11 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isEnum())
                     <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$attr.fullVar"></p-dropdown>
 #elseif($attr.isEmail())
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) validateEmail ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) validateEmail ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #elseif($attr.isUrl())
-                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #elseif($attr.isString())
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #elseif($attr.isNumeric())
                     <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
 #elseif($attr.isDate() && !$attr.isVersion())
@@ -80,19 +83,25 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #if($attr.isRequired() && $attr.isString() && !$attr.isPassword())
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors.required">
                         <i class="fa fa-close"></i>
-                        $attr.varUp is required
+                        $attr.labels.label is required
+                    </div>
+#end
+#if($attr.columnConfig.hasMin() && $attr.isString() && !$attr.isPassword())
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors.minlength">
+                        <i class="fa fa-close"></i>
+                        $attr.labels.label must have at least $attr.columnConfig.min characters.
                     </div>
 #end
 #if($attr.isEmail())
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors.validateEmail">
                         <i class="fa fa-close"></i>
-                        $attr.varUp is invalid. Expecting a valid email address.
+                        $attr.labels.label is invalid. Expecting a valid email address.
                     </div>
                     #end
 #if($attr.isUrl())
                     <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors.pattern">
                         <i class="fa fa-close"></i>
-                        $attr.varUp is invalid. Expecting an URL starting with 'http'.
+                        $attr.labels.label is invalid. Expecting an URL starting with 'http'.
                     </div>
 #end
                 </div>
