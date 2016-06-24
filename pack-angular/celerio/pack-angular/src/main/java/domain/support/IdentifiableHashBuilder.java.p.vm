@@ -19,7 +19,7 @@ $output.require("java.util.logging.Logger")
 $output.require("${ModelSupport.packageName}.Identifiable")##
 
 /**
- * The first time the {@link ${pound}hash(Logger, Identifiable)} is called, we check if the primary key is present or not.
+ * The first time the {@link ${p}hash(Logger, Identifiable)} is called, we check if the primary key is present or not.
  * <ul>
  * <li>If yes: we use it to get the hash</li>
  * <li>If no: we use a VMID during the entire life of this instance even if later on this instance is assigned a primary key.</li>

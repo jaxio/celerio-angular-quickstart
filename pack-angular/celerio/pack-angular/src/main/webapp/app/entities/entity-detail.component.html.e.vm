@@ -51,13 +51,13 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isEnum())
                     <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$attr.fullVar"></p-dropdown>
 #elseif($attr.isEmail())
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) validateEmail ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) validateEmail ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
 #elseif($attr.isUrl())
-                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
 #elseif($attr.isString())
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
 #elseif($attr.isNumeric())
-                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
 #elseif($attr.isDate() && !$attr.isVersion())
 #if($attr.isJavaUtilOnlyDate())
                     <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
@@ -76,7 +76,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                 todo file updload
 #else
 
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${pound}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
 #end
                 </div>
                 <div class="ui-grid-col-4">

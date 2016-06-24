@@ -65,7 +65,7 @@
         <!-- Version dependencies when used in multiple dependencies -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <celerio-maven-plugin.outputDir>${project.basedir}</celerio-maven-plugin.outputDir>
-        <celerio-maven-plugin.version>4.0.5</celerio-maven-plugin.version>
+        <celerio-maven-plugin.version>4.0.6</celerio-maven-plugin.version>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- Variables substituted in resources file at build time -->
@@ -111,7 +111,7 @@
         <dependency>
             <groupId>com.jaxio.celerio</groupId>
             <artifactId>celerio-engine</artifactId>
-            <version>4.0.5</version>
+            <version>${celerio-maven-plugin.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

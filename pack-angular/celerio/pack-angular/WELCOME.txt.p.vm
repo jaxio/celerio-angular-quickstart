@@ -6,10 +6,11 @@ Templates doc: http://www.jaxio.com/documentation/celerio/templates.html
 Here is a simple script:
 #foreach($entity in $project.entities.list)
 
-    ${dollar}{entity.model.type}: $entity.model.type
-    ${dollar}{entity.model.var}: $entity.model.var
-    ${dollar}{entity.model.getter}: $entity.model.getter
-    ${dollar}{entity.service.type}: $entity.service.type
-    ${dollar}{entity.service.var}: $entity.service.var
-    ${dollar}{entity.service.getter}: $entity.service.getter
+    ${d}{entity.model.type}: $entity.model.type
+    ${d}{entity.model.var}: $entity.model.var
+    ${d}{entity.model.getter}: $entity.model.getter
+    ${d}{entity.service.type}: $entity.service.type
+    ${d}{entity.service.var}: $entity.service.var
+    ${d}{entity.service.getter}: $entity.service.getter
 #end
+

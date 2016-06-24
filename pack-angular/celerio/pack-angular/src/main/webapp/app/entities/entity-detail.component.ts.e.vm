@@ -57,7 +57,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 #foreach($attr in $entity.enumAttributes.list)
         this.${attr.var}Options = [];
 #foreach($enumValue in $attr.enumConfig.enumValues)
-        this.${attr.var}Options.push({"label": "$attr.enumType.getLabelsByEnumValue($enumValue).label", 'value': "$enumValue.name"});
+        this.${attr.var}Options.push({"label": "$enumValue.labels().label", 'value': "$enumValue.name"});
 #end
 #end
 #foreach ($relation in $entity.manyToMany.list)

@@ -7,12 +7,12 @@
     <packCommandHelp value=""/>
     <projectLink value="https://github.com/jaxio/celerio-angular-quickstart"/>
     <celerioTemplateContext>
-        <!--<properties>-->
+        <properties>
             <!-- property value can be accessed in templates using
             $pack.getProperty('pagination')
             -->
-            <!--<property name="pagination" value="todo_default"/>-->
-        <!--</properties>-->
+            <property name="pagination" value="todo_default"/>
+        </properties>
         <entityContextProperties>
             <entityContextProperty property="rest" subPackage="rest" suffix="Resource"/>
             <entityContextProperty property="dto" subPackage="dto" suffix="DTO"/>

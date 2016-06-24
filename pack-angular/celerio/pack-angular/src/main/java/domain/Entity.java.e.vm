@@ -435,7 +435,7 @@ $output.require("$entity.collectionType.implementationFullType")##
 
     /**
      * Get the $relation.to.type list which is supposed to contain at most one element (virtual one to one relation).
-     * This method is not intended to be used directly. Use instead the helper method {@link ${pound}${relation.to.getter}()}
+     * This method is not intended to be used directly. Use instead the helper method {@link ${p}${relation.to.getter}()}
      *
      * @return the $relation.to.vars list
      */
@@ -448,7 +448,7 @@ $output.require("$entity.collectionType.implementationFullType")##
 
     /**
      * Set the {@link #$relation.to.vars} list which is supposed to contain at most one element (virtual one to one relation).
-     * This method is not intended to be used directly. Use instead the helper method {@link ${pound}${relation.to.setter}($relation.to.type)}
+     * This method is not intended to be used directly. Use instead the helper method {@link ${p}${relation.to.setter}($relation.to.type)}
      * which preserve referential integrity at the object level and ease code readability.
      *
      * @param $relation.to.vars list
@@ -479,7 +479,7 @@ $output.require("$entity.collectionType.implementationFullType")##
 
     /**
      * Set the {@link $relation.to.type} list.
-     * It is recommended to use the helper method {@link ${pound}${relation.to.adder}($relation.to.type)} / {@link ${pound}${relation.to.remover}($relation.to.type)}
+     * It is recommended to use the helper method {@link ${p}${relation.to.adder}($relation.to.type)} / {@link ${p}${relation.to.remover}($relation.to.type)}
      * if you want to preserve referential integrity at the object level.
      *
      * @param $relation.to.vars the list to set
@@ -547,7 +547,7 @@ $output.require("$entity.collectionType.implementationFullType")##
      * Set the {@link #$relation.to.vars} list.
 #if ($relation.hasInverse())
      * <p>
-     * It is recommended to use the helper method {@link ${pound}${relation.to.adder}($relation.to.type)} / {@link ${pound}${relation.to.remover}($relation.to.type)}
+     * It is recommended to use the helper method {@link ${p}${relation.to.adder}($relation.to.type)} / {@link ${p}${relation.to.remover}($relation.to.type)}
      * if you want to preserve referential integrity at the object level.
 #end
      *
@@ -693,7 +693,7 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
 
     /**
      * Construct a readable string representation for this ${output.currentClass} instance.
-     * @see java.lang.Object${pound}toString()
+     * @see java.lang.Object${p}toString()
      */
     @Override
     public String toString() {

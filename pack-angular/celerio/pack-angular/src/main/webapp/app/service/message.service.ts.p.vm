@@ -7,7 +7,7 @@ import { Message } from 'primeng/primeng';
 export class MessageService {
     private messageSource = new Subject<Message>();
 
-    messageSource${dollar} = this.messageSource.asObservable();
+    messageSource${d} = this.messageSource.asObservable();
 
     info(summary : string, detail : string) {
         this.messageSource.next({severity:'info', summary: summary, detail: detail});

@@ -72,7 +72,7 @@ export class ${entity.service.type} {
     private handleError (error: any) {
         // TODO: seems we cannot use messageService from here...
         let errMsg = (error.message) ? error.message :
-        error.status ? `Status: ${dollar}{error.status} - Text: ${dollar}{error.statusText}` : 'Server error';
+        error.status ? `Status: ${d}{error.status} - Text: ${d}{error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }

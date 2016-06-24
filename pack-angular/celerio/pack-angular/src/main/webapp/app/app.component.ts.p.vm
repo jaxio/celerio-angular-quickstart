@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
     j_password : string = "admin";
 
     constructor(private http: Http, private messageService: MessageService) {
-        messageService.messageSource${dollar}.subscribe(
+        messageService.messageSource${d}.subscribe(
             msg => {
                 this.msgs.push(msg);
             });
@@ -191,7 +191,7 @@ export class AppComponent implements OnInit {
     // sample method from angular doc
     private handleError (error: any) {
         let errMsg = (error.message) ? error.message :
-        error.status ? `Status: ${dollar}{error.status} - Text: ${dollar}{error.statusText}` : 'Server error';
+        error.status ? `Status: ${d}{error.status} - Text: ${d}{error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }
