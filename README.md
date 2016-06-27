@@ -1,5 +1,11 @@
 # Celerio Angular RC.2 Quickstart
 
+*Prerequisites:*
+
+* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Maven 3.3.3](https://maven.apache.org/download.cgi)
+* [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
+
 ### Run these commands to generate and run an Angular 2 web app:
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
@@ -13,40 +19,23 @@
 
 Then open [http://localhost:8080/](http://localhost:8080/)
 
-> **Note 1**: commands above are explained [here](#generate-it-and-run-it).
+> **Note**: it may be long to start as it needs to download Maven dependencies + JavaScript dependencies.
 
-> **Note 2**: it may be long to start as it needs to download Maven dependencies + JavaScript dependencies.
-
-### About the project
-
-This projects provides:
-
- * some code generation templates to generate an Angular 2 + PrimeNG + Spring Boot + Spring Data JPA + Spring Security CRUD web application
- * a bootstrap to interpret these templates and run the application 
-
-Code generation is performed by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` that reverses relational database schema. 
-
-This quickstart comes with an [H2 database example](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql),
-but you may try it with your [own database schema](#how-to-use-your-own-database).
-
-## Prerequisites
-
-* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Maven 3.3.3](https://maven.apache.org/download.cgi)
-* [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
-
-## Table of Contents
-
-* [Technology used by the generated app](#technology-used-by-the-generated-app)
-* [Project structure](#project-structure)
-* [Generate it and run it](#generate-it-and-run-it)
+* Commands above are explained [here](#generate-it-and-run-it).
 * [Delete all generated files](#delete-all-generated-files)
 * [How-to use your own database](#how-to-use-your-own-database)
 * [Contribute](#contribute)
 
-## Technology used by the generated app
+### About the project
 
-The generated source code relies on:
+This projects comprises 2 parts, the code generation templates and a quickstart.
+
+#### Code Generation Templates
+
+The `pack-angular` folder contains Celerio dynamic/static templates, interpreted/copied 
+by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` that reverses relational database schema. 
+
+These templates are meant to generate a CRUD web application relying on:
 
 * [Angular 2 RC.2](http://angular.io/) web framework
 * [TypeScript](https://www.typescriptlang.org/)
@@ -55,21 +44,19 @@ The generated source code relies on:
 * [Spring Security](http://projects.spring.io/spring-security/)
 * [Spring Data JPA](http://projects.spring.io/spring-data-jpa/)
 
-Code generation is done by [Celerio](http://www.jaxio.com/documentation/celerio), our Open Source code generator.
+If you want to help us maintain these templates, please take a look at:
 
-Some useful references: 
-
+* [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html)
+* [Angular2 Quickstart](https://angular.io/docs/ts/latest/quickstart.html)
 * [PrimeNG QuickStart](https://github.com/primefaces/primeng-quickstart)
-* [Angular2 quickstart](https://angular.io/docs/ts/latest/quickstart.html)
 
-## Project structure
+#### Quickstart
 
-Project mainly follows Maven's conventions.
+The second part is simply the minimal configuration required to perform the code generation and run the generated application:
 
 * `pom.xml` Maven POM file
-* `src/main/config`: contains Celerio conf
-* `src/main/sql/h2`: contains [sample SQL script](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql) that get reversed... you may add more tables/columns.
-* `pack-angular`: contains Celerio dynamic/static Templates (interpreted/copied by Celerio Engine). If you want to help us write templates, please take a look at [Celerio template doc](http://www.jaxio.com/documentation/celerio/templates.html) 
+* `src/main/sql/h2`: contains [sample H2 SQL script](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql) that get reversed. You may add more tables/columns.
+* `src/main/config`: contains the Celerio configuration files. 
 
 After running the code generation, you get more folders:
 
@@ -77,6 +64,7 @@ After running the code generation, you get more folders:
 * `src/main/generated-java`: the backend, in Java
 * etc...
  
+> **Note** You may try it with your [own database schema](#how-to-use-your-own-database).
 
 ## Generate it and run it
 
@@ -93,9 +81,9 @@ Clone this quickstart:
 
 It runs Maven with the following 3 profiles (defined in the `pom.xml` file):
 
-* `db` profile creates the database in the `target/db` folder.
-* `metadata` profile reverses the database. It creates the file `metadata.xml` under `src/main/config/celerio-maven-plugin`.
-* `gen` profile generates the source code. It reads `metadata.xml`, the `celerio-maven-plugin.xml` configuration file, interprets the templates from `pack-angular` and copies the files from `pack-angular-static`.
+* `db` profile creates the H2 database in the `target/db` folder.
+* `metadata` profile reverses the database using Celerio. It creates the file `metadata.xml` under `src/main/config/celerio-maven-plugin`.
+* `gen` profile generates the source code using Celerio. It reads `metadata.xml`, the `celerio-maven-plugin.xml` configuration file, interprets/copies the templates/files from `pack-angular`.
 
 For example, the template [entity.service.ts.e.vm](https://github.com/jaxio/celerio-angular-quickstart/blob/master/pack-angular/celerio/pack-angular/src/main/webapp/app/entities/entity.service.ts.e.vm)
 leads to the creation of 1 file per entity: `src/main/webapp/app/entities/xxx/xxx.service.ts`
