@@ -56,7 +56,7 @@ The second part is simply the minimal configuration required to perform the code
 
 * [pom.xml] Maven POM file
 * [src/main/sql/h2/01-create.sql](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql): sample H2 schema that get reversed. You may add more tables/columns.
-* [src/main/main/config/celerio-maven-plugin](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/main/config/celerio-maven-plugin): folder that contains the Celerio configuration files. 
+* [src/main/config/celerio-maven-plugin](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/config/celerio-maven-plugin): folder that contains the Celerio configuration files. 
 
 After running the code generation, you get more folders:
 
