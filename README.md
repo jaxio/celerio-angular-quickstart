@@ -32,7 +32,7 @@ This projects comprises 2 parts, the code generation templates and a quickstart.
 
 #### Code Generation Templates
 
-The `pack-angular` folder contains Celerio dynamic/static templates, interpreted/copied 
+The [pack-angular](https://github.com/jaxio/celerio-angular-quickstart/blob/master/pack-angular) folder contains Celerio dynamic/static templates, interpreted/copied 
 by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` that reverses relational database schema. 
 
 These templates are meant to generate a CRUD web application relying on:
@@ -54,9 +54,9 @@ If you want to help us maintain these templates, please take a look at:
 
 The second part is simply the minimal configuration required to perform the code generation and run the generated application:
 
-* `pom.xml` Maven POM file
-* `src/main/sql/h2`: contains [sample H2 SQL script](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql) that get reversed. You may add more tables/columns.
-* `src/main/config`: contains the Celerio configuration files. 
+* [pom.xml] Maven POM file
+* [src/main/sql/h2/01-create.sql](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql): sample H2 schema that get reversed. You may add more tables/columns.
+* [src/main/main/config/celerio-maven-plugin](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/main/config/celerio-maven-plugin): folder that contains the Celerio configuration files. 
 
 After running the code generation, you get more folders:
 
@@ -79,7 +79,7 @@ Clone this quickstart:
     cd celerio-angular-quickstart
     mvn -Pdb,metadata,gen generate-sources
 
-It runs Maven with the following 3 profiles (defined in the `pom.xml` file):
+It runs Maven with the following 3 profiles (defined in the [pom.xml][] file):
 
 * `db` profile creates the H2 database in the `target/db` folder.
 * `metadata` profile reverses the database using Celerio. It creates the file `metadata.xml` under `src/main/config/celerio-maven-plugin`.
@@ -128,12 +128,12 @@ Make sure your project is clean. Delete all previously generated files.
 
 ### 2: Edit pom.xml
 
-You need to edit the [pom.xml](https://github.com/jaxio/celerio-angular-quickstart/blob/master/pom.xml) and change the JDBC settings
+You need to edit the [pom.xml][] and change the JDBC settings
 in order for Celerio to connect to your database and extract its metadata and for you application to access the database.
 Search for `CHANGE THE PROPERTIES BELOW TO USE YOUR OWN DATABASE`.
 
 Since you don't need to create the database, there is no need to activate the `db` profile. 
-Make sure you comment it in your `pom.xml` to avoid any surprise.
+Make sure you comment it in your [pom.xml][] to avoid any surprise.
 
 ### 3: Reverse your database 
 
@@ -170,3 +170,6 @@ You may contribute in several ways:
 * By using the generated app and trying to find its limits
 
 You may of course [report issues](https://github.com/jaxio/celerio-angular-quickstart/issues) and/or submit pull requests.
+
+
+[pom.xml]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/pom.xml
