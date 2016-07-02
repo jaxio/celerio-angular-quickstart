@@ -1,6 +1,6 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
+import {Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer,LazyLoadEvent} from 'primeng/primeng';
 import {$entity.model.type} from './${entity.model.var}';
 import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';

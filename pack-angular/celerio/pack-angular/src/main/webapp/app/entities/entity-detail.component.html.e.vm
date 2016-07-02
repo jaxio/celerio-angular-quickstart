@@ -4,13 +4,13 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="$relation.to.var">$relation.labels.label</label></div>
                 <div class="ui-grid-col-4">
-                    <${relation.toEntity.model.var}-auto-complete [(ngModel)]="${entity.model.var}.${relation.to.var}" [disabled]="sub"></${relation.toEntity.model.var}-auto-complete>
+                    <${relation.toEntity.model.var}-auto-complete [(ngModel)]="${entity.model.var}.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}" [disabled]="sub"></${relation.toEntity.model.var}-auto-complete>
                 </div>
                 <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="$relation.to.var" type="button" (click)="goto${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-pencil" label="Edit"></button>
+                    <button pButton id="goto${relation.to.varUp}" type="button" (click)="goto${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-pencil" label="Edit"></button>
                 </div>
                 <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="${relation.to.var}Clear" type="button" (click)="clear${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-chain-broken" label="Clear"></button>
+                    <button pButton id="clear${relation.to.varUp}" type="button" (click)="clear${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-chain-broken" label="Clear"></button>
                 </div>
             </div>
 #end
@@ -43,40 +43,40 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                 <div class="ui-grid-col-2"><label for="$attr.var">$attr.labels.label #asterisk($attr)</label></div>
                 <div class="ui-grid-col-6">
 #if($attr.springMvc.isPassword())
-                    <input type="password" pPassword [(ngModel)]="$attr.fullVar"/>
+                    <input type="password" pPassword [(ngModel)]="$attr.fullVar" name="$attr.var" ${p}$attr.var="ngModel"/>
 #elseif($attr.isHtml())
                 todo html
 #elseif($attr.isTextArea())
-                    <textarea pInputTextarea id="$attr.var" [(ngModel)]="$attr.fullVar" autoResize="true"></textarea>
+                    <textarea pInputTextarea id="$attr.var" [(ngModel)]="$attr.fullVar" autoResize="true" name="$attr.var" ${p}$attr.var="ngModel"></textarea>
 #elseif($attr.isEnum())
-                    <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$attr.fullVar"></p-dropdown>
+                    <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$attr.fullVar" name="$attr.var" ${p}$attr.var="ngModel"></p-dropdown>
 #elseif($attr.isEmail())
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) validateEmail ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) validateEmail name="$attr.var" ${p}$attr.var="ngModel"/>
 #elseif($attr.isUrl())
-                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
 #elseif($attr.isString())
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
 #elseif($attr.isNumeric())
-                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) name="$attr.var" ${p}$attr.var="ngModel" />
 #elseif($attr.isDate() && !$attr.isVersion())
 #if($attr.isJavaUtilOnlyDate())
-                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
 #elseif($attr.isJavaUtilDateAndTime())
                 date and time not supported yet
 #elseif($attr.isLocalDate())
-                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
 #elseif($attr.isLocalDateTime())
-                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm:ss" showAnim="slideDown"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm:ss" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
 #else
                 Date type not supported, do it manually and send us the solution!
 #end
 #elseif($attr.isBoolean())
-                    <p-checkbox [(ngModel)]="$attr.fullVar"></p-checkbox>{{$attr.fullVar}}
+                    <p-checkbox [(ngModel)]="$attr.fullVar" [ngModelOptions]="{standalone: true}"></p-checkbox>{{$attr.fullVar}}
 #elseif($attr.isFile())
                 todo file updload
 #else
 
-                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) ngControl="$attr.var" ${p}${attr.var}="ngForm"/>
+                    <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) name="$attr.var" #name="ngModel"/>
 #end
                 </div>
                 <div class="ui-grid-col-4">

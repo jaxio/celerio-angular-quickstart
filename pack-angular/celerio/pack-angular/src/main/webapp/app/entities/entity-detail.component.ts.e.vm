@@ -1,7 +1,7 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.component.ts")##
-import {Component, Input, Output, EventEmitter} from '@angular/core';
-import { NgForm } from '@angular/common';
-import { Router, OnActivate, RouteSegment } from '@angular/router';
+import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute }       from '@angular/router';
 import {InputText,InputTextarea,Dropdown, SelectItem, Checkbox, Calendar, Password, DataTable,Button,Dialog,Column,Header,Footer,PickList,TabView,TabPanel,Panel} from 'primeng/primeng';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
@@ -30,8 +30,11 @@ import {${relation.to.type}CompleteComponent} from '../$relation.toEntity.model.
         Checkbox, Calendar, Password, DataTable, Button, Dialog, Column,
         Header, Footer, PickList, TabView, TabPanel,Panel#foreach ($relation in $entity.oneToMany.flatUp.list), ${relation.to.type}ListComponent, ${relation.to.type}DetailComponent#{end}#foreach ($relation in $entity.xToOne.list),${relation.to.type}CompleteComponent#{end}],
 })
-export class ${entity.model.type}DetailComponent implements OnActivate {
+export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
     $entity.model.var : $entity.model.type;
+
+    private params_subscription: any;
+
 #foreach ($relation in $entity.oneToMany.flatUp.list)
     show$relation.to.varsUp : boolean = true;
 #end
@@ -41,11 +44,12 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 
     @Input() sub : boolean = false;
 #foreach ($relation in $entity.xToOne.list)
-    @Input()
+    @Input() // used to pass the parent when creating a new $entity.model.type
     set ${relation.to.var}($relation.to.var : $relation.to.type) {
         this.$entity.model.var = new ${entity.model.type}();
         this.${entity.model.var}.$relation.to.var = $relation.to.var;
     }
+
 #end
     @Output() onSaveClicked = new EventEmitter<$entity.model.type>();
     @Output() onCancelClicked = new EventEmitter();
@@ -53,7 +57,7 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
     ${attr.var}Options: SelectItem[];
 #end
 
-    constructor(private router : Router, private messageService : MessageService, private ${entity.service.var} : ${entity.service.type}#foreach ($relation in $entity.manyToMany.list), private ${relation.toEntity.service.var} : ${relation.toEntity.service.type}#end) {
+    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private ${entity.service.var}: ${entity.service.type}#foreach ($relation in $entity.manyToMany.list), private ${relation.toEntity.service.var} : ${relation.toEntity.service.type}#end) {
 #foreach($attr in $entity.enumAttributes.list)
         this.${attr.var}Options = [];
 #foreach($enumValue in $attr.enumConfig.enumValues)
@@ -67,23 +71,36 @@ export class ${entity.model.type}DetailComponent implements OnActivate {
 #end
     }
 
-    routerOnActivate(curr: RouteSegment): void {
-        let id = curr.getParam('id');
+    ngOnInit() {
+        if (this.sub) {
+            return;
+        }
 
-        if (id === 'new') {
-            this.$entity.model.var = new ${entity.model.type}();
-        } else {
-            this.${entity.service.var}.${entity.model.getter}(id)
-                .subscribe(
-                    $entity.model.var => this.$entity.model.var = $entity.model.var,
-                    error =>  this.messageService.error('routerOnActivate error', error)
-                );
+        this.params_subscription = this.route.params.subscribe(params => {
+            let id = params['id'];
+            console.log('ngOnInit for ${entity.model.var}-detail ' + id);
+
+            if (id === 'new') {
+                this.$entity.model.var = new ${entity.model.type}();
+            } else {
+                this.${entity.service.var}.${entity.model.getter}(id)
+                    .subscribe(
+                        $entity.model.var => this.$entity.model.var = $entity.model.var,
+                        error =>  this.messageService.error('ngOnInit error', error)
+                    );
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (!this.sub) {
+            this.params_subscription.unsubscribe();
         }
     }
 #foreach ($relation in $entity.xToOne.list)
 
     goto${relation.to.varUp}() {
-        this.router.navigate([`/${relation.toEntity.model.var}`, this.${entity.model.var}.${relation.to.var}.${identifiableProperty.var}]);
+        this.router.navigate(['/${relation.toEntity.model.var}', this.${entity.model.var}.${relation.to.var}.${identifiableProperty.var}]);
     }
 
     clear${relation.to.varUp}() {

@@ -1,25 +1,30 @@
 $output.webapp("index.html")##
 <!doctype html>
 <html>
-
 <head>
-    <script>document.write('<base href="' + document.location + '" />');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <base href=".">
     <title>Celerio/Angular/PrimeNG/Spring QuickStart with SystemJS</title>
 
     <link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/bootstrap/theme.css"/>
     <link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css"/>
 
-    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <!-- 1. Load libraries -->
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
+
+    <!-- for primeng -->
     <script src="node_modules/primeui/primeui-ng-all.min.js"></script>
+    <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
-        System.import('app').catch(function (err) {
-            console.error(err);
-        });
+        System.import('app').catch(function(err){ console.error(err); });
     </script>
 </head>
 <body>

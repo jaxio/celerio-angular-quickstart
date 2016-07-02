@@ -1,0 +1,21 @@
+$output.webapp("app/app.routes.ts")##
+import { provideRouter, RouterConfig } from '@angular/router';
+import { HomeComponent } from './home.component'
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+import { ${entity.model.type}Routes } from './entities/$entity.model.var/${entity.model.var}.routes'
+#end
+
+export const routes: RouterConfig = [
+{ path : '',  component: HomeComponent }#if($project.withoutManyToManyJoinEntities.size > 0),
+#end
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+    ...${entity.model.type}Routes#if($velocityHasNext),
+#else
+
+];
+#end
+#end
+
+export const APP_ROUTER_PROVIDERS = [
+provideRouter(routes)
+];

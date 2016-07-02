@@ -1,6 +1,6 @@
 $output.webapp("app/app.component.ts")##
 import { Component,OnInit } from '@angular/core';
-import { Routes, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { HTTP_PROVIDERS, Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { Message,Growl, Menubar, MenuItem, Dialog, Button, InputText, Password} from 'primeng/primeng';
@@ -8,7 +8,6 @@ import { HomeComponent } from './home.component';
 import { MessageService } from './service/message.service';
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
 import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}.service';
-import { ${entity.model.type}Component } from './entities/${entity.model.var}/${entity.model.var}.component';
 #end
 
 @Component({
@@ -44,7 +43,7 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
                         <label for="j_username">Username</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="j_username" [(ngModel)]="j_username"/>
+                        <input pInputText id="j_username" [(ngModel)]="j_username" name="username"/>
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -52,7 +51,7 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
                         <label for="j_password">Password</label>
                     </div>
                     <div class="ui-g-8">
-                        <input type="password" pPassword id="j_password" [(ngModel)]="j_password"/>
+                        <input type="password" pPassword id="j_password" [(ngModel)]="j_password" name="password"/>
                     </div>
                 </div>
             </div>
@@ -71,7 +70,6 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
     `],
     directives: [ROUTER_DIRECTIVES, Menubar, Growl, Dialog, Button, InputText, Password],
     providers: [
-        ROUTER_PROVIDERS,
         HTTP_PROVIDERS,
         MessageService,
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
@@ -82,16 +80,6 @@ import { ${entity.model.type}Component } from './entities/${entity.model.var}/${
 #end
 #end
 })
-@Routes([
-    { path : '/',  component: HomeComponent }#if($project.withoutManyToManyJoinEntities.size > 0),
-#end
-#foreach($entity in $project.withoutManyToManyJoinEntities.list)
-    { path: '/${entity.model.var}', component: ${entity.model.type}Component }#if($velocityHasNext),
-#else
-
-    ])
-#end
-#end
 export class AppComponent implements OnInit {
     private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })});
     private items : MenuItem[] = [{label: 'hello'}];
@@ -116,7 +104,7 @@ export class AppComponent implements OnInit {
 
             { label: 'Entities', icon: 'fa-search', items: [
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-                {label: '${entity.model.type} List', routerLink: ['/${entity.model.var}']}#if($velocityHasNext),
+                {label: '${entity.model.type} List', routerLink: ['/${entity.model.var}-list']}#if($velocityHasNext),
 #end
 #end
                 ]
@@ -144,9 +132,9 @@ export class AppComponent implements OnInit {
                         this.displayLoginDialog = !this.authenticated;
                         if (this.authenticated) {
                             this.items.push({label: 'Sign out', url: '/api/logout', icon: 'fa-sign-out' });
-                            this.messageService.info('You are authenticated...', '');
+                            console.log('You are authenticated...', '');
                         } else {
-                            this.messageService.info('You are NOT authenticated...', '');
+                            console.log('You are NOT authenticated...', '');
                         }
                     },
                 error =>  this.messageService.error('isAuthenticated Error', error)

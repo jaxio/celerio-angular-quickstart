@@ -1,6 +1,7 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-auto-complete.component.ts")##
 import {Component, Input, Output, EventEmitter, Provider, forwardRef} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES} from "@angular/common";
+import {CORE_DIRECTIVES} from "@angular/common";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {AutoComplete} from 'primeng/primeng';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
@@ -31,6 +32,8 @@ const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR = 
 })
 export class ${entity.model.type}CompleteComponent implements ControlValueAccessor {
     @Input() disabled : boolean = false;
+    @Input() id : string;
+    @Input() name : string;
 
     //The internal data model
     private _value: $entity.model.type = null;
@@ -44,7 +47,7 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
     constructor(private $entity.service.var : ${entity.service.type}, private messageService : MessageService) {
     }
 
-    //get accessor
+    @Input()
     get value(): any { return this._value; };
 
     //set accessor including call the onchange callback
