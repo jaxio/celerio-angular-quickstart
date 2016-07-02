@@ -1,4 +1,4 @@
-# Celerio Angular RC.2 Quickstart
+# Celerio Angular rc.4 Quickstart
 
 *Prerequisites:*
 
@@ -7,6 +7,8 @@
 * [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
 
 ### Run these commands to generate and run an Angular 2 web app:
+
+> **Note**: it may be long to start as it needs to download Maven dependencies + JavaScript dependencies.
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
     cd celerio-angular-quickstart
@@ -19,11 +21,9 @@
 
 Then open [http://localhost:8080/](http://localhost:8080/)
 
-> **Note**: it may be long to start as it needs to download Maven dependencies + JavaScript dependencies.
-
 * Commands above are explained [here](#generate-it-and-run-it).
-* [Delete all generated files](#delete-all-generated-files)
 * [How-to use your own database](#how-to-use-your-own-database)
+* [Delete all generated files](#delete-all-generated-files)
 * [Contribute](#contribute)
 
 ### About the project
