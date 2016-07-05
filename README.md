@@ -8,7 +8,10 @@
 
 ### Run these commands to generate and run an Angular 2 web app:
 
-> **Note**: it may be long to start as it needs to download Maven dependencies + JavaScript dependencies.
+By default we are using a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql).
+You may of course [use your own database schema](#how-to-use-your-own-database).
+
+> **Note**: Downloading Maven dependencies + JavaScript dependencies may be long, so please be patient the first time you run these commands.
 
     git clone git@github.com:jaxio/celerio-angular-quickstart.git
     cd celerio-angular-quickstart
