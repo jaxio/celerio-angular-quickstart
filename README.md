@@ -1,5 +1,3 @@
-# Celerio Angular rc.4 Quickstart
-
 *Prerequisites:*
 
 * [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
@@ -40,9 +38,9 @@ by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` 
 
 These templates are meant to generate a CRUD web application relying on:
 
-* [Angular 2 RC.2](http://angular.io/) web framework
+* [Angular 2 RC.4](http://angular.io/) web framework
 * [TypeScript](https://www.typescriptlang.org/)
-* [PrimeNG](http://primefaces.org/primeng/)
+* [PrimeNG beta.10](http://primefaces.org/primeng/)
 * [Spring Boot](http://projects.spring.io/spring-boot/)
 * [Spring Security](http://projects.spring.io/spring-security/)
 * [Spring Data JPA](http://projects.spring.io/spring-data-jpa/)
