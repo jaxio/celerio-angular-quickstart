@@ -42,14 +42,14 @@
         <entityConfig tableName="BOOK">
             <columnConfigs>
                 <columnConfig columnName="author_id">
-                    <oneToManyConfig elementVar="book" var="books"/>
+                    <oneToManyConfig elementVar="book" var="books" orphanRemoval="true"/>
                 </columnConfig>
             </columnConfigs>
         </entityConfig>
         <entityConfig tableName="PROJECT">
             <columnConfigs>
                 <columnConfig columnName="author_id">
-                    <oneToManyConfig elementVar="project" var="projects"/>
+                    <oneToManyConfig elementVar="project" var="projects" orphanRemoval="true"/>
                 </columnConfig>
             </columnConfigs>
         </entityConfig>
