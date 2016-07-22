@@ -20,9 +20,7 @@ const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR = 
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${d}event)" (onSelect)="select(${d}event)">
             <template let-$entity.model.var>
-                <li class="ui-autocomplete-list-item ui-helper-clearfix" style="border-bottom:1px solid #D5D5D5">
-                    <${entity.model.var}-line [$entity.model.var]="$entity.model.var"></${entity.model.var}-line>
-                </li>
+                <${entity.model.var}-line [$entity.model.var]="$entity.model.var"></${entity.model.var}-line>
             </template>
         </p-autoComplete>
 	`,
