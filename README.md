@@ -40,7 +40,7 @@ These templates are meant to generate a CRUD web application relying on:
 
 * [Angular 2 RC.5](http://angular.io/) web framework
 * [TypeScript](https://www.typescriptlang.org/)
-* [PrimeNG beta.10](http://primefaces.org/primeng/)
+* [PrimeNG beta.14](http://primefaces.org/primeng/)
 * [Spring Boot](http://projects.spring.io/spring-boot/)
 * [Spring Security](http://projects.spring.io/spring-security/)
 * [Spring Data JPA](http://projects.spring.io/spring-data-jpa/)
