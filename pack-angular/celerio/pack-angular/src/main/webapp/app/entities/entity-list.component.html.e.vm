@@ -15,7 +15,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
 #if ($attr.hasXToOneRelation())
         <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
-            <template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']">
+            <template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']" pTemplate type="body">
                 <${attr.xToOneRelation.toEntity.model.var}-line [${attr.xToOneRelation.to.var}]="${attr.xToOneRelation.to.var}"></${attr.xToOneRelation.toEntity.model.var}-line>
             </template>
         </p-column>
@@ -24,7 +24,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 #end
 #end
         <p-column styleClass="col-icon">
-            <template let-$entity.model.var="rowData">
+            <template let-$entity.model.var="rowData" pTemplate type="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog($entity.model.var)" style="float:left"></button>
             </template>
         </p-column>
