@@ -16,7 +16,7 @@ import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.
 #end
 
 export class $entity.model.type {
-## --------------- Raw attributes (exception the one involved in XtoOneRelation)
+## --------------- Raw attributes (except the one involved in XtoOneRelation)
 #foreach ($attribute in $entity.nonCpkAttributes.list)
 #if ($velocityCount == 1)
     // Raw attributes
@@ -35,8 +35,8 @@ export class $entity.model.type {
 ## --------------- X to One
 #foreach ($relation in $entity.manyToMany.list)
 #if ($velocityCount == 1)
-// many-to-many
+    // many-to-many
 #end
-$relation.to.vars : ${relation.to.type}[];
+    $relation.to.vars : ${relation.to.type}[];
 #end
 }

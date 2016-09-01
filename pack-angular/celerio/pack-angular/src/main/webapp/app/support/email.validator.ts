@@ -1,7 +1,7 @@
 import {Directive, forwardRef} from '@angular/core';
 import {NG_VALIDATORS, FormControl} from '@angular/forms';
 
-// http://blog.thoughtram.io/angular/2016/03/14/custom-validators-in-angular-2.html
+// Resource: http://blog.thoughtram.io/angular/2016/03/14/custom-validators-in-angular-2.html
 
 @Directive({
     selector: '[validateEmail][ngModel],[validateEmail][formControl]',

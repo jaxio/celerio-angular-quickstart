@@ -50,7 +50,7 @@ $output.require("$uniqueAttribute.fullType")##
     default List<$entity.model.type> complete(String query, int maxResults) {
         $entity.model.type probe = new ${entity.model.type}();
 #foreach($attr in $entity.printerAttributes.flatUp.list)
-#if($attr.isString())
+#if($attr.isString() && !$attr.isEnum())
         probe.${attr.setter}(query);
 #break
 #end
@@ -58,7 +58,7 @@ $output.require("$uniqueAttribute.fullType")##
 
         ExampleMatcher matcher = ExampleMatcher.matching() //
 #foreach($attr in $entity.printerAttributes.flatUp.list)
-#if($attr.isString())
+#if($attr.isString() && !$attr.isEnum())
             .withMatcher(${entity.model.type}_.${attr.var}.getName(), match -> match.ignoreCase().startsWith())
 #break
 #end

@@ -1,14 +1,13 @@
 $output.webapp("index.html")##
-<!doctype html>
 <html>
 <head>
+    <title>Celerio/Angular/PrimeNG/Spring QuickStart with SystemJS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <base href=".">
-    <title>Celerio/Angular/PrimeNG/Spring QuickStart with SystemJS</title>
 
-    <link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/bootstrap/theme.css"/>
+    <link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/omega/theme.css" />
     <link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css"/>
 
@@ -21,24 +20,25 @@ $output.webapp("index.html")##
 
     <!-- for primeng -->
     <script src="node_modules/primeui/primeui-ng-all.min.js"></script>
+
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
         System.import('app').catch(function(err){ console.error(err); });
     </script>
 </head>
+<!-- 3. Display the application -->
 <body>
-    <my-app>
-        <div style="text-align:center;">
-            <div style="padding-top:100px">
-                Please wait, application is loading...
-            </div>
-
-            <div style="margin-top: 20px;">
-                <img src="img/loading.svg"/>
-            </div>
+<my-app>
+    <div style="text-align:center;">
+        <div style="padding-top:100px">
+            Please wait, application is loading...
         </div>
-    </my-app>
-</body>
 
+        <div style="margin-top: 20px;">
+            <img src="img/loading.svg"/>
+        </div>
+    </div>
+</my-app>
+</body>
 </html>

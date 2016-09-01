@@ -1,11 +1,11 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.service.ts")##
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {${entity.model.type}} from './${entity.model.var}';
-import {LazyLoadEvent} from 'primeng/primeng';
-import {PageResponse, PageRequestByExample} from '../../support/paging';
-import { Observable }     from 'rxjs/Observable';
-import {MessageService} from '../../service/message.service';
+import { Injectable } from '@angular/core';
+import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
+import { LazyLoadEvent } from 'primeng/primeng';
+import { Observable } from 'rxjs/Observable';
+import { MessageService } from '../../service/message.service';
+import { PageResponse, PageRequestByExample } from '../../support/paging';
+import { ${entity.model.type} } from './${entity.model.var}';
 
 @Injectable()
 export class ${entity.service.type} {

@@ -1,16 +1,14 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-auto-complete.component.ts")##
 import {Component, Input, Output, EventEmitter, Provider, forwardRef} from '@angular/core';
-import {CORE_DIRECTIVES} from "@angular/common";
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {AutoComplete} from 'primeng/primeng';
+import {AutoCompleteModule} from 'primeng/primeng';
+import {MessageService} from '../../service/message.service';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
-import {${entity.model.type}LineComponent} from './${entity.model.var}-line.component';
-import {MessageService} from '../../service/message.service';
 
 // Resource: http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
 
-const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR = new Provider(
+export const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR = new Provider(
     NG_VALUE_ACCESSOR, {
         useExisting: forwardRef(() => ${entity.model.type}CompleteComponent),
         multi: true
@@ -25,7 +23,6 @@ const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR = 
         </p-autoComplete>
 	`,
 	selector: '${entity.model.var}-auto-complete',
-    directives: [CORE_DIRECTIVES, AutoComplete,${entity.model.type}LineComponent],
     providers: [${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR]
 })
 export class ${entity.model.type}CompleteComponent implements ControlValueAccessor {

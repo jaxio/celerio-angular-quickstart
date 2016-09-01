@@ -15,6 +15,7 @@
 $output.java($entity.model)##
 
 $output.require("java.util.logging.Logger")##
+$output.require("com.google.common.base.MoreObjects")##
 $output.require("com.google.common.base.Objects")##
 
 #if($entity.hasComment())
@@ -697,7 +698,7 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
      */
     @Override
     public String toString() {
-        return #if ($entity.hasParent())super.toString() + #{end}Objects.toStringHelper(this) //
+        return #if ($entity.hasParent())super.toString() + #{end}MoreObjects.toStringHelper(this) //
 #foreach ($attribute in $entity.nonCpkAttributes.list)
 #if(!$attribute.isInFk() || $attribute.isSimplePk())
             .add("${attribute.var}", #if($attribute.isPassword())"XXXX"#else${attribute.getter}()#end) //
@@ -753,7 +754,8 @@ $output.require($Audit, "AuditContextHolder")##
             ${entity.auditEntityAttributes.creationAuthor.setter}(AuditContextHolder.username());
 #end
 #if($entity.auditEntityAttributes.isCreationDateSet())
-            ${entity.auditEntityAttributes.creationDate.setter}(new ${entity.auditEntityAttributes.creationDate.type}());
+            ${entity.auditEntityAttributes.creationDate.setter}(${entity.auditEntityAttributes.creationDate.mappedType.getJavaValue('now()')});
+
 #end
         }
     }
@@ -768,7 +770,7 @@ $output.require($Audit, "AuditContextHolder")##
             ${entity.auditEntityAttributes.lastModificationAuthor.setter}(AuditContextHolder.username());
 #end
 #if($entity.auditEntityAttributes.isLastModificationDateSet())
-            ${entity.auditEntityAttributes.lastModificationDate.setter}(new ${entity.auditEntityAttributes.lastModificationDate.type}());
+            ${entity.auditEntityAttributes.lastModificationDate.setter}(${entity.auditEntityAttributes.lastModificationDate.mappedType.getJavaValue('now()')});
 #end
         }
     }

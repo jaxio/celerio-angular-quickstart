@@ -1,25 +1,24 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
-import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {Router, ROUTER_DIRECTIVES } from '@angular/router';
-import {InputText,DataTable,Button,Dialog,Column,Header,Footer,LazyLoadEvent} from 'primeng/primeng';
-import {$entity.model.type} from './${entity.model.var}';
-import {${entity.model.type}DetailComponent} from './${entity.model.var}-detail.component';
-import {$entity.service.type} from './${entity.model.var}.service';
-import {PageResponse} from "../../support/paging";
-import {MessageService} from '../../service/message.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { LazyLoadEvent } from 'primeng/primeng';
+import { PageResponse } from "../../support/paging";
+import { MessageService } from '../../service/message.service';
+import { $entity.model.type } from './${entity.model.var}';
+import { ${entity.model.type}DetailComponent } from './${entity.model.var}-detail.component';
+import { $entity.service.type } from './${entity.model.var}.service';
 
 #foreach ($relation in $entity.xToOne.list)
 #if(!$relation.to.type.equals($entity.model.type))
-import {$relation.to.type} from '../$relation.toEntity.model.var/$relation.toEntity.model.var';
+import { $relation.to.type } from '../$relation.toEntity.model.var/$relation.toEntity.model.var';
 #end
-import {${relation.to.type}LineComponent} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-line.component';
+import { ${relation.to.type}LineComponent } from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-line.component';
 #end
 
 @Component({
     moduleId: module.id,
 	templateUrl: '${entity.model.var}-list.component.html',
 	selector: '${entity.model.var}-list',
-    directives: [ROUTER_DIRECTIVES, InputText, DataTable, Button, Dialog, Column, Header, Footer#foreach ($relation in $entity.xToOne.list), ${relation.to.type}LineComponent#{end}],
 })
 export class ${entity.model.type}ListComponent {
 
@@ -40,7 +39,6 @@ export class ${entity.model.type}ListComponent {
     // list is paginated
     currentPage : PageResponse<$entity.model.type> = new PageResponse<$entity.model.type>(0,0,[]);
 
-
 ## --------------- Many to One
 #foreach ($relation in $entity.manyToOne.list)
 #if ($velocityCount == 1)
@@ -59,10 +57,10 @@ export class ${entity.model.type}ListComponent {
                 error => this.messageService.error('Could not get the results', error)
             );
     }
-
 ## --------------- Many to One
 #foreach ($relation in $entity.manyToOne.list)
 #if ($velocityCount == 1)
+
     // Many to one: input param is used to filter the list when displayed
     // as a one-to-many list by the other side.
 #end
@@ -79,6 +77,7 @@ export class ${entity.model.type}ListComponent {
     }
 
 #end
+
     onRowSelect(event : any) {
         this.router.navigate(['/${entity.model.var}', event.data.${identifiableProperty.var}]);
     }

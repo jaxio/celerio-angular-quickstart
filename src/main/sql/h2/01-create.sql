@@ -16,6 +16,14 @@ CREATE TABLE USER (
     civility                 char(2) default 'MR',
     first_name               varchar(100),
     last_name                varchar(100),
+
+-- audit (detected by celerio by convention)
+    creation_date            timestamp,
+    creation_author          varchar(200),
+    last_modification_date   timestamp,
+    last_modification_author varchar(200),
+
+-- optimistic lock (detected by celerio by convention)
     version                  int default 0,
 
     constraint user_unique_1 unique (login),

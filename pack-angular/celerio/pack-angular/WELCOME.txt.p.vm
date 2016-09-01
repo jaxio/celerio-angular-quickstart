@@ -4,7 +4,7 @@ This is a sample 'per project' template.
 Templates doc: http://www.jaxio.com/documentation/celerio/templates.html
 
 Here is a simple script:
-#foreach($entity in $project.entities.list)
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
 
     ${d}{entity.model.type}: $entity.model.type
     ${d}{entity.model.var}: $entity.model.var

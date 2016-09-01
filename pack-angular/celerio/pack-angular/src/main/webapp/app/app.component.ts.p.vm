@@ -1,15 +1,14 @@
 $output.webapp("app/app.component.ts")##
 import { Component,OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { HTTP_PROVIDERS, Http, Response, Headers, RequestOptions} from '@angular/http';
-import { Observable }     from 'rxjs/Observable';
-import { Message,Growl, Menubar, MenuItem, Dialog, Button, InputText, Password} from 'primeng/primeng';
-import { HomeComponent } from './home.component';
-import { MessageService } from './service/message.service';
-#foreach($entity in $project.withoutManyToManyJoinEntities.list)
-import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.model.var}.service';
-#end
+import { RouterModule } from '@angular/router';
+import { HttpModule, RequestOptions, Headers, Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Message, MenuItem } from 'primeng/primeng';
+import { MessageService} from './service/message.service';
 
+/**
+ * The Root component. Defines the main layout and handles user login in a dialog.
+ */
 @Component({
     selector: 'my-app',
     template: `
@@ -67,18 +66,7 @@ import { ${entity.service.type} } from './entities/${entity.model.var}/${entity.
             background-color: white;
             border: 1px solid #f5f7f8;
         }
-    `],
-    directives: [ROUTER_DIRECTIVES, Menubar, Growl, Dialog, Button, InputText, Password],
-    providers: [
-        HTTP_PROVIDERS,
-        MessageService,
-#foreach($entity in $project.withoutManyToManyJoinEntities.list)
-        ${entity.service.type}#if($velocityHasNext),
-#else
-
-    ]
-#end
-#end
+    `]
 })
 export class AppComponent implements OnInit {
     private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })});

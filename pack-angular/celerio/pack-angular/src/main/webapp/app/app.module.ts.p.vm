@@ -1,0 +1,52 @@
+$output.webapp("app/app.module.ts")##
+import { NgModule }       from '@angular/core';
+import { BrowserModule  } from '@angular/platform-browser';
+import { FormsModule }    from '@angular/forms';
+import { HttpModule  }    from '@angular/http';
+import { RouterModule  }  from '@angular/router';
+import { GrowlModule, MenubarModule, DialogModule, ButtonModule, AutoCompleteModule, DataTableModule, SharedModule, DropdownModule,PickListModule,CheckboxModule,InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule } from 'primeng/primeng';
+import { AppComponent }   from './app.component';
+import { HomeComponent }  from './home.component';
+import { MessageService } from './service/message.service';
+import { routing }        from './app.routes';
+import { EmailValidator } from './support/email.validator';
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+
+import { ${entity.service.type} } from './entities/$entity.model.var/${entity.model.var}.service';
+import { ${entity.model.type}ListComponent } from './entities/$entity.model.var/${entity.model.var}-list.component';
+import { ${entity.model.type}DetailComponent } from './entities/$entity.model.var/${entity.model.var}-detail.component';
+import { ${entity.model.type}LineComponent } from './entities/$entity.model.var/${entity.model.var}-line.component';
+import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.var/${entity.model.var}-auto-complete.component';
+#end
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+// prime
+        GrowlModule, MenubarModule, DialogModule, ButtonModule,AutoCompleteModule,DataTableModule,SharedModule,DropdownModule,PickListModule,CheckboxModule,InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule,
+// us
+        routing
+    ],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        EmailValidator
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+        ,
+        ${entity.model.type}ListComponent,
+        ${entity.model.type}DetailComponent,
+        ${entity.model.type}LineComponent,
+        ${entity.model.type}CompleteComponent
+#end
+    ],
+    bootstrap: [ AppComponent ],
+    providers: [
+        MessageService
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+        ,${entity.service.type}
+#end
+    ]
+})
+export class AppModule {}

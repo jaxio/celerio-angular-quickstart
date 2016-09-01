@@ -1,21 +1,21 @@
 $output.webapp("app/app.routes.ts")##
-import { provideRouter, RouterConfig } from '@angular/router';
-import { HomeComponent } from './home.component'
+import { ModuleWithProviders }  from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HomeComponent } from './home.component';
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-import { ${entity.model.type}Routes } from './entities/$entity.model.var/${entity.model.var}.routes'
+
+import { ${entity.model.type}ListComponent } from './entities/$entity.model.var/${entity.model.var}-list.component';
+import { ${entity.model.type}DetailComponent } from './entities/$entity.model.var/${entity.model.var}-detail.component';
 #end
 
-export const routes: RouterConfig = [
-{ path : '',  component: HomeComponent }#if($project.withoutManyToManyJoinEntities.size > 0),
-#end
+export const routes: Routes = [
+    { path : '',  component: HomeComponent }
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-    ...${entity.model.type}Routes#if($velocityHasNext),
-#else
-
-];
+    ,
+    {path: '${entity.model.var}-list', component: ${entity.model.type}ListComponent },
+    {path: '${entity.model.var}/:id', component: ${entity.model.type}DetailComponent }
 #end
-#end
-
-export const APP_ROUTER_PROVIDERS = [
-provideRouter(routes)
 ];
+
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
