@@ -1,5 +1,5 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-auto-complete.component.ts")##
-import {Component, Input, Output, EventEmitter, forwardRef} from '@angular/core';
+import {Component, Input, Output, EventEmitter, Provider, forwardRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {AutoCompleteModule} from 'primeng/primeng';
 import {MessageService} from '../../service/message.service';
@@ -8,11 +8,11 @@ import {${entity.service.type}} from './${entity.model.var}.service';
 
 // Resource: http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
 
-export const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => ${entity.model.type}CompleteComponent),
-    multi: true
-};
+export const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR = new Provider(
+    NG_VALUE_ACCESSOR, {
+        useExisting: forwardRef(() => ${entity.model.type}CompleteComponent),
+        multi: true
+    });
 
 @Component({
 	template: `

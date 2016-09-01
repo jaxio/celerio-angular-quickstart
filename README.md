@@ -4,7 +4,7 @@
 * [Maven 3.3.3](https://maven.apache.org/download.cgi)
 * [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
 
-### Run these commands to generate and run an Angular 2 RC.6 web app:
+### Run these commands to generate and run an Angular 2 RC.5 web app:
 
 By default we are using a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql).
 You may of course [use your own database schema](#how-to-use-your-own-database).
@@ -38,7 +38,7 @@ by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` 
 
 These templates are meant to generate a CRUD web application relying on:
 
-* [Angular 2 RC.6](http://angular.io/) web framework
+* [Angular 2 RC.5](http://angular.io/) web framework
 * [TypeScript](https://www.typescriptlang.org/)
 * [PrimeNG beta.14](http://primefaces.org/primeng/)
 * [Spring Boot](http://projects.spring.io/spring-boot/)
