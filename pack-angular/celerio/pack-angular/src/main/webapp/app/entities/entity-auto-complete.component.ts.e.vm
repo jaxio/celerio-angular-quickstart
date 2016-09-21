@@ -73,6 +73,10 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
         this._onTouchedCallback = fn;
     }
 
+    //From ControlValueAccessor interface
+    setDisabledState(isDisabled: boolean) {
+    }
+
     complete(event:any) {
         this.${entity.service.var}.complete(event.query).
             subscribe(

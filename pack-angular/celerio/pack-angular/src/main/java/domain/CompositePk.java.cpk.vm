@@ -185,7 +185,6 @@ $output.require($attribute)##
      */
     @Override
     @Transient
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public ${primaryKey.type} copy() {
     	${primaryKey.type} ${primaryKey.var} = new ${primaryKey.type}();
         copyTo(${primaryKey.var});
@@ -197,7 +196,6 @@ $output.require($attribute)##
      */
     @Override
     @Transient
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public void copyTo(${primaryKey.type} ${primaryKey.var}) {
 #foreach ($attribute in $primaryKey.attributes)
         ${primaryKey.var}.${attribute.setter}(${attribute.getter}());

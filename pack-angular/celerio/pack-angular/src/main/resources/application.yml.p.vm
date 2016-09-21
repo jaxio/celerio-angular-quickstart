@@ -4,12 +4,14 @@ security:
         enabled: false
 
 spring:
+
     datasource:
         driver-class-name: @jdbc.driver@
         url: @jdbc.url@
         name:
         username: @jdbc.user@
         password: @jdbc.password@
+
     jpa:
         open-in-view: false
         hibernate:
@@ -23,10 +25,15 @@ spring:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
+
     mail:
         host: localhost
+
     messages:
         cache-seconds: 1
 
+    resources:
+        chain:
+            cache: false
 server:
     port: 8080

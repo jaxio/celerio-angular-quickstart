@@ -17,6 +17,7 @@ $output.java($entity.dtoservice)##
 $output.require("javax.inject.Inject")##
 $output.require("java.util.List")##
 $output.require("java.util.stream.Collectors")##
+$output.require($entity.root.primaryKey)##
 
 $output.require($entity.model)##
 $output.require("org.springframework.transaction.annotation.Transactional")##
@@ -64,8 +65,8 @@ $output.require($relation.toEntity.model) ##
 #end
 
     @Transactional(readOnly = true)
-    public $entity.dto.type findOne($entity.primaryKey.type $entity.primaryKey.var) {
-        return toDTO(${entity.repository.var}.findOne($entity.primaryKey.var));
+    public $entity.dto.type findOne($entity.root.primaryKey.type $entity.root.primaryKey.var) {
+        return toDTO(${entity.repository.var}.findOne($entity.root.primaryKey.var));
     }
 
     @Transactional(readOnly = true)
@@ -162,6 +163,7 @@ $output.require($relation.toEntity.model) ##
         $entity.dto.type dto = new ${entity.dto.type}();
 
 #if ($entity.isRoot() && $entity.primaryKey.isComposite())
+$output.require($entity.primaryKey)##
         dto.$entity.primaryKey.var = ${entity.model.var}.${entity.primaryKey.getter}();
 #end
 #foreach ($attribute in $entity.nonCpkAttributes.list)

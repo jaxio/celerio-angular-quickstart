@@ -43,9 +43,6 @@ $output.dynamicAnnotation("javax.persistence.MappedSuperclass")
 #foreach ($annotation in $entity.jpa.annotations)
 $annotation
 #end
-#foreach ($annotation in $entity.search.annotations)
-$annotation
-#end
 #foreach ($annotation in $entity.custom.annotations)
 $annotation
 #end
@@ -143,11 +140,6 @@ $output.require($manyToMany.to)##
      */
     @Override
     $output.dynamicAnnotation("javax.persistence.EmbeddedId")
-#if($entity.entityConfig.hasTrueIndexed())
-    $output.dynamicAnnotation("org.hibernate.search.annotations.DocumentId")
-    @FieldBridge(impl = ${entity.primaryKey.type}Bridge.class)
-$output.require("org.hibernate.search.annotations.FieldBridge")##
-#end
     public $entity.primaryKey.type ${entity.primaryKey.getter}() {
         return $entity.primaryKey.var;
     }
@@ -172,8 +164,7 @@ $output.require("org.hibernate.search.annotations.FieldBridge")##
      */
     @Override
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
-    public boolean ${entity.primaryKey.has}() {
+ public boolean ${entity.primaryKey.has}() {
         return ${entity.primaryKey.getter}() != null && ${entity.primaryKey.getter}().areFieldsSet();
     }
 #end
@@ -192,7 +183,6 @@ $output.require("$entity.collectionType.implementationFullType")##
      * this method to provide your own custom authorities.
      */
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public ${entity.collectionType.type}<String> getRoleNames() {
         ${entity.collectionType.type}<String> roleNames = new ${entity.collectionType.implementationType}<String>();
 
@@ -209,7 +199,6 @@ $output.require("$entity.collectionType.implementationFullType")##
      * Or you can follow Celerio Account Table convention. Please refer to Celerio Documentation.
      */
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public ${entity.collectionType.type}<String> getRoleNames() {
         ${entity.collectionType.type}<String> roleNames = new ${entity.collectionType.implementationType}<String>();
         if ("user".equalsIgnoreCase(${entity.accountAttributes.username.getter}())) {
@@ -244,9 +233,6 @@ $output.require("$entity.collectionType.implementationFullType")##
 #foreach ($annotation in $attribute.formatter.annotations)
     $annotation
 #end
-#foreach ($annotation in $attribute.search.annotations)
-    $annotation
-#end
     public $attribute.type ${attribute.getter}() {
         return $attribute.var;
     }
@@ -273,7 +259,6 @@ $output.require("$entity.collectionType.implementationFullType")##
 
     @Override
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public boolean ${attribute.has}() {
         return $attribute.var != null#if ($attribute.isString() && !$attribute.isEnum()) && !${attribute.var}.isEmpty()#end;
     }
@@ -426,7 +411,6 @@ $output.require("$entity.collectionType.implementationFullType")##
      * @return relation.to.var
      */
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public $relation.to.type ${relation.to.getter}() {
         for ($relation.to.type other : ${relation.to.getters}()) {
             return other;
@@ -679,7 +663,6 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
      * with $bundle.base and ends with _xx where xx is a language code.
      */
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public $bundle.type ${bundle.getter}() {
         String language = LocaleHolder.getLocale().getLanguage().toLowerCase();
 #foreach($attribute in $bundle.attributes)
@@ -713,7 +696,6 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
      */
     @Override
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public $entity.model.type copy() {
         ${entity.model.type} ${entity.model.var} = new ${entity.model.type}();
         copyTo(${entity.model.var});
@@ -725,7 +707,6 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
      */
     @Override
     $output.dynamicAnnotation("javax.persistence.Transient")
-    $output.dynamicAnnotation("javax.xml.bind.annotation.XmlTransient")
     public void copyTo($entity.model.type $entity.model.var) {
 #if ($entity.isRoot() && $entity.primaryKey.isComposite())
 		if (${entity.primaryKey.getter}() != null) {
