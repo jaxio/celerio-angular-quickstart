@@ -11,7 +11,7 @@ You may of course [use your own database schema](#how-to-use-your-own-database).
 
 > **Note**: Downloading Maven dependencies + JavaScript dependencies may be long, so please be patient the first time you run these commands.
 
-    git clone git@github.com:jaxio/celerio-angular-quickstart.git
+    git clone https://github.com/jaxio/celerio-angular-quickstart.git
     cd celerio-angular-quickstart
     mvn -Pdb,metadata,gen generate-sources
     cd src/main/webapp
@@ -73,7 +73,7 @@ After running the code generation, you get more folders:
 
 Clone this quickstart:
 
-    git clone git@github.com:jaxio/celerio-angular-quickstart.git
+    git clone https://github.com/jaxio/celerio-angular-quickstart.git
 
 ### 1: Generate the source code
 
