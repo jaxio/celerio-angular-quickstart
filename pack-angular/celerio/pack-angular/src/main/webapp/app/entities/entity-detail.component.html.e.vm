@@ -71,7 +71,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                 Date type not supported, do it manually and send us the solution!
 #end
 #elseif($attr.isBoolean())
-                    <p-checkbox [(ngModel)]="$attr.fullVar" name="$attr.var" binary="true"></p-checkbox>{{$attr.fullVar}}
+                    <p-triStateCheckbox [(ngModel)]="$attr.fullVar" name="$attr.var"></p-triStateCheckbox>{{$attr.fullVar}}
 #elseif($attr.isFile())
                 todo file updload
 #else

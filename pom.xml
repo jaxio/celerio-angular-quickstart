@@ -65,7 +65,7 @@
         <!-- Version dependencies when used in multiple dependencies -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <celerio-maven-plugin.outputDir>${project.basedir}</celerio-maven-plugin.outputDir>
-        <celerio-maven-plugin.version>4.0.12</celerio-maven-plugin.version>
+        <celerio-maven-plugin.version>4.0.13</celerio-maven-plugin.version>
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- Variables substituted in resources file at build time -->

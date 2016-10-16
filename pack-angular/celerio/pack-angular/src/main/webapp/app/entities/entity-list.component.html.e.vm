@@ -1,4 +1,5 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.html")##
+<p>This list is server-side paginated...</p>
 <div class="ContentSideSections Implementation">
     <p-dataTable [value]="currentPage.content"
                  [lazy]="true"
@@ -9,7 +10,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
                  selectionMode="single"
                  (onRowSelect)="onRowSelect(${d}event)"
                  [(selection)]="selected${entity.model.type}"
-                 [rowsPerPageOptions]="[5,10,20]"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
