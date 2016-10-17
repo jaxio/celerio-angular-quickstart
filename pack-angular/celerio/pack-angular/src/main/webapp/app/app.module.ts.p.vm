@@ -4,7 +4,7 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule  }    from '@angular/http';
 import { RouterModule  }  from '@angular/router';
-import { PanelModule, GrowlModule, MenubarModule, DialogModule, ButtonModule, AutoCompleteModule, DataTableModule, SharedModule, DropdownModule,PickListModule,CheckboxModule,TriStateCheckboxModule, InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule } from 'primeng/primeng';
+import { FileUploadModule, PanelModule, GrowlModule, MenubarModule, DialogModule, ButtonModule, AutoCompleteModule, DataTableModule, SharedModule, DropdownModule,PickListModule,CheckboxModule,TriStateCheckboxModule, InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule } from 'primeng/primeng';
 import { AppComponent }   from './app.component';
 import { HomeComponent }  from './home.component';
 import { MessageService } from './service/message.service';
@@ -26,6 +26,7 @@ import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.
         FormsModule,
         HttpModule,
 // primeng
+        FileUploadModule,
         PanelModule,
         GrowlModule,
         MenubarModule,

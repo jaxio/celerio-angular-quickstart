@@ -44,6 +44,12 @@
                 <columnConfig columnName="author_id">
                     <oneToManyConfig elementVar="book" var="books" orphanRemoval="true"/>
                 </columnConfig>
+                <columnConfig columnName="extract_binary">
+                    <labels>
+                        <label lang="fr" value="Extrait (fichier)..."/>
+                        <label value="Extract (file)..."/>
+                    </labels>
+                </columnConfig>
             </columnConfigs>
         </entityConfig>
         <entityConfig tableName="PROJECT">

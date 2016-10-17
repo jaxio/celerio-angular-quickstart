@@ -71,12 +71,15 @@ public class $output.currentClass{
      */
     @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<$entity.dto.type> create(@RequestBody $entity.dto.type $entity.dto.var) throws URISyntaxException {
+
         log.debug("Create $entity.dto.type : {}", $entity.dto.var);
+
         if (${entity.dto.var}.isIdSet()) {
             return ResponseEntity.badRequest().header("Failure","Cannot create ${entity.model.type} with existing ID").body(null);
         }
 
         $entity.dto.type result = ${entity.dtoservice.var}.save($entity.dto.var);
+
         return ResponseEntity.
             created(new URI("/api/${entity.model.vars}/" + result.id)).
             body(result);
@@ -87,6 +90,7 @@ public class $output.currentClass{
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<$entity.dto.type> findById(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
+
         log.debug("Find by id $entity.model.type : {}", $entity.primaryKey.var);
 
         return Optional.ofNullable(${entity.dtoservice.var}.findOne($entity.primaryKey.var))
@@ -99,13 +103,72 @@ public class $output.currentClass{
      */
     @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<$entity.dto.type> update(@RequestBody $entity.dto.type $entity.dto.var) throws URISyntaxException {
+
         log.debug("Update $entity.dto.type : {}", $entity.dto.var);
+
         if (!${entity.dto.var}.isIdSet()) {
             return create($entity.dto.var);
         }
+
         $entity.dto.type result = ${entity.dtoservice.var}.save($entity.dto.var);
+
         return ResponseEntity.ok().body(result);
     }
+#foreach ($attribute in $entity.fileAttributes.list)
+$output.require("org.springframework.web.multipart.MultipartFile")##
+$output.require("java.io.IOException")##
+
+    /**
+     * Target url for ${attribute.var} file upload.
+     */
+    @RequestMapping(value = "/{id}/upload/${attribute.var}", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> ${attribute.var}FileUpload(@PathVariable $entity.primaryKey.type $entity.primaryKey.var, @RequestParam("$attribute.var") MultipartFile multipartFile) {
+
+        log.debug("File Upload: {}", multipartFile.getName());
+
+        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.primaryKey.var);
+
+        try {
+            ${entity.model.var}.${attribute.setter}(multipartFile.getBytes());
+        } catch (IOException ioe) {
+            // todo: appropriate status code
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+#if ($attribute.fileSize)
+        ${entity.model.var}.${attribute.fileSize.setter}(multipartFile.getSize());
+#end
+#if ($attribute.fileContentType)
+        ${entity.model.var}.${attribute.fileContentType.setter}(multipartFile.getContentType());
+#end
+#if ($attribute.filename)
+        ${entity.model.var}.${attribute.filename.setter}(multipartFile.getOriginalFilename());
+#end
+        ${entity.repository.var}.save($entity.model.var);
+
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * File download facility for ${attribute.var}.
+     */
+    @RequestMapping(value = "/{id}/download/${attribute.var}", method = GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> ${attribute.var}FileDownload(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) {
+
+        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.primaryKey.var);
+
+        log.debug("File Download: {}", ${entity.model.var}.${attribute.filename.getter}());
+
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.CONTENT_TYPE, ${entity.model.var}.${attribute.fileContentType.getter}())
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ${entity.model.var}.${attribute.filename.getter}() + "\"")
+            .contentLength(${entity.model.var}.${attribute.fileSize.getter}())
+            .body(${entity.model.var}.${attribute.getter}());
+    }
+#end
+
 
     /**
      * Find a Page of $entity.model.type using query by example.
@@ -121,7 +184,9 @@ public class $output.currentClass{
     */
     @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<$entity.dto.type>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
+
         List<$entity.dto.type> results = ${entity.dtoservice.var}.complete(acq.query, acq.maxResults);
+
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -130,7 +195,9 @@ public class $output.currentClass{
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
+
         log.debug("Delete by id $entity.model.type : {}", $entity.primaryKey.var);
+
         try {
             ${entity.repository.var}.delete($entity.primaryKey.var);
             return ResponseEntity.ok().build();

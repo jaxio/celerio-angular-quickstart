@@ -73,7 +73,20 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #elseif($attr.isBoolean())
                     <p-triStateCheckbox [(ngModel)]="$attr.fullVar" name="$attr.var"></p-triStateCheckbox>{{$attr.fullVar}}
 #elseif($attr.isFile())
-                todo file updload
+                    <ul *ngIf="${entity.model.var}.${attr.filename.var}">
+                        <li><a href="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/download/${attr.var}">Download {{${entity.model.var}.${attr.filename.var}}}</a></li>
+                        <li>Content-Type: {{${entity.model.var}.${attr.fileContentType.var}}}</li>
+                        <li>Size in bytes: {{${entity.model.var}.${attr.fileSize.var}}}</li>
+                    </ul>
+
+                    <p-fileUpload *ngIf="${entity.model.var}.${identifiableProperty.var}" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
+                    </p-fileUpload>
+                    <!-- visual hack -->
+                    <p-fileUpload *ngIf="!${entity.model.var}.${identifiableProperty.var}" disabled="true" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
+                        <template pTemplate type="content">
+                            <div>For the moment, you must save the form before being able to upload a file...</div>
+                        </template>
+                    </p-fileUpload>
 #else
 
                     <input pInputText id="$attr.var" [(ngModel)]="$attr.fullVar" #required($attr) name="$attr.var" #name="ngModel"/>

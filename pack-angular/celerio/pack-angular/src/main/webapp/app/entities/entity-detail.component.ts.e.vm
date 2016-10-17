@@ -120,4 +120,19 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
             this.messageService.info('Cancel clicked and msg emitted', 'PrimeNG Rocks ;-)')
         }
     }
+
+#foreach($attr in $entity.fileAttributes.list)
+
+    /**
+     * Refresh the form to display the download link.
+     * TODO: sthg smarter.
+     */
+    on${attr.varUp}Upload(event: any) {
+        this.${entity.service.var}.${entity.model.getter}(this.${entity.model.var}.id)
+            .subscribe(
+                $entity.model.var => this.$entity.model.var = $entity.model.var,
+                error =>  this.messageService.error('on${attr.varUp}Upload error', error)
+            );
+    }
+#end
 }

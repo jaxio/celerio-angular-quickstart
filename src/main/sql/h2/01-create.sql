@@ -68,6 +68,14 @@ CREATE TABLE BOOK (
     id                      int not null IDENTITY,
     title                   varchar(100) not null,
     summary                 varchar(255),
+
+-- celerio convention for file upload/download:
+    extract_binary             bytea,
+    extract_file_name          varchar(100),
+    extract_content_type       varchar(100),
+    extract_size               NUMERIC (11),
+
+
     author_id               int,
     publication_date        date,
     best_seller             boolean default false,
@@ -123,19 +131,19 @@ INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (20, 'John20', 'Doe20');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (21, 'John21', 'Doe21');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (22, 'John22', 'Doe22');
 
-INSERT INTO BOOK VALUES (1, 'Learn Angular', 'Angular for beginners', 1, null, false, 12.34);
-INSERT INTO BOOK VALUES (2, 'Learn Angular2', 'Angular2 for beginners', 1, null, true, 32.00);
-INSERT INTO BOOK VALUES (3, 'Book 3', 'The Book 3', 1, null, true, 11.00);
-INSERT INTO BOOK VALUES (4, 'Book 4', 'The Book 4', 1, null, true, 4.00);
-INSERT INTO BOOK VALUES (5, 'Book 5', 'The Book 5', 1, null, true, 3.50);
-INSERT INTO BOOK VALUES (6, 'Book 6', 'The Book 6', 1, null, true, 36.30);
-INSERT INTO BOOK VALUES (7, 'Book 7', 'The Book 7', 1, null, true, 30.00);
-INSERT INTO BOOK VALUES (8, 'Book 8', 'The Book 8', 1, null, true, 27.72);
-INSERT INTO BOOK VALUES (9, 'Book 9', 'The Book 9', 1, null, true, 39.00);
-INSERT INTO BOOK VALUES (10, 'Book 10', 'The Book 10', 1, null, true, 14.00);
-INSERT INTO BOOK VALUES (11, 'Book 11', 'The Book 11', 1, null, true, 35.00);
-INSERT INTO BOOK VALUES (12, 'Book 12', 'The Book 12', 1, null, true, 90.00);
-INSERT INTO BOOK VALUES (13, 'Book 13', 'The Book 13', 2, null, true, 120.00);
-INSERT INTO BOOK VALUES (14, 'Book 14', 'The Book 14', 2, null, true, 99.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (1, 'Learn Angular', 'Angular for beginners', 1, null, false, 12.34);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (2, 'Learn Angular2', 'Angular2 for beginners', 1, null, true, 32.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (3, 'Book 3', 'The Book 3', 1, null, true, 11.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (4, 'Book 4', 'The Book 4', 1, null, true, 4.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (5, 'Book 5', 'The Book 5', 1, null, true, 3.50);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (6, 'Book 6', 'The Book 6', 1, null, true, 36.30);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (7, 'Book 7', 'The Book 7', 1, null, true, 30.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (8, 'Book 8', 'The Book 8', 1, null, true, 27.72);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (9, 'Book 9', 'The Book 9', 1, null, true, 39.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (10, 'Book 10', 'The Book 10', 1, null, true, 14.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (11, 'Book 11', 'The Book 11', 1, null, true, 35.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (12, 'Book 12', 'The Book 12', 1, null, true, 90.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (13, 'Book 13', 'The Book 13', 2, null, true, 120.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (14, 'Book 14', 'The Book 14', 2, null, true, 99.00);
 
-INSERT INTO PROJECT VALUES (1, 'PrimeNG', 'http://www.primefaces.org/primeng/', 1, true);
+INSERT INTO PROJECT(id, name, url, author_id, open_source) VALUES (1, 'PrimeNG', 'http://www.primefaces.org/primeng/', 1, true);

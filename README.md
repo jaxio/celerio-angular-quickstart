@@ -1,12 +1,8 @@
-*Prerequisites:*
-
-* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Maven 3.3.3](https://maven.apache.org/download.cgi)
-* [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
+*Prerequisites:* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - [Maven 3.3.3](https://maven.apache.org/download.cgi) - [Npm 3.x.x](https://nodejs.org/en/) it comes with Node.js.
 
 ### Run these commands to generate and run an Angular 2.1.0 web app:
 
-By default it reverses a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql).
+By default this project reverses a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/src/main/sql/h2/01-create.sql).
 You may of course [reverse your own database schema](#how-to-use-your-own-database).
 
 > **Note**: Downloading Maven dependencies + JavaScript dependencies may be long, so please be patient the first time you run these commands.
@@ -29,7 +25,7 @@ Then open [http://localhost:8080/](http://localhost:8080/)
 
 ### About the project
 
-This projects comprises 2 parts, the code generation templates and a quickstart.
+This projects comprises 2 parts, the code generation templates and a quickstart that you generate.
 
 #### Code Generation Templates
 
