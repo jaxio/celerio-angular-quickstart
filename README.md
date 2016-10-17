@@ -34,12 +34,12 @@ by [Celerio](https://github.com/jaxio/celerio), an Open Source `code generator` 
 
 These templates are meant to generate a CRUD web application relying on:
 
-* [Angular 2.1.0](http://angular.io/) web framework
-* [TypeScript](https://www.typescriptlang.org/)
-* [PrimeNG beta.17](http://primefaces.org/primeng/)
-* [Spring Boot](http://projects.spring.io/spring-boot/)
-* [Spring Security](http://projects.spring.io/spring-security/)
-* [Spring Data JPA](http://projects.spring.io/spring-data-jpa/)
+* [Angular 2.1.0](http://angular.io/) web framework: we try to always use the most recent version
+* [TypeScript](https://www.typescriptlang.org/): much easier than javascript... 
+* [PrimeNG beta.17](http://primefaces.org/primeng/): angular 2 components, we leverage file upload, auto-complete, calendar, tri-state checkbox, etc.
+* [Spring Boot](http://projects.spring.io/spring-boot/): Java app backend, made easy, we generate REST endpoints, etc.
+* [Spring Security](http://projects.spring.io/spring-security/): basic security by default
+* [Spring Data JPA](http://projects.spring.io/spring-data-jpa/): leverage search by example, etc.
 
 If you want to help us maintain these templates, please take a look at:
 
