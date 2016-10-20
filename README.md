@@ -9,10 +9,6 @@
 You can either browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
 to generate yourself the quickstart web app and run it!
 
-* [About the project](#about-the-project)
-* [About the generated code](#about-the-generated-code)
-* [Contribute](#contribute)
-
 ## About the project
 
 The main goal of this project is to provide solid code generation templates to generate advanced Angular 2 CRUD web applications.
