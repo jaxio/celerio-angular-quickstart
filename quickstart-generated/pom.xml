@@ -67,6 +67,8 @@
         <celerio-maven-plugin.outputDir>${project.basedir}</celerio-maven-plugin.outputDir>
         <celerio-maven-plugin.version>4.0.13</celerio-maven-plugin.version>
 
+        <celerio-maven-plugin.configuration>../src/main/config/celerio-maven-plugin/celerio-maven-plugin.xml</celerio-maven-plugin.configuration>
+        <celerio-maven-plugin.packs.configuration>celerio-template-packs.xml</celerio-maven-plugin.packs.configuration>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- Variables substituted in resources file at build time -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -280,8 +282,6 @@
                             <sources>
                                 <source>src/main/java</source>
                                 <source>src/main/generated-java</source>
-                                <!-- for code completion in velocity templates (when using IDEA) -->
-                                <source>pack-angular/META-INF</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -349,7 +349,7 @@
                                     <delimiter>${sql-maven-plugin.delimiter}</delimiter>
                                     <orderFile>ascending</orderFile>
                                     <fileset>
-                                        <basedir>${project.basedir}</basedir>
+                                        <basedir>${project.basedir}/..</basedir>
                                         <includes>
                                             <include>src/main/sql/${jdbc.type}/*.sql</include>
                                         </includes>

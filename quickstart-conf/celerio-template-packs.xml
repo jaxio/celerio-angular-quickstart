@@ -11,7 +11,7 @@
 		 xsi:schemaLocation="http://www.jaxio.com/schema/celerio ./celerio.xsd">
 	<configuration>
 		<packs>
-			<pack name="pack-angular" path="pack-angular" enable="true">
+			<pack name="pack-angular" path="../pack-angular" enable="true">
 				<!--<properties>-->
 					<!-- user can override pack properties -->
 					<!--<property name="pagination" value="todo"/>-->
