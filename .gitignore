@@ -16,5 +16,5 @@ hs_err_pid*
 *.iml
 
 # app
-src/main/webapp/node_modules
-src/main/webapp/typings
+quickstart/src/main/webapp/node_modules
+quickstart/src/main/webapp/typings
