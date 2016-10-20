@@ -1,7 +1,7 @@
 # Celerio Angular Quickstart
 
 Browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
-to generate yourself the quickstart web app and run it!
+to generate an Angular 2.1.0 CRUD application from an existing database schema.
 
 ## About the project
 
