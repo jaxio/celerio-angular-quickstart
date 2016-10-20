@@ -1,0 +1,60 @@
+<p>This list is server-side paginated...</p>
+<div class="ContentSideSections Implementation">
+    <p-dataTable [value]="currentPage.content"
+                 [lazy]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
+                 [totalRecords]="currentPage.totalElements"
+                 (onLazyLoad)="loadPage($event)"
+                 selectionMode="single"
+                 (onRowSelect)="onRowSelect($event)"
+                 [(selection)]="selectedProject"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
+                 [responsive]="true">
+        <header>{{header}} (count: {{currentPage.totalElements}})</header>
+        <p-column field="name" header="Name" sortable="true"></p-column>
+        <p-column field="url" header="Url" sortable="true"></p-column>
+        <p-column header="Author" sortable="false">
+            <template let-author="rowData['author']" pTemplate type="body">
+                <author-line [author]="author"></author-line>
+            </template>
+        </p-column>
+        <p-column field="openSource" header="Open Source" sortable="true"></p-column>
+        <p-column styleClass="col-icon">
+            <template let-project="rowData" pTemplate type="body">
+                <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(project)" style="float:left"></button>
+            </template>
+        </p-column>
+        <footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
+            </div>
+        </footer>
+    </p-dataTable>
+
+    <p-dialog header="Delete Project ?" [(visible)]="displayDeleteDialog" [responsive]="true" showEffect="fade" [modal]="true" closeOnEscape="true" (onAfterHide)="projectToDelete = null">
+        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="projectToDelete">
+            <div class="ui-grid-row" *ngIf="projectToDelete.name">
+                <div class="ui-grid-col-4">Name:</div>
+                <div class="ui-grid-col-8">{{ projectToDelete.name }}</div>
+            </div>
+            <div class="ui-grid-row" *ngIf="projectToDelete.url">
+                <div class="ui-grid-col-4">Url:</div>
+                <div class="ui-grid-col-8">{{ projectToDelete.url }}</div>
+            </div>
+            <div class="ui-grid-row" *ngIf="projectToDelete.authorId">
+                <div class="ui-grid-col-4">Author Id:</div>
+                <div class="ui-grid-col-8">{{ projectToDelete.authorId }}</div>
+            </div>
+            <div class="ui-grid-row" *ngIf="projectToDelete.openSource">
+                <div class="ui-grid-col-4">Open Source:</div>
+                <div class="ui-grid-col-8">{{ projectToDelete.openSource }}</div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                <button type="button" pButton icon="fa-trash" (click)="delete()" label="Delete"></button>
+            </div>
+        </footer>
+    </p-dialog>
+</div>

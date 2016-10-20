@@ -1,0 +1,41 @@
+This is a sample 'per project' template.
+
+Templates doc: http://www.jaxio.com/documentation/celerio/templates.html
+
+Here is a simple script:
+
+    ${entity.model.type}: Author
+    ${entity.model.var}: author
+    ${entity.model.getter}: getAuthor
+    ${entity.service.type}: AuthorService
+    ${entity.service.var}: authorService
+    ${entity.service.getter}: getAuthorService
+
+    ${entity.model.type}: Book
+    ${entity.model.var}: book
+    ${entity.model.getter}: getBook
+    ${entity.service.type}: BookService
+    ${entity.service.var}: bookService
+    ${entity.service.getter}: getBookService
+
+    ${entity.model.type}: Project
+    ${entity.model.var}: project
+    ${entity.model.getter}: getProject
+    ${entity.service.type}: ProjectService
+    ${entity.service.var}: projectService
+    ${entity.service.getter}: getProjectService
+
+    ${entity.model.type}: Role
+    ${entity.model.var}: role
+    ${entity.model.getter}: getRole
+    ${entity.service.type}: RoleService
+    ${entity.service.var}: roleService
+    ${entity.service.getter}: getRoleService
+
+    ${entity.model.type}: User
+    ${entity.model.var}: user
+    ${entity.model.getter}: getUser
+    ${entity.service.type}: UserService
+    ${entity.service.var}: userService
+    ${entity.service.getter}: getUserService
+
