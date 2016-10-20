@@ -7,10 +7,10 @@
 * [Npm 3.x.x](https://nodejs.org/en/)
 
 You can either browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
-to generate yourself the quickstart web ap and run it!
+to generate yourself the quickstart web app and run it!
 
-* [About the project](about-the-project)
-* [About the generated code](about-the-generated-code)
+* [About the project](#about-the-project)
+* [About the generated code](#about-the-generated-code)
 * [Contribute](#contribute)
 
 ## About the project
