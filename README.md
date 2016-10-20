@@ -1,6 +1,6 @@
 # Celerio Angular Quickstart
 
-You can either browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
+Browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
 to generate yourself the quickstart web app and run it!
 
 ## About the project
