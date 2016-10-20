@@ -67,7 +67,7 @@
         <celerio-maven-plugin.outputDir>${project.basedir}</celerio-maven-plugin.outputDir>
         <celerio-maven-plugin.version>4.0.13</celerio-maven-plugin.version>
 
-        <celerio-maven-plugin.configuration>../src/main/config/celerio-maven-plugin/celerio-maven-plugin.xml</celerio-maven-plugin.configuration>
+        <celerio-maven-plugin.configuration>../quickstart-conf/celerio-maven-plugin.xml</celerio-maven-plugin.configuration>
         <celerio-maven-plugin.packs.configuration>../quickstart-conf/celerio-template-packs.xml</celerio-maven-plugin.packs.configuration>
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- Variables substituted in resources file at build time -->
@@ -351,7 +351,7 @@
                                     <fileset>
                                         <basedir>${project.basedir}/..</basedir>
                                         <includes>
-                                            <include>../quickstart-conf/01-create.sql</include>
+                                            <include>quickstart-conf/01-create.sql</include>
                                         </includes>
                                     </fileset>
                                 </configuration>
