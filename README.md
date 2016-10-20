@@ -1,11 +1,5 @@
 # Celerio Angular Quickstart
 
-*Prerequisites:* 
-
-* [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* [Maven 3.3.3](https://maven.apache.org/download.cgi) 
-* [Npm 3.x.x](https://nodejs.org/en/)
-
 You can either browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
 to generate yourself the quickstart web app and run it!
 
