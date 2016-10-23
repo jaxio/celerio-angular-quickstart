@@ -1,14 +1,15 @@
 # Celerio Angular Quickstart
 
 Browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
-to generate an Angular 2.1.0 CRUD application from an existing database schema.
+to generate an Angular 2.1.0 CRUD web application from an existing database schema. 
+We provide a sample H2 database schema but you can use your own...
 
 ## About the project
 
-The main goal of this project is to provide solid code generation templates to generate advanced Angular 2 CRUD web applications.
-You may of course modify the templates or create your own to fit your own needs.
+This project's goal is to provide solid code generation templates for advanced Angular 2 CRUD web applications.
+You may of course modify the templates or create your own.
 
-It uses Celerio, an Open Source `code generator` tool for data-oriented applications. 
+It uses Celerio, an Open Source `code generator` tool for data-oriented applications.
 
 Here is the folder organization:
 
@@ -22,11 +23,11 @@ Here is the folder organization:
 The generated Angular CRUD web app uses the following tecnologies/frameworks:
 
 * [Angular 2.1.0](http://angular.io/) web framework: we try to always use the most recent version
-* [TypeScript](https://www.typescriptlang.org/): much easier than javascript... 
-* [PrimeNG beta.17](http://primefaces.org/primeng/): Angular 2 component library, we leverage file upload, auto-complete, calendar, tri-state checkbox, etc.
+* [TypeScript](https://www.typescriptlang.org/): much easier than JavaScript... 
+* [PrimeNG beta.17](http://primefaces.org/primeng/): Angular 2 components library, we leverage file upload, auto-complete, calendar, tri-state checkbox, server-side pagination, etc.
 * [Spring Boot](http://projects.spring.io/spring-boot/): Java app backend, made easy, we generate REST endpoints, etc.
 * [Spring Security](http://projects.spring.io/spring-security/): basic security by default
-* [Spring Data JPA](http://projects.spring.io/spring-data-jpa/): leverage search by example, etc.
+* [Spring Data JPA](http://projects.spring.io/spring-data-jpa/): leverage query by example, etc.
 
 ## Contribute
 
