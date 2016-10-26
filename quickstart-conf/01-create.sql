@@ -130,6 +130,12 @@ INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (19, 'John19', 'Doe19');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (20, 'John20', 'Doe20');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (21, 'John21', 'Doe21');
 INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (22, 'John22', 'Doe22');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (23, 'Alice', 'Bee');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (24, 'Bob', 'Sponge');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (25, 'Mick', 'Jagger');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (26, 'Charlie', 'Watts');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (27, 'Bob', 'Dylan');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (28, 'Jim', 'Morrison');
 
 INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (1, 'Learn Angular', 'Angular for beginners', 1, null, false, 12.34);
 INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (2, 'Learn Angular2', 'Angular2 for beginners', 1, null, true, 32.00);

@@ -30,6 +30,7 @@
         <entityConfig tableName="USER">
             <columnConfigs>
                 <columnConfig columnName="civility" sharedEnumName="Civility"/>
+                <columnConfig columnName="password" searchField="false" searchResult="false"/>
             </columnConfigs>
         </entityConfig>
         <entityConfig tableName="AUTHOR">
@@ -59,7 +60,6 @@
                 </columnConfig>
             </columnConfigs>
         </entityConfig>
-
     </entityConfigs>
 
     <!-- CHANGE IT OR COMMENT IT IF YOU USE YOUR OWN DATABASE -->
