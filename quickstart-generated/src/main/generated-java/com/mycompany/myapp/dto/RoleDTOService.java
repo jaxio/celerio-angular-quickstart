@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.myapp.domain.Role;
+import com.mycompany.myapp.domain.Role_;
 import com.mycompany.myapp.dto.support.PageRequestByExample;
 import com.mycompany.myapp.dto.support.PageResponse;
 import com.mycompany.myapp.repository.RoleRepository;
@@ -48,7 +50,10 @@ public class RoleDTOService {
         Role role = toEntity(req.example);
 
         if (role != null) {
-            example = Example.of(role);
+            ExampleMatcher matcher = ExampleMatcher.matching() //
+                    .withMatcher(Role_.roleName.getName(), match -> match.ignoreCase().startsWith());
+
+            example = Example.of(role, matcher);
         }
 
         Page<Role> page;

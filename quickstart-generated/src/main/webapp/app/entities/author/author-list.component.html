@@ -1,6 +1,41 @@
-<p>This list is server-side paginated...</p>
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="currentPage.content"
+    <p-panel *ngIf="!sub" header="Search Author with simple search criterias">
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #authorForm="ngForm">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="firstName">First Name</label>
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="firstName" [(ngModel)]="example.firstName" name="firstName" #firstName="ngModel"/>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="lastName">Last Name</label>
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="lastName" [(ngModel)]="example.lastName" name="lastName" #lastName="ngModel"/>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="email">Email</label>
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="email" [(ngModel)]="example.email" name="email" #email="ngModel"/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-search" style="float:left" (click)="search(dt)" label="Search"></button>
+            </div>
+        </footer>
+    </p-panel>
+
+    <p>This list is server-side paginated...</p>
+
+    <p-dataTable #dt [value]="currentPage.content"
                  [lazy]="true"
                  [rows]="10"
                  [paginator]="currentPage.totalElements > 10"

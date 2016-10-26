@@ -13,11 +13,13 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.myapp.domain.Author;
+import com.mycompany.myapp.domain.Author_;
 import com.mycompany.myapp.dto.support.PageRequestByExample;
 import com.mycompany.myapp.dto.support.PageResponse;
 import com.mycompany.myapp.repository.AuthorRepository;
@@ -48,7 +50,12 @@ public class AuthorDTOService {
         Author author = toEntity(req.example);
 
         if (author != null) {
-            example = Example.of(author);
+            ExampleMatcher matcher = ExampleMatcher.matching() //
+                    .withMatcher(Author_.firstName.getName(), match -> match.ignoreCase().startsWith())
+                    .withMatcher(Author_.lastName.getName(), match -> match.ignoreCase().startsWith())
+                    .withMatcher(Author_.email.getName(), match -> match.ignoreCase().startsWith());
+
+            example = Example.of(author, matcher);
         }
 
         Page<Author> page;

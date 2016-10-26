@@ -7,6 +7,7 @@
 //
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataTable } from 'primeng/primeng';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
@@ -24,19 +25,21 @@ import { AuthorLineComponent } from '../author/author-line.component';
 })
 export class BookListComponent {
 
-    @Input() header = "All Books...";
+    @Input() header = "Books...";
 
-    // when sub is true, it means this list is a one-to-many list.
+    // When 'sub' is true, it means this list is used as a one-to-many list.
     // It belongs to a parent entity, as a result the addNew operation
     // must prefill the parent entity. The prefill is not done here, instead we
     // emit an event.
+    // When 'sub' is false, we display basic search criterias
     @Input() sub : boolean;
     @Output() onAddNewClicked = new EventEmitter();
 
     bookToDelete : Book;
     displayDeleteDialog : boolean;
 
-    private example : Book = null; // used to query by example...
+    // basic search criterias (visible if not in 'sub' mode)
+    example : Book = new Book();
 
     // list is paginated
     currentPage : PageResponse<Book> = new PageResponse<Book>(0,0,[]);
@@ -47,6 +50,19 @@ export class BookListComponent {
 
     constructor(private router:Router, private bookService : BookService, private messageService : MessageService) { }
 
+    /**
+     * Invoked when user presses the search button.
+     */
+    search(dt : DataTable) {
+        if (!this.sub) {
+            dt.reset();
+            this.loadPage({ first: 0, rows: dt.rows, sortField: dt.sortField, sortOrder: dt.sortOrder, filters: null, multiSortMeta: dt.multiSortMeta });
+        }
+    }
+
+    /**
+     * Invoked automatically by primeng datatable.
+     */
     loadPage(event : LazyLoadEvent) {
         this.bookService.getPage(this.example, event).
             subscribe(
@@ -87,7 +103,10 @@ export class BookListComponent {
         this.displayDeleteDialog = true;
     }
 
-    // delete + remove from current page
+    /**
+     * Invoked when user presses 'Delete' in the delete dialog. Deletes the entity on
+     * the server side an remove the row from the page.
+     */
     delete() {
         this.bookService.delete(this.bookToDelete.id).
             subscribe(
@@ -95,7 +114,7 @@ export class BookListComponent {
                     this.currentPage.remove(this.bookToDelete);
                     this.displayDeleteDialog = false;
                     this.bookToDelete = null;
-                    this.messageService.info('Deleted OK', 'PrimeNG Rocks ;-)');
+                    this.messageService.info('Deleted OK', 'Angular Rocks!');
                 },
                 error => this.messageService.error('Could not delete!', error)
             );

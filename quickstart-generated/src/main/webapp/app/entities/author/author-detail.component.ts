@@ -84,9 +84,9 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
                     this.author = author;
                     if (this.sub) {
                         this.onSaveClicked.emit(this.author);
-                        this.messageService.info('Saved OK and msg emitted', 'PrimeNG Rocks ;-)')
+                        this.messageService.info('Saved OK and msg emitted', 'Angular Rocks!')
                     } else {
-                        this.messageService.info('Saved OK', 'PrimeNG Rocks ;-)')
+                        this.messageService.info('Saved OK', 'Angular Rocks!')
                     }
                 },
                 error =>  this.messageService.error('Could not save', error)
@@ -96,7 +96,7 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
     onCancel() {
         if (this.sub) {
             this.onCancelClicked.emit("cancel");
-            this.messageService.info('Cancel clicked and msg emitted', 'PrimeNG Rocks ;-)')
+            this.messageService.info('Cancel clicked and msg emitted', 'Angular Rocks!')
         }
     }
 
