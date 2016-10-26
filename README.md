@@ -1,12 +1,14 @@
 # Celerio Angular Quickstart
 
-Browse an already [generated quickstart][] web app or follow the instructions from the [quickstart][] folder 
-to generate an Angular 2.1.0 CRUD web application from an existing database schema. 
+Follow the instructions from the [quickstart][] folder to generate an Angular 2.1.0 CRUD web application from an existing database schema
+
+Browse an already [generated quickstart][] web app. 
+
 We provide a sample H2 database schema but you can use your own...
 
 ## About the project
 
-This project's goal is to provide solid code generation templates for advanced Angular 2 CRUD web applications.
+Our goal is to provide solid code generation templates for advanced Angular 2 CRUD web applications.
 You may of course modify the templates or create your own.
 
 It uses Celerio, an Open Source `code generator` tool for data-oriented applications.
