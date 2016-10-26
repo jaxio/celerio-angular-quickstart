@@ -20,13 +20,14 @@ $output.require("java.util.stream.Collectors")##
 $output.require($entity.root.primaryKey)##
 
 $output.require($entity.model)##
+$output.requireMetamodel($entity.model)##
 $output.require("org.springframework.transaction.annotation.Transactional")##
 $output.require("org.springframework.stereotype.Service") ##
 $output.require("org.springframework.data.domain.Example")##
+$output.require("org.springframework.data.domain.ExampleMatcher")##
 $output.require("org.springframework.data.domain.Page")##
 $output.require("${Root.packageName}.dto.support.PageResponse")##
 $output.require("${Root.packageName}.dto.support.PageRequestByExample")##
-
 $output.require($entity.repository)##
 
 /**
@@ -80,8 +81,16 @@ $output.require($relation.toEntity.model) ##
         Example<$entity.model.type> example = null;
         $entity.model.type $entity.model.var = toEntity(req.example);
 
-        if($entity.model.var != null){
-            example = Example.of($entity.model.var);
+        if($entity.model.var != null) {
+            ExampleMatcher matcher = ExampleMatcher.matching() //
+#foreach($attr in $entity.searchAttributes.list)
+#if($attr.isString() && !$attr.isEnum())
+                .withMatcher(${entity.model.type}_.${attr.var}.getName(), match -> match.ignoreCase().startsWith())
+#end
+#end
+        ;
+
+            example = Example.of($entity.model.var, matcher);
         }
 
         Page<$entity.model.type> page;

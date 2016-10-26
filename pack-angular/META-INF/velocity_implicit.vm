@@ -3,7 +3,7 @@
 ##  HELPER FOR CODE COMPLETION IN VELOCITY TEMPLATES
 ##  see https://www.jetbrains.com/help/idea/2016.1/template-languages-velocity-and-freemarker.html#d742870e210
 ##
-## for all templates
+## Top level var for all templates
 #* @vtlvariable name="output" type="com.jaxio.celerio.template.TemplateExecution" *#
 #* @vtlvariable name="identifiableProperty" type="com.jaxio.celerio.util.IdentifiableProperty" *#
 #* @vtlvariable name="project" type="com.jaxio.celerio.model.Project" *#
@@ -17,9 +17,14 @@
 #* @vtlvariable name="metadata" type="com.jaxio.celerio.configuration.database.Metadata" *#
 #* @vtlvariable name="pack" type="com.jaxio.celerio.template.pack.TemplatePackInfo" *#
 
-## For each 'entity' template
+## Top level var for each 'entity' template
 #* @vtlvariable name="entity" type="com.jaxio.celerio.model.Entity" *#
 #* @vtlvariable name="primaryKey" type="com.jaxio.celerio.model.PrimaryKey" *#
 
-## For each 'enum' template
+## Top level var for each 'enum' template
 #* @vtlvariable name="enum" type="com.jaxio.celerio.model.EnumType" *#
+
+## Var that are not top level but often defined
+#* @vtlvariable name="attribute" type="com.jaxio.celerio.model.Attribute" *#
+#* @vtlvariable name="attr" type="com.jaxio.celerio.model.Attribute" *#
+#* @vtlvariable name="relation" type="com.jaxio.celerio.model.Relation" *#

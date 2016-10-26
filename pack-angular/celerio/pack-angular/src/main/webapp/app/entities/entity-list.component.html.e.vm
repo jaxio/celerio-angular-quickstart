@@ -1,7 +1,30 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.html")##
-<p>This list is server-side paginated...</p>
 <div class="ContentSideSections Implementation">
-    <p-dataTable [value]="currentPage.content"
+    <p-panel *ngIf="!sub" header="Search ${entity.model.type} with simple search criterias">
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #${entity.model.var}Form="ngForm">
+#foreach($attr in $entity.searchAttributes.list)
+#if($attr.isString() && !$attr.isEnum())
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="$attr.var">$attr.labels.label</label>
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="$attr.var" [(ngModel)]="example.$attr.var" name="$attr.var" ${p}$attr.var="ngModel"/>
+                </div>
+            </div>
+#end
+#end
+        </div>
+        <footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-search" style="float:left" (click)="search(dt)" label="Search"></button>
+            </div>
+        </footer>
+    </p-panel>
+
+    <p>This list is server-side paginated...</p>
+
+    <p-dataTable #dt [value]="currentPage.content"
                  [lazy]="true"
                  [rows]="10"
                  [paginator]="currentPage.totalElements > 10"
