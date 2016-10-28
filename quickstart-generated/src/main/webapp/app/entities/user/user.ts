@@ -17,9 +17,9 @@ export class User {
     civility : string;
     firstName : string;
     lastName : string;
-    creationDate : string;
+    creationDate : Date;
     creationAuthor : string;
-    lastModificationDate : string;
+    lastModificationDate : Date;
     lastModificationAuthor : string;
     version : number;
     // many-to-many

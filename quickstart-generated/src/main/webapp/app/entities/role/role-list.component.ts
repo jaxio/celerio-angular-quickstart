@@ -7,8 +7,7 @@
 //
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTable } from 'primeng/primeng';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { DataTable, LazyLoadEvent, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
 import { Role } from './role';
@@ -19,7 +18,7 @@ import { RoleService } from './role.service';
 @Component({
     moduleId: module.id,
 	templateUrl: 'role-list.component.html',
-	selector: 'role-list',
+	selector: 'role-list'
 })
 export class RoleListComponent {
 
@@ -34,7 +33,6 @@ export class RoleListComponent {
     @Output() onAddNewClicked = new EventEmitter();
 
     roleToDelete : Role;
-    displayDeleteDialog : boolean;
 
     // basic search criterias (visible if not in 'sub' mode)
     example : Role = new Role();
@@ -43,7 +41,11 @@ export class RoleListComponent {
     currentPage : PageResponse<Role> = new PageResponse<Role>(0,0,[]);
 
 
-    constructor(private router:Router, private roleService : RoleService, private messageService : MessageService) { }
+    constructor(private router : Router,
+        private roleService : RoleService,
+        private messageService : MessageService,
+        private confirmationService: ConfirmationService) {
+    }
 
     /**
      * Invoked when user presses the search button.
@@ -79,21 +81,23 @@ export class RoleListComponent {
     }
 
     showDeleteDialog(rowData : any) {
-        this.roleToDelete = <Role> rowData;
-        this.displayDeleteDialog = true;
+        let roleToDelete : Role = <Role> rowData;
+
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'fa fa-trash',
+            accept: () => {
+                this.delete(roleToDelete);
+            }
+        });
     }
 
-    /**
-     * Invoked when user presses 'Delete' in the delete dialog. Deletes the entity on
-     * the server side an remove the row from the page.
-     */
-    delete() {
-        this.roleService.delete(this.roleToDelete.id).
+    private delete(roleToDelete : Role) {
+        this.roleService.delete(roleToDelete.id).
             subscribe(
                 response => {
-                    this.currentPage.remove(this.roleToDelete);
-                    this.displayDeleteDialog = false;
-                    this.roleToDelete = null;
+                    this.currentPage.remove(roleToDelete);
                     this.messageService.info('Deleted OK', 'Angular Rocks!');
                 },
                 error => this.messageService.error('Could not delete!', error)

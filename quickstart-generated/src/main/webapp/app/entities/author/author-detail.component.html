@@ -52,7 +52,7 @@
              <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="birthDate">Birth Date </label></div>
                 <div class="ui-grid-col-6">
-                    <p-calendar [(ngModel)]="author.birthDate" dateFormat="yy-mm-dd" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    <p-calendar [(ngModel)]="author.birthDate" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
                 </div>
                 <div class="ui-grid-col-4">
                 </div>
@@ -60,7 +60,7 @@
              <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="birthDateTime">Birth Date Time </label></div>
                 <div class="ui-grid-col-6">
-                    <p-calendar [(ngModel)]="author.birthDateTime" dateFormat="yy-mm-dd" timeFormat="HH:mm:ss" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    <p-calendar [(ngModel)]="author.birthDateTime" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
                 </div>
                 <div class="ui-grid-col-4">
                 </div>

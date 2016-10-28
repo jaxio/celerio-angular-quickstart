@@ -7,8 +7,7 @@
 //
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTable } from 'primeng/primeng';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { DataTable, LazyLoadEvent, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
 import { Book } from './book';
@@ -21,7 +20,7 @@ import { AuthorLineComponent } from '../author/author-line.component';
 @Component({
     moduleId: module.id,
 	templateUrl: 'book-list.component.html',
-	selector: 'book-list',
+	selector: 'book-list'
 })
 export class BookListComponent {
 
@@ -36,7 +35,6 @@ export class BookListComponent {
     @Output() onAddNewClicked = new EventEmitter();
 
     bookToDelete : Book;
-    displayDeleteDialog : boolean;
 
     // basic search criterias (visible if not in 'sub' mode)
     example : Book = new Book();
@@ -48,7 +46,11 @@ export class BookListComponent {
     // as a one-to-many list by the other side.
     private _author : Author;
 
-    constructor(private router:Router, private bookService : BookService, private messageService : MessageService) { }
+    constructor(private router : Router,
+        private bookService : BookService,
+        private messageService : MessageService,
+        private confirmationService: ConfirmationService) {
+    }
 
     /**
      * Invoked when user presses the search button.
@@ -99,21 +101,23 @@ export class BookListComponent {
     }
 
     showDeleteDialog(rowData : any) {
-        this.bookToDelete = <Book> rowData;
-        this.displayDeleteDialog = true;
+        let bookToDelete : Book = <Book> rowData;
+
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'fa fa-trash',
+            accept: () => {
+                this.delete(bookToDelete);
+            }
+        });
     }
 
-    /**
-     * Invoked when user presses 'Delete' in the delete dialog. Deletes the entity on
-     * the server side an remove the row from the page.
-     */
-    delete() {
-        this.bookService.delete(this.bookToDelete.id).
+    private delete(bookToDelete : Book) {
+        this.bookService.delete(bookToDelete.id).
             subscribe(
                 response => {
-                    this.currentPage.remove(this.bookToDelete);
-                    this.displayDeleteDialog = false;
-                    this.bookToDelete = null;
+                    this.currentPage.remove(bookToDelete);
                     this.messageService.info('Deleted OK', 'Angular Rocks!');
                 },
                 error => this.messageService.error('Could not delete!', error)

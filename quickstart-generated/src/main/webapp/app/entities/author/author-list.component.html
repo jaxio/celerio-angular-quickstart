@@ -47,12 +47,20 @@
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
-        <p-column field="civility" header="Civility" sortable="true"></p-column>
-        <p-column field="firstName" header="First Name" sortable="true"></p-column>
-        <p-column field="lastName" header="Last Name" sortable="true"></p-column>
-        <p-column field="email" header="Email" sortable="true"></p-column>
-        <p-column field="birthDate" header="Birth Date" sortable="true"></p-column>
-        <p-column field="birthDateTime" header="Birth Date Time" sortable="true"></p-column>
+    <p-column field="civility" header="Civility" sortable="true"></p-column>
+    <p-column field="firstName" header="First Name" sortable="true"></p-column>
+    <p-column field="lastName" header="Last Name" sortable="true"></p-column>
+    <p-column field="email" header="Email" sortable="true"></p-column>
+    <p-column field="birthDate" header="Birth Date" sortable="true">
+        <template let-author="rowData" pTemplate type="body">
+            {{author.birthDate | date:"yyyy-MM-dd" }}
+        </template>
+    </p-column>
+    <p-column field="birthDateTime" header="Birth Date Time" sortable="true">
+        <template let-author="rowData" pTemplate type="body">
+            {{author.birthDateTime | date:"yyyy-MM-dd hh:mm" }}
+        </template>
+    </p-column>
         <p-column styleClass="col-icon">
             <template let-author="rowData" pTemplate type="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(author)" style="float:left"></button>
@@ -65,37 +73,5 @@
         </footer>
     </p-dataTable>
 
-    <p-dialog header="Delete Author ?" [(visible)]="displayDeleteDialog" [responsive]="true" showEffect="fade" [modal]="true" closeOnEscape="true" (onAfterHide)="authorToDelete = null">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="authorToDelete">
-            <div class="ui-grid-row" *ngIf="authorToDelete.civility">
-                <div class="ui-grid-col-4">Civility:</div>
-                <div class="ui-grid-col-8">{{ authorToDelete.civility }}</div>
-            </div>
-            <div class="ui-grid-row" *ngIf="authorToDelete.firstName">
-                <div class="ui-grid-col-4">First Name:</div>
-                <div class="ui-grid-col-8">{{ authorToDelete.firstName }}</div>
-            </div>
-            <div class="ui-grid-row" *ngIf="authorToDelete.lastName">
-                <div class="ui-grid-col-4">Last Name:</div>
-                <div class="ui-grid-col-8">{{ authorToDelete.lastName }}</div>
-            </div>
-            <div class="ui-grid-row" *ngIf="authorToDelete.email">
-                <div class="ui-grid-col-4">Email:</div>
-                <div class="ui-grid-col-8">{{ authorToDelete.email }}</div>
-            </div>
-            <div class="ui-grid-row" *ngIf="authorToDelete.birthDate">
-                <div class="ui-grid-col-4">Birth Date:</div>
-                <div class="ui-grid-col-8">{{ authorToDelete.birthDate }}</div>
-            </div>
-            <div class="ui-grid-row" *ngIf="authorToDelete.birthDateTime">
-                <div class="ui-grid-col-4">Birth Date Time:</div>
-                <div class="ui-grid-col-8">{{ authorToDelete.birthDateTime }}</div>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-trash" (click)="delete()" label="Delete"></button>
-            </div>
-        </footer>
-    </p-dialog>
+    <p-confirmDialog widh></p-confirmDialog>
 </div>

@@ -7,8 +7,7 @@
 //
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTable } from 'primeng/primeng';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { DataTable, LazyLoadEvent, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
 import { Project } from './project';
@@ -21,7 +20,7 @@ import { AuthorLineComponent } from '../author/author-line.component';
 @Component({
     moduleId: module.id,
 	templateUrl: 'project-list.component.html',
-	selector: 'project-list',
+	selector: 'project-list'
 })
 export class ProjectListComponent {
 
@@ -36,7 +35,6 @@ export class ProjectListComponent {
     @Output() onAddNewClicked = new EventEmitter();
 
     projectToDelete : Project;
-    displayDeleteDialog : boolean;
 
     // basic search criterias (visible if not in 'sub' mode)
     example : Project = new Project();
@@ -48,7 +46,11 @@ export class ProjectListComponent {
     // as a one-to-many list by the other side.
     private _author : Author;
 
-    constructor(private router:Router, private projectService : ProjectService, private messageService : MessageService) { }
+    constructor(private router : Router,
+        private projectService : ProjectService,
+        private messageService : MessageService,
+        private confirmationService: ConfirmationService) {
+    }
 
     /**
      * Invoked when user presses the search button.
@@ -99,21 +101,23 @@ export class ProjectListComponent {
     }
 
     showDeleteDialog(rowData : any) {
-        this.projectToDelete = <Project> rowData;
-        this.displayDeleteDialog = true;
+        let projectToDelete : Project = <Project> rowData;
+
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'fa fa-trash',
+            accept: () => {
+                this.delete(projectToDelete);
+            }
+        });
     }
 
-    /**
-     * Invoked when user presses 'Delete' in the delete dialog. Deletes the entity on
-     * the server side an remove the row from the page.
-     */
-    delete() {
-        this.projectService.delete(this.projectToDelete.id).
+    private delete(projectToDelete : Project) {
+        this.projectService.delete(projectToDelete.id).
             subscribe(
                 response => {
-                    this.currentPage.remove(this.projectToDelete);
-                    this.displayDeleteDialog = false;
-                    this.projectToDelete = null;
+                    this.currentPage.remove(projectToDelete);
                     this.messageService.info('Deleted OK', 'Angular Rocks!');
                 },
                 error => this.messageService.error('Could not delete!', error)

@@ -18,6 +18,14 @@
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
+    <!-- JSON date serialization/deserialization
+         https://weblog.west-wind.com/posts/2014/jan/06/javascript-json-date-parsing-and-real-dates
+    -->
+    <script src="node_modules/json.date-extensions/json.date-extensions.min.js"></script>
+    <script>
+        JSON.useDateParser();
+    </script>
+
     <!-- Optional if a PrimeNG jquery dependant widget is used -->
     <script src="node_modules/primeui/primeui-ng-all.min.js"></script>
 

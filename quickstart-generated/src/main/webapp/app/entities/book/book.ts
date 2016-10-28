@@ -15,7 +15,7 @@ export class Book {
     extractFileName : string;
     extractContentType : string;
     extractSize : number;
-    publicationDate : string;
+    publicationDate : Date;
     bestSeller : boolean;
     price : number;
     // x-to-one

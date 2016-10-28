@@ -10,7 +10,8 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule  }    from '@angular/http';
 import { RouterModule  }  from '@angular/router';
-import { FileUploadModule, PanelModule, GrowlModule, MenubarModule, DialogModule, ButtonModule, AutoCompleteModule, DataTableModule, SharedModule, DropdownModule,PickListModule,CheckboxModule,TriStateCheckboxModule, InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule } from 'primeng/primeng';
+import { ConfirmDialogModule, FileUploadModule, PanelModule, GrowlModule, MenubarModule, DialogModule, ButtonModule, AutoCompleteModule, DataTableModule, SharedModule, DropdownModule,PickListModule,CheckboxModule,TriStateCheckboxModule, InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule } from 'primeng/primeng';
+import { ConfirmationService } from 'primeng/primeng';
 import { AppComponent }   from './app.component';
 import { HomeComponent }  from './home.component';
 import { MessageService } from './service/message.service';
@@ -54,6 +55,7 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         FormsModule,
         HttpModule,
 // primeng
+        ConfirmDialogModule,
         FileUploadModule,
         PanelModule,
         GrowlModule,
@@ -106,12 +108,13 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         UserCompleteComponent
     ],
     providers: [
-        MessageService
-        ,AuthorService
-        ,BookService
-        ,ProjectService
-        ,RoleService
-        ,UserService
+        AuthorService,
+        BookService,
+        ProjectService,
+        RoleService,
+        UserService,
+        MessageService,
+        ConfirmationService
     ],
     bootstrap: [ AppComponent ]
 })

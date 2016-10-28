@@ -7,8 +7,7 @@
 //
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTable } from 'primeng/primeng';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { DataTable, LazyLoadEvent, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
 import { Author } from './author';
@@ -20,7 +19,7 @@ import { AuthorLineComponent } from '../author/author-line.component';
 @Component({
     moduleId: module.id,
 	templateUrl: 'author-list.component.html',
-	selector: 'author-list',
+	selector: 'author-list'
 })
 export class AuthorListComponent {
 
@@ -35,7 +34,6 @@ export class AuthorListComponent {
     @Output() onAddNewClicked = new EventEmitter();
 
     authorToDelete : Author;
-    displayDeleteDialog : boolean;
 
     // basic search criterias (visible if not in 'sub' mode)
     example : Author = new Author();
@@ -47,7 +45,11 @@ export class AuthorListComponent {
     // as a one-to-many list by the other side.
     private _favoriteAuthor : Author;
 
-    constructor(private router:Router, private authorService : AuthorService, private messageService : MessageService) { }
+    constructor(private router : Router,
+        private authorService : AuthorService,
+        private messageService : MessageService,
+        private confirmationService: ConfirmationService) {
+    }
 
     /**
      * Invoked when user presses the search button.
@@ -98,21 +100,23 @@ export class AuthorListComponent {
     }
 
     showDeleteDialog(rowData : any) {
-        this.authorToDelete = <Author> rowData;
-        this.displayDeleteDialog = true;
+        let authorToDelete : Author = <Author> rowData;
+
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'fa fa-trash',
+            accept: () => {
+                this.delete(authorToDelete);
+            }
+        });
     }
 
-    /**
-     * Invoked when user presses 'Delete' in the delete dialog. Deletes the entity on
-     * the server side an remove the row from the page.
-     */
-    delete() {
-        this.authorService.delete(this.authorToDelete.id).
+    private delete(authorToDelete : Author) {
+        this.authorService.delete(authorToDelete.id).
             subscribe(
                 response => {
-                    this.currentPage.remove(this.authorToDelete);
-                    this.displayDeleteDialog = false;
-                    this.authorToDelete = null;
+                    this.currentPage.remove(authorToDelete);
                     this.messageService.info('Deleted OK', 'Angular Rocks!');
                 },
                 error => this.messageService.error('Could not delete!', error)

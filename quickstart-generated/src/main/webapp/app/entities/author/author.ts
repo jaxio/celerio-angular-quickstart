@@ -13,8 +13,8 @@ export class Author {
     firstName : string;
     lastName : string;
     email : string;
-    birthDate : string;
-    birthDateTime : string;
+    birthDate : Date;
+    birthDateTime : Date;
     // x-to-one
     favoriteAuthor : Author;
 }

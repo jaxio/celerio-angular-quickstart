@@ -31,7 +31,7 @@
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
-        <p-column field="roleName" header="Role Name" sortable="true"></p-column>
+    <p-column field="roleName" header="Role Name" sortable="true"></p-column>
         <p-column styleClass="col-icon">
             <template let-role="rowData" pTemplate type="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(role)" style="float:left"></button>
@@ -44,17 +44,5 @@
         </footer>
     </p-dataTable>
 
-    <p-dialog header="Delete Role ?" [(visible)]="displayDeleteDialog" [responsive]="true" showEffect="fade" [modal]="true" closeOnEscape="true" (onAfterHide)="roleToDelete = null">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="roleToDelete">
-            <div class="ui-grid-row" *ngIf="roleToDelete.roleName">
-                <div class="ui-grid-col-4">Role Name:</div>
-                <div class="ui-grid-col-8">{{ roleToDelete.roleName }}</div>
-            </div>
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-trash" (click)="delete()" label="Delete"></button>
-            </div>
-        </footer>
-    </p-dialog>
+    <p-confirmDialog widh></p-confirmDialog>
 </div>

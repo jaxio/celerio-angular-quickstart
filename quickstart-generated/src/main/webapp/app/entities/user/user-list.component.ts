@@ -7,8 +7,7 @@
 //
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTable } from 'primeng/primeng';
-import { LazyLoadEvent } from 'primeng/primeng';
+import { DataTable, LazyLoadEvent, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
 import { User } from './user';
@@ -19,7 +18,7 @@ import { UserService } from './user.service';
 @Component({
     moduleId: module.id,
 	templateUrl: 'user-list.component.html',
-	selector: 'user-list',
+	selector: 'user-list'
 })
 export class UserListComponent {
 
@@ -34,7 +33,6 @@ export class UserListComponent {
     @Output() onAddNewClicked = new EventEmitter();
 
     userToDelete : User;
-    displayDeleteDialog : boolean;
 
     // basic search criterias (visible if not in 'sub' mode)
     example : User = new User();
@@ -43,7 +41,11 @@ export class UserListComponent {
     currentPage : PageResponse<User> = new PageResponse<User>(0,0,[]);
 
 
-    constructor(private router:Router, private userService : UserService, private messageService : MessageService) { }
+    constructor(private router : Router,
+        private userService : UserService,
+        private messageService : MessageService,
+        private confirmationService: ConfirmationService) {
+    }
 
     /**
      * Invoked when user presses the search button.
@@ -79,21 +81,23 @@ export class UserListComponent {
     }
 
     showDeleteDialog(rowData : any) {
-        this.userToDelete = <User> rowData;
-        this.displayDeleteDialog = true;
+        let userToDelete : User = <User> rowData;
+
+        this.confirmationService.confirm({
+            message: 'Do you want to delete this record?',
+            header: 'Delete Confirmation',
+            icon: 'fa fa-trash',
+            accept: () => {
+                this.delete(userToDelete);
+            }
+        });
     }
 
-    /**
-     * Invoked when user presses 'Delete' in the delete dialog. Deletes the entity on
-     * the server side an remove the row from the page.
-     */
-    delete() {
-        this.userService.delete(this.userToDelete.id).
+    private delete(userToDelete : User) {
+        this.userService.delete(userToDelete.id).
             subscribe(
                 response => {
-                    this.currentPage.remove(this.userToDelete);
-                    this.displayDeleteDialog = false;
-                    this.userToDelete = null;
+                    this.currentPage.remove(userToDelete);
                     this.messageService.info('Deleted OK', 'Angular Rocks!');
                 },
                 error => this.messageService.error('Could not delete!', error)
