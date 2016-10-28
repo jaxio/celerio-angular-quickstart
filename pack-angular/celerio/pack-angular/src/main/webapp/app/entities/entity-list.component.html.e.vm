@@ -44,7 +44,21 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
             </template>
         </p-column>
 #else
-        <p-column field="$attr.var" header="$attr.labels.label" sortable="true"></p-column>
+#if($attr.isLocalDate())
+    <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
+        <template let-$entity.model.var="rowData" pTemplate type="body">
+            {{${entity.model.var}.$attr.var | date:"yyyy-MM-dd" }}
+        </template>
+    </p-column>
+#elseif($attr.isLocalDateTime())
+    <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
+        <template let-$entity.model.var="rowData" pTemplate type="body">
+            {{${entity.model.var}.$attr.var | date:"yyyy-MM-dd hh:mm" }}
+        </template>
+    </p-column>
+#else
+    <p-column field="$attr.var" header="$attr.labels.label" sortable="true"></p-column>
+#end
 #end
 #end
         <p-column styleClass="col-icon">
@@ -59,19 +73,5 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
         </footer>
     </p-dataTable>
 
-    <p-dialog header="Delete ${entity.model.type} ?" [(visible)]="displayDeleteDialog" [responsive]="true" showEffect="fade" [modal]="true" closeOnEscape="true" (onAfterHide)="${entity.model.var}ToDelete = null">
-        <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="${entity.model.var}ToDelete">
-#foreach($attr in $entity.searchResultAttributes.flatUp.list)
-            <div class="ui-grid-row" *ngIf="${entity.model.var}ToDelete.${attr.var}">
-                <div class="ui-grid-col-4">${attr.labels.label}:</div>
-                <div class="ui-grid-col-8">{{ ${entity.model.var}ToDelete.${attr.var} }}</div>
-            </div>
-#end
-        </div>
-        <footer>
-            <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                <button type="button" pButton icon="fa-trash" (click)="delete()" label="Delete"></button>
-            </div>
-        </footer>
-    </p-dialog>
+    <p-confirmDialog widh></p-confirmDialog>
 </div>

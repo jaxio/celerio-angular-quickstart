@@ -60,13 +60,13 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
                     <input pInputText id="$attr.var" type="number" [(ngModel)]="$attr.fullVar" #required($attr) name="$attr.var" ${p}$attr.var="ngModel" />
 #elseif($attr.isDate() && !$attr.isVersion())
 #if($attr.isJavaUtilOnlyDate())
-                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
 #elseif($attr.isJavaUtilDateAndTime())
                 date and time not supported yet
 #elseif($attr.isLocalDate())
-                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
 #elseif($attr.isLocalDateTime())
-                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" timeFormat="HH:mm:ss" showAnim="slideDown" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    <p-calendar [(ngModel)]="$attr.fullVar" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
 #else
                 Date type not supported, do it manually and send us the solution!
 #end
