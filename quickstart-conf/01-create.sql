@@ -76,7 +76,7 @@ CREATE TABLE BOOK (
     extract_size               NUMERIC (11),
 
 
-    author_id               int,
+    author_id               int not null,
     publication_date        date,
     best_seller             boolean default false,
     price                   decimal(20, 2) not null,
@@ -90,7 +90,7 @@ CREATE TABLE PROJECT (
     id                      int not null IDENTITY,
     name                    varchar(100) not null,
     url                     varchar(100),
-    author_id               int,
+    author_id               int not null,
     open_source             boolean default false,
 
     constraint project_fk_1 foreign key (author_id) references AUTHOR,
