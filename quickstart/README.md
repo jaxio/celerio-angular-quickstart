@@ -46,8 +46,7 @@ It runs Maven with the following 3 profiles (defined in the [pom.xml][] file):
 * `metadata` profile reverses the database using Celerio. It creates the file `metadata.xml` under `src/main/config/celerio-maven-plugin`.
 * `gen` profile generates the source code using Celerio. It reads `metadata.xml`, the `celerio-maven-plugin.xml` configuration file, interprets/copies the templates/files from `pack-angular`.
 
-For example, the template [entity.service.ts.e.vm](https://github.com/jaxio/celerio-angular-quickstart/blob/master/pack-angular/celerio/pack-angular/src/main/webapp/app/entities/entity.service.ts.e.vm)
-leads to the creation of 1 file per entity: `src/main/webapp/app/entities/xxx/xxx.service.ts`
+For example, the template [entity.service.ts.e.vm][] leads to the creation of 1 file per entity: `src/main/webapp/app/entities/xxx/xxx.service.ts`
 
 ### 2: Install JavaScript dependencies
 
@@ -123,3 +122,4 @@ Follow the steps 2-3-4 from the [Generate it and run it](#generate-it-and-run-it
 
 
 [pom.xml]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart/pom.xml
+[entity.service.ts.e.vm]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/pack-angular/celerio/pack-angular/src/main/webapp/app/entities/entity.service.ts.e.vm
