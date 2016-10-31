@@ -238,7 +238,7 @@ public class Book implements Identifiable<Integer>, Serializable {
     // many-to-one: Book.author ==> Author.id
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    @JoinColumn(name = "AUTHOR_ID")
+    @JoinColumn(name = "AUTHOR_ID", nullable = false)
     @ManyToOne
     public Author getAuthor() {
         return author;
