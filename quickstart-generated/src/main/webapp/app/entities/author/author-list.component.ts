@@ -13,7 +13,6 @@ import { MessageService } from '../../service/message.service';
 import { Author } from './author';
 import { AuthorDetailComponent } from './author-detail.component';
 import { AuthorService } from './author.service';
-
 import { AuthorLineComponent } from '../author/author-line.component';
 
 @Component({

@@ -13,7 +13,6 @@ import { MessageService } from '../../service/message.service';
 import { Book } from './book';
 import { BookDetailComponent } from './book-detail.component';
 import { BookService } from './book.service';
-
 import { Author } from '../author/author';
 import { AuthorLineComponent } from '../author/author-line.component';
 
@@ -45,6 +44,7 @@ export class BookListComponent {
     // Many to one: input param is used to filter the list when displayed
     // as a one-to-many list by the other side.
     private _author : Author;
+    private _coAuthor : Author;
 
     constructor(private router : Router,
         private bookService : BookService,
@@ -85,6 +85,18 @@ export class BookListComponent {
         this.example = new Book();
         this.example.author = new Author();
         this.example.author.id = this._author.id;
+    }
+
+    @Input()
+    set coAuthor(coAuthor : Author) {
+        if (coAuthor == null) {
+            return;
+        }
+        this._coAuthor = coAuthor;
+
+        this.example = new Book();
+        this.example.coAuthor = new Author();
+        this.example.coAuthor.id = this._coAuthor.id;
     }
 
 

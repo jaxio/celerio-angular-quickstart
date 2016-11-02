@@ -20,4 +20,5 @@ export class Book {
     price : number;
     // x-to-one
     author : Author;
+    coAuthor : Author;
 }

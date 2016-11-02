@@ -14,7 +14,6 @@ import { User } from './user';
 import { UserDetailComponent } from './user-detail.component';
 import { UserService } from './user.service';
 
-
 @Component({
     moduleId: module.id,
 	templateUrl: 'user-list.component.html',

@@ -13,7 +13,6 @@ import { MessageService } from '../../service/message.service';
 import { Project } from './project';
 import { ProjectDetailComponent } from './project-detail.component';
 import { ProjectService } from './project.service';
-
 import { Author } from '../author/author';
 import { AuthorLineComponent } from '../author/author-line.component';
 

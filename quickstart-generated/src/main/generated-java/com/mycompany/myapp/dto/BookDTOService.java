@@ -105,6 +105,15 @@ public class BookDTOService {
             }
         }
 
+        if (dto.coAuthor == null) {
+            book.setCoAuthor(null);
+        } else {
+            Author coAuthor = book.getCoAuthor();
+            if (coAuthor == null || (coAuthor.getId().compareTo(dto.coAuthor.id) != 0)) {
+                book.setCoAuthor(authorRepository.findOne(dto.coAuthor.id));
+            }
+        }
+
         return toDTO(bookRepository.save(book));
     }
 
@@ -142,6 +151,7 @@ public class BookDTOService {
         dto.price = book.getPrice();
         if (depth-- > 0) {
             dto.author = authorDTOService.toDTO(book.getAuthor(), depth);
+            dto.coAuthor = authorDTOService.toDTO(book.getCoAuthor(), depth);
         }
 
         return dto;
@@ -174,6 +184,7 @@ public class BookDTOService {
         book.setPrice(dto.price);
         if (depth-- > 0) {
             book.setAuthor(authorDTOService.toEntity(dto.author, depth));
+            book.setCoAuthor(authorDTOService.toEntity(dto.coAuthor, depth));
         }
 
         return book;

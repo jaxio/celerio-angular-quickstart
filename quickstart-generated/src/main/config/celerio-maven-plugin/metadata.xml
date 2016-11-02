@@ -10,7 +10,7 @@
   <tables>
     <table name="AUTHOR" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D54E34EB_16AD_43A8_BBE0_534E1C9695CF)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_B9A131DB_401D_4BBE_97E7_652579B909F4)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="CIVILITY" columnDef="MR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="2" size="2" type="CHAR"/>
         <column name="FIRST_NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="LAST_NAME" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="100" type="VARCHAR"/>
@@ -31,7 +31,7 @@
     </table>
     <table name="BOOK" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_9A58C918_B6AE_4A79_BED6_2E8AE0B05A48)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_9E565481_6565_4C23_B197_EE2E9FFA5F7B)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="TITLE" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
         <column name="SUMMARY" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="255" type="VARCHAR"/>
         <column name="EXTRACT_BINARY" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="2147483647" type="VARBINARY"/>
@@ -39,15 +39,17 @@
         <column name="EXTRACT_CONTENT_TYPE" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="6" size="100" type="VARCHAR"/>
         <column name="EXTRACT_SIZE" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="7" size="11" type="DECIMAL"/>
         <column name="AUTHOR_ID" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="8" size="10" type="INTEGER"/>
-        <column name="PUBLICATION_DATE" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="9" size="8" type="DATE"/>
-        <column name="BEST_SELLER" columnDef="FALSE" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="10" size="1" type="BOOLEAN"/>
-        <column name="PRICE" decimalDigits="2" autoIncrement="false" nullable="false" ordinalPosition="11" size="20" type="DECIMAL"/>
+        <column name="CO_AUTHOR_ID" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="9" size="10" type="INTEGER"/>
+        <column name="PUBLICATION_DATE" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="10" size="8" type="DATE"/>
+        <column name="BEST_SELLER" columnDef="FALSE" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="11" size="1" type="BOOLEAN"/>
+        <column name="PRICE" decimalDigits="2" autoIncrement="false" nullable="false" ordinalPosition="12" size="20" type="DECIMAL"/>
       </columns>
       <indexes>
         <indexe columnName="ID" indexName="PRIMARY_KEY_1" nonUnique="false"/>
       </indexes>
       <importedKeys>
         <importedKey fkColumnName="AUTHOR_ID" fkName="BOOK_FK_1" pkColumnName="ID" pkTableName="AUTHOR"/>
+        <importedKey fkColumnName="CO_AUTHOR_ID" fkName="BOOK_FK_2" pkColumnName="ID" pkTableName="AUTHOR"/>
       </importedKeys>
       <primaryKeys>
         <primaryKey>ID</primaryKey>
@@ -55,7 +57,7 @@
     </table>
     <table name="PROJECT" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BD9920F0_93D8_47CF_AFF6_D85B0CBB451E)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F0E504A7_650B_4A37_8D1E_80F3AF66B1F6)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
         <column name="URL" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="AUTHOR_ID" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="4" size="10" type="INTEGER"/>
@@ -73,7 +75,7 @@
     </table>
     <table name="ROLE" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_524BD6C2_53B7_4C92_A89E_BA095353D8EE)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F557B0E9_797C_42F0_92FE_E741226055BD)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="ROLE_NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
       </columns>
       <indexes>
@@ -87,7 +89,7 @@
     </table>
     <table name="USER" type="TABLE" remarks="The User is a human that can connect to this web application">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_12E02092_16E4_4DB8_9F01_EA7F06E94EDE)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F1128B55_9F7A_4325_8175_A994A38EA51C)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="LOGIN" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" remarks="The login used to login" size="100" type="VARCHAR"/>
         <column name="PASSWORD" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="EMAIL" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="100" type="VARCHAR"/>

@@ -55,6 +55,18 @@
                 </div>
             </div>
              <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="coAuthor">Co Author</label></div>
+                <div class="ui-grid-col-4">
+                    <author-auto-complete [(ngModel)]="book.coAuthor" id="coAuthor" name="coAuthor" [disabled]="sub"></author-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoCoAuthor" type="button" (click)="gotoCoAuthor()" *ngIf="book.coAuthor" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearCoAuthor" type="button" (click)="clearCoAuthor()" *ngIf="book.coAuthor" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+             <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="publicationDate">Publication Date </label></div>
                 <div class="ui-grid-col-6">
                     <p-calendar [(ngModel)]="book.publicationDate" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>

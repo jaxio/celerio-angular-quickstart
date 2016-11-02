@@ -53,6 +53,7 @@ public class Book implements Identifiable<Integer>, Serializable {
 
     // Many to one
     private Author author;
+    private Author coAuthor;
 
     @Override
     public String entityClassName() {
@@ -255,6 +256,28 @@ public class Book implements Identifiable<Integer>, Serializable {
 
     public Book author(Author author) {
         setAuthor(author);
+        return this;
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // many-to-one: Book.coAuthor ==> Author.id
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    @JoinColumn(name = "CO_AUTHOR_ID")
+    @ManyToOne
+    public Author getCoAuthor() {
+        return coAuthor;
+    }
+
+    /**
+     * Set the {@link #coAuthor} without adding this Book instance on the passed {@link #coAuthor}
+     */
+    public void setCoAuthor(Author coAuthor) {
+        this.coAuthor = coAuthor;
+    }
+
+    public Book coAuthor(Author coAuthor) {
+        setCoAuthor(coAuthor);
         return this;
     }
 

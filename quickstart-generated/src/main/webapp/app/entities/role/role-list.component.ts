@@ -14,7 +14,6 @@ import { Role } from './role';
 import { RoleDetailComponent } from './role-detail.component';
 import { RoleService } from './role.service';
 
-
 @Component({
     moduleId: module.id,
 	templateUrl: 'role-list.component.html',

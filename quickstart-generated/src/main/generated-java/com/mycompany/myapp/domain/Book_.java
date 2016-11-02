@@ -30,4 +30,5 @@ public abstract class Book_ {
 
     // Many to one
     public static volatile SingularAttribute<Book, Author> author;
+    public static volatile SingularAttribute<Book, Author> coAuthor;
 }

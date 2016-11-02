@@ -26,6 +26,7 @@ public class BookDTO {
     public Boolean bestSeller;
     public BigDecimal price;
     public AuthorDTO author;
+    public AuthorDTO coAuthor;
 
     @JsonIgnore
     public boolean isIdSet() {

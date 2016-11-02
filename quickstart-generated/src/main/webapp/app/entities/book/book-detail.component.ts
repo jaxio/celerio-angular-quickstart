@@ -31,6 +31,12 @@ export class BookDetailComponent implements OnInit, OnDestroy {
         this.book.author = author;
     }
 
+    @Input() // used to pass the parent when creating a new Book
+    set coAuthor(coAuthor : Author) {
+        this.book = new Book();
+        this.book.coAuthor = coAuthor;
+    }
+
     @Output() onSaveClicked = new EventEmitter<Book>();
     @Output() onCancelClicked = new EventEmitter();
 
@@ -70,6 +76,14 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
     clearAuthor() {
         this.book.author = null;
+    }
+
+    gotoCoAuthor() {
+        this.router.navigate(['/author', this.book.coAuthor.id]);
+    }
+
+    clearCoAuthor() {
+        this.book.coAuthor = null;
     }
 
     onSave() {
