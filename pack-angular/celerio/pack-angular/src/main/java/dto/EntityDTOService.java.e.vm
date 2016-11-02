@@ -189,7 +189,9 @@ $output.require($entity.primaryKey)##
 #end
 #end
 #foreach ($relation in $entity.manyToMany.list)
+#if($velocityCount == 1)
             final int fdepth = depth;
+#end
 #if($relation.to.type.equals($entity.model.type))
             dto.$relation.to.vars = ${entity.model.var}.${relation.to.getters}().stream().
                 map($relation.to.var -> toDTO($relation.to.var, fdepth)).collect(Collectors.toList());
