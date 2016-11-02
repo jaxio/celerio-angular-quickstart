@@ -7,12 +7,15 @@ import { MessageService } from '../../service/message.service';
 import { $entity.model.type } from './${entity.model.var}';
 import { ${entity.model.type}DetailComponent } from './${entity.model.var}-detail.component';
 import { $entity.service.type } from './${entity.model.var}.service';
-
+#set($imports = [])
 #foreach ($relation in $entity.xToOne.list)
+#if(!$imports.contains($relation.to.type))
 #if(!$relation.to.type.equals($entity.model.type))
 import { $relation.to.type } from '../$relation.toEntity.model.var/$relation.toEntity.model.var';
 #end
 import { ${relation.to.type}LineComponent } from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-line.component';
+#set($temp = $imports.add($relation.to.type))
+#end
 #end
 
 @Component({

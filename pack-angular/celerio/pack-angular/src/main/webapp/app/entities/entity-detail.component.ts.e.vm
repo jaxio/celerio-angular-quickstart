@@ -5,14 +5,19 @@ import { SelectItem } from 'primeng/primeng';
 import { MessageService} from '../../service/message.service';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
+#set($imports = [])
 #foreach ($relation in $entity.xToOne.list)
-#if(!$relation.to.type.equals($entity.model.type))
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
 import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
 #end
 #end
 #foreach ($relation in $entity.manyToMany.flatUp.list)
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
 import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
 import {${relation.toEntity.service.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}.service';
+#set($temp = $imports.add($relation.to.type))
+#end
 #end
 
 @Component({

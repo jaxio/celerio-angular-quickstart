@@ -2,16 +2,19 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}.ts")##
 #macro(tstype $attr)
 #if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#elseif($attr.isDate()) : Date#end
 #end
+#set($imports = [])
 ## --------------- X to One
 #foreach ($relation in $entity.xToOne.list)
-#if(!$relation.to.type.equals($entity.model.type))
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
 import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
 #end
 #end
 ## --------------- Many to Many
 #foreach ($relation in $entity.manyToMany.list)
-#if(!$relation.to.type.equals($entity.model.type))
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
 import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
 #end
 #end
 
@@ -32,7 +35,7 @@ export class $entity.model.type {
 #end
     $relation.to.var : $relation.to.type;
 #end
-## --------------- X to One
+## --------------- many to many
 #foreach ($relation in $entity.manyToMany.list)
 #if ($velocityCount == 1)
     // many-to-many

@@ -77,11 +77,13 @@ CREATE TABLE BOOK (
 
 
     author_id               int not null,
+    co_author_id            int,
     publication_date        date,
     best_seller             boolean default false,
     price                   decimal(20, 2) not null,
 
     constraint book_fk_1 foreign key (author_id) references AUTHOR,
+    constraint book_fk_2 foreign key (co_author_id) references AUTHOR,
     primary key (id)
 );
 
