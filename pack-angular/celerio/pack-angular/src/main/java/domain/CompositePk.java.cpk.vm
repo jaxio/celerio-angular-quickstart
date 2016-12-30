@@ -171,7 +171,6 @@ $output.require($attribute)##
 #if($attribute.isEnum() || $attribute.isLong() || $attribute.isInteger() || $attribute.isDouble() || $attribute.isFloat())
             result.${attribute.setter}(${attribute.type}.valueOf(values[$index]));
 #elseif($attribute.isDate())
-//            values[$index] = values[$index].substring(0, "yyyy-mm-ddThh:mm:ss".length()); // ignore the rest... hack
             result.${attribute.setter}(${attribute.mappedType.getJavaDefinition("values[$index]")});
 #else
             result.${attribute.setter}(${attribute.mappedType.getJavaDefinition("values[$index]")});
