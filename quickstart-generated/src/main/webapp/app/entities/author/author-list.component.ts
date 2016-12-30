@@ -87,7 +87,8 @@ export class AuthorListComponent {
 
 
     onRowSelect(event : any) {
-        this.router.navigate(['/author', event.data.id]);
+        let id =  event.data.id;
+        this.router.navigate(['/author', id]);
     }
 
     addNew() {
@@ -112,7 +113,9 @@ export class AuthorListComponent {
     }
 
     private delete(authorToDelete : Author) {
-        this.authorService.delete(authorToDelete.id).
+        let id =  authorToDelete.id;
+
+        this.authorService.delete(id).
             subscribe(
                 response => {
                     this.currentPage.remove(authorToDelete);

@@ -78,9 +78,16 @@ public class AuthorDTOService {
             return null;
         }
 
-        Author author;
+        final Author author;
+
         if (dto.isIdSet()) {
-            author = authorRepository.findOne(dto.id);
+            Author authorTmp = authorRepository.findOne(dto.id);
+            if (authorTmp != null) {
+                author = authorTmp;
+            } else {
+                author = new Author();
+                author.setId(dto.id);
+            }
         } else {
             author = new Author();
         }

@@ -33,6 +33,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
+/**
+ * BOOK supports file upload/download for demo
+ */
 @Entity
 @Table(name = "BOOK")
 public class Book implements Identifiable<Integer>, Serializable {

@@ -101,7 +101,8 @@ export class BookListComponent {
 
 
     onRowSelect(event : any) {
-        this.router.navigate(['/book', event.data.id]);
+        let id =  event.data.id;
+        this.router.navigate(['/book', id]);
     }
 
     addNew() {
@@ -126,7 +127,9 @@ export class BookListComponent {
     }
 
     private delete(bookToDelete : Book) {
-        this.bookService.delete(bookToDelete.id).
+        let id =  bookToDelete.id;
+
+        this.bookService.delete(id).
             subscribe(
                 response => {
                     this.currentPage.remove(bookToDelete);

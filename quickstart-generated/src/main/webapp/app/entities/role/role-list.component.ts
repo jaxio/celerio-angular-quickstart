@@ -68,7 +68,8 @@ export class RoleListComponent {
     }
 
     onRowSelect(event : any) {
-        this.router.navigate(['/role', event.data.id]);
+        let id =  event.data.id;
+        this.router.navigate(['/role', id]);
     }
 
     addNew() {
@@ -93,7 +94,9 @@ export class RoleListComponent {
     }
 
     private delete(roleToDelete : Role) {
-        this.roleService.delete(roleToDelete.id).
+        let id =  roleToDelete.id;
+
+        this.roleService.delete(id).
             subscribe(
                 response => {
                     this.currentPage.remove(roleToDelete);

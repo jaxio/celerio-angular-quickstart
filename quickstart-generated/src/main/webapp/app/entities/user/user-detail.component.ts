@@ -53,8 +53,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                 this.user = new User();
             } else {
                 this.userService.getUser(id)
-                    .subscribe(
-                        user => this.user = user,
+                    .subscribe(user => {
+                            this.user = user;
+                            this.sourceRoles = this.sourceRoles.filter(item => this.user.roles.map((e) => e.id).indexOf(item.id) < 0);
+                        },
                         error =>  this.messageService.error('ngOnInit error', error)
                     );
             }

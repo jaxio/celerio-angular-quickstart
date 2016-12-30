@@ -83,9 +83,16 @@ public class BookDTOService {
             return null;
         }
 
-        Book book;
+        final Book book;
+
         if (dto.isIdSet()) {
-            book = bookRepository.findOne(dto.id);
+            Book bookTmp = bookRepository.findOne(dto.id);
+            if (bookTmp != null) {
+                book = bookTmp;
+            } else {
+                book = new Book();
+                book.setId(dto.id);
+            }
         } else {
             book = new Book();
         }

@@ -76,7 +76,7 @@
         </div>
     </p-panel>
     <p-tabView *ngIf="user && user.id">
-        <p-tabPanel header="Roles (in progress)">
+        <p-tabPanel header="Roles">
             <p-pickList [source]="sourceRoles" [target]="user.roles" sourceHeader="Available" targetHeader="Selected" [responsive]="true">
                 <template let-role>
 {{ role.roleName }}                 </template>

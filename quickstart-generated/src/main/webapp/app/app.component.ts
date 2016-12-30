@@ -101,6 +101,7 @@ export class AppComponent implements OnInit {
                 {label: 'Book List', routerLink: ['/book-list']},
                 {label: 'Project List', routerLink: ['/project-list']},
                 {label: 'Role List', routerLink: ['/role-list']},
+                {label: 'UseCase1 List', routerLink: ['/useCase1-list']},
                 {label: 'User List', routerLink: ['/user-list']}                ]
             },
             { label: 'Swagger', url : "/swagger-ui.html", icon: 'fa-gear' },

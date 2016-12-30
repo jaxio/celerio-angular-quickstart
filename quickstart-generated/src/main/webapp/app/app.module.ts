@@ -42,6 +42,12 @@ import { RoleDetailComponent } from './entities/role/role-detail.component';
 import { RoleLineComponent } from './entities/role/role-line.component';
 import { RoleCompleteComponent } from './entities/role/role-auto-complete.component';
 
+import { UseCase1Service } from './entities/useCase1/useCase1.service';
+import { UseCase1ListComponent } from './entities/useCase1/useCase1-list.component';
+import { UseCase1DetailComponent } from './entities/useCase1/useCase1-detail.component';
+import { UseCase1LineComponent } from './entities/useCase1/useCase1-line.component';
+import { UseCase1CompleteComponent } from './entities/useCase1/useCase1-auto-complete.component';
+
 import { UserService } from './entities/user/user.service';
 import { UserListComponent } from './entities/user/user-list.component';
 import { UserDetailComponent } from './entities/user/user-detail.component';
@@ -102,6 +108,11 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         RoleLineComponent,
         RoleCompleteComponent
         ,
+        UseCase1ListComponent,
+        UseCase1DetailComponent,
+        UseCase1LineComponent,
+        UseCase1CompleteComponent
+        ,
         UserListComponent,
         UserDetailComponent,
         UserLineComponent,
@@ -112,6 +123,7 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         BookService,
         ProjectService,
         RoleService,
+        UseCase1Service,
         UserService,
         MessageService,
         ConfirmationService

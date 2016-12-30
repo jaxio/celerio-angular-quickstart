@@ -32,8 +32,8 @@
             </div>
         </footer>
     </p-panel>
-
-    <p>This list is server-side paginated...</p>
+    <p>DB comment: Author has various dates for demo</p>
+    <p>The list of results below is server-side paginated...</p>
 
     <p-dataTable #dt [value]="currentPage.content"
                  [lazy]="true"
@@ -47,22 +47,26 @@
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
-    <p-column field="civility" header="Civility" sortable="true"></p-column>
-    <p-column field="firstName" header="First Name" sortable="true"></p-column>
-    <p-column field="lastName" header="Last Name" sortable="true"></p-column>
-    <p-column field="email" header="Email" sortable="true"></p-column>
+    <p-column field="civility" header="Civility" sortable="true">
+    </p-column>
+    <p-column field="firstName" header="First Name" sortable="true">
+    </p-column>
+    <p-column field="lastName" header="Last Name" sortable="true">
+    </p-column>
+    <p-column field="email" header="Email" sortable="true">
+    </p-column>
     <p-column field="birthDate" header="Birth Date" sortable="true">
-        <template let-author="rowData" pTemplate type="body">
+        <template let-author="rowData" pTemplate="body">
             {{author.birthDate | date:"yyyy-MM-dd" }}
         </template>
     </p-column>
     <p-column field="birthDateTime" header="Birth Date Time" sortable="true">
-        <template let-author="rowData" pTemplate type="body">
+        <template let-author="rowData" pTemplate="body">
             {{author.birthDateTime | date:"yyyy-MM-dd hh:mm" }}
         </template>
     </p-column>
         <p-column styleClass="col-icon">
-            <template let-author="rowData" pTemplate type="body">
+            <template let-author="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(author)" style="float:left"></button>
             </template>
         </p-column>

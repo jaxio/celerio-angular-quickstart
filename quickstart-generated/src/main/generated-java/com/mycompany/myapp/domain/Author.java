@@ -34,6 +34,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
+/**
+ * Author has various dates for demo
+ */
 @Entity
 @Table(name = "AUTHOR")
 public class Author implements Identifiable<Integer>, Serializable {

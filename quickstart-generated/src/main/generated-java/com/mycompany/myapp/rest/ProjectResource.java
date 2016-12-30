@@ -27,7 +27,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.myapp.domain.Project;
 import com.mycompany.myapp.dto.ProjectDTO;
@@ -115,7 +114,7 @@ public class ProjectResource {
     }
 
     /**
-     * Delete by id ${}entity.model.type}.
+     * Delete by id Project.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {

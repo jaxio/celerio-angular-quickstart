@@ -85,9 +85,16 @@ public class UserDTOService {
             return null;
         }
 
-        User user;
+        final User user;
+
         if (dto.isIdSet()) {
-            user = userRepository.findOne(dto.id);
+            User userTmp = userRepository.findOne(dto.id);
+            if (userTmp != null) {
+                user = userTmp;
+            } else {
+                user = new User();
+                user.setId(dto.id);
+            }
         } else {
             user = new User();
         }

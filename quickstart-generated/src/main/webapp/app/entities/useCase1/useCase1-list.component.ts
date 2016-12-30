@@ -10,20 +10,18 @@ import { Router } from '@angular/router';
 import { DataTable, LazyLoadEvent, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
-import { Project } from './project';
-import { ProjectDetailComponent } from './project-detail.component';
-import { ProjectService } from './project.service';
-import { Author } from '../author/author';
-import { AuthorLineComponent } from '../author/author-line.component';
+import { UseCase1 } from './useCase1';
+import { UseCase1DetailComponent } from './useCase1-detail.component';
+import { UseCase1Service } from './useCase1.service';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'project-list.component.html',
-	selector: 'project-list'
+	templateUrl: 'useCase1-list.component.html',
+	selector: 'useCase1-list'
 })
-export class ProjectListComponent {
+export class UseCase1ListComponent {
 
-    @Input() header = "Projects...";
+    @Input() header = "UseCase1s...";
 
     // When 'sub' is true, it means this list is used as a one-to-many list.
     // It belongs to a parent entity, as a result the addNew operation
@@ -33,20 +31,17 @@ export class ProjectListComponent {
     @Input() sub : boolean;
     @Output() onAddNewClicked = new EventEmitter();
 
-    projectToDelete : Project;
+    useCase1ToDelete : UseCase1;
 
     // basic search criterias (visible if not in 'sub' mode)
-    example : Project = new Project();
+    example : UseCase1 = new UseCase1();
 
     // list is paginated
-    currentPage : PageResponse<Project> = new PageResponse<Project>(0,0,[]);
+    currentPage : PageResponse<UseCase1> = new PageResponse<UseCase1>(0,0,[]);
 
-    // Many to one: input param is used to filter the list when displayed
-    // as a one-to-many list by the other side.
-    private _author : Author;
 
     constructor(private router : Router,
-        private projectService : ProjectService,
+        private useCase1Service : UseCase1Service,
         private messageService : MessageService,
         private confirmationService: ConfirmationService) {
     }
@@ -65,61 +60,47 @@ export class ProjectListComponent {
      * Invoked automatically by primeng datatable.
      */
     loadPage(event : LazyLoadEvent) {
-        this.projectService.getPage(this.example, event).
+        this.useCase1Service.getPage(this.example, event).
             subscribe(
                 pageResponse => this.currentPage = pageResponse,
                 error => this.messageService.error('Could not get the results', error)
             );
     }
 
-    // Many to one: input param is used to filter the list when displayed
-    // as a one-to-many list by the other side.
-    @Input()
-    set author(author : Author) {
-        if (author == null) {
-            return;
-        }
-        this._author = author;
-
-        this.example = new Project();
-        this.example.author = new Author();
-        this.example.author.id = this._author.id;
-    }
-
-
     onRowSelect(event : any) {
-        let id =  event.data.id;
-        this.router.navigate(['/project', id]);
+        let id = event.data.id.id1.toISOString().substring(0,19) + '_' + 
+event.data.id.id2;
+        this.router.navigate(['/useCase1', id]);
     }
 
     addNew() {
         if (this.sub) {
             this.onAddNewClicked.emit("addNew");
         } else {
-            this.router.navigate(['/project', 'new']);
+            this.router.navigate(['/useCase1', 'new']);
         }
     }
 
     showDeleteDialog(rowData : any) {
-        let projectToDelete : Project = <Project> rowData;
+        let useCase1ToDelete : UseCase1 = <UseCase1> rowData;
 
         this.confirmationService.confirm({
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'fa fa-trash',
             accept: () => {
-                this.delete(projectToDelete);
+                this.delete(useCase1ToDelete);
             }
         });
     }
 
-    private delete(projectToDelete : Project) {
-        let id =  projectToDelete.id;
+    private delete(useCase1ToDelete : UseCase1) {
+        let id = useCase1ToDelete.id.id1.toISOString().substring(0,19) + '_' + useCase1ToDelete.id.id2;
 
-        this.projectService.delete(id).
+        this.useCase1Service.delete(id).
             subscribe(
                 response => {
-                    this.currentPage.remove(projectToDelete);
+                    this.currentPage.remove(useCase1ToDelete);
                     this.messageService.info('Deleted OK', 'Angular Rocks!');
                 },
                 error => this.messageService.error('Could not delete!', error)

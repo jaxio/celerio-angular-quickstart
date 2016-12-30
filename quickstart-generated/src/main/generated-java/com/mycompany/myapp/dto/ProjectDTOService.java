@@ -83,9 +83,16 @@ public class ProjectDTOService {
             return null;
         }
 
-        Project project;
+        final Project project;
+
         if (dto.isIdSet()) {
-            project = projectRepository.findOne(dto.id);
+            Project projectTmp = projectRepository.findOne(dto.id);
+            if (projectTmp != null) {
+                project = projectTmp;
+            } else {
+                project = new Project();
+                project.setId(dto.id);
+            }
         } else {
             project = new Project();
         }

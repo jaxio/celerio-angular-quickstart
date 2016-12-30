@@ -16,8 +16,7 @@
             </div>
         </footer>
     </p-panel>
-
-    <p>This list is server-side paginated...</p>
+    <p>The list of results below is server-side paginated...</p>
 
     <p-dataTable #dt [value]="currentPage.content"
                  [lazy]="true"
@@ -31,9 +30,10 @@
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
-    <p-column field="roleName" header="Role Name" sortable="true"></p-column>
+    <p-column field="roleName" header="Role Name" sortable="true">
+    </p-column>
         <p-column styleClass="col-icon">
-            <template let-role="rowData" pTemplate type="body">
+            <template let-role="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(role)" style="float:left"></button>
             </template>
         </p-column>

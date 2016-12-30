@@ -68,7 +68,8 @@ export class UserListComponent {
     }
 
     onRowSelect(event : any) {
-        this.router.navigate(['/user', event.data.id]);
+        let id =  event.data.id;
+        this.router.navigate(['/user', id]);
     }
 
     addNew() {
@@ -93,7 +94,9 @@ export class UserListComponent {
     }
 
     private delete(userToDelete : User) {
-        this.userService.delete(userToDelete.id).
+        let id =  userToDelete.id;
+
+        this.userService.delete(id).
             subscribe(
                 response => {
                     this.currentPage.remove(userToDelete);

@@ -22,6 +22,9 @@ import { ProjectDetailComponent } from './entities/project/project-detail.compon
 import { RoleListComponent } from './entities/role/role-list.component';
 import { RoleDetailComponent } from './entities/role/role-detail.component';
 
+import { UseCase1ListComponent } from './entities/useCase1/useCase1-list.component';
+import { UseCase1DetailComponent } from './entities/useCase1/useCase1-detail.component';
+
 import { UserListComponent } from './entities/user/user-list.component';
 import { UserDetailComponent } from './entities/user/user-detail.component';
 
@@ -39,6 +42,9 @@ export const routes: Routes = [
     ,
     {path: 'role-list', component: RoleListComponent },
     {path: 'role/:id', component: RoleDetailComponent }
+    ,
+    {path: 'useCase1-list', component: UseCase1ListComponent },
+    {path: 'useCase1/:id', component: UseCase1DetailComponent }
     ,
     {path: 'user-list', component: UserListComponent },
     {path: 'user/:id', component: UserDetailComponent }

@@ -9,37 +9,25 @@ import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { SelectItem } from 'primeng/primeng';
 import { MessageService} from '../../service/message.service';
-import {Author} from './author';
-import {AuthorService} from './author.service';
+import {UseCase1} from './useCase1';
+import {UseCase1Service} from './useCase1.service';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'author-detail.component.html',
-	selector: 'author-detail',
+	templateUrl: 'useCase1-detail.component.html',
+	selector: 'useCase1-detail',
 })
-export class AuthorDetailComponent implements OnInit, OnDestroy {
-    author : Author;
+export class UseCase1DetailComponent implements OnInit, OnDestroy {
+    useCase1 : UseCase1;
 
     private params_subscription: any;
 
-    showBooks : boolean = true;
-    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
-    @Input() // used to pass the parent when creating a new Author
-    set favoriteAuthor(favoriteAuthor : Author) {
-        this.author = new Author();
-        this.author.favoriteAuthor = favoriteAuthor;
-    }
-
-    @Output() onSaveClicked = new EventEmitter<Author>();
+    @Output() onSaveClicked = new EventEmitter<UseCase1>();
     @Output() onCancelClicked = new EventEmitter();
-    civilityOptions: SelectItem[];
 
-    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private authorService: AuthorService) {
-        this.civilityOptions = [];
-        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
-        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
+    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private useCase1Service: UseCase1Service) {
     }
 
     ngOnInit() {
@@ -49,14 +37,14 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
 
         this.params_subscription = this.route.params.subscribe(params => {
             let id = params['id'];
-            console.log('ngOnInit for author-detail ' + id);
+            console.log('ngOnInit for useCase1-detail ' + id);
 
             if (id === 'new') {
-                this.author = new Author();
+                this.useCase1 = new UseCase1();
             } else {
-                this.authorService.getAuthor(id)
-                    .subscribe(author => {
-                            this.author = author;
+                this.useCase1Service.getUseCase1(id)
+                    .subscribe(useCase1 => {
+                            this.useCase1 = useCase1;
                         },
                         error =>  this.messageService.error('ngOnInit error', error)
                     );
@@ -70,21 +58,13 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    gotoFavoriteAuthor() {
-        this.router.navigate(['/author', this.author.favoriteAuthor.id]);
-    }
-
-    clearFavoriteAuthor() {
-        this.author.favoriteAuthor = null;
-    }
-
     onSave() {
-        this.authorService.update(this.author).
+        this.useCase1Service.update(this.useCase1).
             subscribe(
-                author => {
-                    this.author = author;
+                useCase1 => {
+                    this.useCase1 = useCase1;
                     if (this.sub) {
-                        this.onSaveClicked.emit(this.author);
+                        this.onSaveClicked.emit(this.useCase1);
                         this.messageService.info('Saved OK and msg emitted', 'Angular Rocks!')
                     } else {
                         this.messageService.info('Saved OK', 'Angular Rocks!')

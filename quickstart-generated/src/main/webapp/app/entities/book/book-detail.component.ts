@@ -56,8 +56,9 @@ export class BookDetailComponent implements OnInit, OnDestroy {
                 this.book = new Book();
             } else {
                 this.bookService.getBook(id)
-                    .subscribe(
-                        book => this.book = book,
+                    .subscribe(book => {
+                            this.book = book;
+                        },
                         error =>  this.messageService.error('ngOnInit error', error)
                     );
             }

@@ -76,9 +76,16 @@ public class RoleDTOService {
             return null;
         }
 
-        Role role;
+        final Role role;
+
         if (dto.isIdSet()) {
-            role = roleRepository.findOne(dto.id);
+            Role roleTmp = roleRepository.findOne(dto.id);
+            if (roleTmp != null) {
+                role = roleTmp;
+            } else {
+                role = new Role();
+                role.setId(dto.id);
+            }
         } else {
             role = new Role();
         }

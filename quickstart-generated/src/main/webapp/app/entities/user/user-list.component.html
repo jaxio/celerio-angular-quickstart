@@ -40,8 +40,8 @@
             </div>
         </footer>
     </p-panel>
-
-    <p>This list is server-side paginated...</p>
+    <p>DB comment: The User is a human that can connect to this web application</p>
+    <p>The list of results below is server-side paginated...</p>
 
     <p-dataTable #dt [value]="currentPage.content"
                  [lazy]="true"
@@ -55,14 +55,20 @@
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
-    <p-column field="login" header="Login" sortable="true"></p-column>
-    <p-column field="password" header="Password" sortable="true"></p-column>
-    <p-column field="email" header="Email" sortable="true"></p-column>
-    <p-column field="isEnabled" header="Is Enabled?" sortable="true"></p-column>
-    <p-column field="civility" header="Civility" sortable="true"></p-column>
-    <p-column field="firstName" header="First Name" sortable="true"></p-column>
+    <p-column field="login" header="Login" sortable="true">
+    </p-column>
+    <p-column field="password" header="Password" sortable="true">
+    </p-column>
+    <p-column field="email" header="Email" sortable="true">
+    </p-column>
+    <p-column field="isEnabled" header="Is Enabled?" sortable="true">
+    </p-column>
+    <p-column field="civility" header="Civility" sortable="true">
+    </p-column>
+    <p-column field="firstName" header="First Name" sortable="true">
+    </p-column>
         <p-column styleClass="col-icon">
-            <template let-user="rowData" pTemplate type="body">
+            <template let-user="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(user)" style="float:left"></button>
             </template>
         </p-column>

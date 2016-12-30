@@ -50,8 +50,9 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
                 this.project = new Project();
             } else {
                 this.projectService.getProject(id)
-                    .subscribe(
-                        project => this.project = project,
+                    .subscribe(project => {
+                            this.project = project;
+                        },
                         error =>  this.messageService.error('ngOnInit error', error)
                     );
             }

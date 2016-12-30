@@ -158,7 +158,7 @@ public class BookResource {
     }
 
     /**
-     * Delete by id ${}entity.model.type}.
+     * Delete by id Book.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {

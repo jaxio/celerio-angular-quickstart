@@ -1,20 +1,20 @@
 <div class="ContentSideSections Implementation">
-    <p-panel *ngIf="!sub" header="Search Project with simple search criterias">
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #projectForm="ngForm">
+    <p-panel *ngIf="!sub" header="Search UseCase1 with simple search criterias">
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #useCase1Form="ngForm">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
-                    <label for="name">Name</label>
+                    <label for="id2">Id2</label>
                 </div>
                 <div class="ui-grid-col-6">
-                    <input pInputText id="name" [(ngModel)]="example.name" name="name" #name="ngModel"/>
+                    <input pInputText id="id2" [(ngModel)]="example.id2" name="id2" #id2="ngModel"/>
                 </div>
             </div>
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
-                    <label for="url">Url</label>
+                    <label for="dummy">Dummy</label>
                 </div>
                 <div class="ui-grid-col-6">
-                    <input pInputText id="url" [(ngModel)]="example.url" name="url" #url="ngModel"/>
+                    <input pInputText id="dummy" [(ngModel)]="example.dummy" name="dummy" #dummy="ngModel"/>
                 </div>
             </div>
         </div>
@@ -24,6 +24,7 @@
             </div>
         </footer>
     </p-panel>
+    <p>DB comment: USE_CASE_1 has a composite pk, just for demo</p>
     <p>The list of results below is server-side paginated...</p>
 
     <p-dataTable #dt [value]="currentPage.content"
@@ -34,24 +35,25 @@
                  (onLazyLoad)="loadPage($event)"
                  selectionMode="single"
                  (onRowSelect)="onRowSelect($event)"
-                 [(selection)]="selectedProject"
+                 [(selection)]="selectedUseCase1"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
-    <p-column field="name" header="Name" sortable="true">
+    <p-column field="id1" header="Id1" sortable="true">
+        <template let-useCase1="rowData" pTemplate="body">
+            {{useCase1.id.id1 | date:"yyyy-MM-dd hh:mm" }}
+        </template>
     </p-column>
-    <p-column field="url" header="Url" sortable="true">
+    <p-column field="id2" header="Id2" sortable="true">
+    <template let-useCase1="rowData" pTemplate="body">
+        {{ useCase1.id.id2 }}
+    </template>
     </p-column>
-        <p-column header="Author" sortable="false">
-            <template let-author="rowData['author']" pTemplate="body">
-                <author-line [author]="author"></author-line>
-            </template>
-        </p-column>
-    <p-column field="openSource" header="Open Source" sortable="true">
+    <p-column field="dummy" header="Dummy" sortable="true">
     </p-column>
         <p-column styleClass="col-icon">
-            <template let-project="rowData" pTemplate="body">
-                <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(project)" style="float:left"></button>
+            <template let-useCase1="rowData" pTemplate="body">
+                <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(useCase1)" style="float:left"></button>
             </template>
         </p-column>
         <footer>

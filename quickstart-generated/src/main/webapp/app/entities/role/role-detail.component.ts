@@ -43,8 +43,9 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
                 this.role = new Role();
             } else {
                 this.roleService.getRole(id)
-                    .subscribe(
-                        role => this.role = role,
+                    .subscribe(role => {
+                            this.role = role;
+                        },
                         error =>  this.messageService.error('ngOnInit error', error)
                     );
             }
