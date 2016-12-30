@@ -1,7 +1,25 @@
 @charset "UTF-8";
 
-.ui-widget {
-    font-size: 90%;
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #fafafa;
+}
+.layout {
+    background: #fafafa;
+}
+
+.ui-widget-content {
+    background: #fafafa;
+}
+
+.ui-datatable-odd {
+    background-color: white;
+}
+
+button.ui-button.ui-state-default {
+    background: #f2f2f2;
+    color: #757575;
+    border-color: #888888;
 }
 
 .col-icon {
