@@ -1,0 +1,10 @@
+$output.webapp("app/entities/${entity.model.var}/${primaryKey.typeLow}.ts")##
+#macro(tstype $attr)
+    #if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#elseif($attr.isDate()) : Date#end
+#end
+
+export class $primaryKey.type {
+#foreach ($attribute in $primaryKey.attributes)
+    ${attribute.var}#tstype($attribute);
+#end
+}

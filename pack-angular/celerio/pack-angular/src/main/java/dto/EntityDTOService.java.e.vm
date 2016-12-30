@@ -84,7 +84,7 @@ $output.require($relation.toEntity.model) ##
         if($entity.model.var != null) {
             ExampleMatcher matcher = ExampleMatcher.matching() //
 #foreach($attr in $entity.searchAttributes.list)
-#if($attr.isString() && !$attr.isEnum())
+#if($attr.isString() && !$attr.isEnum() && !$attr.isInCpk())
                 .withMatcher(${entity.model.type}_.${attr.var}.getName(), match -> match.ignoreCase().startsWith())
 #end
 #end
@@ -113,9 +113,16 @@ $output.require($relation.toEntity.model) ##
             return null;
         }
 
-        $entity.model.type $entity.model.var;
+        final $entity.model.type $entity.model.var;
+
         if (dto.isIdSet()) {
-            $entity.model.var = ${entity.repository.var}.findOne(dto.$identifiableProperty.var);
+            $entity.model.type ${entity.model.var}Tmp = ${entity.repository.var}.findOne(dto.$identifiableProperty.var);
+            if (${entity.model.var}Tmp != null) {
+                $entity.model.var = ${entity.model.var}Tmp;
+            } else {
+                $entity.model.var = new ${entity.model.type}();
+                ${entity.model.var}.${identifiableProperty.setter}(dto.$identifiableProperty.var);
+            }
         } else {
             $entity.model.var = new ${entity.model.type}();
         }

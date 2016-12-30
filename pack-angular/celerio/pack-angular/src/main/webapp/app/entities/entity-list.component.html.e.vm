@@ -21,8 +21,10 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
             </div>
         </footer>
     </p-panel>
-
-    <p>This list is server-side paginated...</p>
+#if($entity.hasComment())
+    <p>DB comment: ${entity.comment}</p>
+#end
+    <p>The list of results below is server-side paginated...</p>
 
     <p-dataTable #dt [value]="currentPage.content"
                  [lazy]="true"
@@ -39,30 +41,43 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
 #if ($attr.hasXToOneRelation())
         <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
-            <template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']" pTemplate type="body">
+            <template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']" pTemplate="body">
                 <${attr.xToOneRelation.toEntity.model.var}-line [${attr.xToOneRelation.to.var}]="${attr.xToOneRelation.to.var}"></${attr.xToOneRelation.toEntity.model.var}-line>
             </template>
         </p-column>
 #else
+#### CPK support
+#if($attr.isInCpk())
+#set( $valuePath = "${entity.model.var}.${identifiableProperty.var}.${attr.var}")##
+#else
+#set( $valuePath = "$attr.fullVar")##
+#end
+#####
 #if($attr.isLocalDate())
     <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
-        <template let-$entity.model.var="rowData" pTemplate type="body">
-            {{${entity.model.var}.$attr.var | date:"yyyy-MM-dd" }}
+        <template let-$entity.model.var="rowData" pTemplate="body">
+            {{$valuePath | date:"yyyy-MM-dd" }}
         </template>
     </p-column>
 #elseif($attr.isLocalDateTime())
     <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
-        <template let-$entity.model.var="rowData" pTemplate type="body">
-            {{${entity.model.var}.$attr.var | date:"yyyy-MM-dd hh:mm" }}
+        <template let-$entity.model.var="rowData" pTemplate="body">
+            {{$valuePath | date:"yyyy-MM-dd hh:mm" }}
         </template>
     </p-column>
 #else
-    <p-column field="$attr.var" header="$attr.labels.label" sortable="true"></p-column>
+    <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
+#if($attr.isInCpk())
+    <template let-$entity.model.var="rowData" pTemplate="body">
+        {{ $valuePath }}
+    </template>
+#end
+    </p-column>
 #end
 #end
 #end
         <p-column styleClass="col-icon">
-            <template let-$entity.model.var="rowData" pTemplate type="body">
+            <template let-$entity.model.var="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog($entity.model.var)" style="float:left"></button>
             </template>
         </p-column>

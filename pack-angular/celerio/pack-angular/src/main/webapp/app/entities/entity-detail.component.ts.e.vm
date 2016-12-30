@@ -79,8 +79,12 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
                 this.$entity.model.var = new ${entity.model.type}();
             } else {
                 this.${entity.service.var}.${entity.model.getter}(id)
-                    .subscribe(
-                        $entity.model.var => this.$entity.model.var = $entity.model.var,
+                    .subscribe($entity.model.var => {
+                            this.$entity.model.var = $entity.model.var;
+#foreach ($relation in $entity.manyToMany.list)
+                            this.source$relation.to.varsUp = this.source${relation.to.varsUp}.filter(item => this.${entity.model.var}.${relation.to.vars}.map((e) => e.id).indexOf(item.id) < 0);
+#end
+                        },
                         error =>  this.messageService.error('ngOnInit error', error)
                     );
             }

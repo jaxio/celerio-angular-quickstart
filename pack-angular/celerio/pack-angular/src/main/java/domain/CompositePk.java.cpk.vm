@@ -145,10 +145,10 @@ $output.require($attribute)##
         StringBuilder result = new StringBuilder();
 #foreach ($attribute in $primaryKey.attributes)
 #if ($velocityCount > 1)
-        result.append(":");
+        result.append("_");
 #end
         if (${attribute.has}()) {
-#if ($attribute.isDate())
+#if ($attribute.isJavaUtilDate())
             result.append(${attribute.getter}().getTime());
 #else
             result.append(${attribute.getter}());
@@ -164,12 +164,15 @@ $output.require($attribute)##
      */
     public static $output.currentRootClass fromString(String string) {
         $output.currentRootClass result = new ${output.currentRootClass}();
-        String[] values = string.split(":");
+        String[] values = string.split("_");
 #foreach ($attribute in $primaryKey.attributes)
 #set( $index = $velocityCount - 1)##
         if (isNotEmpty(values[$index])) {
 #if($attribute.isEnum() || $attribute.isLong() || $attribute.isInteger() || $attribute.isDouble() || $attribute.isFloat())
             result.${attribute.setter}(${attribute.type}.valueOf(values[$index]));
+#elseif($attribute.isDate())
+//            values[$index] = values[$index].substring(0, "yyyy-mm-ddThh:mm:ss".length()); // ignore the rest... hack
+            result.${attribute.setter}(${attribute.mappedType.getJavaDefinition("values[$index]")});
 #else
             result.${attribute.setter}(${attribute.mappedType.getJavaDefinition("values[$index]")});
 #end

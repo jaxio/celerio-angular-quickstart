@@ -100,7 +100,14 @@ export class ${entity.model.type}ListComponent {
 #end
 
     onRowSelect(event : any) {
-        this.router.navigate(['/${entity.model.var}', event.data.${identifiableProperty.var}]);
+#if($entity.hasCompositePk())
+        let id = #foreach($a in $primaryKey.attributes)event.data.${identifiableProperty.var}.${a.var}#{if}($a.isDate()).toISOString().substring(0,19)#{end}#{if}($velocityHasNext) + '_' + #{else};#{end}
+
+#{end}
+#else
+        let id =  event.data.${identifiableProperty.var};
+#end
+        this.router.navigate(['/${entity.model.var}', id]);
     }
 
     addNew() {
@@ -125,7 +132,14 @@ export class ${entity.model.type}ListComponent {
     }
 
     private delete(${entity.model.var}ToDelete : $entity.model.type) {
-        this.${entity.service.var}.delete(${entity.model.var}ToDelete.${identifiableProperty.var}).
+#if($entity.hasCompositePk())
+        let id = #foreach($a in $primaryKey.attributes)${entity.model.var}ToDelete.${identifiableProperty.var}.${a.var}#{if}($a.isDate()).toISOString().substring(0,19)#{end}#{if}($velocityHasNext) + '_' + #{else};#{end}#{end}
+
+#else
+        let id =  ${entity.model.var}ToDelete.${identifiableProperty.var};
+#end
+
+        this.${entity.service.var}.delete(id).
             subscribe(
                 response => {
                     this.currentPage.remove(${entity.model.var}ToDelete);

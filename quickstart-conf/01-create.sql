@@ -61,6 +61,8 @@ CREATE TABLE AUTHOR (
     favorite_author_id  int,
     primary key (id)
 );
+COMMENT ON TABLE AUTHOR IS 'Author has various dates for demo';
+
 
 ALTER TABLE AUTHOR ADD constraint account_fk_1 foreign key (favorite_author_id) references AUTHOR;
 
@@ -75,7 +77,6 @@ CREATE TABLE BOOK (
     extract_content_type       varchar(100),
     extract_size               NUMERIC (11),
 
-
     author_id               int not null,
     co_author_id            int,
     publication_date        date,
@@ -86,6 +87,7 @@ CREATE TABLE BOOK (
     constraint book_fk_2 foreign key (co_author_id) references AUTHOR,
     primary key (id)
 );
+COMMENT ON TABLE BOOK IS 'BOOK supports file upload/download for demo';
 
 
 CREATE TABLE PROJECT (
@@ -99,6 +101,14 @@ CREATE TABLE PROJECT (
     primary key (id)
 );
 
+CREATE TABLE USE_CASE_1 (
+    id1               timestamp not null,
+    id2               varchar(100) not null,
+    dummy             varchar(100) not null,
+    primary key (id1, id2)
+);
+
+COMMENT ON TABLE USE_CASE_1 IS 'USE_CASE_1 has a composite pk, just for demo';
 
 INSERT INTO USER (id, login, password, email, is_enabled, version) VALUES (-1, 'admin', 'admin', 'admin@example.com', true, 1);
 

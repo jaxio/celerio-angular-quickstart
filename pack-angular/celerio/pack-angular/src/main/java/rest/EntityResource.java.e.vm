@@ -51,9 +51,9 @@ $output.require("org.springframework.web.bind.annotation.*")##
 $output.requireStatic("org.springframework.http.MediaType.APPLICATION_JSON_VALUE")##
 $output.require("org.springframework.http.ResponseEntity")##
 $output.require("org.springframework.web.bind.annotation.RequestBody")##
-$output.require("org.springframework.web.bind.annotation.RequestParam")##
 $output.require("org.springframework.http.HttpHeaders")##
 $output.require("org.springframework.http.HttpStatus")##
+
 
 @RestController
 @RequestMapping("/api/${entity.model.vars}")
@@ -65,6 +65,26 @@ public class $output.currentClass{
     private $entity.repository.type $entity.repository.var;
     @Inject
     private $entity.dtoservice.type $entity.dtoservice.var;
+#if($entity.hasCompositePk())
+$output.require("$entity.primaryKey.fullType")##
+$output.require("org.springframework.web.bind.WebDataBinder")##
+$output.require("java.beans.PropertyEditorSupport")##
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(${entity.primaryKey.type}.class, new PropertyEditorSupport() {
+            @Override
+            public String getAsText() {
+                return getValue().toString();
+            }
+
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                setValue(${entity.primaryKey.type}.fromString(text));
+            }
+        });
+    }
+#end
 
     /**
      * Create a new ${entity.model.type}.
@@ -85,7 +105,7 @@ public class $output.currentClass{
             body(result);
     }
 
-    /**
+   /**
     * Find by id ${entity.model.type}.
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
@@ -117,6 +137,7 @@ public class $output.currentClass{
 #foreach ($attribute in $entity.fileAttributes.list)
 $output.require("org.springframework.web.multipart.MultipartFile")##
 $output.require("java.io.IOException")##
+$output.require("org.springframework.web.bind.annotation.RequestParam")##
 
     /**
      * Target url for ${attribute.var} file upload.
@@ -191,7 +212,7 @@ $output.require("java.io.IOException")##
     }
 
     /**
-     * Delete by id ${}entity.model.type}.
+     * Delete by id ${entity.model.type}.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
