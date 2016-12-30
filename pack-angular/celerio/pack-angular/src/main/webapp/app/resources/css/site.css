@@ -7,3 +7,10 @@
 .col-icon {
     width: 60px;
 }
+
+.ui-button-icon-only .ui-button-text {
+    padding-top: 0em;
+    padding-right: 0em;
+    padding-bottom: 0em;
+    padding-left: 0em;
+}

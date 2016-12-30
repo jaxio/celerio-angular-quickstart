@@ -10,6 +10,7 @@ $output.webapp("index.html")##
     <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" />
     <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />
     <link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="app/resources/css/site.css"/>
 
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->
