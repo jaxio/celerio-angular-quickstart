@@ -29,7 +29,7 @@ $output.require($entity.primaryKey)##
     public $entity.primaryKey.type $entity.primaryKey.var;
 #end
 #foreach ($attribute in $entity.nonCpkAttributes.list)
-#if(!$attribute.isInFk() && !$attribute.isFileBinary())
+#if((!$attribute.isInFk() || $attribute.isSimplePk()) && !$attribute.isBinary())
 $output.require($attribute)##
     public $attribute.type $attribute.var;
 #end

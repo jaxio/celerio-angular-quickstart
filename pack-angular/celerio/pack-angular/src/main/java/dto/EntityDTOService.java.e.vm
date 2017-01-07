@@ -183,7 +183,7 @@ $output.require($entity.primaryKey)##
         dto.$entity.primaryKey.var = ${entity.model.var}.${entity.primaryKey.getter}();
 #end
 #foreach ($attribute in $entity.nonCpkAttributes.list)
-#if(!$attribute.isInFk() && !$attribute.isFileBinary())
+#if(!$attribute.isInFk() && !$attribute.isBinary())
         dto.$attribute.var = ${entity.model.var}.${attribute.getter}();
 #end
 #end

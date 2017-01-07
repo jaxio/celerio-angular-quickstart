@@ -32,7 +32,7 @@ export class $entity.model.type {
 #if ($velocityCount == 1)
     // Raw attributes
 #end
-#if((!$attribute.isInFk() || $attribute.isSimplePk()) && !$attribute.isFileBinary())
+#if((!$attribute.isInFk() || $attribute.isSimplePk()) && !$attribute.isBinary())
     ${attribute.var}#tstype($attribute);
 #end
 #end

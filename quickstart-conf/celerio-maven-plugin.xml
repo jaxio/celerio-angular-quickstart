@@ -32,6 +32,7 @@
         <entityConfig tableName="USER">
             <columnConfigs>
                 <columnConfig columnName="civility" sharedEnumName="Civility"/>
+                <columnConfig columnName="country_code" sharedEnumName="CountryCode"/>
                 <columnConfig columnName="password" searchField="false" searchResult="false"/>
             </columnConfigs>
         </entityConfig>
@@ -97,5 +98,28 @@
                 </enumValue>
             </enumValues>
         </sharedEnumConfig>
+        <sharedEnumConfig name="CountryCode" type="CUSTOM">
+            <enumValues>
+                <enumValue name="FRANCE" value="+33">
+                    <labels>
+                        <label value="France"/>
+                        <label value="France" lang="fr"/>
+                    </labels>
+                </enumValue>
+                <enumValue name="ITALY" value="+39">
+                    <labels>
+                        <label value="Italy"/>
+                        <label value="Italie" lang="fr"/>
+                    </labels>
+                </enumValue>
+                <enumValue name="USA" value="+1">
+                    <labels>
+                        <label value="United-States"/>
+                        <label value="Etats-Unis" lang="fr"/>
+                    </labels>
+                </enumValue>
+            </enumValues>
+        </sharedEnumConfig>
+
     </sharedEnumConfigs>
 </celerio>

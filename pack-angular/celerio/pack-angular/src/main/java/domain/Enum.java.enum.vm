@@ -40,5 +40,20 @@ public enum $enum.model.type {
     public String getValue() {
         return value;
     }
+
+    /**
+     * @return the $enum.model.type instance having its value matching exactly the passed value.
+     */
+    public static $enum.model.type fromValue(String value) {
+        if (value == null) {
+            return null;
+        }
+        for ($enum.model.type e : ${enum.model.type}.values()) {
+            if (value.equals(e.getValue())) {
+                return e;
+            }
+        }
+        return null;
+    }
 #end
 }

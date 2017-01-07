@@ -179,13 +179,20 @@ $output.require("org.springframework.web.bind.annotation.RequestParam")##
 
         $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.primaryKey.var);
 
+#if ($attribute.filename)
         log.debug("File Download: {}", ${entity.model.var}.${attribute.filename.getter}());
-
+#end
         return ResponseEntity
             .ok()
+#if ($attribute.fileContentType)
             .header(HttpHeaders.CONTENT_TYPE, ${entity.model.var}.${attribute.fileContentType.getter}())
+#end
+#if ($attribute.filename)
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ${entity.model.var}.${attribute.filename.getter}() + "\"")
+#end
+#if ($attribute.fileSize)
             .contentLength(${entity.model.var}.${attribute.fileSize.getter}())
+#end
             .body(${entity.model.var}.${attribute.getter}());
     }
 #end

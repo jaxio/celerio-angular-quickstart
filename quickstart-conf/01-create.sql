@@ -14,6 +14,7 @@ CREATE TABLE USER (
     email                    varchar(100),
     is_enabled               bool not null default true,
     civility                 char(2) default 'MR',
+    country_code             varchar(6) default '+33',
     first_name               varchar(100),
     last_name                varchar(100),
 
