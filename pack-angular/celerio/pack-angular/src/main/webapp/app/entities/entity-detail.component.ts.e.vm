@@ -43,6 +43,10 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
     set ${relation.to.var}($relation.to.var : $relation.to.type) {
         this.$entity.model.var = new ${entity.model.type}();
         this.${entity.model.var}.$relation.to.var = $relation.to.var;
+#if($relation.fromAttribute.isInCpk())
+        // special hack for composite key with x-to-one relation...
+        this.${entity.model.var}.id.${relation.fromAttribute.var} = ${relation.to.var}.${identifiableProperty.var};
+#end
     }
 
 #end
@@ -104,10 +108,23 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
 
     clear${relation.to.varUp}() {
         this.${entity.model.var}.${relation.to.var} = null;
+#if($relation.fromAttribute.isInCpk())
+        // special hack for composite key with x-to-one relation...
+        this.${entity.model.var}.id.${relation.fromAttribute.var} = null;
+#end
     }
 #end
 
     onSave() {
+#if($entity.hasCompositePk())
+#foreach ($attribute in $primaryKey.attributes)
+#if($attribute.hasForwardXToOneRelation())
+        // special hack for composite key with x-to-one relation...
+        this.${entity.model.var}.id.${attribute.var} = this.${entity.model.var}.${attribute.xToOneRelation.to.var}.${identifiableProperty.var};
+
+#end
+#end
+#end
         this.${entity.service.var}.update(this.$entity.model.var).
             subscribe(
                 $entity.model.var => {

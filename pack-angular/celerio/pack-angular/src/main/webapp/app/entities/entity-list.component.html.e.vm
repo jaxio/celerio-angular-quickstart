@@ -42,7 +42,7 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 #if ($attr.hasXToOneRelation())
         <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
             <template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']" pTemplate="body">
-                <${attr.xToOneRelation.toEntity.model.var}-line [${attr.xToOneRelation.to.var}]="${attr.xToOneRelation.to.var}"></${attr.xToOneRelation.toEntity.model.var}-line>
+                <${attr.xToOneRelation.toEntity.model.var}-line [${attr.xToOneRelation.toEntity.model.var}]="${attr.xToOneRelation.to.var}"></${attr.xToOneRelation.toEntity.model.var}-line>
             </template>
         </p-column>
 #else

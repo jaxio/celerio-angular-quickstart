@@ -26,13 +26,16 @@
 
 
     <!-- CHANGE IT OR COMMENT IT IF YOU USE YOUR OWN DATABASE -->
+
     <entityConfigs>
+
         <entityConfig tableName="USER">
             <columnConfigs>
                 <columnConfig columnName="civility" sharedEnumName="Civility"/>
                 <columnConfig columnName="password" searchField="false" searchResult="false"/>
             </columnConfigs>
         </entityConfig>
+
         <entityConfig tableName="AUTHOR">
             <columnConfigs>
                 <columnConfig columnName="first_name" min="2"/>
@@ -40,9 +43,11 @@
                 <columnConfig columnName="civility" sharedEnumName="Civility"/>
             </columnConfigs>
         </entityConfig>
+
         <entityConfig tableName="BOOK">
             <columnConfigs>
                 <columnConfig columnName="author_id">
+                    <!-- will generate the one to many association on the Author side -->
                     <oneToManyConfig elementVar="book" var="books" orphanRemoval="true"/>
                 </columnConfig>
                 <columnConfig columnName="extract_binary">
@@ -53,10 +58,21 @@
                 </columnConfig>
             </columnConfigs>
         </entityConfig>
+
         <entityConfig tableName="PROJECT">
             <columnConfigs>
                 <columnConfig columnName="author_id">
+                    <!-- will generate the one to many association on the Author side -->
                     <oneToManyConfig elementVar="project" var="projects" orphanRemoval="true"/>
+                </columnConfig>
+            </columnConfigs>
+        </entityConfig>
+
+        <entityConfig tableName="USE_CASE_3">
+            <columnConfigs>
+                <columnConfig columnName="id2">
+                    <!-- will generate the one to many association on the UseCase2 side -->
+                    <oneToManyConfig var="useCase3s" orphanRemoval="true"/>
                 </columnConfig>
             </columnConfigs>
         </entityConfig>

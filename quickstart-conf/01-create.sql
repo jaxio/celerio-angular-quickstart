@@ -107,8 +107,26 @@ CREATE TABLE USE_CASE_1 (
     dummy             varchar(100) not null,
     primary key (id1, id2)
 );
-
 COMMENT ON TABLE USE_CASE_1 IS 'USE_CASE_1 has a composite pk, just for demo';
+
+CREATE TABLE USE_CASE_2 (
+    id               varchar(32) not null,
+    dummy             varchar(100) not null,
+    primary key (id)
+);
+COMMENT ON TABLE USE_CASE_2 IS 'USE_CASE_2 has a string pk, just for demo';
+
+
+CREATE TABLE USE_CASE_3 (
+    id1               timestamp not null,
+    id2               varchar(32) not null,
+    dummy             varchar(100) not null,
+
+    constraint use_case_3_fk_1 foreign key (id2) references USE_CASE_2,
+    primary key (id1, id2)
+);
+COMMENT ON TABLE USE_CASE_3 IS 'USE_CASE_3 has a composite pk with one member being also an FK, just for demo';
+
 
 INSERT INTO USER (id, login, password, email, is_enabled, version) VALUES (-1, 'admin', 'admin', 'admin@example.com', true, 1);
 

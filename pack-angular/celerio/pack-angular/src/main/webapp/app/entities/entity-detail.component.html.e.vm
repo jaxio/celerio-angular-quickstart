@@ -138,8 +138,8 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #end
 #foreach ($relation in $entity.oneToMany.flatUp.list)
         <p-tabPanel header="$relation.to.varsUp">
-            <${relation.toEntity.model.var}-list *ngIf="show$relation.to.varsUp" [$entity.model.var]="$entity.model.var" sub="true" [header]="'$relation.to.varsUp of this $entity.model.var'" (onAddNewClicked)="show$relation.to.varsUp = false"></${relation.toEntity.model.var}-list>
-            <${relation.toEntity.model.var}-detail *ngIf="!show$relation.to.varsUp" [$entity.model.var]="$entity.model.var" sub="true" (onSaveClicked)="show$relation.to.varsUp = true" (onCancelClicked)="show$relation.to.varsUp = true"></${relation.toEntity.model.var}-detail>
+            <${relation.toEntity.model.var}-list *ngIf="show$relation.to.varsUp" [$relation.from.var]="$entity.model.var" sub="true" [header]="'$relation.to.varsUp of this $entity.model.var'" (onAddNewClicked)="show$relation.to.varsUp = false"></${relation.toEntity.model.var}-list>
+            <${relation.toEntity.model.var}-detail *ngIf="!show$relation.to.varsUp" [$relation.from.var]="$entity.model.var" sub="true" (onSaveClicked)="show$relation.to.varsUp = true" (onCancelClicked)="show$relation.to.varsUp = true"></${relation.toEntity.model.var}-detail>
         </p-tabPanel>
 #end
 #foreach ($relation in $entity.manyToMany.flatUp.list)
