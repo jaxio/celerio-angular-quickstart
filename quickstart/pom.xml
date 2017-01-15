@@ -5,7 +5,7 @@
 
     <groupId>com.jaxio</groupId>
     <artifactId>celerio-angular-quickstart</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <name>celerio-angular-quickstart</name>
     <description>
@@ -213,14 +213,29 @@
 
         <resources>
             <resource>
-                <directory>${celerio-maven-plugin.outputDir}/src/main/resources</directory>
+                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>application.yml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>aot/**</include>
+                </includes>
+                <targetPath>static</targetPath>
             </resource>
         </resources>
+
         <testResources>
             <testResource>
                 <directory>${celerio-maven-plugin.outputDir}/src/test/resources</directory>
@@ -302,11 +317,7 @@
             </plugin>
 
 
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates
+            <!-- Compiler plugin enforces Java compatibility and activates
                 annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

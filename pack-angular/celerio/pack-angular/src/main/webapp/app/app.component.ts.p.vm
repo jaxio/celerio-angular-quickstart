@@ -10,6 +10,7 @@ import { MessageService} from './service/message.service';
  * The Root component. Defines the main layout and handles user login in a dialog.
  */
 @Component({
+    moduleId: module.id,
     selector: 'my-app',
     template: `
         <p-growl [value]="msgs"></p-growl>
@@ -70,7 +71,7 @@ import { MessageService} from './service/message.service';
 })
 export class AppComponent implements OnInit {
     private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })});
-    private items : MenuItem[] = [{label: 'hello'}];
+    public items : MenuItem[] = [{label: 'hello'}];
     msgs : Message[] = [];
 
     displayLoginDialog : boolean = false;

@@ -7,13 +7,13 @@ $output.webapp("app/home.component.html")##
 <div class="ui-g">
     <div class="ui-g-12">
         <div class="ui-g-4">
-            <img src="img/primeng.svg" width="auto" height="50px"/>
+            <img src="/img/primeng.svg" width="auto" height="50px"/>
         </div>
         <div class="ui-g-4">
-            <img src="img/angular-icon.svg" width="auto" height="50px"/>
+            <img src="/img/angular-icon.svg" width="auto" height="50px"/>
         </div>
         <div class="ui-g-4">
-            <img src="img/typescript.png" width="auto" height="50px"/>
+            <img src="/img/typescript.png" width="auto" height="50px"/>
         </div>
     </div>
     <div class="ui-g-12">
@@ -34,13 +34,13 @@ $output.webapp("app/home.component.html")##
     </div>
     <div class="ui-g-12">
         <div class="ui-g-4">
-            <img src="img/springboot.png" width="auto" height="50px"/>
+            <img src="/img/springboot.png" width="auto" height="50px"/>
         </div>
         <div class="ui-g-4">
-            <img src="img/springdata.gif" width="auto" height="50px"/>
+            <img src="/img/springdata.gif" width="auto" height="50px"/>
         </div>
         <div class="ui-g-4">
-            <img src="img/jaxio.gif" width="auto" height="50px"/>
+            <img src="/img/jaxio.gif" width="auto" height="50px"/>
         </div>
     </div>
 

@@ -33,7 +33,7 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
     //The internal data model
     private _value: $entity.model.type = null;
 
-    private suggestions : ${entity.model.type}[] = [];
+    public suggestions : ${entity.model.type}[] = [];
 
     //Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};
