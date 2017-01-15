@@ -4,8 +4,8 @@ Generate an Angular 2.4.0 CRUD web application from an existing database schema.
 The quickstart uses a sample H2 database schema. Using your own schema is just a matter of configuration.
 
 Please follow the instructions from the [quickstart][] folder.
- 
-You may also browse an already [generated quickstart][] web app. 
+
+You may also browse an already [generated quickstart][] web app.
 
 ## About the project
 

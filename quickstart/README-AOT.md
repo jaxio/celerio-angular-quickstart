@@ -1,10 +1,14 @@
-# AOT Support
+# Ahead-of-Time (AOT) support with ngc (doc in progress)
 
 *Prerequisites:* 
 
 * [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven 3.3.3](https://maven.apache.org/download.cgi) 
 * [Npm 3.x.x](https://nodejs.org/en/)
+
+*Recommended read:*
+
+* [AOT Cookbook from angular doc](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html)
 
 ### Run these commands to generate and run an Angular 2.4.0 web app:
 
