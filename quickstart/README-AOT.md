@@ -10,15 +10,15 @@
 
 * [AOT Cookbook from angular doc](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html)
 
-As soon as you want to ship your webapp into production, you need to package somehow.
-Below we gives you the basic commands to:
+As soon as you want to ship your webapp into production, you need to package it somehow.
+Below we give you the basic commands to:
 
-- precompile all the typescript files (aot)
+- pre-compile all the typescript files (aot)
 - do some 'tree shaking' (excluding stuff we don't need)
 - create a single javascript file (build.js)
 - package everything in a jar file and execute it.
 
-### Run these commands to generate and run an Angular 2.4.0 web app:
+### Run these commands to generate, package and run an Angular 2.4.0 web app:
 
 By default this project reverses a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql).
 You may of course [reverse your own database schema](#how-to-use-your-own-database).
