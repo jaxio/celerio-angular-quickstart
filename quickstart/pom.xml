@@ -226,11 +226,28 @@
                     <exclude>application.yml</exclude>
                 </excludes>
             </resource>
+
+            <!-- COPY aot compilation results + aot index.html -->
+            <resource>
+                <directory>src/main/webapp/aot</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>index.html</include>
+                    <include>dist/build.js</include>
+                    <include>dist/build.js.map</include>
+                </includes>
+                <targetPath>static</targetPath>
+            </resource>
+
+            <!-- COPY other resources required by aot index.html -->
             <resource>
                 <directory>src/main/webapp</directory>
                 <filtering>false</filtering>
                 <includes>
-                    <include>aot/**</include>
+                    <include>node_modules/core-js/client/shim.min.js</include>
+                    <include>node_modules/zone.js/dist/zone.min.js</include>
+                    <include>node_modules/json.date-extensions/json.date-extensions.min.js</include>
+                    <include>node_modules/primeng/resources/**</include>
                 </includes>
                 <targetPath>static</targetPath>
             </resource>

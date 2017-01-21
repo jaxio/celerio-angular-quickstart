@@ -10,9 +10,13 @@
 
 * [AOT Cookbook from angular doc](https://angular.io/docs/ts/latest/cookbook/aot-compiler.html)
 
-### Optional manual modif to do in templates or generated code (temporary solution)
+As soon as you want to ship your webapp into production, you need to package somehow.
+Below we gives you the basic commands to:
 
-- In Application.java, replace "/" by "/aot/index.html".
+- precompile all the typescript files (aot)
+- do some 'tree shaking' (excluding stuff we don't need)
+- create a single javascript file (build.js)
+- package everything in a jar file and execute it.
 
 ### Run these commands to generate and run an Angular 2.4.0 web app:
 
@@ -28,13 +32,15 @@ You may of course [reverse your own database schema](#how-to-use-your-own-databa
     npm install
     npm install @angular/compiler-cli @angular/platform-server --save
     npm install rollup rollup-plugin-node-resolve rollup-plugin-commonjs rollup-plugin-uglify --save-dev
-    node copy-dist-files
     npm run build:aot    
     cd ../../..
-    mvn package
-    java -jar target/celerio-angular-quickstart.jar
+    mvn -DskipTests package
+    cd target
+    java -jar celerio-angular-quickstart.jar
 
+Then open [http://localhost:8080/](http://localhost:8080/)
 
-Then open [http://localhost:8080/aot/index.html](http://localhost:8080/aot/index.html)
+NOTE: make sure you execute the jar from the target directory 
+otherwise springboot picks the index.html from the file system.
 
-This is a work in progress... 
+This is a work in progress...

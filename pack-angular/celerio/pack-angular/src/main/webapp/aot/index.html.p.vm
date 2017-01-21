@@ -1,25 +1,26 @@
 $output.webapp("aot/index.html")##
 <html>
 <head>
-    <title>Celerio/Angular/PrimeNG/Spring QuickStart with SystemJS</title>
+    <title>Celerio/Angular/PrimeNG/Spring QuickStart with AOT</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="/aot/">
 
-    <link rel="stylesheet" type="text/css" href="theme.css" />
-    <link rel="stylesheet" type="text/css" href="primeng.min.css" />
-    <link rel="stylesheet" type="text/css" href="/icons/css/font-awesome.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/site.css"/>
+    <base href="/">
+
+    <link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/themes/omega/theme.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/primeng.min.css" />
+    <link rel="stylesheet" type="text/css" href="icons/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/site.css"/>
 
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->
-    <script src="shim.min.js"></script>
-    <script src="zone.min.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.min.js"></script>
 
     <!-- JSON date serialization/deserialization
          https://weblog.west-wind.com/posts/2014/jan/06/javascript-json-date-parsing-and-real-dates
     -->
-    <script src="json.date-extensions.min.js"></script>
+    <script src="node_modules/json.date-extensions/json.date-extensions.min.js"></script>
     <script>
         JSON.useDateParser();
     </script>
@@ -31,7 +32,7 @@ $output.webapp("aot/index.html")##
 <my-app>
     <div style="text-align:center;">
         <div style="padding-top:100px">
-            Please wait, application is loading...
+            Please wait, application is loading... (AOT)
         </div>
 
         <div style="margin-top: 20px;">

@@ -1,11 +1,16 @@
 # Celerio Angular Quickstart
 
-Generate an Angular 2.4.0 CRUD web application from an existing database schema.
-The quickstart uses a sample H2 database schema. Using your own schema is just a matter of configuration.
+This project guides you through the steps of generating an Angular 2.4.0 CRUD web application from an existing database schema.
 
-Please follow the instructions from the [quickstart][] folder.
+To make it convenient, the project uses a sample H2 database schema. Using your own database schema and database engine 
+is just a matter of configuration.
 
-You may also browse an already [generated quickstart][] web app.
+Please follow the instructions from the [quickstart][] folder to generate and run the project.
+
+To package the generated project (Java classes + AOT compilation results) in a single jar file and run it,
+follow the [AOT instructions][]. 
+
+You may also browse an already [generated quickstart][] web app source code
 
 ## About the project
 
@@ -44,3 +49,4 @@ You may of course [report issues](https://github.com/jaxio/celerio-angular-quick
 
 [generated quickstart]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-generated
 [quickstart]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart
+[AOT instructions]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart/README-AOT.md
