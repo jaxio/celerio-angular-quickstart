@@ -52,6 +52,7 @@
                     <!-- will generate the one to many association on the Author side -->
                     <oneToManyConfig elementVar="book" var="books" orphanRemoval="true"/>
                 </columnConfig>
+                <columnConfig columnName="co_author_id" searchField="false" />
                 <columnConfig columnName="extract_binary">
                     <labels>
                         <label lang="fr" value="Extrait (fichier)..."/>

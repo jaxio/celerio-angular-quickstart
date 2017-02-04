@@ -1,9 +1,23 @@
 $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.component.html")##
+## START MACRO
+#macro(xToOneSearch $relation)
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+        <label for="${relation.to.var}">$relation.labels.label</label>
+    </div>
+    <div class="ui-grid-col-6">
+        <${relation.toEntity.model.var}-auto-complete [(ngModel)]="example.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}"></${relation.toEntity.model.var}-auto-complete>
+    </div>
+</div>
+#end
+## END MACRO
 <div class="ContentSideSections Implementation">
     <p-panel *ngIf="!sub" header="Search ${entity.model.type} with simple search criterias">
         <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #${entity.model.var}Form="ngForm">
 #foreach($attr in $entity.searchAttributes.list)
-#if($attr.isString() && !$attr.isEnum())
+#if($attr.isSimpleFk())
+#xToOneSearch($attr.getXToOneRelation())
+#elseif($attr.isString() && !$attr.isEnum())
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
                     <label for="$attr.var">$attr.labels.label</label>
