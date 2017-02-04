@@ -39,9 +39,10 @@
 
         <entityConfig tableName="AUTHOR">
             <columnConfigs>
-                <columnConfig columnName="first_name" min="2"/>
-                <columnConfig columnName="last_name" min="2"/>
-                <columnConfig columnName="civility" sharedEnumName="Civility"/>
+                <columnConfig columnName="first_name" min="2" searchResult="true" displayOrder="3"/>
+                <columnConfig columnName="last_name" min="2" searchResult="true" displayOrder="2"/>
+                <columnConfig columnName="civility" sharedEnumName="Civility" searchResult="true" displayOrder="1"/>
+                <columnConfig columnName="favorite_author_id" searchResult="true" displayOrder="4"/>
             </columnConfigs>
         </entityConfig>
 

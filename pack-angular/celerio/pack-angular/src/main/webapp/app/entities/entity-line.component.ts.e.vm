@@ -4,7 +4,7 @@ import {${entity.model.type}} from './${entity.model.var}';
 
 @Component({
 	template: `
-        #foreach($attr in $entity.printerAttributes.flatUp.list){{ ${attr.fullVar} }} #end
+        #foreach($attr in $entity.printerAttributes.flatUp.list){{ ${entity.model.var}?.${attr.var} }} #end
 	`,
 	selector: '${entity.model.var}-line',
 })
