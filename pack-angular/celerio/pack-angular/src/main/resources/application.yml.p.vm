@@ -1,7 +1,19 @@
 $output.resource("application.yml")##
+---
+#
+# https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+#
+
+server:
+    port: 8080
+
 security:
     basic:
         enabled: false
+
+# Note: the properties surounded by arobase are defined in the pom.xml file
+#       and get replaced by maven during build time. Resulting file can
+#       be found in target/classes folder
 
 spring:
 
@@ -35,5 +47,4 @@ spring:
     resources:
         chain:
             cache: false
-server:
-    port: 8080
+
