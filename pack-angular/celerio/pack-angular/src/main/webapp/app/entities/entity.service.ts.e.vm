@@ -74,6 +74,9 @@ export class ${entity.service.type} {
         let errMsg = (error.message) ? error.message :
         error.status ? `Status: ${d}{error.status} - Text: ${d}{error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
+        if (error.status === 401 ) {
+            window.location.href = '/';
+        }
         return Observable.throw(errMsg);
     }
 }
