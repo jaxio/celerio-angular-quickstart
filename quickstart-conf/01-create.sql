@@ -1,11 +1,8 @@
 ---
--- Example Schema
+-- Example Schema using H2 database
 --
 
 DROP ALL OBJECTS;
-
-CREATE SEQUENCE hibernate_sequence START WITH 1000;
-
 
 CREATE TABLE USER (
     id                       int not null IDENTITY,
@@ -139,48 +136,48 @@ INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -1);
 INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -2);
 INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -3);
 
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (1,  'John01', 'Doe01');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (2,  'John02', 'Doe02');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (3,  'John03', 'Doe03');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (4,  'John04', 'Doe04');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (5,  'John05', 'Doe05');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (6,  'John06', 'Doe06');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (7,  'John07', 'Doe07');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (8,  'John08', 'Doe08');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (9,  'John09', 'Doe09');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (10, 'John10', 'Doe10');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (11, 'John11', 'Doe11');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (12, 'John12', 'Doe12');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (13, 'John13', 'Doe13');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (14, 'John14', 'Doe14');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (15, 'John15', 'Doe15');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (16, 'John16', 'Doe16');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (17, 'John17', 'Doe17');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (18, 'John18', 'Doe18');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (19, 'John19', 'Doe19');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (20, 'John20', 'Doe20');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (21, 'John21', 'Doe21');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (22, 'John22', 'Doe22');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (23, 'Alice', 'Bee');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (24, 'Bob', 'Sponge');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (25, 'Mick', 'Jagger');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (26, 'Charlie', 'Watts');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (27, 'Bob', 'Dylan');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (28, 'Jim', 'Morrison');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-1,  'John01', 'Doe01');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-2,  'John02', 'Doe02');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-3,  'John03', 'Doe03');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-4,  'John04', 'Doe04');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-5,  'John05', 'Doe05');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-6,  'John06', 'Doe06');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-7,  'John07', 'Doe07');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-8,  'John08', 'Doe08');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-9,  'John09', 'Doe09');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-10, 'John10', 'Doe10');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-11, 'John11', 'Doe11');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-12, 'John12', 'Doe12');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-13, 'John13', 'Doe13');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-14, 'John14', 'Doe14');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-15, 'John15', 'Doe15');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-16, 'John16', 'Doe16');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-17, 'John17', 'Doe17');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-18, 'John18', 'Doe18');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-19, 'John19', 'Doe19');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-20, 'John20', 'Doe20');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-21, 'John21', 'Doe21');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-22, 'John22', 'Doe22');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-23, 'Alice', 'Bee');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-24, 'Bob', 'Sponge');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-25, 'Mick', 'Jagger');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-26, 'Charlie', 'Watts');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-27, 'Bob', 'Dylan');
+INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-28, 'Jim', 'Morrison');
 
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (1, 'Learn Angular', 'Angular for beginners', 1, null, false, 12.34);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (2, 'Learn Angular2', 'Angular2 for beginners', 1, null, true, 32.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (3, 'Book 3', 'The Book 3', 1, null, true, 11.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (4, 'Book 4', 'The Book 4', 1, null, true, 4.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (5, 'Book 5', 'The Book 5', 1, null, true, 3.50);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (6, 'Book 6', 'The Book 6', 1, null, true, 36.30);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (7, 'Book 7', 'The Book 7', 1, null, true, 30.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (8, 'Book 8', 'The Book 8', 1, null, true, 27.72);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (9, 'Book 9', 'The Book 9', 1, null, true, 39.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (10, 'Book 10', 'The Book 10', 1, null, true, 14.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (11, 'Book 11', 'The Book 11', 1, null, true, 35.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (12, 'Book 12', 'The Book 12', 1, null, true, 90.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (13, 'Book 13', 'The Book 13', 2, null, true, 120.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (14, 'Book 14', 'The Book 14', 2, null, true, 99.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-1, 'Learn Angular', 'Angular for beginners', -1, null, false, 12.34);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-2, 'Learn Angular2', 'Angular2 for beginners', -1, null, true, 32.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-3, 'Book 3', 'The Book 3', -1, null, true, 11.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-4, 'Book 4', 'The Book 4', -1, null, true, 4.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-5, 'Book 5', 'The Book 5', -1, null, true, 3.50);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-6, 'Book 6', 'The Book 6', -1, null, true, 36.30);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-7, 'Book 7', 'The Book 7', -1, null, true, 30.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-8, 'Book 8', 'The Book 8', -1, null, true, 27.72);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-9, 'Book 9', 'The Book 9', -1, null, true, 39.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-10, 'Book 10', 'The Book 10', -1, null, true, 14.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-11, 'Book 11', 'The Book 11', -1, null, true, 35.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-12, 'Book 12', 'The Book 12', -1, null, true, 90.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-13, 'Book 13', 'The Book 13', -2, null, true, 120.00);
+INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-14, 'Book 14', 'The Book 14', -2, null, true, 99.00);
 
-INSERT INTO PROJECT(id, name, url, author_id, open_source) VALUES (1, 'PrimeNG', 'http://www.primefaces.org/primeng/', 1, true);
+INSERT INTO PROJECT(id, name, url, author_id, open_source) VALUES (-1, 'PrimeNG', 'http://www.primefaces.org/primeng/', -1, true);
