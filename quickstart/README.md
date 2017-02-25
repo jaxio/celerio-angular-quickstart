@@ -5,7 +5,7 @@
 * [Maven 3.3.3](https://maven.apache.org/download.cgi) 
 * [Npm 3.x.x](https://nodejs.org/en/)
 
-### Run these commands to generate and run an Angular 2.4.0 web app:
+### Run these commands to generate and run an Angular 2.4.8 web app:
 
 By default this project reverses a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql).
 You may of course [reverse your own database schema](#how-to-use-your-own-database).
