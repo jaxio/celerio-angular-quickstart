@@ -10,7 +10,7 @@
   <tables>
     <table name="AUTHOR" type="TABLE" remarks="Author has various dates for demo">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BE8A8F18_E4C4_4AC6_9D3E_13A8A1D82FAB)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_02A86A5D_DA6A_4E87_BD80_255A78FDD98E)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="CIVILITY" columnDef="MR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="2" size="2" type="CHAR"/>
         <column name="FIRST_NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="LAST_NAME" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="100" type="VARCHAR"/>
@@ -31,7 +31,7 @@
     </table>
     <table name="BOOK" type="TABLE" remarks="BOOK supports file upload/download for demo">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F0987560_E2A7_4A2B_9EAC_326CFF05814A)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6DAE3CBE_7E3D_46B1_9AF3_3D3FD029DA2C)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="TITLE" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
         <column name="SUMMARY" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="255" type="VARCHAR"/>
         <column name="EXTRACT_BINARY" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="2147483647" type="VARBINARY"/>
@@ -57,7 +57,7 @@
     </table>
     <table name="PROJECT" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0BF02919_E798_4BF9_B063_B44424213748)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_7B7F1D9D_6706_40C3_B974_68FBB205D4E5)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
         <column name="URL" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="AUTHOR_ID" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="4" size="10" type="INTEGER"/>
@@ -75,7 +75,7 @@
     </table>
     <table name="ROLE" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_2C25E7D6_E8B0_4910_9479_25CBA1ACC0CC)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_24F64575_90AE_4752_A481_1A3AFC622F58)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="ROLE_NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
       </columns>
       <indexes>
@@ -89,7 +89,7 @@
     </table>
     <table name="USER" type="TABLE" remarks="The User is a human that can connect to this web application">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BD1FA20F_04EC_4403_937C_19EBD1AF5F1A)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_040C2BE4_9E5A_43AB_AF65_8EEB1459BFAE)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="LOGIN" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" remarks="The login used to login" size="100" type="VARCHAR"/>
         <column name="PASSWORD" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="EMAIL" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="100" type="VARCHAR"/>

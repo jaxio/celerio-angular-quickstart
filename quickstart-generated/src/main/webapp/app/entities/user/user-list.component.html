@@ -53,29 +53,29 @@
                  (onRowSelect)="onRowSelect($event)"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
-        <header>{{header}} (count: {{currentPage.totalElements}})</header>
-    <p-column field="login" header="Login" sortable="true">
-    </p-column>
-    <p-column field="password" header="Password" sortable="true">
-    </p-column>
-    <p-column field="email" header="Email" sortable="true">
-    </p-column>
-    <p-column field="isEnabled" header="Is Enabled?" sortable="true">
-    </p-column>
-    <p-column field="civility" header="Civility" sortable="true">
-    </p-column>
-    <p-column field="countryCode" header="Country Code" sortable="true">
-    </p-column>
+        <p-header>{{header}} (count: {{currentPage.totalElements}})</p-header>
+        <p-footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
+            </div>
+        </p-footer>
+        <p-column field="login" header="Login" sortable="true">
+        </p-column>
+        <p-column field="password" header="Password" sortable="true">
+        </p-column>
+        <p-column field="email" header="Email" sortable="true">
+        </p-column>
+        <p-column field="isEnabled" header="Is Enabled?" sortable="true">
+        </p-column>
+        <p-column field="civility" header="Civility" sortable="true">
+        </p-column>
+        <p-column field="countryCode" header="Country Code" sortable="true">
+        </p-column>
         <p-column styleClass="col-icon">
             <template let-user="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(user)" style="float:left"></button>
             </template>
         </p-column>
-        <footer>
-            <div class="ui-helper-clearfix" style="width:100%">
-                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
-            </div>
-        </footer>
     </p-dataTable>
 
     <p-confirmDialog width="455"></p-confirmDialog>

@@ -45,35 +45,35 @@
                  (onRowSelect)="onRowSelect($event)"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
-        <header>{{header}} (count: {{currentPage.totalElements}})</header>
-    <p-column field="title" header="Title" sortable="true">
-    </p-column>
-    <p-column field="summary" header="Summary" sortable="true">
-    </p-column>
-    <p-column field="extractFileName" header="Extract File Name" sortable="true">
-    </p-column>
+        <p-header>{{header}} (count: {{currentPage.totalElements}})</p-header>
+        <p-footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
+            </div>
+        </p-footer>
+        <p-column field="title" header="Title" sortable="true">
+        </p-column>
+        <p-column field="summary" header="Summary" sortable="true">
+        </p-column>
+        <p-column field="extractFileName" header="Extract File Name" sortable="true">
+        </p-column>
         <p-column header="Author" sortable="false">
             <template let-author="rowData['author']" pTemplate="body">
                 <author-line [author]="author"></author-line>
             </template>
         </p-column>
-    <p-column field="publicationDate" header="Publication Date" sortable="true">
-        <template let-book="rowData" pTemplate="body">
-            {{book.publicationDate | date:"yyyy-MM-dd" }}
-        </template>
-    </p-column>
-    <p-column field="bestSeller" header="Best Seller" sortable="true">
-    </p-column>
+        <p-column field="publicationDate" header="Publication Date" sortable="true">
+            <template let-book="rowData" pTemplate="body">
+                {{book.publicationDate | date:"yyyy-MM-dd" }}
+            </template>
+        </p-column>
+        <p-column field="bestSeller" header="Best Seller" sortable="true">
+        </p-column>
         <p-column styleClass="col-icon">
             <template let-book="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(book)" style="float:left"></button>
             </template>
         </p-column>
-        <footer>
-            <div class="ui-helper-clearfix" style="width:100%">
-                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
-            </div>
-        </footer>
     </p-dataTable>
 
     <p-confirmDialog width="455"></p-confirmDialog>

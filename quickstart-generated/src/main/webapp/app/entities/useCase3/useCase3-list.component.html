@@ -37,29 +37,29 @@
                  (onRowSelect)="onRowSelect($event)"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
-        <header>{{header}} (count: {{currentPage.totalElements}})</header>
-    <p-column field="id1" header="Id1" sortable="true">
-        <template let-useCase3="rowData" pTemplate="body">
-            {{useCase3.id.id1 | date:"yyyy-MM-dd hh:mm" }}
-        </template>
-    </p-column>
+        <p-header>{{header}} (count: {{currentPage.totalElements}})</p-header>
+        <p-footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
+            </div>
+        </p-footer>
+        <p-column field="id1" header="Id1" sortable="true">
+            <template let-useCase3="rowData" pTemplate="body">
+                {{useCase3.id.id1 | date:"yyyy-MM-dd hh:mm" }}
+            </template>
+        </p-column>
         <p-column header="Id2" sortable="false">
             <template let-id2="rowData['id2']" pTemplate="body">
                 <useCase2-line [useCase2]="id2"></useCase2-line>
             </template>
         </p-column>
-    <p-column field="dummy" header="Dummy" sortable="true">
-    </p-column>
+        <p-column field="dummy" header="Dummy" sortable="true">
+        </p-column>
         <p-column styleClass="col-icon">
             <template let-useCase3="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(useCase3)" style="float:left"></button>
             </template>
         </p-column>
-        <footer>
-            <div class="ui-helper-clearfix" style="width:100%">
-                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
-            </div>
-        </footer>
     </p-dataTable>
 
     <p-confirmDialog width="455"></p-confirmDialog>
