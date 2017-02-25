@@ -50,12 +50,7 @@
     </issueManagement>
 
     <build>
-        <resources>
-            <!--<resource>-->
-                <!--<filtering>false</filtering>-->
-                <!--<directory>${basedir}/src/main/resources</directory>-->
-            <!--</resource>-->
-            <resource>
+        <resources> <resource>
                 <directory>celerio</directory>
                 <filtering>false</filtering>
                 <targetPath>celerio</targetPath>

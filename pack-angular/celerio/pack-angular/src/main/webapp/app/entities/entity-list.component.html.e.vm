@@ -50,7 +50,12 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
                  (onRowSelect)="onRowSelect(${d}event)"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
-        <header>{{header}} (count: {{currentPage.totalElements}})</header>
+        <p-header>{{header}} (count: {{currentPage.totalElements}})</p-header>
+        <p-footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
+            </div>
+        </p-footer>
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
 #if ($attr.hasXToOneRelation())
         <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
@@ -67,25 +72,25 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 #end
 #####
 #if($attr.isLocalDate())
-    <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
-        <template let-$entity.model.var="rowData" pTemplate="body">
-            {{$valuePath | date:"yyyy-MM-dd" }}
-        </template>
-    </p-column>
+        <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
+            <template let-$entity.model.var="rowData" pTemplate="body">
+                {{$valuePath | date:"yyyy-MM-dd" }}
+            </template>
+        </p-column>
 #elseif($attr.isLocalDateTime())
-    <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
-        <template let-$entity.model.var="rowData" pTemplate="body">
-            {{$valuePath | date:"yyyy-MM-dd hh:mm" }}
-        </template>
-    </p-column>
+        <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
+            <template let-$entity.model.var="rowData" pTemplate="body">
+                {{$valuePath | date:"yyyy-MM-dd hh:mm" }}
+            </template>
+        </p-column>
 #else
-    <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
+        <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
 #if($attr.isInCpk())
-    <template let-$entity.model.var="rowData" pTemplate="body">
-        {{ $valuePath }}
-    </template>
+            <template let-$entity.model.var="rowData" pTemplate="body">
+                {{ $valuePath }}
+            </template>
 #end
-    </p-column>
+        </p-column>
 #end
 #end
 #end
@@ -94,11 +99,6 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog($entity.model.var)" style="float:left"></button>
             </template>
         </p-column>
-        <footer>
-            <div class="ui-helper-clearfix" style="width:100%">
-                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
-            </div>
-        </footer>
     </p-dataTable>
 
     <p-confirmDialog width="455"></p-confirmDialog>
