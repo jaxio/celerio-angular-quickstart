@@ -10,31 +10,43 @@
                 </div>
             </div>
              <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="lastName">Last Name </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="lastName" [(ngModel)]="author.lastName"   minlength="2" name="lastName" #lastName="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!lastName.valid && lastName.dirty && lastName.errors['minlength']">
+                        <i class="fa fa-close"></i>
+                        Last Name must have at least 2 characters.
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="firstName">First Name  *</label></div>
                 <div class="ui-grid-col-6">
                     <input pInputText id="firstName" [(ngModel)]="author.firstName"  required placeholder="Required"  minlength="2" name="firstName" #firstName="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!firstName.valid && firstName.dirty && firstName.errors.required">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!firstName.valid && firstName.dirty && firstName.errors['required']">
                         <i class="fa fa-close"></i>
                         First Name is required
                     </div>
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!firstName.valid && firstName.dirty && firstName.errors.minlength">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!firstName.valid && firstName.dirty && firstName.errors['minlength']">
                         <i class="fa fa-close"></i>
                         First Name must have at least 2 characters.
                     </div>
                 </div>
             </div>
              <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="lastName">Last Name </label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="lastName" [(ngModel)]="author.lastName"   minlength="2" name="lastName" #lastName="ngModel"/>
-                </div>
+                <div class="ui-grid-col-2"><label for="favoriteAuthor">Favorite Author</label></div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!lastName.valid && lastName.dirty && lastName.errors.minlength">
-                        <i class="fa fa-close"></i>
-                        Last Name must have at least 2 characters.
-                    </div>
+                    <author-auto-complete [(ngModel)]="author.favoriteAuthor" id="favoriteAuthor" name="favoriteAuthor" [disabled]="sub"></author-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoFavoriteAuthor" type="button" (click)="gotoFavoriteAuthor()" *ngIf="author.favoriteAuthor" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearFavoriteAuthor" type="button" (click)="clearFavoriteAuthor()" *ngIf="author.favoriteAuthor" icon="fa-chain-broken" label="Clear"></button>
                 </div>
             </div>
              <div class="ui-grid-row">
@@ -43,7 +55,7 @@
                     <input pInputText id="email" [(ngModel)]="author.email"   validateEmail name="email" #email="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors.validateEmail">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors['validateEmail']">
                         <i class="fa fa-close"></i>
                         Email is invalid. Expecting a valid email address.
                     </div>
@@ -63,18 +75,6 @@
                     <p-calendar [(ngModel)]="author.birthDateTime" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
                 </div>
                 <div class="ui-grid-col-4">
-                </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="favoriteAuthor">Favorite Author</label></div>
-                <div class="ui-grid-col-4">
-                    <author-auto-complete [(ngModel)]="author.favoriteAuthor" id="favoriteAuthor" name="favoriteAuthor" [disabled]="sub"></author-auto-complete>
-                </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="gotoFavoriteAuthor" type="button" (click)="gotoFavoriteAuthor()" *ngIf="author.favoriteAuthor" icon="fa-pencil" label="Edit"></button>
-                </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="clearFavoriteAuthor" type="button" (click)="clearFavoriteAuthor()" *ngIf="author.favoriteAuthor" icon="fa-chain-broken" label="Clear"></button>
                 </div>
             </div>
              <div class="ui-g">

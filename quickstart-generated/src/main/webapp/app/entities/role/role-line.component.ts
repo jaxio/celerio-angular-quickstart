@@ -10,7 +10,7 @@ import {Role} from './role';
 
 @Component({
 	template: `
-        {{ role.roleName }} 	`,
+        {{ role?.roleName }} 	`,
 	selector: 'role-line',
 })
 export class RoleLineComponent {

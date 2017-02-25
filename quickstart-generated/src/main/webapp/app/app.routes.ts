@@ -25,6 +25,12 @@ import { RoleDetailComponent } from './entities/role/role-detail.component';
 import { UseCase1ListComponent } from './entities/useCase1/useCase1-list.component';
 import { UseCase1DetailComponent } from './entities/useCase1/useCase1-detail.component';
 
+import { UseCase2ListComponent } from './entities/useCase2/useCase2-list.component';
+import { UseCase2DetailComponent } from './entities/useCase2/useCase2-detail.component';
+
+import { UseCase3ListComponent } from './entities/useCase3/useCase3-list.component';
+import { UseCase3DetailComponent } from './entities/useCase3/useCase3-detail.component';
+
 import { UserListComponent } from './entities/user/user-list.component';
 import { UserDetailComponent } from './entities/user/user-detail.component';
 
@@ -45,6 +51,12 @@ export const routes: Routes = [
     ,
     {path: 'useCase1-list', component: UseCase1ListComponent },
     {path: 'useCase1/:id', component: UseCase1DetailComponent }
+    ,
+    {path: 'useCase2-list', component: UseCase2ListComponent },
+    {path: 'useCase2/:id', component: UseCase2DetailComponent }
+    ,
+    {path: 'useCase3-list', component: UseCase3ListComponent },
+    {path: 'useCase3/:id', component: UseCase3DetailComponent }
     ,
     {path: 'user-list', component: UserListComponent },
     {path: 'user/:id', component: UserDetailComponent }

@@ -10,8 +10,8 @@ export class Author {
     // Raw attributes
     id : number;
     civility : string;
-    firstName : string;
     lastName : string;
+    firstName : string;
     email : string;
     birthDate : Date;
     birthDateTime : Date;

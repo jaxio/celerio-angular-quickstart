@@ -10,7 +10,7 @@ import {Author} from './author';
 
 @Component({
 	template: `
-        {{ author.firstName }} {{ author.lastName }} 	`,
+        {{ author?.lastName }} {{ author?.firstName }} 	`,
 	selector: 'author-line',
 })
 export class AuthorLineComponent {

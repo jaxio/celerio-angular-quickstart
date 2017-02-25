@@ -10,7 +10,7 @@ import {Project} from './project';
 
 @Component({
 	template: `
-        {{ project.name }} 	`,
+        {{ project?.name }} 	`,
 	selector: 'project-line',
 })
 export class ProjectLineComponent {

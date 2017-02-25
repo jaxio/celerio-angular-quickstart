@@ -51,7 +51,6 @@
                  (onLazyLoad)="loadPage($event)"
                  selectionMode="single"
                  (onRowSelect)="onRowSelect($event)"
-                 [(selection)]="selectedUser"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>
@@ -65,7 +64,7 @@
     </p-column>
     <p-column field="civility" header="Civility" sortable="true">
     </p-column>
-    <p-column field="firstName" header="First Name" sortable="true">
+    <p-column field="countryCode" header="Country Code" sortable="true">
     </p-column>
         <p-column styleClass="col-icon">
             <template let-user="rowData" pTemplate="body">

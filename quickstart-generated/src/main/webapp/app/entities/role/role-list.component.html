@@ -26,7 +26,6 @@
                  (onLazyLoad)="loadPage($event)"
                  selectionMode="single"
                  (onRowSelect)="onRowSelect($event)"
-                 [(selection)]="selectedRole"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <header>{{header}} (count: {{currentPage.totalElements}})</header>

@@ -22,7 +22,7 @@ export const AUTHOR_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
 	template: `
-        <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="firstName" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
+        <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="lastName" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
             <template let-author>
                 <author-line [author]="author"></author-line>
             </template>
@@ -39,7 +39,7 @@ export class AuthorCompleteComponent implements ControlValueAccessor {
     //The internal data model
     private _value: Author = null;
 
-    private suggestions : Author[] = [];
+    public suggestions : Author[] = [];
 
     //Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};

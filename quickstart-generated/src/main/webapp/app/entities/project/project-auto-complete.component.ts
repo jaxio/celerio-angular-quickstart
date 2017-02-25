@@ -39,7 +39,7 @@ export class ProjectCompleteComponent implements ControlValueAccessor {
     //The internal data model
     private _value: Project = null;
 
-    private suggestions : Project[] = [];
+    public suggestions : Project[] = [];
 
     //Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};

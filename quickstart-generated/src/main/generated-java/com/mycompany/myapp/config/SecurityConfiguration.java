@@ -23,6 +23,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 
 import com.mycompany.myapp.security.AjaxAuthenticationFailureHandler;
 import com.mycompany.myapp.security.AjaxAuthenticationSuccessHandler;
+import com.mycompany.myapp.security.AlwaysSendUnauthorized401AuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -37,6 +38,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     private AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
+
+    @Inject
+    private AlwaysSendUnauthorized401AuthenticationEntryPoint alwaysSendUnauthorized401AuthenticationEntryPoint;
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -59,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http. //
                 csrf().disable(). //
                 formLogin(). //
+                loginPage("/").//
                 loginProcessingUrl("/api/login"). //
                 defaultSuccessUrl("/", true). //
                 successHandler(ajaxAuthenticationSuccessHandler). //
@@ -66,6 +71,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 usernameParameter("j_username"). //
                 passwordParameter("j_password"). //
                 permitAll(). //
+                and(). //
+                exceptionHandling(). //
+                authenticationEntryPoint(alwaysSendUnauthorized401AuthenticationEntryPoint). //
                 and(). //
                 logout(). //
                 logoutUrl("/api/logout"). //

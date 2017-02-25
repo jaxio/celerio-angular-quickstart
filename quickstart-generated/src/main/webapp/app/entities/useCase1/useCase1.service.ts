@@ -24,7 +24,7 @@ export class UseCase1Service {
      * Get a UseCase1 by id.
      */
     getUseCase1(id : any) : Observable<UseCase1> {
-        return this.http.get('api/useCase1s/' + id)
+        return this.http.get('/api/useCase1s/' + id)
             .map(response => <UseCase1> response.json())
             .catch(this.handleError);
     }
@@ -35,7 +35,7 @@ export class UseCase1Service {
     update(useCase1 : UseCase1) : Observable<UseCase1> {
         let body = JSON.stringify(useCase1);
 
-        return this.http.put('api/useCase1s/', body, this.options)
+        return this.http.put('/api/useCase1s/', body, this.options)
             .map(response => <UseCase1> response.json())
             .catch(this.handleError);
     }
@@ -48,7 +48,7 @@ export class UseCase1Service {
         let req = new PageRequestByExample(useCase1, event);
         let body = JSON.stringify(req);
 
-        return this.http.post('api/useCase1s/page', body, this.options)
+        return this.http.post('/api/useCase1s/page', body, this.options)
             .map(response => {
                 let pr = <PageResponse<UseCase1>> response.json();
                 return new PageResponse<UseCase1>(pr.totalPages, pr.totalElements, pr.content);
@@ -62,7 +62,7 @@ export class UseCase1Service {
      */
     complete(query : string) : Observable<UseCase1[]> {
         let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post('api/useCase1s/complete', body, this.options)
+        return this.http.post('/api/useCase1s/complete', body, this.options)
             .map(response => <UseCase1[]> response.json())
             .catch(this.handleError);
     }
@@ -71,7 +71,7 @@ export class UseCase1Service {
      * Delete an UseCase1 by id.
      */
     delete(id : any) {
-        return this.http.delete('api/useCase1s/' + id).catch(this.handleError);
+        return this.http.delete('/api/useCase1s/' + id).catch(this.handleError);
     }
 
     // sample method from angular doc
@@ -80,6 +80,9 @@ export class UseCase1Service {
         let errMsg = (error.message) ? error.message :
         error.status ? `Status: ${error.status} - Text: ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
+        if (error.status === 401 ) {
+            window.location.href = '/';
+        }
         return Observable.throw(errMsg);
     }
 }

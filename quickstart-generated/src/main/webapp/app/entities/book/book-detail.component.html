@@ -7,7 +7,7 @@
                     <input pInputText id="title" [(ngModel)]="book.title"  required placeholder="Required"  name="title" #title="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!title.valid && title.dirty && title.errors.required">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!title.valid && title.dirty && title.errors['required']">
                         <i class="fa fa-close"></i>
                         Title is required
                     </div>

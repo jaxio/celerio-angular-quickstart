@@ -16,6 +16,7 @@ import { MessageService} from './service/message.service';
  * The Root component. Defines the main layout and handles user login in a dialog.
  */
 @Component({
+    moduleId: module.id,
     selector: 'my-app',
     template: `
         <p-growl [value]="msgs"></p-growl>
@@ -76,7 +77,7 @@ import { MessageService} from './service/message.service';
 })
 export class AppComponent implements OnInit {
     private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' })});
-    private items : MenuItem[] = [{label: 'hello'}];
+    public items : MenuItem[] = [{label: 'hello'}];
     msgs : Message[] = [];
 
     displayLoginDialog : boolean = false;
@@ -102,6 +103,8 @@ export class AppComponent implements OnInit {
                 {label: 'Project List', routerLink: ['/project-list']},
                 {label: 'Role List', routerLink: ['/role-list']},
                 {label: 'UseCase1 List', routerLink: ['/useCase1-list']},
+                {label: 'UseCase2 List', routerLink: ['/useCase2-list']},
+                {label: 'UseCase3 List', routerLink: ['/useCase3-list']},
                 {label: 'User List', routerLink: ['/user-list']}                ]
             },
             { label: 'Swagger', url : "/swagger-ui.html", icon: 'fa-gear' },

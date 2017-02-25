@@ -15,7 +15,7 @@
                     <input pInputText id="id2" [(ngModel)]="useCase1.id.id2"  required placeholder="Required"  name="id2" #id2="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!id2.valid && id2.dirty && id2.errors.required">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!id2.valid && id2.dirty && id2.errors['required']">
                         <i class="fa fa-close"></i>
                         Id2 is required
                     </div>
@@ -27,7 +27,7 @@
                     <input pInputText id="dummy" [(ngModel)]="useCase1.dummy"  required placeholder="Required"  name="dummy" #dummy="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!dummy.valid && dummy.dirty && dummy.errors.required">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!dummy.valid && dummy.dirty && dummy.errors['required']">
                         <i class="fa fa-close"></i>
                         Dummy is required
                     </div>

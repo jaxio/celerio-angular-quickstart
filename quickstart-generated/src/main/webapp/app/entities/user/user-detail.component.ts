@@ -30,11 +30,16 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     @Output() onSaveClicked = new EventEmitter<User>();
     @Output() onCancelClicked = new EventEmitter();
     civilityOptions: SelectItem[];
+    countryCodeOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private userService: UserService, private roleService : RoleService) {
         this.civilityOptions = [];
         this.civilityOptions.push({"label": "Mister", 'value': "MR"});
         this.civilityOptions.push({"label": "Miss", 'value': "MS"});
+        this.countryCodeOptions = [];
+        this.countryCodeOptions.push({"label": "France", 'value': "FRANCE"});
+        this.countryCodeOptions.push({"label": "Italy", 'value': "ITALY"});
+        this.countryCodeOptions.push({"label": "United-States", 'value': "USA"});
         roleService.complete(null).
             subscribe(roles => this.sourceRoles = roles,
                         error =>  this.messageService.error('Constructor error', error));

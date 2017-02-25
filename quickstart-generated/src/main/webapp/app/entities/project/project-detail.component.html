@@ -7,7 +7,7 @@
                     <input pInputText id="name" [(ngModel)]="project.name"  required placeholder="Required"  name="name" #name="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!name.valid && name.dirty && name.errors.required">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!name.valid && name.dirty && name.errors['required']">
                         <i class="fa fa-close"></i>
                         Name is required
                     </div>
@@ -19,7 +19,7 @@
                     <input pInputText id="url" pattern="^http.*" [(ngModel)]="project.url"   name="url" #url="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!url.valid && url.dirty && url.errors.pattern">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!url.valid && url.dirty && url.errors['pattern']">
                         <i class="fa fa-close"></i>
                         Url is invalid. Expecting an URL starting with 'http'.
                     </div>

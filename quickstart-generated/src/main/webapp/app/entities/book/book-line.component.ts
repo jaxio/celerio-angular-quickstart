@@ -10,7 +10,7 @@ import {Book} from './book';
 
 @Component({
 	template: `
-        {{ book.title }} 	`,
+        {{ book?.title }} 	`,
 	selector: 'book-line',
 })
 export class BookLineComponent {

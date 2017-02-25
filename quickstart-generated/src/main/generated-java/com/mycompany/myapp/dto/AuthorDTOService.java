@@ -51,8 +51,8 @@ public class AuthorDTOService {
 
         if (author != null) {
             ExampleMatcher matcher = ExampleMatcher.matching() //
-                    .withMatcher(Author_.firstName.getName(), match -> match.ignoreCase().startsWith())
                     .withMatcher(Author_.lastName.getName(), match -> match.ignoreCase().startsWith())
+                    .withMatcher(Author_.firstName.getName(), match -> match.ignoreCase().startsWith())
                     .withMatcher(Author_.email.getName(), match -> match.ignoreCase().startsWith());
 
             example = Example.of(author, matcher);
@@ -93,8 +93,8 @@ public class AuthorDTOService {
         }
 
         author.setCivility(dto.civility);
-        author.setFirstName(dto.firstName);
         author.setLastName(dto.lastName);
+        author.setFirstName(dto.firstName);
         author.setEmail(dto.email);
         author.setBirthDate(dto.birthDate);
         author.setBirthDateTime(dto.birthDateTime);
@@ -136,8 +136,8 @@ public class AuthorDTOService {
 
         dto.id = author.getId();
         dto.civility = author.getCivility();
-        dto.firstName = author.getFirstName();
         dto.lastName = author.getLastName();
+        dto.firstName = author.getFirstName();
         dto.email = author.getEmail();
         dto.birthDate = author.getBirthDate();
         dto.birthDateTime = author.getBirthDateTime();
@@ -169,8 +169,8 @@ public class AuthorDTOService {
 
         author.setId(dto.id);
         author.setCivility(dto.civility);
-        author.setFirstName(dto.firstName);
         author.setLastName(dto.lastName);
+        author.setFirstName(dto.firstName);
         author.setEmail(dto.email);
         author.setBirthDate(dto.birthDate);
         author.setBirthDateTime(dto.birthDateTime);

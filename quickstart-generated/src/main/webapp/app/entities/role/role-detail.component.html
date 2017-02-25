@@ -7,7 +7,7 @@
                     <input pInputText id="roleName" [(ngModel)]="role.roleName"  required placeholder="Required"  name="roleName" #roleName="ngModel"/>
                 </div>
                 <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!roleName.valid && roleName.dirty && roleName.errors.required">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!roleName.valid && roleName.dirty && roleName.errors['required']">
                         <i class="fa fa-close"></i>
                         Role Name is required
                     </div>

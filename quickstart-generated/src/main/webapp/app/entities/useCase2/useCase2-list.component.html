@@ -1,0 +1,48 @@
+<div class="ContentSideSections Implementation">
+    <p-panel *ngIf="!sub" header="Search UseCase2 with simple search criterias">
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #useCase2Form="ngForm">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="dummy">Dummy</label>
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="dummy" [(ngModel)]="example.dummy" name="dummy" #dummy="ngModel"/>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-search" style="float:left" (click)="search(dt)" label="Search"></button>
+            </div>
+        </footer>
+    </p-panel>
+    <p>DB comment: USE_CASE_2 has a string pk, just for demo</p>
+    <p>The list of results below is server-side paginated...</p>
+
+    <p-dataTable #dt [value]="currentPage.content"
+                 [lazy]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
+                 [totalRecords]="currentPage.totalElements"
+                 (onLazyLoad)="loadPage($event)"
+                 selectionMode="single"
+                 (onRowSelect)="onRowSelect($event)"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
+                 [responsive]="true">
+        <header>{{header}} (count: {{currentPage.totalElements}})</header>
+    <p-column field="dummy" header="Dummy" sortable="true">
+    </p-column>
+        <p-column styleClass="col-icon">
+            <template let-useCase2="rowData" pTemplate="body">
+                <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(useCase2)" style="float:left"></button>
+            </template>
+        </p-column>
+        <footer>
+            <div class="ui-helper-clearfix" style="width:100%">
+                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
+            </div>
+        </footer>
+    </p-dataTable>
+
+    <p-confirmDialog width="455"></p-confirmDialog>
+</div>

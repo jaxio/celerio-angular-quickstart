@@ -39,7 +39,7 @@ export class UserCompleteComponent implements ControlValueAccessor {
     //The internal data model
     private _value: User = null;
 
-    private suggestions : User[] = [];
+    public suggestions : User[] = [];
 
     //Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};

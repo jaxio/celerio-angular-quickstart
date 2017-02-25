@@ -19,8 +19,8 @@ import com.mycompany.myapp.domain.Civility;
 public class AuthorDTO {
     public Integer id;
     public Civility civility;
-    public String firstName;
     public String lastName;
+    public String firstName;
     public String email;
     public LocalDate birthDate;
     public LocalDateTime birthDateTime;

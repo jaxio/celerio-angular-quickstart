@@ -20,8 +20,8 @@ public abstract class Author_ {
     // Raw attributes
     public static volatile SingularAttribute<Author, Integer> id;
     public static volatile SingularAttribute<Author, Civility> civility;
-    public static volatile SingularAttribute<Author, String> firstName;
     public static volatile SingularAttribute<Author, String> lastName;
+    public static volatile SingularAttribute<Author, String> firstName;
     public static volatile SingularAttribute<Author, String> email;
     public static volatile SingularAttribute<Author, LocalDate> birthDate;
     public static volatile SingularAttribute<Author, LocalDateTime> birthDateTime;

@@ -6,15 +6,16 @@
 
     <base href="/">
 
-    <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/omega/theme.css" />
-    <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />
-    <link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/themes/omega/theme.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/primeng/resources/primeng.min.css" />
+    <link rel="stylesheet" type="text/css" href="icons/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/site.css"/>
 
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.min.js"></script>
 
-    <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
@@ -37,11 +38,11 @@
 <my-app>
     <div style="text-align:center;">
         <div style="padding-top:100px">
-            Please wait, application is loading...
+            Please wait, application is loading... (DEV MOD - NO AOT)
         </div>
 
         <div style="margin-top: 20px;">
-            <img src="img/loading.svg"/>
+            <img src="/img/loading.svg"/>
         </div>
     </div>
 </my-app>

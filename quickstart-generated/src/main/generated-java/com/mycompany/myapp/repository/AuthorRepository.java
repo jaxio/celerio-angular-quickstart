@@ -22,10 +22,10 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
     default List<Author> complete(String query, int maxResults) {
         Author probe = new Author();
-        probe.setFirstName(query);
+        probe.setLastName(query);
 
         ExampleMatcher matcher = ExampleMatcher.matching() //
-                .withMatcher(Author_.firstName.getName(), match -> match.ignoreCase().startsWith());
+                .withMatcher(Author_.lastName.getName(), match -> match.ignoreCase().startsWith());
 
         Page<Author> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();

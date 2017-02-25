@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://www.jaxio.com/schema/celerio">
-  <jdbcConnectivity driver="org.h2.Driver" url="jdbc:h2:/Users/nromanetti/jaxio/celerio-angular-quickstart/quickstart-generated/target/db/angular-lab;MVCC=TRUE;FILE_LOCK=NO" user="celerio-angular-quickstart" password="celerio-angular-quickstart" schemaName="" oracleRetrieveRemarks="false" oracleRetrieveSynonyms="true" reverseIndexes="true" reverseOnlyUniqueIndexes="true" catalog="">
+  <jdbcConnectivity driver="org.h2.Driver" url="jdbc:h2:/Users/nromanetti/jaxio/celerio-angular-quickstart/quickstart-generated/target/db/angular-lab;MVCC=TRUE;FILE_LOCK=NO" user="root" password="manager" schemaName="" oracleRetrieveRemarks="false" oracleRetrieveSynonyms="true" reverseIndexes="true" reverseOnlyUniqueIndexes="true" catalog="">
     <tableNamePatterns/>
     <tableTypes>
       <tableType>TABLE</tableType>
@@ -10,7 +10,7 @@
   <tables>
     <table name="AUTHOR" type="TABLE" remarks="Author has various dates for demo">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_DB4B5B0F_EF3B_4DF0_B046_BCF9043C6929)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BE8A8F18_E4C4_4AC6_9D3E_13A8A1D82FAB)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="CIVILITY" columnDef="MR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="2" size="2" type="CHAR"/>
         <column name="FIRST_NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="LAST_NAME" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="100" type="VARCHAR"/>
@@ -31,7 +31,7 @@
     </table>
     <table name="BOOK" type="TABLE" remarks="BOOK supports file upload/download for demo">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C97720A5_C8FE_43C3_A8E8_30111A2EA64A)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_F0987560_E2A7_4A2B_9EAC_326CFF05814A)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="TITLE" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
         <column name="SUMMARY" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="255" type="VARCHAR"/>
         <column name="EXTRACT_BINARY" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="2147483647" type="VARBINARY"/>
@@ -57,7 +57,7 @@
     </table>
     <table name="PROJECT" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8F6B9943_A790_4F73_A7E2_5A8639CF4D14)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_0BF02919_E798_4BF9_B063_B44424213748)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
         <column name="URL" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="AUTHOR_ID" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="4" size="10" type="INTEGER"/>
@@ -75,7 +75,7 @@
     </table>
     <table name="ROLE" type="TABLE">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_6BB1FA8C_8A72_4F89_AB92_7F8A1E89D9F6)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_2C25E7D6_E8B0_4910_9479_25CBA1ACC0CC)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="ROLE_NAME" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
       </columns>
       <indexes>
@@ -89,19 +89,20 @@
     </table>
     <table name="USER" type="TABLE" remarks="The User is a human that can connect to this web application">
       <columns>
-        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BB62669F_50C7_424D_BD9A_8D1DA33823D6)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
+        <column name="ID" columnDef="(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_BD1FA20F_04EC_4403_937C_19EBD1AF5F1A)" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="10" type="INTEGER"/>
         <column name="LOGIN" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" remarks="The login used to login" size="100" type="VARCHAR"/>
         <column name="PASSWORD" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="100" type="VARCHAR"/>
         <column name="EMAIL" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="100" type="VARCHAR"/>
         <column name="IS_ENABLED" columnDef="TRUE" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="5" size="1" type="BOOLEAN"/>
         <column name="CIVILITY" columnDef="MR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="6" size="2" type="CHAR"/>
-        <column name="FIRST_NAME" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="7" size="100" type="VARCHAR"/>
-        <column name="LAST_NAME" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="8" size="100" type="VARCHAR"/>
-        <column name="CREATION_DATE" decimalDigits="10" autoIncrement="false" nullable="true" ordinalPosition="9" size="23" type="TIMESTAMP"/>
-        <column name="CREATION_AUTHOR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="10" size="200" type="VARCHAR"/>
-        <column name="LAST_MODIFICATION_DATE" decimalDigits="10" autoIncrement="false" nullable="true" ordinalPosition="11" size="23" type="TIMESTAMP"/>
-        <column name="LAST_MODIFICATION_AUTHOR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="12" size="200" type="VARCHAR"/>
-        <column name="VERSION" columnDef="0" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="13" size="10" type="INTEGER"/>
+        <column name="COUNTRY_CODE" columnDef="+33" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="7" size="6" type="VARCHAR"/>
+        <column name="FIRST_NAME" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="8" size="100" type="VARCHAR"/>
+        <column name="LAST_NAME" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="9" size="100" type="VARCHAR"/>
+        <column name="CREATION_DATE" decimalDigits="10" autoIncrement="false" nullable="true" ordinalPosition="10" size="23" type="TIMESTAMP"/>
+        <column name="CREATION_AUTHOR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="11" size="200" type="VARCHAR"/>
+        <column name="LAST_MODIFICATION_DATE" decimalDigits="10" autoIncrement="false" nullable="true" ordinalPosition="12" size="23" type="TIMESTAMP"/>
+        <column name="LAST_MODIFICATION_AUTHOR" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="13" size="200" type="VARCHAR"/>
+        <column name="VERSION" columnDef="0" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="14" size="10" type="INTEGER"/>
       </columns>
       <indexes>
         <indexe columnName="ID" indexName="PRIMARY_KEY_2" nonUnique="false"/>
@@ -141,6 +142,37 @@
         <indexe columnName="ID2" indexName="PRIMARY_KEY_4" nonUnique="false"/>
       </indexes>
       <importedKeys/>
+      <primaryKeys>
+        <primaryKey>ID1</primaryKey>
+        <primaryKey>ID2</primaryKey>
+      </primaryKeys>
+    </table>
+    <table name="USE_CASE_2" type="TABLE" remarks="USE_CASE_2 has a string pk, just for demo">
+      <columns>
+        <column name="ID" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="1" size="32" type="VARCHAR"/>
+        <column name="DUMMY" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="100" type="VARCHAR"/>
+      </columns>
+      <indexes>
+        <indexe columnName="ID" indexName="PRIMARY_KEY_45" nonUnique="false"/>
+      </indexes>
+      <importedKeys/>
+      <primaryKeys>
+        <primaryKey>ID</primaryKey>
+      </primaryKeys>
+    </table>
+    <table name="USE_CASE_3" type="TABLE" remarks="USE_CASE_3 has a composite pk with one member being also an FK, just for demo">
+      <columns>
+        <column name="ID1" decimalDigits="10" autoIncrement="false" nullable="false" ordinalPosition="1" size="23" type="TIMESTAMP"/>
+        <column name="ID2" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="32" type="VARCHAR"/>
+        <column name="DUMMY" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="100" type="VARCHAR"/>
+      </columns>
+      <indexes>
+        <indexe columnName="ID1" indexName="PRIMARY_KEY_45C" nonUnique="false"/>
+        <indexe columnName="ID2" indexName="PRIMARY_KEY_45C" nonUnique="false"/>
+      </indexes>
+      <importedKeys>
+        <importedKey fkColumnName="ID2" fkName="USE_CASE_3_FK_1" pkColumnName="ID" pkTableName="USE_CASE_2"/>
+      </importedKeys>
       <primaryKeys>
         <primaryKey>ID1</primaryKey>
         <primaryKey>ID2</primaryKey>

@@ -10,7 +10,7 @@ import {UseCase1} from './useCase1';
 
 @Component({
 	template: `
-        {{ useCase1.dummy }} 	`,
+        {{ useCase1?.dummy }} 	`,
 	selector: 'useCase1-line',
 })
 export class UseCase1LineComponent {

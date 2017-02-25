@@ -23,6 +23,7 @@ public abstract class User_ {
     public static volatile SingularAttribute<User, String> email;
     public static volatile SingularAttribute<User, Boolean> isEnabled;
     public static volatile SingularAttribute<User, Civility> civility;
+    public static volatile SingularAttribute<User, CountryCode> countryCode;
     public static volatile SingularAttribute<User, String> firstName;
     public static volatile SingularAttribute<User, String> lastName;
     public static volatile SingularAttribute<User, LocalDateTime> creationDate;

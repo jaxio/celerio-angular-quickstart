@@ -15,6 +15,7 @@ export class User {
     email : string;
     isEnabled : boolean;
     civility : string;
+    countryCode : string;
     firstName : string;
     lastName : string;
     creationDate : Date;

@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mycompany.myapp.domain.Civility;
+import com.mycompany.myapp.domain.CountryCode;
 
 /**
  * Simple DTO for User.
@@ -23,6 +24,7 @@ public class UserDTO {
     public String email;
     public Boolean isEnabled;
     public Civility civility;
+    public CountryCode countryCode;
     public String firstName;
     public String lastName;
     public LocalDateTime creationDate;

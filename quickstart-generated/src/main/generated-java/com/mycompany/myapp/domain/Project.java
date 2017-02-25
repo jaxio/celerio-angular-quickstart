@@ -7,6 +7,8 @@
  */
 package com.mycompany.myapp.domain;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.io.Serializable;
 import java.util.logging.Logger;
 
@@ -50,7 +52,7 @@ public class Project implements Identifiable<Integer>, Serializable {
 
     @Override
     @Column(name = "ID", precision = 10)
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Id
     public Integer getId() {
         return id;

@@ -39,7 +39,7 @@ export class BookCompleteComponent implements ControlValueAccessor {
     //The internal data model
     private _value: Book = null;
 
-    private suggestions : Book[] = [];
+    public suggestions : Book[] = [];
 
     //Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};

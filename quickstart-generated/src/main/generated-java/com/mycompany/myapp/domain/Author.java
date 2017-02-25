@@ -8,6 +8,7 @@
 package com.mycompany.myapp.domain;
 
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -46,8 +47,8 @@ public class Author implements Identifiable<Integer>, Serializable {
     // Raw attributes
     private Integer id;
     private Civility civility;
-    private String firstName;
     private String lastName;
+    private String firstName;
     private String email;
     private LocalDate birthDate;
     private LocalDateTime birthDateTime;
@@ -68,7 +69,7 @@ public class Author implements Identifiable<Integer>, Serializable {
 
     @Override
     @Column(name = "ID", precision = 10)
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Id
     public Integer getId() {
         return id;
@@ -105,6 +106,22 @@ public class Author implements Identifiable<Integer>, Serializable {
         setCivility(civility);
         return this;
     }
+    // -- [lastName] ------------------------
+
+    @Size(min = 2, max = 100)
+    @Column(name = "LAST_NAME", length = 100)
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Author lastName(String lastName) {
+        setLastName(lastName);
+        return this;
+    }
     // -- [firstName] ------------------------
 
     @NotEmpty
@@ -120,22 +137,6 @@ public class Author implements Identifiable<Integer>, Serializable {
 
     public Author firstName(String firstName) {
         setFirstName(firstName);
-        return this;
-    }
-    // -- [lastName] ------------------------
-
-    @Size(min = 2, max = 100)
-    @Column(name = "LAST_NAME", length = 100)
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Author lastName(String lastName) {
-        setLastName(lastName);
         return this;
     }
     // -- [email] ------------------------
@@ -350,8 +351,8 @@ public class Author implements Identifiable<Integer>, Serializable {
         return MoreObjects.toStringHelper(this) //
                 .add("id", getId()) //
                 .add("civility", getCivility()) //
-                .add("firstName", getFirstName()) //
                 .add("lastName", getLastName()) //
+                .add("firstName", getFirstName()) //
                 .add("email", getEmail()) //
                 .add("birthDate", getBirthDate()) //
                 .add("birthDateTime", getBirthDateTime()) //

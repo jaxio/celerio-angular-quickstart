@@ -39,7 +39,7 @@ export class RoleCompleteComponent implements ControlValueAccessor {
     //The internal data model
     private _value: Role = null;
 
-    private suggestions : Role[] = [];
+    public suggestions : Role[] = [];
 
     //Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};

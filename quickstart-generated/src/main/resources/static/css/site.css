@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #fafafa;
+}
+.layout {
+    background: #fafafa;
+}
+
+.ui-widget-content {
+    background: #fafafa;
+}
+
+.ui-datatable-odd {
+    background-color: white;
+}
+
+button.ui-button.ui-state-default {
+    background: #f2f2f2;
+    color: #757575;
+    border-color: #888888;
+}
+
+.col-icon {
+    width: 60px;
+}
+
+.ui-button-icon-only .ui-button-text {
+    padding-top: 0em;
+    padding-right: 0em;
+    padding-bottom: 0em;
+    padding-left: 0em;
+}

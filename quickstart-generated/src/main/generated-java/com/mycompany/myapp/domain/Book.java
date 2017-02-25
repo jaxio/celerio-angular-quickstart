@@ -8,6 +8,7 @@
 package com.mycompany.myapp.domain;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -67,7 +68,7 @@ public class Book implements Identifiable<Integer>, Serializable {
 
     @Override
     @Column(name = "ID", precision = 10)
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Id
     public Integer getId() {
         return id;

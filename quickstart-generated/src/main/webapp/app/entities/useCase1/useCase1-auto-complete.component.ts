@@ -39,7 +39,7 @@ export class UseCase1CompleteComponent implements ControlValueAccessor {
     //The internal data model
     private _value: UseCase1 = null;
 
-    private suggestions : UseCase1[] = [];
+    public suggestions : UseCase1[] = [];
 
     //Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};

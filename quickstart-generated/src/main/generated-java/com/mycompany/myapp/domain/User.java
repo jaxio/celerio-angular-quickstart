@@ -8,6 +8,7 @@
 package com.mycompany.myapp.domain;
 
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -54,6 +56,7 @@ public class User implements Identifiable<Integer>, Serializable {
     private String email;
     private Boolean isEnabled;
     private Civility civility;
+    private CountryCode countryCode;
     private String firstName;
     private String lastName;
     private LocalDateTime creationDate;
@@ -92,7 +95,7 @@ public class User implements Identifiable<Integer>, Serializable {
 
     @Override
     @Column(name = "ID", precision = 10)
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Id
     public Integer getId() {
         return id;
@@ -197,6 +200,22 @@ public class User implements Identifiable<Integer>, Serializable {
 
     public User civility(Civility civility) {
         setCivility(civility);
+        return this;
+    }
+    // -- [countryCode] ------------------------
+
+    @Column(name = "COUNTRY_CODE", length = 6)
+    @Convert(converter = CountryCodeConverter.class)
+    public CountryCode getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(CountryCode countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public User countryCode(CountryCode countryCode) {
+        setCountryCode(countryCode);
         return this;
     }
     // -- [firstName] ------------------------
@@ -361,6 +380,7 @@ public class User implements Identifiable<Integer>, Serializable {
     public User withDefaults() {
         setIsEnabled(true);
         setCivility(Civility.MR);
+        setCountryCode(CountryCode.FRANCE);
         return this;
     }
 
@@ -401,6 +421,7 @@ public class User implements Identifiable<Integer>, Serializable {
                 .add("email", getEmail()) //
                 .add("isEnabled", getIsEnabled()) //
                 .add("civility", getCivility()) //
+                .add("countryCode", getCountryCode()) //
                 .add("firstName", getFirstName()) //
                 .add("lastName", getLastName()) //
                 .add("creationDate", getCreationDate()) //

@@ -104,6 +104,7 @@ public class UserDTOService {
         user.setEmail(dto.email);
         user.setIsEnabled(dto.isEnabled);
         user.setCivility(dto.civility);
+        user.setCountryCode(dto.countryCode);
         user.setFirstName(dto.firstName);
         user.setLastName(dto.lastName);
         user.setCreationDate(dto.creationDate);
@@ -149,6 +150,7 @@ public class UserDTOService {
         dto.email = user.getEmail();
         dto.isEnabled = user.getIsEnabled();
         dto.civility = user.getCivility();
+        dto.countryCode = user.getCountryCode();
         dto.firstName = user.getFirstName();
         dto.lastName = user.getLastName();
         dto.creationDate = user.getCreationDate();
@@ -189,6 +191,7 @@ public class UserDTOService {
         user.setEmail(dto.email);
         user.setIsEnabled(dto.isEnabled);
         user.setCivility(dto.civility);
+        user.setCountryCode(dto.countryCode);
         user.setFirstName(dto.firstName);
         user.setLastName(dto.lastName);
         user.setCreationDate(dto.creationDate);

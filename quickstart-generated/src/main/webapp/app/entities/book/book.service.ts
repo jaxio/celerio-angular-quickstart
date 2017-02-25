@@ -24,7 +24,7 @@ export class BookService {
      * Get a Book by id.
      */
     getBook(id : any) : Observable<Book> {
-        return this.http.get('api/books/' + id)
+        return this.http.get('/api/books/' + id)
             .map(response => <Book> response.json())
             .catch(this.handleError);
     }
@@ -35,7 +35,7 @@ export class BookService {
     update(book : Book) : Observable<Book> {
         let body = JSON.stringify(book);
 
-        return this.http.put('api/books/', body, this.options)
+        return this.http.put('/api/books/', body, this.options)
             .map(response => <Book> response.json())
             .catch(this.handleError);
     }
@@ -48,7 +48,7 @@ export class BookService {
         let req = new PageRequestByExample(book, event);
         let body = JSON.stringify(req);
 
-        return this.http.post('api/books/page', body, this.options)
+        return this.http.post('/api/books/page', body, this.options)
             .map(response => {
                 let pr = <PageResponse<Book>> response.json();
                 return new PageResponse<Book>(pr.totalPages, pr.totalElements, pr.content);
@@ -62,7 +62,7 @@ export class BookService {
      */
     complete(query : string) : Observable<Book[]> {
         let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post('api/books/complete', body, this.options)
+        return this.http.post('/api/books/complete', body, this.options)
             .map(response => <Book[]> response.json())
             .catch(this.handleError);
     }
@@ -71,7 +71,7 @@ export class BookService {
      * Delete an Book by id.
      */
     delete(id : any) {
-        return this.http.delete('api/books/' + id).catch(this.handleError);
+        return this.http.delete('/api/books/' + id).catch(this.handleError);
     }
 
     // sample method from angular doc
@@ -80,6 +80,9 @@ export class BookService {
         let errMsg = (error.message) ? error.message :
         error.status ? `Status: ${error.status} - Text: ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
+        if (error.status === 401 ) {
+            window.location.href = '/';
+        }
         return Observable.throw(errMsg);
     }
 }

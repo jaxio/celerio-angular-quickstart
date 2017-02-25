@@ -131,7 +131,6 @@ public class BookResource {
         Book book = bookRepository.findOne(id);
 
         log.debug("File Download: {}", book.getExtractFileName());
-
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, book.getExtractContentType())
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + book.getExtractFileName() + "\"").contentLength(book.getExtractSize())
                 .body(book.getExtractBinary());

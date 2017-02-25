@@ -24,7 +24,7 @@ export class ProjectService {
      * Get a Project by id.
      */
     getProject(id : any) : Observable<Project> {
-        return this.http.get('api/projects/' + id)
+        return this.http.get('/api/projects/' + id)
             .map(response => <Project> response.json())
             .catch(this.handleError);
     }
@@ -35,7 +35,7 @@ export class ProjectService {
     update(project : Project) : Observable<Project> {
         let body = JSON.stringify(project);
 
-        return this.http.put('api/projects/', body, this.options)
+        return this.http.put('/api/projects/', body, this.options)
             .map(response => <Project> response.json())
             .catch(this.handleError);
     }
@@ -48,7 +48,7 @@ export class ProjectService {
         let req = new PageRequestByExample(project, event);
         let body = JSON.stringify(req);
 
-        return this.http.post('api/projects/page', body, this.options)
+        return this.http.post('/api/projects/page', body, this.options)
             .map(response => {
                 let pr = <PageResponse<Project>> response.json();
                 return new PageResponse<Project>(pr.totalPages, pr.totalElements, pr.content);
@@ -62,7 +62,7 @@ export class ProjectService {
      */
     complete(query : string) : Observable<Project[]> {
         let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post('api/projects/complete', body, this.options)
+        return this.http.post('/api/projects/complete', body, this.options)
             .map(response => <Project[]> response.json())
             .catch(this.handleError);
     }
@@ -71,7 +71,7 @@ export class ProjectService {
      * Delete an Project by id.
      */
     delete(id : any) {
-        return this.http.delete('api/projects/' + id).catch(this.handleError);
+        return this.http.delete('/api/projects/' + id).catch(this.handleError);
     }
 
     // sample method from angular doc
@@ -80,6 +80,9 @@ export class ProjectService {
         let errMsg = (error.message) ? error.message :
         error.status ? `Status: ${error.status} - Text: ${error.statusText}` : 'Server error';
         console.error(errMsg); // log to console instead
+        if (error.status === 401 ) {
+            window.location.href = '/';
+        }
         return Observable.throw(errMsg);
     }
 }

@@ -10,7 +10,7 @@ import {User} from './user';
 
 @Component({
 	template: `
-        {{ user.login }} {{ user.firstName }} {{ user.lastName }} 	`,
+        {{ user?.login }} {{ user?.firstName }} {{ user?.lastName }} 	`,
 	selector: 'user-line',
 })
 export class UserLineComponent {

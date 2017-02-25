@@ -48,6 +48,18 @@ import { UseCase1DetailComponent } from './entities/useCase1/useCase1-detail.com
 import { UseCase1LineComponent } from './entities/useCase1/useCase1-line.component';
 import { UseCase1CompleteComponent } from './entities/useCase1/useCase1-auto-complete.component';
 
+import { UseCase2Service } from './entities/useCase2/useCase2.service';
+import { UseCase2ListComponent } from './entities/useCase2/useCase2-list.component';
+import { UseCase2DetailComponent } from './entities/useCase2/useCase2-detail.component';
+import { UseCase2LineComponent } from './entities/useCase2/useCase2-line.component';
+import { UseCase2CompleteComponent } from './entities/useCase2/useCase2-auto-complete.component';
+
+import { UseCase3Service } from './entities/useCase3/useCase3.service';
+import { UseCase3ListComponent } from './entities/useCase3/useCase3-list.component';
+import { UseCase3DetailComponent } from './entities/useCase3/useCase3-detail.component';
+import { UseCase3LineComponent } from './entities/useCase3/useCase3-line.component';
+import { UseCase3CompleteComponent } from './entities/useCase3/useCase3-auto-complete.component';
+
 import { UserService } from './entities/user/user.service';
 import { UserListComponent } from './entities/user/user-list.component';
 import { UserDetailComponent } from './entities/user/user-detail.component';
@@ -113,6 +125,16 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         UseCase1LineComponent,
         UseCase1CompleteComponent
         ,
+        UseCase2ListComponent,
+        UseCase2DetailComponent,
+        UseCase2LineComponent,
+        UseCase2CompleteComponent
+        ,
+        UseCase3ListComponent,
+        UseCase3DetailComponent,
+        UseCase3LineComponent,
+        UseCase3CompleteComponent
+        ,
         UserListComponent,
         UserDetailComponent,
         UserLineComponent,
@@ -124,6 +146,8 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         ProjectService,
         RoleService,
         UseCase1Service,
+        UseCase2Service,
+        UseCase3Service,
         UserService,
         MessageService,
         ConfirmationService
