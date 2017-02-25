@@ -29,7 +29,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-
         <hibernate.version>5.0.2.Final</hibernate.version>
         <spring-security.version>4.0.4.RELEASE</spring-security.version>
 
@@ -276,7 +275,6 @@
             </testResource>
         </testResources>
 
-
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -308,7 +306,6 @@
                     </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
-
 
             <plugin>
                 <!-- http://mojo.codehaus.org/build-helper-maven-plugin/ -->

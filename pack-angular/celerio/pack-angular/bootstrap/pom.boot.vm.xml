@@ -31,30 +31,42 @@ $output.file("pom.xml")##
         <!-- ~~~~~~~~ -->
         <!-- Database -->
         <!-- ~~~~~~~~ -->
-        <!-- Note: during development using the same value for your login, password, database name and project name is really convenient -->
-        <database.name>${d}{project.name}</database.name>
-        <database.host>localhost</database.host>
-        <database.user>${d}{project.name}</database.user>
-        <database.password>${d}{project.name}</database.password>
 
         <!-- **** CHANGE THE PROPERTIES BELOW TO USE YOUR OWN DATABASE **** -->
         <!-- **** DO NOT USE A PRODUCTION DATABASE **** -->
-        <jdbc.type>h2</jdbc.type><!-- see 'db' profile, it is used to find the sql script -->
 
-        <!-- h2 jdbc driver (same as wildfly) -->
+        <!-- H2 DATABASE SETTINGS -->
         <jdbc.groupId>com.h2database</jdbc.groupId>
         <jdbc.artifactId>h2</jdbc.artifactId>
         <jdbc.version>1.4.187</jdbc.version>
 
-        <!-- h2 jdbc settings -->
         <jdbc.driver>org.h2.Driver</jdbc.driver>
-        <jdbc.url>jdbc:h2:${d}{project.build.directory}/db/${d}{database.name};MVCC=TRUE;FILE_LOCK=NO</jdbc.url><!-- for runtime -->
-        <jdbc.user>${d}{database.user}</jdbc.user>
-        <jdbc.password>${d}{database.password}</jdbc.password>
+        <jdbc.url>jdbc:h2:${project.build.directory}/db/angular-lab;MVCC=TRUE;FILE_LOCK=NO</jdbc.url>
+        <jdbc.user>root</jdbc.user>
+        <jdbc.password>manager</jdbc.password>
         <jdbc.schema></jdbc.schema>
         <jdbc.catalog></jdbc.catalog>
         <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
         <sql-maven-plugin.delimiter>;</sql-maven-plugin.delimiter>
+        <sql.create.script>01-create.sql</sql.create.script>
+
+
+        <!-- MYSQL DATABASE SETTINGS
+        <jdbc.groupId>mysql</jdbc.groupId>
+        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+        <jdbc.version>5.1.40</jdbc.version>
+
+        <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
+        <jdbc.url>jdbc:mysql://127.0.0.1:3306/angulardb</jdbc.url>
+        <jdbc.user>root</jdbc.user>
+        <jdbc.password>manager</jdbc.password>
+        <jdbc.schema></jdbc.schema>
+        <jdbc.catalog></jdbc.catalog>
+        <hibernate.dialect>org.hibernate.dialect.MySQL57InnoDBDialect</hibernate.dialect>
+        <sql-maven-plugin.delimiter>;</sql-maven-plugin.delimiter>
+        <sql.create.script>01-mysql-create.sql</sql.create.script>
+        -->
+
 
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- Version dependencies when used in multiple dependencies -->
@@ -208,12 +220,44 @@ $output.file("pom.xml")##
             <resource>
                 <directory>${d}{celerio-maven-plugin.outputDir}/src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                </includes>
             </resource>
             <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
+                <directory>${d}{celerio-maven-plugin.outputDir}/src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>application.yml</exclude>
+                </excludes>
+            </resource>
+
+            <!-- COPY aot compilation results + aot index.html -->
+            <resource>
+                <directory>${d}{celerio-maven-plugin.outputDir}/src/main/webapp/aot</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>index.html</include>
+                    <include>dist/build.js</include>
+                    <include>dist/build.js.map</include>
+                </includes>
+                <targetPath>static</targetPath>
+            </resource>
+
+            <!-- COPY other resources required by aot index.html -->
+            <resource>
+                <directory>${d}{celerio-maven-plugin.outputDir}/src/main/webapp</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>node_modules/core-js/client/shim.min.js</include>
+                    <include>node_modules/zone.js/dist/zone.min.js</include>
+                    <include>node_modules/json.date-extensions/json.date-extensions.min.js</include>
+                    <include>node_modules/primeng/resources/**</include>
+                </includes>
+                <targetPath>static</targetPath>
             </resource>
         </resources>
+
         <testResources>
             <testResource>
                 <directory>${d}{celerio-maven-plugin.outputDir}/src/test/resources</directory>
@@ -273,8 +317,6 @@ $output.file("pom.xml")##
                             <sources>
                                 <source>src/main/java</source>
                                 <source>src/main/generated-java</source>
-                                <!-- for code completion in velocity templates (when using IDEA) -->
-                                <source>pack-angular/META-INF</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -294,11 +336,8 @@ $output.file("pom.xml")##
                 </executions>
             </plugin>
 
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
-            <!-- Compiler plugin enforces Java 1.6 compatibility and activates
+
+            <!-- Compiler plugin enforces Java compatibility and activates
                 annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
