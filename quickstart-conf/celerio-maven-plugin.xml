@@ -36,6 +36,14 @@
                 <columnConfig columnName="password" searchField="false" searchResult="false"/>
             </columnConfigs>
         </entityConfig>
+        <entityConfig tableName="PASSPORT">
+            <columnConfigs>
+                <columnConfig columnName="holder_id" associationDirection="BIDIRECTIONAL">
+                    <oneToManyConfig var="passportHolder" />
+                    <inverseOneToOneConfig var="passport" /><!-- var that is generated on User entity side -->
+                </columnConfig>
+            </columnConfigs>
+        </entityConfig>
 
         <entityConfig tableName="AUTHOR">
             <columnConfigs>

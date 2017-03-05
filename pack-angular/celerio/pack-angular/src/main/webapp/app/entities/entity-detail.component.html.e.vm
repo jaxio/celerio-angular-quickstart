@@ -25,8 +25,10 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 #end
 ## -- [/MACROS]
 <div class="ContentSideSections Implementation">
-    <p-panel header="$entity.model.type Details">
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="$entity.model.var" ngForm #${entity.model.var}Form="ngForm">
+    <md-card *ngIf="$entity.model.var" ngForm #${entity.model.var}Form="ngForm">
+        <md-card-title>$entity.model.type Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
 ## ---------------------------------------------------------
 #foreach($attr in $entity.formAttributes.flatUp.list)
 #if ($attr.isSimplePk() && !$attr.jpa.isManuallyAssigned())
@@ -123,36 +125,46 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-detail.comp
 ##---------- [/NON VERSION]
 #end
 ## ---------------------------------------------------------
-            <div class="ui-g">
-                <div class="ui-g-2" *ngIf="sub">
-                    <button pButton type="button" (click)="onCancel()" icon="fa-ban" label="Cancel"></button>
-                </div>
-                <div class="ui-g-2">
-                    <button pButton type="button" (click)="onSave()" icon="fa-floppy-o" label="Save" [disabled]="!${entity.model.var}Form.form.valid"></button>
-                </div>
-            </div>
         </div>
-    </p-panel>
-#if($entity.oneToMany.flatUp.size > 0 || $entity.manyToMany.flatUp.size > 0)
-    <p-tabView *ngIf="$entity.model.var && ${entity.model.var}.$identifiableProperty.var">
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!${entity.model.var}Form.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+##
+## TABS FOR RELATIONS
+##
+#if($entity.inverseOneToOne.flatUp.size > 0 || $entity.oneToMany.flatUp.size > 0 || $entity.manyToMany.flatUp.size > 0)
+    <md-card *ngIf="$entity.model.var && ${entity.model.var}.$identifiableProperty.var">
+    <md-card-subtitle>$entity.model.type db relations</md-card-subtitle>
+    <md-card-content>
+    <md-tab-group>
+#end
+#foreach ($relation in $entity.inverseOneToOne.flatUp.list)
+        <md-tab label="$relation.to.varsUp">
+            <${relation.toEntity.model.var}-list [$relation.from.var]="${entity.model.var}" sub="true"></${relation.toEntity.model.var}-list>
+        </md-tab>
 #end
 #foreach ($relation in $entity.oneToMany.flatUp.list)
-        <p-tabPanel header="$relation.to.varsUp">
+        <md-tab label="$relation.to.varsUp">
             <${relation.toEntity.model.var}-list *ngIf="show$relation.to.varsUp" [$relation.from.var]="$entity.model.var" sub="true" [header]="'$relation.to.varsUp of this $entity.model.var'" (onAddNewClicked)="show$relation.to.varsUp = false"></${relation.toEntity.model.var}-list>
             <${relation.toEntity.model.var}-detail *ngIf="!show$relation.to.varsUp" [$relation.from.var]="$entity.model.var" sub="true" (onSaveClicked)="show$relation.to.varsUp = true" (onCancelClicked)="show$relation.to.varsUp = true"></${relation.toEntity.model.var}-detail>
-        </p-tabPanel>
+        </md-tab>
 #end
 #foreach ($relation in $entity.manyToMany.flatUp.list)
-        <p-tabPanel header="$relation.to.varsUp">
+        <md-tab label="$relation.to.varsUp">
             <p-pickList [source]="source$relation.to.varsUp" [target]="${entity.model.var}.$relation.to.vars" sourceHeader="Available" targetHeader="Selected" [responsive]="true">
                 <template let-$relation.to.var pTemplate="item">
 #foreach($attr in $relation.toEntity.printerAttributes.flatUp.list){{ ${attr.fullVar} }} #end
                 </template>
             </p-pickList>
-        </p-tabPanel>
+        </md-tab>
 #end
 
-#if($entity.oneToMany.flatUp.size > 0 || $entity.manyToMany.flatUp.size > 0)
-    </p-tabView>
+#if($entity.inverseOneToOne.flatUp.size > 0 || $entity.oneToMany.flatUp.size > 0 || $entity.manyToMany.flatUp.size > 0)
+    </md-tab-group>
+    </md-card-content>
+    </md-card>
 #end
 </div>

@@ -38,7 +38,7 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
 #end
 
     @Input() sub : boolean = false;
-#foreach ($relation in $entity.xToOne.list)
+#foreach ($relation in $entity.forwardXToOne.list)
     @Input() // used to pass the parent when creating a new $entity.model.type
     set ${relation.to.var}($relation.to.var : $relation.to.type) {
         this.$entity.model.var = new ${entity.model.type}();
@@ -100,7 +100,7 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
             this.params_subscription.unsubscribe();
         }
     }
-#foreach ($relation in $entity.xToOne.list)
+#foreach ($relation in $entity.forwardXToOne.list)
 
     goto${relation.to.varUp}() {
         this.router.navigate(['/${relation.toEntity.model.var}', this.${entity.model.var}.${relation.to.var}.${identifiableProperty.var}]);

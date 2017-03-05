@@ -12,6 +12,10 @@ $output.webapp("index.html")##
     <link rel="stylesheet" type="text/css" href="icons/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/site.css"/>
 
+    <link rel="stylesheet" type="text/css" href="node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
     <!-- 1. Load libraries -->
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>

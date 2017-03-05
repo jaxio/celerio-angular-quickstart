@@ -24,6 +24,9 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
+      // angular material bundles
+      '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
+
       // angular testing umd bundles
       '@angular/core/testing': 'npm:@angular/core/bundles/core-testing.umd.js',
       '@angular/common/testing': 'npm:@angular/common/bundles/common-testing.umd.js',

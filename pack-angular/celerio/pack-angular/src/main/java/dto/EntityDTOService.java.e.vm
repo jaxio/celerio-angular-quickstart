@@ -126,13 +126,13 @@ $output.require($relation.toEntity.model) ##
         } else {
             $entity.model.var = new ${entity.model.type}();
         }
-
 #foreach ($attribute in $entity.nonCpkAttributes.list)
 #if(!$attribute.isInFk() && !$attribute.isSimplePk() && !$attribute.isInFileDefinition())
+
         ${entity.model.var}.${attribute.setter}(dto.$attribute.var);
 #end
 #end
-#foreach ($relation in $entity.xToOne.list)
+#foreach ($relation in $entity.forwardXToOne.list)
 
         if (dto.$relation.to.var == null) {
             ${entity.model.var}.${relation.to.setter}(null);

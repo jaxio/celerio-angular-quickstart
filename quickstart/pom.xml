@@ -76,7 +76,7 @@
         <!-- Version dependencies when used in multiple dependencies -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <celerio-maven-plugin.outputDir>${project.basedir}</celerio-maven-plugin.outputDir>
-        <celerio-maven-plugin.version>4.0.15</celerio-maven-plugin.version>
+        <celerio-maven-plugin.version>4.0.16</celerio-maven-plugin.version>
 
         <celerio-maven-plugin.configuration>../quickstart-conf/celerio-maven-plugin.xml</celerio-maven-plugin.configuration>
         <celerio-maven-plugin.packs.configuration>../quickstart-conf/celerio-template-packs.xml</celerio-maven-plugin.packs.configuration>
@@ -259,6 +259,7 @@
                     <include>node_modules/zone.js/dist/zone.min.js</include>
                     <include>node_modules/json.date-extensions/json.date-extensions.min.js</include>
                     <include>node_modules/primeng/resources/**</include>
+                    <include>node_modules/@angular/material/core/theming/**</include>
                 </includes>
                 <targetPath>static</targetPath>
             </resource>

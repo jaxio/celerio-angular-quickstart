@@ -14,9 +14,11 @@ export default {
         nodeResolve({jsnext: true, module: true}),
         commonjs({
             include: [
+// Do not forget to also edit the pom.xml at the project root.
                 'node_modules/rxjs/**',
                 'node_modules/primeng/**',
-                'node_modules/json.date-extensions/**'
+                'node_modules/json.date-extensions/**',
+                'node_modules/@angular/material/core/theming/**'
             ],
             namedExports: {
                 'node_modules/primeng/primeng.js': [

@@ -31,6 +31,18 @@ CREATE TABLE USER (
 COMMENT ON TABLE USER IS 'The User is a human that can connect to this web application';
 COMMENT ON COLUMN USER.LOGIN IS 'The login used to login';
 
+
+CREATE TABLE PASSPORT (
+    id                       int not null IDENTITY,
+    passport_number          varchar(100) not null,
+    expiration_date          date,
+    holder_id                int not null,
+    constraint holder_fk foreign key (holder_id) references USER,
+    constraint holder_fk_unique unique (holder_id),
+    primary key (id)
+);
+
+
 CREATE TABLE ROLE (
     id              int not null IDENTITY,
     role_name       varchar(100) not null,

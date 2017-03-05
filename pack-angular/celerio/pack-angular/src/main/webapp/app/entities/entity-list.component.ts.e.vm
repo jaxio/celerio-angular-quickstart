@@ -44,9 +44,9 @@ export class ${entity.model.type}ListComponent {
     currentPage : PageResponse<$entity.model.type> = new PageResponse<$entity.model.type>(0,0,[]);
 
 ## --------------- Many to One
-#foreach ($relation in $entity.manyToOne.list)
+#foreach ($relation in $entity.forwardXToOne.list)
 #if ($velocityCount == 1)
-    // Many to one: input param is used to filter the list when displayed
+    // X to one: input param is used to filter the list when displayed
     // as a one-to-many list by the other side.
 #end
     private _$relation.to.var : $relation.to.type;
@@ -78,11 +78,11 @@ export class ${entity.model.type}ListComponent {
                 error => this.messageService.error('Could not get the results', error)
             );
     }
-## --------------- Many to One
-#foreach ($relation in $entity.manyToOne.list)
+## --------------- X to One
+#foreach ($relation in $entity.forwardXToOne.list)
 #if ($velocityCount == 1)
 
-    // Many to one: input param is used to filter the list when displayed
+    // X to one: input param is used to filter the list when displayed
     // as a one-to-many list by the other side.
 #end
     @Input()

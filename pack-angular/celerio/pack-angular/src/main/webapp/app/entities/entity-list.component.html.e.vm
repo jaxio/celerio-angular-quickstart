@@ -12,7 +12,9 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 #end
 ## END MACRO
 <div class="ContentSideSections Implementation">
-    <p-panel *ngIf="!sub" header="Search ${entity.model.type} with simple search criterias">
+    <md-card *ngIf="!sub">
+        <md-card-title>Search ${entity.model.type} with search criterias</md-card-title>
+        <md-card-content>
         <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #${entity.model.var}Form="ngForm">
 #foreach($attr in $entity.searchAttributes.list)
 #if($attr.isSimpleFk())
@@ -29,15 +31,18 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
 #end
 #end
         </div>
-        <footer>
-            <div class="ui-helper-clearfix" style="width:100%">
-                <button type="button" pButton icon="fa-search" style="float:left" (click)="search(dt)" label="Search"></button>
-            </div>
-        </footer>
-    </p-panel>
+
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button (click)="search(dt)"><md-icon>search</md-icon>Search</button>
+        </md-card-actions>
+    </md-card>
+
+    <md-card>
 #if($entity.hasComment())
-    <p>DB comment: ${entity.comment}</p>
+    <md-card-subtitle>DB comment: ${entity.comment}</md-card-subtitle>
 #end
+    <md-card-content>
     <p>The list of results below is server-side paginated...</p>
 
     <p-dataTable #dt [value]="currentPage.content"
@@ -51,11 +56,6 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
         <p-header>{{header}} (count: {{currentPage.totalElements}})</p-header>
-        <p-footer>
-            <div class="ui-helper-clearfix" style="width:100%">
-                <button type="button" pButton icon="fa-plus" style="float:left" (click)="addNew()" label="Add"></button>
-            </div>
-        </p-footer>
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
 #if ($attr.hasXToOneRelation())
         <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
@@ -100,6 +100,11 @@ $output.webapp("app/entities/${entity.model.var}/${entity.model.var}-list.compon
             </template>
         </p-column>
     </p-dataTable>
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
+    </md-card-actions>
+    </md-card>
 
     <p-confirmDialog width="455"></p-confirmDialog>
 </div>

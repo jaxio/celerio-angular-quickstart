@@ -2,7 +2,7 @@
 -- Example Schema using MySQL database
 --
 
-DROP TABLE IF EXISTS USE_CASE_3, USE_CASE_2, USE_CASE_1, PROJECT, BOOK, AUTHOR, USER_ROLE, ROLE, USER;
+DROP TABLE IF EXISTS USE_CASE_3, USE_CASE_2, USE_CASE_1, PROJECT, BOOK, AUTHOR, USER_ROLE, ROLE, PASSPORT, USER;
 
 CREATE TABLE USER (
     id                       int not null AUTO_INCREMENT,
@@ -28,6 +28,16 @@ CREATE TABLE USER (
     primary key (id)
 ) COMMENT='The User is a human that can connect to this web application';
 
+
+CREATE TABLE PASSPORT (
+    id                       int not null AUTO_INCREMENT,
+    passport_number          varchar(100) not null,
+    expiration_date          date,
+    holder_id                int not null,
+    foreign key (holder_id) references USER(id),
+    constraint passport_holder_unique_1 unique (holder_id),
+    primary key (id)
+) COMMENT='Use case for one-to-one relation';
 
 CREATE TABLE ROLE (
     id              int not null AUTO_INCREMENT,

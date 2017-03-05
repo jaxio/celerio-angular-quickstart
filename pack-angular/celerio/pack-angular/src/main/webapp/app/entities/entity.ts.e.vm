@@ -14,6 +14,13 @@ import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.
 #set($temp = $imports.add($relation.to.type))
 #end
 #end
+## --------------- inverse X to One
+#foreach ($relation in $entity.inverseOneToOne.list)
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
+import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
+#end
+#end
 ## --------------- Many to Many
 #foreach ($relation in $entity.manyToMany.list)
 #if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
@@ -36,8 +43,8 @@ export class $entity.model.type {
     ${attribute.var}#tstype($attribute);
 #end
 #end
-## --------------- X to One
-#foreach ($relation in $entity.xToOne.list)
+## --------------- X to One (except inverse one to one)
+#foreach ($relation in $entity.forwardXToOne.list)
 #if ($velocityCount == 1)
     // x-to-one
 #end
