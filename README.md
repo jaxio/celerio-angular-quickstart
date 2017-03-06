@@ -32,6 +32,7 @@ The generated Angular CRUD web app uses the following tecnologies/frameworks:
 * [Angular 2.4.8](http://angular.io/) web framework: we try to always use the most recent version
 * [TypeScript](https://www.typescriptlang.org/): much easier than JavaScript... 
 * [PrimeNG 2.0.1](http://primefaces.org/primeng/): Angular 2 components library, we leverage file upload, auto-complete, calendar, tri-state checkbox, server-side pagination, etc.
+* [Angular Material](https://material.angular.io/): Material Design components for Angular apps
 * [Spring Boot](http://projects.spring.io/spring-boot/): Java app backend, made easy, we generate REST endpoints, etc.
 * [Spring Security](http://projects.spring.io/spring-security/): basic security by default
 * [Spring Data JPA](http://projects.spring.io/spring-data-jpa/): leverage query by example, etc.
