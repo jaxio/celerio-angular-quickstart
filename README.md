@@ -29,7 +29,7 @@ Here is the folder organization:
 
 The generated Angular CRUD web app uses the following tecnologies/frameworks:
 
-* [Angular 2.4.8](http://angular.io/) web framework: we try to always use the most recent version
+* [Angular 2.4.9](http://angular.io/) web framework: we try to always use the most recent version
 * [TypeScript](https://www.typescriptlang.org/): much easier than JavaScript... 
 * [PrimeNG 2.0.1](http://primefaces.org/primeng/): Angular 2 components library, we leverage file upload, auto-complete, calendar, tri-state checkbox, server-side pagination, etc.
 * [Angular Material](https://material.angular.io/): Material Design components for Angular apps
