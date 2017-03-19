@@ -1,0 +1,108 @@
+$output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}.ts")##
+#macro(tstype $attr)
+#if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#elseif($attr.isDate()) : Date#end
+#end
+## --------------- Composite PK
+#if($entity.hasCompositePk())
+import {$entity.primaryKey.type} from "./$entity.primaryKey.typeLow";
+#end
+#set($imports = [])
+## --------------- X to One
+#foreach ($relation in $entity.xToOne.list)
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
+import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
+#end
+#end
+## --------------- inverse X to One
+#foreach ($relation in $entity.inverseOneToOne.list)
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
+import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
+#end
+#end
+## --------------- Many to Many
+#foreach ($relation in $entity.manyToMany.list)
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
+import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
+#end
+#end
+
+export class $entity.model.type {
+## --------------- Compiste PK
+#if ($entity.hasCompositePk())
+    ${identifiableProperty.var} : $entity.primaryKey.type = new ${entity.primaryKey.type}();
+#end
+## --------------- Raw attributes (except the one involved in XtoOneRelation)
+#foreach ($attribute in $entity.nonCpkAttributes.list)
+#if ($velocityCount == 1)
+    // Raw attributes
+#end
+#if((!$attribute.isInFk() || $attribute.isSimplePk()) && !$attribute.isBinary())
+    ${attribute.var}#tstype($attribute);
+#end
+#end
+## --------------- X to One (except inverse one to one)
+#foreach ($relation in $entity.forwardXToOne.list)
+#if ($velocityCount == 1)
+    // x-to-one
+#end
+    $relation.to.var : $relation.to.type;
+#end
+## --------------- many to many
+#foreach ($relation in $entity.manyToMany.list)
+#if ($velocityCount == 1)
+    // many-to-many
+#end
+    $relation.to.vars : ${relation.to.type}[];
+#end
+
+
+    constructor(json? : any) {
+        if (json != null) {
+## --------------- Composite PK
+#if ($entity.hasCompositePk())
+            this.${identifiableProperty.var} = new ${entity.primaryKey.type}(json.$identifiableProperty.var);
+#end
+## --------------- Raw attributes (except the one involved in XtoOneRelation)
+#foreach ($attribute in $entity.nonCpkAttributes.list)
+#if((!$attribute.isInFk() || $attribute.isSimplePk()) && !$attribute.isBinary())
+#if ($attribute.isDate())
+            if (json.$attribute.var != null) {
+                this.$attribute.var = new Date(json.$attribute.var);
+            }
+#else
+            this.${attribute.var} = json.$attribute.var;
+#end
+#end
+#end
+## --------------- X to One (except inverse one to one)
+#foreach ($relation in $entity.forwardXToOne.list)
+
+            if (json.$relation.to.var != null) {
+                this.$relation.to.var = new ${relation.to.type}(json.$relation.to.var);
+            }
+#end
+## --------------- many to many
+#foreach ($relation in $entity.manyToMany.list)
+
+            if (json.$relation.to.vars != null) {
+                this.$relation.to.vars = ${relation.to.type}.toArray(json.$relation.to.vars);
+            }
+#end
+        }
+    }
+
+    // Utils
+
+    static toArray(jsons : any[]) : ${entity.model.type}[] {
+        let $entity.model.vars : ${entity.model.type}[] = [];
+        if (jsons != null) {
+            for (let json of jsons) {
+                ${entity.model.vars}.push(new ${entity.model.type}(json));
+            }
+        }
+        return $entity.model.vars;
+    }
+}

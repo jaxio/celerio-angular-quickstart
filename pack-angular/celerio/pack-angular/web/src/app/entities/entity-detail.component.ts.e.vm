@@ -1,0 +1,164 @@
+$output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detail.component.ts")##
+import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SelectItem } from 'primeng/primeng';
+import { MessageService} from '../../service/message.service';
+import {${entity.model.type}} from './${entity.model.var}';
+import {${entity.service.type}} from './${entity.model.var}.service';
+#set($imports = [])
+#foreach ($relation in $entity.xToOne.list)
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
+import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
+#set($temp = $imports.add($relation.to.type))
+#end
+#end
+#foreach ($relation in $entity.manyToMany.flatUp.list)
+#if(!$relation.to.type.equals($entity.model.type) && !$imports.contains($relation.to.type))
+import {${relation.to.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}';
+import {${relation.toEntity.service.type}} from '../$relation.toEntity.model.var/${relation.toEntity.model.var}.service';
+#set($temp = $imports.add($relation.to.type))
+#end
+#end
+
+@Component({
+    moduleId: module.id,
+	templateUrl: '${entity.model.var}-detail.component.html',
+	selector: '${entity.model.var}-detail',
+})
+export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
+    $entity.model.var : $entity.model.type;
+
+    private params_subscription: any;
+
+#foreach ($relation in $entity.oneToMany.flatUp.list)
+    show$relation.to.varsUp : boolean = true;
+#end
+#foreach ($relation in $entity.manyToMany.list)
+    source$relation.to.varsUp : ${relation.toEntity.model.type}[] = [];
+#end
+
+    @Input() sub : boolean = false;
+#foreach ($relation in $entity.forwardXToOne.list)
+    @Input() // used to pass the parent when creating a new $entity.model.type
+    set ${relation.to.var}($relation.to.var : $relation.to.type) {
+        this.$entity.model.var = new ${entity.model.type}();
+        this.${entity.model.var}.$relation.to.var = $relation.to.var;
+#if($relation.fromAttribute.isInCpk())
+        // special hack for composite key with x-to-one relation...
+        this.${entity.model.var}.id.${relation.fromAttribute.var} = ${relation.to.var}.${identifiableProperty.var};
+#end
+    }
+
+#end
+    @Output() onSaveClicked = new EventEmitter<$entity.model.type>();
+    @Output() onCancelClicked = new EventEmitter();
+#foreach($attr in $entity.enumAttributes.list)
+    ${attr.var}Options: SelectItem[];
+#end
+
+    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private ${entity.service.var}: ${entity.service.type}#foreach ($relation in $entity.manyToMany.list), private ${relation.toEntity.service.var} : ${relation.toEntity.service.type}#end) {
+#foreach($attr in $entity.enumAttributes.list)
+        this.${attr.var}Options = [];
+#foreach($enumValue in $attr.enumConfig.enumValues)
+        this.${attr.var}Options.push({"label": "$enumValue.labels().label", 'value': "$enumValue.name"});
+#end
+#end
+#foreach ($relation in $entity.manyToMany.list)
+        ${relation.toEntity.service.var}.complete(null).
+            subscribe($relation.to.vars => this.source$relation.to.varsUp = $relation.to.vars,
+                        error =>  this.messageService.error('Constructor error', error));
+#end
+    }
+
+    ngOnInit() {
+        if (this.sub) {
+            return;
+        }
+
+        this.params_subscription = this.route.params.subscribe(params => {
+            let id = params['id'];
+            console.log('ngOnInit for ${entity.model.var}-detail ' + id);
+
+            if (id === 'new') {
+                this.$entity.model.var = new ${entity.model.type}();
+            } else {
+                this.${entity.service.var}.${entity.model.getter}(id)
+                    .subscribe($entity.model.var => {
+                            this.$entity.model.var = $entity.model.var;
+#foreach ($relation in $entity.manyToMany.list)
+                            this.source$relation.to.varsUp = this.source${relation.to.varsUp}.filter(item => this.${entity.model.var}.${relation.to.vars}.map((e) => e.id).indexOf(item.id) < 0);
+#end
+                        },
+                        error =>  this.messageService.error('ngOnInit error', error)
+                    );
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        if (!this.sub) {
+            this.params_subscription.unsubscribe();
+        }
+    }
+#foreach ($relation in $entity.forwardXToOne.list)
+
+    goto${relation.to.varUp}() {
+        this.router.navigate(['/${relation.toEntity.model.var}', this.${entity.model.var}.${relation.to.var}.${identifiableProperty.var}]);
+    }
+
+    clear${relation.to.varUp}() {
+        this.${entity.model.var}.${relation.to.var} = null;
+#if($relation.fromAttribute.isInCpk())
+        // special hack for composite key with x-to-one relation...
+        this.${entity.model.var}.id.${relation.fromAttribute.var} = null;
+#end
+    }
+#end
+
+    onSave() {
+#if($entity.hasCompositePk())
+#foreach ($attribute in $primaryKey.attributes)
+#if($attribute.hasForwardXToOneRelation())
+        // special hack for composite key with x-to-one relation...
+        this.${entity.model.var}.id.${attribute.var} = this.${entity.model.var}.${attribute.xToOneRelation.to.var}.${identifiableProperty.var};
+
+#end
+#end
+#end
+        this.${entity.service.var}.update(this.$entity.model.var).
+            subscribe(
+                $entity.model.var => {
+                    this.$entity.model.var = $entity.model.var;
+                    if (this.sub) {
+                        this.onSaveClicked.emit(this.$entity.model.var);
+                        this.messageService.info('Saved OK and msg emitted', 'Angular Rocks!')
+                    } else {
+                        this.messageService.info('Saved OK', 'Angular Rocks!')
+                    }
+                },
+                error =>  this.messageService.error('Could not save', error)
+            );
+    }
+
+    onCancel() {
+        if (this.sub) {
+            this.onCancelClicked.emit("cancel");
+            this.messageService.info('Cancel clicked and msg emitted', 'Angular Rocks!')
+        }
+    }
+
+#foreach($attr in $entity.fileAttributes.list)
+
+    /**
+     * Refresh the form to display the download link.
+     * TODO: sthg smarter.
+     */
+    on${attr.varUp}Upload(event: any) {
+        this.${entity.service.var}.${entity.model.getter}(this.${entity.model.var}.id)
+            .subscribe(
+                $entity.model.var => this.$entity.model.var = $entity.model.var,
+                error =>  this.messageService.error('on${attr.varUp}Upload error', error)
+            );
+    }
+#end
+}

@@ -1,0 +1,24 @@
+$output.file("web/src/app/entities/${entity.model.var}/${primaryKey.typeLow}.ts")##
+#macro(tstype $attr)
+    #if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#elseif($attr.isDate()) : Date#end
+#end
+
+export class $primaryKey.type {
+#foreach ($attribute in $primaryKey.attributes)
+    ${attribute.var}#tstype($attribute);
+#end
+
+    constructor(json? : any) {
+        if (json != null) {
+#foreach ($attribute in $primaryKey.attributes)
+#if ($attribute.isDate())
+            if (json.$attribute.var != null) {
+                this.$attribute.var = new Date(json.$attribute.var);
+            }
+#else
+            this.$attribute.var = json.$attribute.var;
+#end
+#end
+        }
+    }
+}

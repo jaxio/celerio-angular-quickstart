@@ -1,0 +1,170 @@
+$output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detail.component.html")##
+## -- [MACRO]
+#macro(xToOneEdit $relation)
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="$relation.to.var">${relation.labels.label}#{if}($relation.isMandatory())*#{end}</label></div>
+                <div class="ui-grid-col-4">
+                    <${relation.toEntity.model.var}-auto-complete [(ngModel)]="${entity.model.var}.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}" [disabled]="sub"></${relation.toEntity.model.var}-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="goto${relation.to.varUp}" type="button" (click)="goto${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clear${relation.to.varUp}" type="button" (click)="clear${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+#end
+#macro(required $attribute)
+#if($attribute.isRequired() && $attribute.isString()) required placeholder="Required"#end
+#end
+#macro(minlength $attribute)
+#if($attribute.columnConfig.hasMin()) minlength="$attribute.columnConfig.min"#end
+#end
+#macro(asterisk $attribute)
+#if($attribute.isRequired()) *#end
+#end
+## -- [/MACROS]
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="$entity.model.var" ngForm #${entity.model.var}Form="ngForm">
+        <md-card-title>$entity.model.type Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+## ---------------------------------------------------------
+#foreach($attr in $entity.formAttributes.flatUp.list)
+#if ($attr.isSimplePk() && !$attr.jpa.isManuallyAssigned())
+## no need to display it...
+#elseif($attr.isSimpleFk())
+#xToOneEdit($attr.getXToOneRelation())
+#elseif(!$attr.isVersion())
+#if($attr.isInCpk())
+#set( $valuePath = "${entity.model.var}.${identifiableProperty.var}.${attr.var}")##
+#else
+#set( $valuePath = "$attr.fullVar")##
+#end
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="$attr.var">$attr.labels.label #asterisk($attr)</label></div>
+                <div class="ui-grid-col-6">
+#if($attr.springMvc.isPassword())
+                    <input type="password" pPassword [(ngModel)]="$valuePath" name="$attr.var" ${p}$attr.var="ngModel"/>
+#elseif($attr.isHtml())
+                todo html
+#elseif($attr.isTextArea())
+                    <textarea pInputTextarea id="$attr.var" [(ngModel)]="$valuePath" autoResize="true" name="$attr.var" ${p}$attr.var="ngModel"></textarea>
+#elseif($attr.isEnum())
+                    <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$valuePath" name="$attr.var" ${p}$attr.var="ngModel"></p-dropdown>
+#elseif($attr.isEmail())
+                    <input pInputText id="$attr.var" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) validateEmail name="$attr.var" ${p}$attr.var="ngModel"/>
+#elseif($attr.isUrl())
+                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+#elseif($attr.isString())
+                    <input pInputText id="$attr.var" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+#elseif($attr.isNumeric())
+                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$valuePath" #required($attr) name="$attr.var" ${p}$attr.var="ngModel" />
+#elseif($attr.isDate() && !$attr.isVersion())
+#if($attr.isJavaUtilOnlyDate())
+                    <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+#elseif($attr.isJavaUtilDateAndTime())
+                date and time not supported yet
+#elseif($attr.isLocalDate())
+                    <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+#elseif($attr.isLocalDateTime())
+                    <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+#else
+                Date type not supported, do it manually and send us the solution!
+#end
+#elseif($attr.isBoolean())
+                    <p-triStateCheckbox [(ngModel)]="$valuePath" name="$attr.var"></p-triStateCheckbox>{{$valuePath}}
+#elseif($attr.isFile())
+                    <ul *ngIf="${entity.model.var}.${attr.filename.var}">
+                        <li><a href="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/download/${attr.var}">Download {{${entity.model.var}.${attr.filename.var}}}</a></li>
+                        <li>Content-Type: {{${entity.model.var}.${attr.fileContentType.var}}}</li>
+                        <li>Size in bytes: {{${entity.model.var}.${attr.fileSize.var}}}</li>
+                    </ul>
+
+                    <p-fileUpload *ngIf="${entity.model.var}.${identifiableProperty.var}" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
+                    </p-fileUpload>
+                    <!-- visual hack -->
+                    <p-fileUpload *ngIf="!${entity.model.var}.${identifiableProperty.var}" disabled="true" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
+                        <template pTemplate="content">
+                            <div>For the moment, you must save the form before being able to upload a file...</div>
+                        </template>
+                    </p-fileUpload>
+#else
+
+                    <input pInputText id="$attr.var" [(ngModel)]="$valuePath" #required($attr) name="$attr.var" #name="ngModel"/>
+#end
+                </div>
+                <div class="ui-grid-col-4">
+#if($attr.isRequired() && $attr.isString() && !$attr.isPassword())
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['required']">
+                        <i class="fa fa-close"></i>
+                        $attr.labels.label is required
+                    </div>
+#end
+#if($attr.columnConfig.hasMin() && $attr.isString() && !$attr.isPassword())
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['minlength']">
+                        <i class="fa fa-close"></i>
+                        $attr.labels.label must have at least $attr.columnConfig.min characters.
+                    </div>
+#end
+#if($attr.isEmail())
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['validateEmail']">
+                        <i class="fa fa-close"></i>
+                        $attr.labels.label is invalid. Expecting a valid email address.
+                    </div>
+                    #end
+#if($attr.isUrl())
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['pattern']">
+                        <i class="fa fa-close"></i>
+                        $attr.labels.label is invalid. Expecting an URL starting with 'http'.
+                    </div>
+#end
+                </div>
+            </div>
+#end ## foreach(....
+##---------- [/NON VERSION]
+#end
+## ---------------------------------------------------------
+        </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!${entity.model.var}Form.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+##
+## TABS FOR RELATIONS
+##
+#if($entity.inverseOneToOne.flatUp.size > 0 || $entity.oneToMany.flatUp.size > 0 || $entity.manyToMany.flatUp.size > 0)
+    <md-card *ngIf="$entity.model.var && ${entity.model.var}.$identifiableProperty.var">
+    <md-card-subtitle>$entity.model.type db relations</md-card-subtitle>
+    <md-card-content>
+    <md-tab-group>
+#end
+#foreach ($relation in $entity.inverseOneToOne.flatUp.list)
+        <md-tab label="$relation.to.varsUp">
+            <${relation.toEntity.model.var}-list [$relation.from.var]="${entity.model.var}" sub="true"></${relation.toEntity.model.var}-list>
+        </md-tab>
+#end
+#foreach ($relation in $entity.oneToMany.flatUp.list)
+        <md-tab label="$relation.to.varsUp">
+            <${relation.toEntity.model.var}-list *ngIf="show$relation.to.varsUp" [$relation.from.var]="$entity.model.var" sub="true" [header]="'$relation.to.varsUp of this $entity.model.var'" (onAddNewClicked)="show$relation.to.varsUp = false"></${relation.toEntity.model.var}-list>
+            <${relation.toEntity.model.var}-detail *ngIf="!show$relation.to.varsUp" [$relation.from.var]="$entity.model.var" sub="true" (onSaveClicked)="show$relation.to.varsUp = true" (onCancelClicked)="show$relation.to.varsUp = true"></${relation.toEntity.model.var}-detail>
+        </md-tab>
+#end
+#foreach ($relation in $entity.manyToMany.flatUp.list)
+        <md-tab label="$relation.to.varsUp">
+            <p-pickList [source]="source$relation.to.varsUp" [target]="${entity.model.var}.$relation.to.vars" sourceHeader="Available" targetHeader="Selected" [responsive]="true">
+                <template let-$relation.to.var pTemplate="item">
+#foreach($attr in $relation.toEntity.printerAttributes.flatUp.list){{ ${attr.fullVar} }} #end
+                </template>
+            </p-pickList>
+        </md-tab>
+#end
+
+#if($entity.inverseOneToOne.flatUp.size > 0 || $entity.oneToMany.flatUp.size > 0 || $entity.manyToMany.flatUp.size > 0)
+    </md-tab-group>
+    </md-card-content>
+    </md-card>
+#end
+</div>

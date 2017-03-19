@@ -1,0 +1,21 @@
+$output.file("web/src/app/app.routes.ts")##
+import { ModuleWithProviders }  from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { HomeComponent } from './home.component';
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+
+import { ${entity.model.type}ListComponent } from './entities/$entity.model.var/${entity.model.var}-list.component';
+import { ${entity.model.type}DetailComponent } from './entities/$entity.model.var/${entity.model.var}-detail.component';
+#end
+
+export const routes: Routes = [
+    { path : '',  component: HomeComponent }
+#foreach($entity in $project.withoutManyToManyJoinEntities.list)
+    ,
+    {path: '${entity.model.var}-list', component: ${entity.model.type}ListComponent },
+    {path: '${entity.model.var}/:id', component: ${entity.model.type}DetailComponent }
+#end
+];
+
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes);
