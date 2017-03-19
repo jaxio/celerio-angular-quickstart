@@ -93,10 +93,15 @@ public class AuthorDTOService {
         }
 
         author.setCivility(dto.civility);
+
         author.setLastName(dto.lastName);
+
         author.setFirstName(dto.firstName);
+
         author.setEmail(dto.email);
+
         author.setBirthDate(dto.birthDate);
+
         author.setBirthDateTime(dto.birthDateTime);
 
         if (dto.favoriteAuthor == null) {

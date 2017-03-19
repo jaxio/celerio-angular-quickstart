@@ -18,11 +18,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mycompany.myapp.domain.Passport;
 import com.mycompany.myapp.domain.Role;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.User_;
 import com.mycompany.myapp.dto.support.PageRequestByExample;
 import com.mycompany.myapp.dto.support.PageResponse;
+import com.mycompany.myapp.repository.PassportRepository;
 import com.mycompany.myapp.repository.RoleRepository;
 import com.mycompany.myapp.repository.UserRepository;
 
@@ -34,6 +36,10 @@ public class UserDTOService {
 
     @Inject
     private UserRepository userRepository;
+    @Inject
+    private PassportDTOService passportDTOService;
+    @Inject
+    private PassportRepository passportRepository;
     @Inject
     private RoleDTOService roleDTOService;
     @Inject
@@ -100,17 +106,29 @@ public class UserDTOService {
         }
 
         user.setLogin(dto.login);
+
         user.setPassword(dto.password);
+
         user.setEmail(dto.email);
+
         user.setIsEnabled(dto.isEnabled);
+
         user.setCivility(dto.civility);
+
         user.setCountryCode(dto.countryCode);
+
         user.setFirstName(dto.firstName);
+
         user.setLastName(dto.lastName);
+
         user.setCreationDate(dto.creationDate);
+
         user.setCreationAuthor(dto.creationAuthor);
+
         user.setLastModificationDate(dto.lastModificationDate);
+
         user.setLastModificationAuthor(dto.lastModificationAuthor);
+
         user.setVersion(dto.version);
 
         user.getRoles().clear();
@@ -159,6 +177,7 @@ public class UserDTOService {
         dto.lastModificationAuthor = user.getLastModificationAuthor();
         dto.version = user.getVersion();
         if (depth-- > 0) {
+            dto.passport = passportDTOService.toDTO(user.getPassport(), depth);
             final int fdepth = depth;
             dto.roles = user.getRoles().stream().map(role -> roleDTOService.toDTO(role, fdepth)).collect(Collectors.toList());
         }
@@ -200,6 +219,7 @@ public class UserDTOService {
         user.setLastModificationAuthor(dto.lastModificationAuthor);
         user.setVersion(dto.version);
         if (depth-- > 0) {
+            user.setPassport(passportDTOService.toEntity(dto.passport, depth));
         }
 
         return user;

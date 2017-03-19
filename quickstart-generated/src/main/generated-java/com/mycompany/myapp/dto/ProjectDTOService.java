@@ -98,7 +98,9 @@ public class ProjectDTOService {
         }
 
         project.setName(dto.name);
+
         project.setUrl(dto.url);
+
         project.setOpenSource(dto.openSource);
 
         if (dto.author == null) {

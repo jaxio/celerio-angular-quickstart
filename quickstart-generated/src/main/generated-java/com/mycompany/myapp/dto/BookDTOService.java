@@ -98,9 +98,13 @@ public class BookDTOService {
         }
 
         book.setTitle(dto.title);
+
         book.setSummary(dto.summary);
+
         book.setPublicationDate(dto.publicationDate);
+
         book.setBestSeller(dto.bestSeller);
+
         book.setPrice(dto.price);
 
         if (dto.author == null) {

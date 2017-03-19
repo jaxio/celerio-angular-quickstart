@@ -32,6 +32,9 @@ public abstract class User_ {
     public static volatile SingularAttribute<User, String> lastModificationAuthor;
     public static volatile SingularAttribute<User, Integer> version;
 
+    // One to one
+    public static volatile SingularAttribute<User, Passport> passport;
+
     // Many to many
     public static volatile ListAttribute<User, Role> roles;
 }

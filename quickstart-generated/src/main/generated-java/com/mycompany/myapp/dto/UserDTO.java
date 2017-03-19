@@ -31,7 +31,8 @@ public class UserDTO {
     public String creationAuthor;
     public LocalDateTime lastModificationDate;
     public String lastModificationAuthor;
-    public Integer version;;
+    public Integer version;
+    public PassportDTO passport;;
     public List<RoleDTO> roles;
 
     @JsonIgnore

@@ -8,6 +8,7 @@
 package com.mycompany.myapp.domain;
 
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
@@ -25,6 +26,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -64,6 +66,9 @@ public class User implements Identifiable<Integer>, Serializable {
     private LocalDateTime lastModificationDate;
     private String lastModificationAuthor;
     private Integer version;
+
+    // One to one
+    private Passport passport;
 
     // Many to many
     private List<Role> roles = new ArrayList<Role>();
@@ -324,6 +329,31 @@ public class User implements Identifiable<Integer>, Serializable {
 
     public User version(Integer version) {
         setVersion(version);
+        return this;
+    }
+
+    // -----------------------------------------------------------------
+    // One to one
+    // -----------------------------------------------------------------
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // Inverse side of one-to-one relation: User.id ==> Passport.holderId
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    @OneToOne(mappedBy = "holder")
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+
+        if (this.passport != null) {
+            this.passport.setHolder(this);
+        }
+    }
+
+    public User passport(Passport passport) {
+        setPassport(passport);
         return this;
     }
 

@@ -1,0 +1,46 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="useCase1" ngForm #useCase1Form="ngForm">
+        <md-card-title>UseCase1 Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="id1">Id1  *</label></div>
+                <div class="ui-grid-col-6">
+                    <p-calendar [(ngModel)]="useCase1.id.id1" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="id2">Id2  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="id2" [(ngModel)]="useCase1.id.id2"  required placeholder="Required"  name="id2" #id2="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!id2.valid && id2.dirty && id2.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Id2 is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="dummy">Dummy  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="dummy" [(ngModel)]="useCase1.dummy"  required placeholder="Required"  name="dummy" #dummy="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!dummy.valid && dummy.dirty && dummy.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Dummy is required
+                    </div>
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!useCase1Form.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>

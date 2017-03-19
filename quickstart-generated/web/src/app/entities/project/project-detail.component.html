@@ -1,0 +1,58 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="project" ngForm #projectForm="ngForm">
+        <md-card-title>Project Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="name">Name  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="name" [(ngModel)]="project.name"  required placeholder="Required"  name="name" #name="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!name.valid && name.dirty && name.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Name is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="url">Url </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="url" pattern="^http.*" [(ngModel)]="project.url"   name="url" #url="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!url.valid && url.dirty && url.errors['pattern']">
+                        <i class="fa fa-close"></i>
+                        Url is invalid. Expecting an URL starting with 'http'.
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="author">Author*</label></div>
+                <div class="ui-grid-col-4">
+                    <author-auto-complete [(ngModel)]="project.author" id="author" name="author" [disabled]="sub"></author-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoAuthor" type="button" (click)="gotoAuthor()" *ngIf="project.author" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearAuthor" type="button" (click)="clearAuthor()" *ngIf="project.author" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="openSource">Open Source </label></div>
+                <div class="ui-grid-col-6">
+                    <p-triStateCheckbox [(ngModel)]="project.openSource" name="openSource"></p-triStateCheckbox>{{project.openSource}}
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!projectForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>
