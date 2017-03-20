@@ -18,7 +18,7 @@ import { MessageService} from './service/message.service';
         <div class="ui-g layout">
             <div class="ui-g-12 ui-md-1">The West...</div>
             <div class="ui-g-12 ui-md-11 ui-g-nopad">
-                <div class="ui-g-12 ui-g-nopad">
+                <div class="ui-g-12 ui-g-nopad" style="font-size: 14px;">
                     <p-menubar [model]="items"></p-menubar>
                 </div>
                 <div class="ui-g-12">
@@ -93,7 +93,8 @@ export class AppComponent implements OnInit {
 
             { label: 'Entities', icon: 'fa-search', items: [
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-                {label: '${entity.model.type} List', routerLink: ['/${entity.model.var}-list']}#if($velocityHasNext),
+                    {label: '${entity.model.type} Search', routerLink: ['/${entity.model.var}-list']},
+                    {label: '${entity.model.type} Create', routerLink: ['/${entity.model.var}/new']}#if($velocityHasNext),
 #end
 #end
                 ]
@@ -102,13 +103,15 @@ export class AppComponent implements OnInit {
             { label: 'Documentation',
                 icon: 'fa-book',
                 items: [
-                    {label: "Source code", icon: 'fa-github-alt', url:"https://github.com/jaxio/celerio-angular-quickstart"},
-                    {label: "Celerio Documentation", icon: 'fa-external-link', url:"http://www.jaxio.com/documentation/celerio/"},
-                    {label: "PrimeNG Showcase", icon: 'fa-external-link', url:"http://www.primefaces.org/primeng"},
-                    {label: "Angular JS 2", icon: 'fa-external-link', url:"http://angular.io/"},
-                    {label: "Spring Boot", icon: 'fa-external-link', url:"http://projects.spring.io/spring-boot/"},
-                    {label: "Spring Data JPA", icon: 'fa-external-link', url:"http://projects.spring.io/spring-data-jpa/"},
-                    {label: "TypeScript", icon: 'fa-external-link', url:"https://www.typescriptlang.org/"}
+                    {label: "Source code", icon: 'fa-github-alt', url: "https://github.com/jaxio/celerio-angular-quickstart"},
+                    {label: "Celerio Documentation", icon: 'fa-external-link', url: "http://www.jaxio.com/documentation/celerio/"},
+                    {label: "Angular Cli", icon: 'fa-external-link', url: "https://cli.angular.io/"},
+                    {label: "Angular 2", icon: 'fa-external-link', url: "https://angular.io/"},
+                    {label: "Material 2", icon: 'fa-external-link', url: "https://material.angular.io/"},
+                    {label: "PrimeNG Showcase", icon: 'fa-external-link', url: "http://www.primefaces.org/primeng"},
+                    {label: "TypeScript", icon: 'fa-external-link', url: "https://www.typescriptlang.org/"},
+                    {label: "Spring Boot", icon: 'fa-external-link', url: "http://projects.spring.io/spring-boot/"},
+                    {label: "Spring Data JPA", icon: 'fa-external-link', url: "http://projects.spring.io/spring-data-jpa/"}
                 ]
             }
         ];
