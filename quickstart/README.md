@@ -1,10 +1,11 @@
 
-*Prerequisites:* 
+**Prerequisites:** 
 
 * [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven 3.3.3](https://maven.apache.org/download.cgi) 
 * [Npm 3.x.x](https://nodejs.org/en/)
-* [Angular Cli](https://github.com/angular/angular-cli#installation)
+* [NodeJS 6.10](https://nodejs.org/en/)
+* [Angular cli](https://github.com/angular/angular-cli#installation)
 
 ### Run these commands to generate and run an Angular 2.4.x web app:
 
