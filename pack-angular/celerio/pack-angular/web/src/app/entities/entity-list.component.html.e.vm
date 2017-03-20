@@ -105,6 +105,4 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.
         <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
     </md-card-actions>
     </md-card>
-
-    <p-confirmDialog width="455"></p-confirmDialog>
 </div>

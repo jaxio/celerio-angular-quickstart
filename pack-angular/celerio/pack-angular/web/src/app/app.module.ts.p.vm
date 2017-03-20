@@ -12,6 +12,8 @@ import { HomeComponent }  from './home.component';
 import { MessageService } from './service/message.service';
 import { routing }        from './app.routes';
 import { EmailValidator } from './support/email.validator';
+import { ConfirmDeleteDialogComponent } from './support/confirm-delete-dialog.component';
+
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
 
 // $entity.model.type ...
@@ -26,7 +28,8 @@ import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.
   declarations: [
     AppComponent,
     HomeComponent,
-    EmailValidator
+    EmailValidator,
+    ConfirmDeleteDialogComponent
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
     ,
     ${entity.model.type}ListComponent,
@@ -74,6 +77,7 @@ import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.
         MessageService,
         ConfirmationService
     ],
+    entryComponents: [ConfirmDeleteDialogComponent],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {}
