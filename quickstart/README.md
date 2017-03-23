@@ -12,6 +12,8 @@
 By default this project reverses a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql).
 You may of course [reverse your own database schema](#how-to-use-your-own-database).
 
+The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
+
 > **Note**: Downloading JavaScript and Maven dependencies may be long, so please be patient the first time you run these commands.
 
 **From a first console run:**
