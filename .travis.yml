@@ -10,7 +10,6 @@ cache:
     - $HOME/.m2
     - node_modules
 before_install:
-  - jdk_switcher use oraclejdk8
   - java -version
   - npm install -g @angular/cli@latest
 install:
