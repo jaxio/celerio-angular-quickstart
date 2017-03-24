@@ -1,5 +1,7 @@
 # Celerio Angular Quickstart
 
+[![Build Status](https://travis-ci.org/jaxio/celerio-angular-quickstart.svg?branch=master)](https://travis-ci.org/jaxio/celerio-angular-quickstart)
+
 This project guides you through the steps of generating an Angular 2.4.x CRUD web application from 
 an existing database schema (we provide a sample one).
 
