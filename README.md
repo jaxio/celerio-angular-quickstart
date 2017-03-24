@@ -40,15 +40,6 @@ The generated Angular CRUD web app uses the following technologies/frameworks:
 * [Spring Security](http://projects.spring.io/spring-security/): basic security by default
 * [Spring Data JPA](http://projects.spring.io/spring-data-jpa/): leverage query by example, etc.
 
-## About the generated code features
-
-Here are few screenshots
-
-* Search form for basic type and first level many-to-one association
-
-
-
-
 
 ## Contribute
 
