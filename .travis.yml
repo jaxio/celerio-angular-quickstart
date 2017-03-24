@@ -10,9 +10,12 @@ cache:
     - $HOME/.m2
     - node_modules
 before_install:
+  - jdk_switcher use oraclejdk8
   - java -version
   - npm install -g @angular/cli@latest
 install:
   - cd "$TRAVIS_BUILD_DIR"/quickstart
   - ng new web
   - mvn -Pdb,metadata,gen generate-sources
+script:
+  - mvn test
