@@ -3,14 +3,15 @@ os:
 language: node_js
 node_js:
   - "6.10.0"
-jdk:
-  - oraclejdk8
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
 cache:
   directories:
     - $HOME/.m2
     - node_modules
 before_install:
-  - jdk_switcher use oraclejdk8
   - java -version
   - npm install -g @angular/cli@latest
 install:
