@@ -18,6 +18,7 @@ before_install:
   - npm install -g @angular/cli@latest
   - export DISPLAY=:99.0
   - export CHROME_BIN=chromium-browser
+  - mkdir ~/.config
   - echo "--no-sandbox" > ~/.config/chromium-flags.conf
   - export KARMA_SINGLE_RUN=true
   - sh -e /etc/init.d/xvfb start
