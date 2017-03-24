@@ -22,4 +22,5 @@ install:
   - mvn -Pdb,metadata,gen generate-sources
 script:
   - mvn test
+  - cd web
   - ng test
