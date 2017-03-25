@@ -25,8 +25,14 @@ before_install:
 install:
   - cd "$TRAVIS_BUILD_DIR"/quickstart
   - ng new web
+  - rm web/src/main.ts web/src/app/app.module.ts web/src/app/app.component.* web/src/styles.css
   - mvn -Pdb,metadata,gen generate-sources
+  - cd web
+  - npm install --save primeng
+  - npm install --save @angular/material
+  - npm install --save font-awesome
+  - cd ..
 script:
   - mvn test
-  # cd web
-  #- ng test
+  - cd web
+  - ng test
