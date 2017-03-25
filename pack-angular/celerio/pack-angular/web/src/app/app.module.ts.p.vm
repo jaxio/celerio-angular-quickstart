@@ -1,5 +1,6 @@
 $output.file("web/src/app/app.module.ts")##
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -42,6 +43,7 @@ import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.
     imports: [
 // angular
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         HttpModule,
 

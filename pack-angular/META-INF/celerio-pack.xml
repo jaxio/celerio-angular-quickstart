@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <celerioPack xmlns="http://www.jaxio.com/schema/celerio">
     <packName value="pack-angular"/>
-    <packDescription value="Generate an Angular 2 frontend and a SpringBoot backend"/>
+    <packDescription value="Generate an Angular 4 frontend and a SpringBoot backend"/>
     <packDescription2 value=""/>
     <packCommand value="mvn -Pdb,metadata,gen generate-sources;cd src/main/webap;npm install;npm run tsc;cd ../../..;mvn spring-boot:run"/>
     <packCommandHelp value="For more info visit https://github.com/jaxio/celerio-angular-quickstart"/>

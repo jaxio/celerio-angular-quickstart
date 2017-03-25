@@ -1,4 +1,4 @@
-# Celerio Templates for Angular 2
+# Celerio Templates for Angular 4
 
 This `pack-angular` folder contains the Celerio dynamic/static code generation templates (interpreted/copied by Celerio Engine). 
 

@@ -3,11 +3,12 @@
 
 * [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven 3.3.3](https://maven.apache.org/download.cgi) 
+* [Angular cli 1.0.0 ](https://github.com/angular/angular-cli#installation) - 1.0.0 is really required to work with Angular 4.0
 * [Npm 3.x.x](https://nodejs.org/en/)
 * [NodeJS 6.10](https://nodejs.org/en/)
-* [Angular cli](https://github.com/angular/angular-cli#installation)
 
-### Run these commands to generate and run an Angular 2.4.x web app:
+
+### Run these commands to generate and run an Angular 4.0 web app:
 
 By default this project reverses a [sample database schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql).
 You may of course [reverse your own database schema](#how-to-use-your-own-database).
@@ -30,8 +31,9 @@ Make sure you wait until spring boot starts and listen on port 8080
 **Then from a second console run:**
 
     cd celerio-angular-quickstart/quickstart/web
-    npm install --save primeng
+    npm install --save @angular/animations
     npm install --save @angular/material
+    npm install --save primeng
     npm install --save font-awesome        
     ng serve --proxy-config proxy.conf.json
 

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jaxio/celerio-angular-quickstart.svg?branch=master)](https://travis-ci.org/jaxio/celerio-angular-quickstart)
 
-This project guides you through the steps of generating an Angular 2.4.x CRUD web application from 
+This project guides you through the steps of generating an Angular 4.x CRUD web application from 
 an existing database schema (we provide a sample one).
 
 Please follow the instructions from the [quickstart][] folder to generate and run the project.
@@ -32,7 +32,7 @@ Here is the folder organization:
 The generated Angular CRUD web app uses the following technologies/frameworks:
 
 * [Angular Cli](http://cli.angular.io/) a command line interface for Angular
-* [Angular 2.4.10](http://angular.io/) web framework: we try to always use the most recent version
+* [Angular 4.0.0](http://angular.io/) web framework: we try to always use the most recent version
 * [TypeScript](https://www.typescriptlang.org/): much easier than JavaScript... 
 * [PrimeNG 2.0.4](http://primefaces.org/primeng/): Angular 2 components library, we leverage file upload, auto-complete, calendar, tri-state checkbox, server-side pagination, etc.
 * [Angular Material](https://material.angular.io/): Material Design components for Angular apps
@@ -50,6 +50,8 @@ You may contribute in several ways:
 * By using the generated app and trying to find its limits
 
 You may of course [report issues](https://github.com/jaxio/celerio-angular-quickstart/issues) and/or submit pull requests.
+
+
 
 
 [generated quickstart]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-generated

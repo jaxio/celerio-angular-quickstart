@@ -19,7 +19,7 @@ $output.file("web/src/app/home.component.html")##
     <div class="ui-g-12">
         <div class="ui-g-4">
             <p>
-                PrimeNG is a collection of rich UI components for Angular 2. PrimeNG is a sibling of the popular JavaServer
+                PrimeNG is a collection of rich UI components for Angular. PrimeNG is a sibling of the popular JavaServer
                 Faces Component Suite, PrimeFaces.
             </p>
         </div>
