@@ -5,8 +5,12 @@ node_js:
   - "6.10.0"
 addons:
   apt:
+    sources:
+      - google-chrome
     packages:
       - oracle-java8-installer
+      - google-chrome-stable
+      - google-chrome-beta      
 cache:
   directories:
     - $HOME/.m2
@@ -18,9 +22,6 @@ before_install:
   - npm install -g @angular/cli@latest
   - export DISPLAY=:99.0
   - export CHROME_BIN=chromium-browser
-  - mkdir ~/.config
-  - echo "--no-sandbox" > ~/.config/chromium-flags.conf
-  - export KARMA_SINGLE_RUN=true
   - sh -e /etc/init.d/xvfb start
 install:
   - cd "$TRAVIS_BUILD_DIR"/quickstart
@@ -37,4 +38,4 @@ script:
   - mvn test
   - cd web
   - ng build
-#  - ng test
+  - ng test --watch false
