@@ -17,9 +17,9 @@ export const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCE
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${d}event)" (onSelect)="select(${d}event)">
-            <template let-$entity.model.var>
+            <ng-template let-$entity.model.var pTemplate="item">
                 <${entity.model.var}-line [$entity.model.var]="$entity.model.var"></${entity.model.var}-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: '${entity.model.var}-auto-complete',
