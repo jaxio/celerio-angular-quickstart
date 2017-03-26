@@ -1,5 +1,5 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
-import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTable, LazyLoadEvent } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
