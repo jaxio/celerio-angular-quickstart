@@ -36,4 +36,5 @@ install:
 script:
   - mvn test
   - cd web
+  - ng build
 #  - ng test
