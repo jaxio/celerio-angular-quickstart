@@ -13,7 +13,7 @@ addons:
 cache:
   directories:
     - $HOME/.m2
-    - "$TRAVIS_BUILD_DIR"/quickstart/web/node_modules
+    - $TRAVIS_BUILD_DIR/quickstart/web/node_modules
 before_install:
   - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   - export PATH=$JAVA_HOME/bin:$PATH
