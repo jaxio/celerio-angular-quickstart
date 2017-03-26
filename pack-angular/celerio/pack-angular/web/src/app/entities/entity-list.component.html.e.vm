@@ -59,9 +59,9 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.
 #foreach($attr in $entity.searchResultAttributes.flatUp.list)
 #if ($attr.hasXToOneRelation())
         <p-column header="$attr.xToOneRelation.to.varUp" sortable="false">
-            <template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']" pTemplate="body">
+            <ng-template let-${attr.xToOneRelation.to.var}="rowData['$attr.xToOneRelation.to.var']" pTemplate="body">
                 <${attr.xToOneRelation.toEntity.model.var}-line [${attr.xToOneRelation.toEntity.model.var}]="${attr.xToOneRelation.to.var}"></${attr.xToOneRelation.toEntity.model.var}-line>
-            </template>
+            </ng-template>
         </p-column>
 #else
 #### CPK support
@@ -73,31 +73,31 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.
 #####
 #if($attr.isLocalDate())
         <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
-            <template let-$entity.model.var="rowData" pTemplate="body">
+            <ng-template let-$entity.model.var="rowData" pTemplate="body">
                 {{$valuePath | date:"yyyy-MM-dd" }}
-            </template>
+            </ng-template>
         </p-column>
 #elseif($attr.isLocalDateTime())
         <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
-            <template let-$entity.model.var="rowData" pTemplate="body">
+            <ng-template let-$entity.model.var="rowData" pTemplate="body">
                 {{$valuePath | date:"yyyy-MM-dd hh:mm" }}
-            </template>
+            </ng-template>
         </p-column>
 #else
         <p-column field="$attr.var" header="$attr.labels.label" sortable="true">
 #if($attr.isInCpk())
-            <template let-$entity.model.var="rowData" pTemplate="body">
+            <ng-template let-$entity.model.var="rowData" pTemplate="body">
                 {{ $valuePath }}
-            </template>
+            </ng-template>
 #end
         </p-column>
 #end
 #end
 #end
         <p-column styleClass="col-icon">
-            <template let-$entity.model.var="rowData" pTemplate="body">
+            <ng-template let-$entity.model.var="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog($entity.model.var)" style="float:left"></button>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
     </md-card-content>
