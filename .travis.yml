@@ -38,3 +38,5 @@ script:
   - cd web
   - ng build
   - ng test --watch false
+  - ng e2e
+
