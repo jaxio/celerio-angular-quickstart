@@ -2,16 +2,23 @@
 
 [![Build Status](https://travis-ci.org/jaxio/celerio-angular-quickstart.svg?branch=master)](https://travis-ci.org/jaxio/celerio-angular-quickstart)
 
-This project guides you through the steps of generating an Angular 4.x CRUD web application from 
-an existing database schema (we provide a sample one).
+There are plenty of Angular quickstarts around. This one is for developers that want to create an Angular
+crud-based web application that interacts with a relational database.
 
-Please follow the instructions from the [quickstart][] folder to generate and run the project.
-The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
- 
+In short, we use Angular Cli to create the projet skeleton and then Celerio to reverse the database schema 
+and generate the Angular + Spring Boot code to access the database content. The generated code covers much
+more areas that a simple Hello World app (search, pagination, validation, auto-complete, etc.) 
+
+Take a look at the generated code for yourself. Out of this 
+[sample SQL schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql),
+we generate this [code](https://github.com/jaxio/celerio-angular-quickstart/tree/master/quickstart-generated), 
+thanks to these [templates](https://github.com/jaxio/celerio-angular-quickstart/tree/master/pack-angular/celerio/pack-angular).
+
 By default we use a sample H2 database schema. Using your own database schema and database engine 
 is just a matter of configuration (check as an example our instructions to [use MySQL][] instead of H2).
 
-You may also browse an already [generated quickstart][] web app source code
+**To generate and run the code yourself**, please follow the instructions from
+the [quickstart][] folder. The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
 
 ## About the project
 
@@ -50,8 +57,6 @@ You may contribute in several ways:
 * By using the generated app and trying to find its limits
 
 You may of course [report issues](https://github.com/jaxio/celerio-angular-quickstart/issues) and/or submit pull requests.
-
-
 
 
 [generated quickstart]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-generated
