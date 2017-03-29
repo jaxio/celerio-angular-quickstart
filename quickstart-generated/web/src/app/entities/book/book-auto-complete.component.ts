@@ -23,9 +23,9 @@ export const BOOK_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="title" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
-            <template let-book>
+            <ng-template let-book pTemplate="item">
                 <book-line [book]="book"></book-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: 'book-auto-complete',

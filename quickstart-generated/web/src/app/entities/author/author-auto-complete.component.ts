@@ -23,9 +23,9 @@ export const AUTHOR_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="lastName" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
-            <template let-author>
+            <ng-template let-author pTemplate="item">
                 <author-line [author]="author"></author-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: 'author-auto-complete',

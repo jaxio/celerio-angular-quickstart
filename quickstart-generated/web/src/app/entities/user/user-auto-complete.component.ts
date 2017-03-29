@@ -23,9 +23,9 @@ export const USER_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="login" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
-            <template let-user>
+            <ng-template let-user pTemplate="item">
                 <user-line [user]="user"></user-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: 'user-auto-complete',

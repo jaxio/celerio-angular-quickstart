@@ -91,8 +91,8 @@
         </md-tab>
         <md-tab label="Roles">
             <p-pickList [source]="sourceRoles" [target]="user.roles" sourceHeader="Available" targetHeader="Selected" [responsive]="true">
-                <template let-role pTemplate="item">
-{{ role.roleName }}                 </template>
+                <ng-template let-role pTemplate="item">
+{{ role.roleName }}                 </ng-template>
             </p-pickList>
         </md-tab>
 

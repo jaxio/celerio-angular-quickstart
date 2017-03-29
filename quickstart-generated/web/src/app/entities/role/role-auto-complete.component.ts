@@ -23,9 +23,9 @@ export const ROLE_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="roleName" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
-            <template let-role>
+            <ng-template let-role pTemplate="item">
                 <role-line [role]="role"></role-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: 'role-auto-complete',

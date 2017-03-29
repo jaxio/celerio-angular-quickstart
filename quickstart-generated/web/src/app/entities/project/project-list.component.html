@@ -55,16 +55,16 @@
         <p-column field="url" header="Url" sortable="true">
         </p-column>
         <p-column header="Author" sortable="false">
-            <template let-author="rowData['author']" pTemplate="body">
+            <ng-template let-author="rowData['author']" pTemplate="body">
                 <author-line [author]="author"></author-line>
-            </template>
+            </ng-template>
         </p-column>
         <p-column field="openSource" header="Open Source" sortable="true">
         </p-column>
         <p-column styleClass="col-icon">
-            <template let-project="rowData" pTemplate="body">
+            <ng-template let-project="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(project)" style="float:left"></button>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
     </md-card-content>
@@ -72,6 +72,4 @@
         <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
     </md-card-actions>
     </md-card>
-
-    <p-confirmDialog width="455"></p-confirmDialog>
 </div>

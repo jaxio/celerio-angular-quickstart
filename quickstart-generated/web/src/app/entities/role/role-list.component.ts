@@ -5,11 +5,13 @@
 // Need commercial support ? Contact us: info@jaxio.com
 // Template pack-angular:web/src/app/entities/entity-list.component.ts.e.vm
 //
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataTable, LazyLoadEvent, ConfirmDialogModule, ConfirmationService } from 'primeng/primeng';
+import { DataTable, LazyLoadEvent } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
+import { MdDialog } from '@angular/material';
+import { ConfirmDeleteDialogComponent } from "../../support/confirm-delete-dialog.component";
 import { Role } from './role';
 import { RoleDetailComponent } from './role-detail.component';
 import { RoleService } from './role.service';
@@ -43,7 +45,15 @@ export class RoleListComponent {
     constructor(private router : Router,
         private roleService : RoleService,
         private messageService : MessageService,
-        private confirmationService: ConfirmationService) {
+        private confirmDeleteDialog: MdDialog) {
+    }
+
+    /**
+     * When used as a 'sub' component (to display one-to-many list), refreshes the table
+     * content when the input changes.
+     */
+    ngOnChanges(changes: SimpleChanges) {
+        this.loadPage({ first: 0, rows: 10, sortField: null, sortOrder: null, filters: null, multiSortMeta: null });
     }
 
     /**
@@ -83,11 +93,9 @@ export class RoleListComponent {
     showDeleteDialog(rowData : any) {
         let roleToDelete : Role = <Role> rowData;
 
-        this.confirmationService.confirm({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
-            icon: 'fa fa-trash',
-            accept: () => {
+        let dialogRef = this.confirmDeleteDialog.open(ConfirmDeleteDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === 'delete') {
                 this.delete(roleToDelete);
             }
         });

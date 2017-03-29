@@ -6,6 +6,7 @@
 // Template pack-angular:web/src/app/app.module.ts.p.vm
 //
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -15,9 +16,12 @@ import { ConfirmDialogModule, FileUploadModule, PanelModule, GrowlModule, Menuba
 import { ConfirmationService } from 'primeng/primeng';
 import { AppComponent }   from './app.component';
 import { HomeComponent }  from './home.component';
+import { AuthService } from './service/auth.service';
 import { MessageService } from './service/message.service';
 import { routing }        from './app.routes';
 import { EmailValidator } from './support/email.validator';
+import { ConfirmDeleteDialogComponent } from './support/confirm-delete-dialog.component';
+
 
 // Author ...
 import { AuthorService } from './entities/author/author.service';
@@ -86,7 +90,8 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
   declarations: [
     AppComponent,
     HomeComponent,
-    EmailValidator
+    EmailValidator,
+    ConfirmDeleteDialogComponent
     ,
     AuthorListComponent,
     AuthorDetailComponent,
@@ -136,6 +141,7 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
     imports: [
 // angular
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         HttpModule,
 
@@ -162,10 +168,12 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         CalendarModule,
         PasswordModule,
         TabViewModule,
-// our app
+
+// our application routes
         routing
     ],
     providers: [
+// our application entity services
         AuthorService,
         BookService,
         PassportService,
@@ -175,9 +183,15 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         UseCase2Service,
         UseCase3Service,
         UserService,
+
+// our application services
+        AuthService,
         MessageService,
+
+// primeng service
         ConfirmationService
     ],
+    entryComponents: [ConfirmDeleteDialogComponent],
     bootstrap: [ AppComponent ]
 })
 export class AppModule {}

@@ -23,9 +23,9 @@ export const USECASE1_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="dummy" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
-            <template let-useCase1>
+            <ng-template let-useCase1 pTemplate="item">
                 <useCase1-line [useCase1]="useCase1"></useCase1-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: 'useCase1-auto-complete',

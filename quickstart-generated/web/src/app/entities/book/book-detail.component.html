@@ -36,9 +36,9 @@
                     </p-fileUpload>
                     <!-- visual hack -->
                     <p-fileUpload *ngIf="!book.id" disabled="true" name="extractBinary" url="/api/books/{{book.id}}/upload/extractBinary" (onUpload)="onExtractBinaryUpload($event)" >
-                        <template pTemplate="content">
+                        <ng-template pTemplate="content">
                             <div>For the moment, you must save the form before being able to upload a file...</div>
-                        </template>
+                        </ng-template>
                     </p-fileUpload>
                 </div>
                 <div class="ui-grid-col-4">

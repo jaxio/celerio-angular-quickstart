@@ -45,19 +45,19 @@
         <p-column field="passportNumber" header="Passport Number" sortable="true">
         </p-column>
         <p-column field="expirationDate" header="Expiration Date" sortable="true">
-            <template let-passport="rowData" pTemplate="body">
+            <ng-template let-passport="rowData" pTemplate="body">
                 {{passport.expirationDate | date:"yyyy-MM-dd" }}
-            </template>
+            </ng-template>
         </p-column>
         <p-column header="Holder" sortable="false">
-            <template let-holder="rowData['holder']" pTemplate="body">
+            <ng-template let-holder="rowData['holder']" pTemplate="body">
                 <user-line [user]="holder"></user-line>
-            </template>
+            </ng-template>
         </p-column>
         <p-column styleClass="col-icon">
-            <template let-passport="rowData" pTemplate="body">
+            <ng-template let-passport="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(passport)" style="float:left"></button>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
     </md-card-content>
@@ -65,6 +65,4 @@
         <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
     </md-card-actions>
     </md-card>
-
-    <p-confirmDialog width="455"></p-confirmDialog>
 </div>

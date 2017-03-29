@@ -23,9 +23,9 @@ export const PASSPORT_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="passportNumber" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
-            <template let-passport>
+            <ng-template let-passport pTemplate="item">
                 <passport-line [passport]="passport"></passport-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: 'passport-auto-complete',

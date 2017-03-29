@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
     moduleId: module.id,
     templateUrl: 'home.component.html',
     styles: [`
-             h3 {color: blue;}
+             h1 {color: blue;}
              h4 {color: green;}
              .ui-g {
                 text-align: center;

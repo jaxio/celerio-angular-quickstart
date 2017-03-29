@@ -23,9 +23,9 @@ export const PROJECT_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
 	template: `
         <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="name" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
-            <template let-project>
+            <ng-template let-project pTemplate="item">
                 <project-line [project]="project"></project-line>
-            </template>
+            </ng-template>
         </p-autoComplete>
 	`,
 	selector: 'project-auto-complete',

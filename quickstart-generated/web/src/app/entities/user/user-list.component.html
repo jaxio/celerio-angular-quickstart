@@ -72,9 +72,9 @@
         <p-column field="countryCode" header="Country Code" sortable="true">
         </p-column>
         <p-column styleClass="col-icon">
-            <template let-user="rowData" pTemplate="body">
+            <ng-template let-user="rowData" pTemplate="body">
                 <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(user)" style="float:left"></button>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
     </md-card-content>
@@ -82,6 +82,4 @@
         <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
     </md-card-actions>
     </md-card>
-
-    <p-confirmDialog width="455"></p-confirmDialog>
 </div>
