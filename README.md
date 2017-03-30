@@ -7,7 +7,7 @@ crud-based web application that interacts with a relational database.
 
 In short, we use Angular Cli to create the projet skeleton and then Celerio to reverse the database schema 
 and generate the Angular + Spring Boot code to access the database content. The generated code covers much
-more areas that a simple Hello World app (search, pagination, validation, auto-complete, etc.) 
+more areas than a simple Hello World app (search, pagination, validation, auto-complete, etc.) 
 
 Take a look at the generated code for yourself. Out of this 
 [sample SQL schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql),
