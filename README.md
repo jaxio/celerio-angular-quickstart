@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/jaxio/celerio-angular-quickstart.svg?branch=master)](https://travis-ci.org/jaxio/celerio-angular-quickstart)
 
-There are plenty of Angular quickstarts around. This one is for developers that want to create an Angular
-crud-based web application that interacts with a relational database.
+This Angular quickstart is for developers that want to create an **Angular crud-based web application**
+that interacts with a **relational database**.
 
-In short, we use Angular Cli to create the projet skeleton and then Celerio to reverse the database schema 
-and generate the Angular + Spring Boot code to access the database content. The generated code covers much
+We use Angular Cli to create the projet skeleton and then Celerio to **reverse the database schema** 
+and **generate** the Angular + Spring Boot code to access the database content. The generated code covers much
 more areas than a simple Hello World app (search, pagination, validation, auto-complete, etc.) 
 
 Take a look at the generated code for yourself. Out of this 
