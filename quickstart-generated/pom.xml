@@ -76,7 +76,7 @@
         <!-- Version dependencies when used in multiple dependencies -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <celerio-maven-plugin.outputDir>${project.basedir}</celerio-maven-plugin.outputDir>
-        <celerio-maven-plugin.version>4.0.16</celerio-maven-plugin.version>
+        <celerio-maven-plugin.version>4.0.17</celerio-maven-plugin.version>
 
         <celerio-maven-plugin.configuration>../quickstart-conf/celerio-maven-plugin.xml</celerio-maven-plugin.configuration>
         <celerio-maven-plugin.packs.configuration>../quickstart-conf/celerio-template-packs.xml</celerio-maven-plugin.packs.configuration>
