@@ -7,7 +7,7 @@ to **reverse your relational database schema** and **generate** the Angular + Sp
 to access your database content. The generated code covers much more areas than a simple Hello World app (search,
 pagination, validation, auto-complete, etc.) 
 
-To generate an application from a sample database, follow the instructions from the [quickstart][]
+To generate an application from a sample database, follow the instructions from the [quickstart][] folder.
 The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
 
 Take a look at the generated code for yourself. Out of this 

@@ -15,5 +15,6 @@
 
     <modules>
         <module>quickstart</module>
+        <module>conf4it</module>
     </modules>
 </project>
