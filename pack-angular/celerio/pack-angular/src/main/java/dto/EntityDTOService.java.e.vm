@@ -84,7 +84,7 @@ $output.require($relation.toEntity.model) ##
         if($entity.model.var != null) {
             ExampleMatcher matcher = ExampleMatcher.matching() //
 #foreach($attr in $entity.searchAttributes.list)
-#if($attr.isString() && !$attr.isEnum() && !$attr.isInCpk())
+#if($attr.isString() && !$attr.isEnum() && !$attr.isInCpk() && !$attr.isInFk())
                 .withMatcher(${entity.model.type}_.${attr.var}.getName(), match -> match.ignoreCase().startsWith())
 #end
 #end
@@ -127,7 +127,7 @@ $output.require($relation.toEntity.model) ##
             $entity.model.var = new ${entity.model.type}();
         }
 #foreach ($attribute in $entity.nonCpkAttributes.list)
-#if(!$attribute.isInFk() && !$attribute.isSimplePk() && !$attribute.isInFileDefinition())
+#if(!$attribute.isInFk() && !$attribute.isSimplePk() && !($attribute.isInFileDefinition() || $attribute.isBinary()))
 
         ${entity.model.var}.${attribute.setter}(dto.$attribute.var);
 #end
@@ -235,7 +235,7 @@ $output.require($entity.primaryKey)##
         ${entity.model.var}.${entity.primaryKey.setter}(dto.id);
 #end
 #foreach ($attribute in $entity.nonCpkAttributes.list)
-#if(!$attribute.isInFk() && !$attribute.isInFileDefinition())
+#if(!$attribute.isInFk() && !($attribute.isInFileDefinition() || $attribute.isBinary()))
         ${entity.model.var}.${attribute.setter}(dto.$attribute.var);
 #end
 #end

@@ -157,7 +157,11 @@ $output.require("org.springframework.web.bind.annotation.RequestParam")##
         }
 
 #if ($attribute.fileSize)
+#if($attribute.isLong())
         ${entity.model.var}.${attribute.fileSize.setter}(multipartFile.getSize());
+#else
+        // ${entity.model.var}.${attribute.fileSize.setter}(multipartFile.getSize());
+#end
 #end
 #if ($attribute.fileContentType)
         ${entity.model.var}.${attribute.fileContentType.setter}(multipartFile.getContentType());
