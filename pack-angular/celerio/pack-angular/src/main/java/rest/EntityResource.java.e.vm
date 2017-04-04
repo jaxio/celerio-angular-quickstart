@@ -66,13 +66,13 @@ public class $output.currentClass{
     @Inject
     private $entity.dtoservice.type $entity.dtoservice.var;
 #if($entity.hasCompositePk())
-$output.require("$entity.primaryKey.fullType")##
+$output.require("$entity.root.primaryKey.fullType")##
 $output.require("org.springframework.web.bind.WebDataBinder")##
 $output.require("java.beans.PropertyEditorSupport")##
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(${entity.primaryKey.type}.class, new PropertyEditorSupport() {
+        binder.registerCustomEditor(${entity.root.primaryKey.type}.class, new PropertyEditorSupport() {
             @Override
             public String getAsText() {
                 return getValue().toString();
@@ -80,7 +80,7 @@ $output.require("java.beans.PropertyEditorSupport")##
 
             @Override
             public void setAsText(String text) throws IllegalArgumentException {
-                setValue(${entity.primaryKey.type}.fromString(text));
+                setValue(${entity.root.primaryKey.type}.fromString(text));
             }
         });
     }
@@ -109,11 +109,11 @@ $output.require("java.beans.PropertyEditorSupport")##
     * Find by id ${entity.model.type}.
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<$entity.dto.type> findById(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
+    public ResponseEntity<$entity.dto.type> findById(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var) throws URISyntaxException {
 
-        log.debug("Find by id $entity.model.type : {}", $entity.primaryKey.var);
+        log.debug("Find by id $entity.model.type : {}", $entity.root.primaryKey.var);
 
-        return Optional.ofNullable(${entity.dtoservice.var}.findOne($entity.primaryKey.var))
+        return Optional.ofNullable(${entity.dtoservice.var}.findOne($entity.root.primaryKey.var))
             .map(${entity.dto.var} -> new ResponseEntity<>(${entity.dto.var}, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -143,11 +143,11 @@ $output.require("org.springframework.web.bind.annotation.RequestParam")##
      * Target url for ${attribute.var} file upload.
      */
     @RequestMapping(value = "/{id}/upload/${attribute.var}", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> ${attribute.var}FileUpload(@PathVariable $entity.primaryKey.type $entity.primaryKey.var, @RequestParam("$attribute.var") MultipartFile multipartFile) {
+    public ResponseEntity<Void> ${attribute.var}FileUpload(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var, @RequestParam("$attribute.var") MultipartFile multipartFile) {
 
         log.debug("File Upload: {}", multipartFile.getName());
 
-        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.primaryKey.var);
+        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.root.primaryKey.var);
 
         try {
             ${entity.model.var}.${attribute.setter}(multipartFile.getBytes());
@@ -179,9 +179,9 @@ $output.require("org.springframework.web.bind.annotation.RequestParam")##
      */
     @RequestMapping(value = "/{id}/download/${attribute.var}", method = GET)
     @ResponseBody
-    public ResponseEntity<byte[]> ${attribute.var}FileDownload(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) {
+    public ResponseEntity<byte[]> ${attribute.var}FileDownload(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var) {
 
-        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.primaryKey.var);
+        $entity.model.type $entity.model.var = ${entity.repository.var}.findOne($entity.root.primaryKey.var);
 
 #if ($attribute.filename)
         log.debug("File Download: {}", ${entity.model.var}.${attribute.filename.getter}());
@@ -226,12 +226,12 @@ $output.require("org.springframework.web.bind.annotation.RequestParam")##
      * Delete by id ${entity.model.type}.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> delete(@PathVariable $entity.primaryKey.type $entity.primaryKey.var) throws URISyntaxException {
+    public ResponseEntity<Void> delete(@PathVariable $entity.root.primaryKey.type $entity.root.primaryKey.var) throws URISyntaxException {
 
-        log.debug("Delete by id $entity.model.type : {}", $entity.primaryKey.var);
+        log.debug("Delete by id $entity.model.type : {}", $entity.root.primaryKey.var);
 
         try {
-            ${entity.repository.var}.delete($entity.primaryKey.var);
+            ${entity.repository.var}.delete($entity.root.primaryKey.var);
             return ResponseEntity.ok().build();
         } catch (Exception x) {
             // todo: dig exception, most likely org.hibernate.exception.ConstraintViolationException

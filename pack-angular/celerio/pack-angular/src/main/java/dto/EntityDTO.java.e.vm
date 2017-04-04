@@ -21,7 +21,7 @@ $output.java($entity.dto)##
 public class $output.currentClass {
 #else
 $output.require($entity.parent.dto)##
-public class $output.currentClass extends $entity.parent.model.type {
+public class $output.currentClass extends $entity.parent.dto.type {
 #end
 #if($entity.isRoot() && $entity.primaryKey.isComposite())
 $output.require($entity.primaryKey)##
