@@ -11,7 +11,9 @@ To generate an application from a sample database, follow the instructions from 
 The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
 
 Take a look at the generated code for yourself. Out of this 
-[sample SQL schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql),
+[sample SQL schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql)
+and this 
+[Celerio configuration](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/celerio-maven-plugin.xml), 
 we generate this [code](https://github.com/jaxio/celerio-angular-quickstart/tree/master/quickstart-generated), 
 thanks to these [templates](https://github.com/jaxio/celerio-angular-quickstart/tree/master/pack-angular/celerio/pack-angular).
 
