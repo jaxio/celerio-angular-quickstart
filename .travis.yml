@@ -29,7 +29,7 @@ install:
   - mvn -Pdb,metadata,gen generate-sources
   - cd web
   - npm install --save @angular/animations
-  - npm install --save @angular/material
+  - npm install --save @angular/material@2.0.0-beta.2
   - npm install --save primeng@4.0.0-rc.1
   - npm install --save font-awesome
   - cd ..
