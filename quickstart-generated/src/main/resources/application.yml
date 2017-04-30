@@ -27,7 +27,7 @@ spring:
         open-in-view: false
         hibernate:
             ddl-auto: none
-            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+            naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
         database-platform: @hibernate.dialect@
         database: H2

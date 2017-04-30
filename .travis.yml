@@ -30,7 +30,7 @@ install:
   - cd web
   - npm install --save @angular/animations
   - npm install --save @angular/material@2.0.0-beta.3
-  - npm install --save primeng@4.0.0-rc.1
+  - npm install --save primeng@4.0.0
   - npm install --save font-awesome
   - cd ..
 script:
