@@ -58,7 +58,6 @@ You may contribute in several ways:
 
 You may of course [report issues](https://github.com/jaxio/celerio-angular-quickstart/issues) and/or submit pull requests.
 
-
 [generated quickstart]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-generated
 [quickstart]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart
 [AOT instructions]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart/README-AOT.md
