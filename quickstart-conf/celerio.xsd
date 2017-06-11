@@ -223,6 +223,7 @@
       <xs:enumeration value="M_ZONEDDATETIME"/>
       <xs:enumeration value="M_SQLDATE"/>
       <xs:enumeration value="M_UTILDATE"/>
+      <xs:enumeration value="M_INSTANT"/>
       <xs:enumeration value="M_TIME"/>
       <xs:enumeration value="M_TIMESTAMP"/>
       <xs:enumeration value="M_URL"/>
@@ -354,17 +355,6 @@
       <xs:element type="tns:celerioTemplateContext" name="celerioTemplateContext" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="cascade">
-    <xs:sequence/>
-    <xs:attribute type="tns:cascadeType" name="type"/>
-  </xs:complexType>
-  <xs:complexType name="inheritance">
-    <xs:sequence/>
-    <xs:attribute type="xs:string" name="discriminatorColumn"/>
-    <xs:attribute type="xs:string" name="discriminatorValue"/>
-    <xs:attribute type="xs:string" name="parentEntityName"/>
-    <xs:attribute type="tns:inheritanceType" name="strategy"/>
-  </xs:complexType>
   <xs:complexType name="configuration">
     <xs:sequence>
       <xs:element type="tns:celerioTemplateContext" name="celerioTemplateContext" minOccurs="0"/>
@@ -454,183 +444,6 @@
     <xs:attribute type="xs:string" name="applicationName"/>
     <xs:attribute type="xs:string" name="rootPackage"/>
   </xs:complexType>
-  <xs:complexType name="cacheConfig">
-    <xs:annotation>
-      <xs:documentation>Configuration element for Hibernate/EhCache 2d level cache.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence/>
-    <xs:attribute type="tns:cacheConcurrencyStrategy" name="usage"/>
-    <xs:attribute type="xs:string" name="include"/>
-    <xs:attribute type="xs:string" name="region"/>
-  </xs:complexType>
-  <xs:complexType name="restriction">
-    <xs:sequence>
-      <xs:element name="classTypes" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:classType" name="classType" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="wellKnownFolders" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:wellKnownFolder" name="wellKnownFolder" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="generatedPackages" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:generatedPackage" name="generatedPackage" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="column">
-    <xs:sequence>
-      <xs:element name="enumValues" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="xs:string" name="enumValue" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="metaAttributes" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" use="required" name="name"/>
-    <xs:attribute type="xs:string" name="columnDef"/>
-    <xs:attribute type="xs:int" use="required" name="decimalDigits"/>
-    <xs:attribute type="xs:boolean" name="autoIncrement"/>
-    <xs:attribute type="xs:boolean" use="required" name="nullable"/>
-    <xs:attribute type="xs:int" use="required" name="ordinalPosition"/>
-    <xs:attribute type="xs:string" name="remarks"/>
-    <xs:attribute type="xs:int" use="required" name="size"/>
-    <xs:attribute type="tns:jdbcType" name="type"/>
-  </xs:complexType>
-  <xs:complexType name="manyToManyConfig">
-    <xs:sequence>
-      <xs:element name="labels" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="cascades" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
-      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
-      <xs:element name="metaAttributes" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" name="var"/>
-    <xs:attribute type="xs:string" name="elementVar"/>
-    <xs:attribute type="tns:fetchType" name="fetch"/>
-    <xs:attribute type="xs:string" name="orderBy"/>
-    <xs:attribute type="xs:int" name="displayOrder"/>
-    <xs:attribute type="xs:string" name="targetEntityName"/>
-  </xs:complexType>
-  <xs:complexType name="extendsClass">
-    <xs:sequence/>
-    <xs:attribute type="xs:string" use="required" name="fullType"/>
-  </xs:complexType>
-  <xs:complexType name="celerio">
-    <xs:sequence>
-      <xs:element name="includes" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:include" name="include" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element type="tns:configuration" name="configuration" minOccurs="0"/>
-      <xs:element name="entityConfigs" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:entityConfig" name="entityConfig" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="sharedEnumConfigs" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:enumConfig" name="sharedEnumConfig" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="pack">
-    <xs:sequence>
-      <xs:element name="properties" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="property" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="filenames" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:pattern" name="filename" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="templates" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:pattern" name="template" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" use="required" name="name"/>
-    <xs:attribute type="xs:string" name="path"/>
-    <xs:attribute type="xs:boolean" use="required" name="enable"/>
-    <xs:attribute type="xs:int" name="order"/>
-  </xs:complexType>
-  <xs:complexType name="enumValue">
-    <xs:sequence>
-      <xs:element name="comments" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="xs:string" name="comment" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="labels" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" name="name"/>
-    <xs:attribute type="xs:string" name="value"/>
-    <xs:attribute type="xs:string" name="label"/>
-  </xs:complexType>
   <xs:complexType name="jdbcConnectivity">
     <xs:sequence>
       <xs:element name="tableNamePatterns" minOccurs="0">
@@ -664,68 +477,15 @@
     <xs:attribute type="xs:boolean" name="reverseOnlyUniqueIndexes"/>
     <xs:attribute type="xs:string" name="catalog"/>
   </xs:complexType>
-  <xs:complexType name="implementsInterface">
+  <xs:complexType name="wellKnownFolderOverride">
     <xs:sequence/>
-    <xs:attribute type="xs:string" use="required" name="fullType"/>
+    <xs:attribute type="tns:wellKnownFolder" use="required" name="wellKnownFolder"/>
+    <xs:attribute type="xs:string" name="folder"/>
+    <xs:attribute type="xs:string" name="generatedFolder"/>
   </xs:complexType>
-  <xs:complexType name="enumConfig">
-    <xs:sequence>
-      <xs:element name="enumValues" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:enumValue" name="enumValue" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="comments" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="xs:string" name="comment" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" use="required" name="name"/>
-    <xs:attribute type="xs:string" name="rootPackage"/>
-    <xs:attribute type="xs:string" name="subPackage"/>
-    <xs:attribute type="tns:enumType" name="type"/>
-    <xs:attribute type="xs:string" name="userType"/>
-  </xs:complexType>
-  <xs:complexType name="oneToManyConfig">
-    <xs:sequence>
-      <xs:element name="labels" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="cascades" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
-      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
-      <xs:element name="metaAttributes" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" name="var"/>
-    <xs:attribute type="xs:string" name="elementVar"/>
-    <xs:attribute type="xs:boolean" name="orphanRemoval"/>
-    <xs:attribute type="tns:fetchType" name="fetch"/>
-    <xs:attribute type="xs:string" name="orderBy"/>
-    <xs:attribute type="xs:int" name="displayOrder"/>
+  <xs:complexType name="cascade">
+    <xs:sequence/>
+    <xs:attribute type="tns:cascadeType" name="type"/>
   </xs:complexType>
   <xs:complexType name="importedKey">
     <xs:sequence/>
@@ -734,16 +494,157 @@
     <xs:attribute type="xs:string" use="required" name="pkColumnName"/>
     <xs:attribute type="xs:string" use="required" name="pkTableName"/>
   </xs:complexType>
-  <xs:complexType name="pattern">
+  <xs:complexType name="entityContextProperty">
+    <xs:annotation>
+      <xs:documentation>Used to introduce a new 'namer' property on each Celerio's entity context instance. Entity namer properties are convenient when writing template for classes that support entities, for example: Controller, Service, Dao, Validator etc. Example: var name is obtained with ${entity.property.var} and has the value "prefixEntityNameSuffix". Similarly ${entity.property.getter} returns "getPrefixEntityNameSuffix".</xs:documentation>
+    </xs:annotation>
     <xs:sequence/>
-    <xs:attribute type="xs:string" use="required" name="pattern"/>
-    <xs:attribute type="xs:boolean" use="required" name="include"/>
-  </xs:complexType>
-  <xs:complexType name="generatedPackageOverride">
-    <xs:sequence/>
-    <xs:attribute type="tns:generatedPackage" use="required" name="generatedPackage"/>
+    <xs:attribute type="xs:string" name="property"/>
     <xs:attribute type="xs:string" name="rootPackage"/>
     <xs:attribute type="xs:string" name="subPackage"/>
+    <xs:attribute type="xs:string" name="prefix"/>
+    <xs:attribute type="xs:string" name="suffix"/>
+  </xs:complexType>
+  <xs:complexType name="column">
+    <xs:sequence>
+      <xs:element name="enumValues" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="xs:string" name="enumValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="metaAttributes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" use="required" name="name"/>
+    <xs:attribute type="xs:string" name="columnDef"/>
+    <xs:attribute type="xs:int" use="required" name="decimalDigits"/>
+    <xs:attribute type="xs:boolean" name="autoIncrement"/>
+    <xs:attribute type="xs:boolean" use="required" name="nullable"/>
+    <xs:attribute type="xs:int" use="required" name="ordinalPosition"/>
+    <xs:attribute type="xs:string" name="remarks"/>
+    <xs:attribute type="xs:int" use="required" name="size"/>
+    <xs:attribute type="tns:jdbcType" name="type"/>
+  </xs:complexType>
+  <xs:complexType name="celerio">
+    <xs:sequence>
+      <xs:element name="includes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:include" name="include" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element type="tns:configuration" name="configuration" minOccurs="0"/>
+      <xs:element name="entityConfigs" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:entityConfig" name="entityConfig" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sharedEnumConfigs" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:enumConfig" name="sharedEnumConfig" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="associationAction">
+    <xs:sequence/>
+    <xs:attribute type="xs:boolean" name="create"/>
+    <xs:attribute type="xs:boolean" name="edit"/>
+    <xs:attribute type="xs:boolean" name="view"/>
+    <xs:attribute type="xs:boolean" name="select"/>
+    <xs:attribute type="xs:boolean" name="autoComplete"/>
+    <xs:attribute type="xs:boolean" name="remove"/>
+  </xs:complexType>
+  <xs:complexType name="table">
+    <xs:sequence>
+      <xs:element name="columns">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:column" name="column" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="indexes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:index" name="indexe" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="importedKeys" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:importedKey" name="importedKey" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="primaryKeys" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="xs:string" name="primaryKey" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" use="required" name="name"/>
+    <xs:attribute type="tns:tableType" use="required" name="type"/>
+    <xs:attribute type="xs:string" name="remarks"/>
+  </xs:complexType>
+  <xs:complexType name="dateMapping">
+    <xs:sequence/>
+    <xs:attribute type="tns:mappedType" name="mappedType"/>
+    <xs:attribute type="tns:jdbcType" name="columnJdbcType"/>
+    <xs:attribute type="xs:string" name="columnNameRegExp"/>
+  </xs:complexType>
+  <xs:complexType name="index">
+    <xs:sequence/>
+    <xs:attribute type="xs:string" use="required" name="columnName"/>
+    <xs:attribute type="xs:string" use="required" name="indexName"/>
+    <xs:attribute type="xs:boolean" use="required" name="nonUnique"/>
+  </xs:complexType>
+  <xs:complexType name="celerioTemplateContext">
+    <xs:sequence>
+      <xs:element name="properties" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="property" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="entityContextProperties" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:entityContextProperty" name="entityContextProperty" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="generatedValue">
+    <xs:sequence/>
+    <xs:attribute type="xs:string" name="generator"/>
+    <xs:attribute type="tns:generationType" name="strategy"/>
+  </xs:complexType>
+  <xs:complexType name="cacheConfig">
+    <xs:annotation>
+      <xs:documentation>Configuration element for Hibernate/EhCache 2d level cache.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+    <xs:attribute type="tns:cacheConcurrencyStrategy" name="usage"/>
+    <xs:attribute type="xs:string" name="include"/>
+    <xs:attribute type="xs:string" name="region"/>
   </xs:complexType>
   <xs:complexType name="sequencePattern">
     <xs:sequence/>
@@ -761,31 +662,6 @@
     </xs:attribute>
     <xs:attribute type="xs:int" name="initialValue"/>
     <xs:attribute type="xs:int" name="allocationSize"/>
-  </xs:complexType>
-  <xs:complexType name="indexedField">
-    <xs:sequence/>
-    <xs:attribute type="xs:string" name="bridgeImpl"/>
-    <xs:attribute type="xs:string" name="name"/>
-    <xs:attribute type="tns:store" name="store"/>
-    <xs:attribute type="xs:boolean" name="index"/>
-    <xs:attribute type="tns:analyze" name="analyze"/>
-    <xs:attribute type="xs:string" name="analyzer"/>
-    <xs:attribute type="tns:norms" name="norms"/>
-    <xs:attribute type="tns:termVector" name="termVector"/>
-  </xs:complexType>
-  <xs:complexType name="methodConventionOverride">
-    <xs:annotation>
-      <xs:documentation>change the prefix/suffix conventions for a given method</xs:documentation>
-    </xs:annotation>
-    <xs:sequence/>
-    <xs:attribute type="tns:methodConvention" use="required" name="methodConvention"/>
-    <xs:attribute type="xs:string" name="prefix"/>
-    <xs:attribute type="xs:string" name="suffix"/>
-  </xs:complexType>
-  <xs:complexType name="eclipseFormatter">
-    <xs:sequence/>
-    <xs:attribute type="tns:formatterEnum" use="required" name="formatterChoice"/>
-    <xs:attribute type="xs:string" name="formatterFile"/>
   </xs:complexType>
   <xs:complexType name="classTypeOverride">
     <xs:sequence/>
@@ -842,15 +718,62 @@
       </xs:element>
     </xs:sequence>
     <xs:attribute type="tns:collectionType" name="collectionType"/>
+    <xs:attribute type="tns:trueFalse" name="renamePkToIdentifiableProperty">
+      <xs:annotation>
+        <xs:documentation>Whether to rename the pk property to the common identifiableProperty. Defaults to TRUE.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
     <xs:attribute type="xs:string" name="identifiableProperty"/>
     <xs:attribute type="tns:trueFalse" name="entitySubPackagePreprended"/>
   </xs:complexType>
-  <xs:complexType name="safeHtml">
+  <xs:complexType name="databaseInfo">
     <xs:annotation>
-      <xs:documentation>Add Hibernate SafeHtml annotation on this field.</xs:documentation>
+      <xs:documentation>Information about the database where celerio extracted the metadata</xs:documentation>
     </xs:annotation>
     <xs:sequence/>
-    <xs:attribute type="tns:safeHtmlWhiteListType" name="whitelistType"/>
+    <xs:attribute type="xs:int" use="required" name="databaseMajorVersion"/>
+    <xs:attribute type="xs:int" use="required" name="databaseMinorVersion"/>
+    <xs:attribute type="xs:string" name="databaseProductName"/>
+    <xs:attribute type="xs:string" name="databaseProductVersion"/>
+    <xs:attribute type="xs:int" use="required" name="driverMajorVersion"/>
+    <xs:attribute type="xs:int" use="required" name="driverMinorVersion"/>
+    <xs:attribute type="xs:string" name="driverName"/>
+    <xs:attribute type="xs:string" name="driverVersion"/>
+    <xs:attribute type="xs:string" name="extraInfo"/>
+  </xs:complexType>
+  <xs:complexType name="enumValue">
+    <xs:sequence>
+      <xs:element name="comments" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="xs:string" name="comment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="labels" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+    <xs:attribute type="xs:string" name="value"/>
+    <xs:attribute type="xs:string" name="label"/>
+  </xs:complexType>
+  <xs:complexType name="genericGenerator">
+    <xs:sequence>
+      <xs:element name="parameters" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="parameter" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+    <xs:attribute type="xs:string" name="strategy"/>
   </xs:complexType>
   <xs:complexType name="metadata">
     <xs:sequence>
@@ -865,13 +788,41 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="numberMapping">
-    <xs:sequence/>
-    <xs:attribute type="tns:mappedType" name="mappedType"/>
-    <xs:attribute type="xs:int" name="columnSizeMin"/>
-    <xs:attribute type="xs:int" name="columnSizeMax"/>
-    <xs:attribute type="xs:int" name="columnDecimalDigitsMin"/>
-    <xs:attribute type="xs:int" name="columnDecimalDigitsMax"/>
+  <xs:complexType name="manyToManyConfig">
+    <xs:sequence>
+      <xs:element name="labels" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cascades" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
+      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
+      <xs:element name="metaAttributes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="var"/>
+    <xs:attribute type="xs:string" name="elementVar"/>
+    <xs:attribute type="tns:fetchType" name="fetch"/>
+    <xs:attribute type="xs:string" name="orderBy"/>
+    <xs:attribute type="xs:int" name="displayOrder"/>
+    <xs:attribute type="xs:string" name="targetEntityName"/>
   </xs:complexType>
   <xs:element type="tns:celerioPack" name="celerioPack"/>
   <xs:complexType name="metaAttribute">
@@ -882,23 +833,211 @@
     <xs:attribute type="xs:string" use="required" name="name"/>
     <xs:attribute type="xs:string" use="required" name="value"/>
   </xs:complexType>
-  <xs:complexType name="label">
+  <xs:complexType name="methodConventionOverride">
+    <xs:annotation>
+      <xs:documentation>change the prefix/suffix conventions for a given method</xs:documentation>
+    </xs:annotation>
     <xs:sequence/>
-    <xs:attribute type="xs:string" name="lang"/>
-    <xs:attribute type="xs:string" name="value"/>
+    <xs:attribute type="tns:methodConvention" use="required" name="methodConvention"/>
+    <xs:attribute type="xs:string" name="prefix"/>
+    <xs:attribute type="xs:string" name="suffix"/>
+  </xs:complexType>
+  <xs:complexType name="safeHtml">
+    <xs:annotation>
+      <xs:documentation>Add Hibernate SafeHtml annotation on this field.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+    <xs:attribute type="tns:safeHtmlWhiteListType" name="whitelistType"/>
   </xs:complexType>
   <xs:complexType name="value">
     <xs:sequence/>
     <xs:attribute type="xs:string" name="value"/>
   </xs:complexType>
-  <xs:complexType name="dateMapping">
+  <xs:complexType name="headerComment">
+    <xs:sequence>
+      <xs:element name="lines" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="xs:string" name="line" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:boolean" name="include"/>
+    <xs:attribute type="xs:boolean" name="showTemplateName"/>
+  </xs:complexType>
+  <xs:complexType name="inheritance">
     <xs:sequence/>
-    <xs:attribute type="tns:mappedType" name="mappedType"/>
-    <xs:attribute type="tns:jdbcType" name="columnJdbcType"/>
-    <xs:attribute type="xs:string" name="columnNameRegExp"/>
+    <xs:attribute type="xs:string" name="discriminatorColumn"/>
+    <xs:attribute type="xs:string" name="discriminatorValue"/>
+    <xs:attribute type="xs:string" name="parentEntityName"/>
+    <xs:attribute type="tns:inheritanceType" name="strategy"/>
+  </xs:complexType>
+  <xs:complexType name="implementsInterface">
+    <xs:sequence/>
+    <xs:attribute type="xs:string" use="required" name="fullType"/>
+  </xs:complexType>
+  <xs:complexType name="extendsClass">
+    <xs:sequence/>
+    <xs:attribute type="xs:string" use="required" name="fullType"/>
   </xs:complexType>
   <xs:element type="tns:metadata" name="metadata"/>
-  <xs:complexType name="celerioTemplateContext">
+  <xs:complexType name="renamer">
+    <xs:annotation>
+      <xs:documentation><![CDATA[By default Celerio calculates Java field name based on the underlying column name. <br> This setting allows you to change the column name that is passed to Celerio to calculate the default field name. <br> You can for example remove well known prefix pattern from your column names.]]></xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+    <xs:attribute type="xs:string" name="regexp"/>
+    <xs:attribute type="xs:string" name="replace"/>
+  </xs:complexType>
+  <xs:complexType name="customAnnotation">
+    <xs:sequence/>
+    <xs:attribute type="xs:string" name="annotation"/>
+  </xs:complexType>
+  <xs:complexType name="manyToOneConfig">
+    <xs:sequence>
+      <xs:element name="labels" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cascades" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
+      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
+      <xs:element name="metaAttributes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="var"/>
+    <xs:attribute type="tns:fetchType" name="fetch"/>
+    <xs:attribute type="xs:string" name="targetEntityName"/>
+  </xs:complexType>
+  <xs:complexType name="enumConfig">
+    <xs:sequence>
+      <xs:element name="enumValues" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:enumValue" name="enumValue" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="comments" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="xs:string" name="comment" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" use="required" name="name"/>
+    <xs:attribute type="xs:string" name="rootPackage"/>
+    <xs:attribute type="xs:string" name="subPackage"/>
+    <xs:attribute type="tns:enumType" name="type"/>
+    <xs:attribute type="xs:string" name="userType"/>
+  </xs:complexType>
+  <xs:complexType name="eclipseFormatter">
+    <xs:sequence/>
+    <xs:attribute type="tns:formatterEnum" use="required" name="formatterChoice"/>
+    <xs:attribute type="xs:string" name="formatterFile"/>
+  </xs:complexType>
+  <xs:complexType name="oneToOneConfig">
+    <xs:sequence>
+      <xs:element name="labels" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cascades" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
+      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
+      <xs:element name="metaAttributes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="var"/>
+    <xs:attribute type="xs:boolean" name="orphanRemoval"/>
+    <xs:attribute type="tns:fetchType" name="fetch"/>
+    <xs:attribute type="xs:string" name="targetEntityName"/>
+  </xs:complexType>
+  <xs:complexType name="restriction">
+    <xs:sequence>
+      <xs:element name="classTypes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:classType" name="classType" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="wellKnownFolders" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:wellKnownFolder" name="wellKnownFolder" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="generatedPackages" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:generatedPackage" name="generatedPackage" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="indexedField">
+    <xs:sequence/>
+    <xs:attribute type="xs:string" name="bridgeImpl"/>
+    <xs:attribute type="xs:string" name="name"/>
+    <xs:attribute type="tns:store" name="store"/>
+    <xs:attribute type="xs:boolean" name="index"/>
+    <xs:attribute type="tns:analyze" name="analyze"/>
+    <xs:attribute type="xs:string" name="analyzer"/>
+    <xs:attribute type="tns:norms" name="norms"/>
+    <xs:attribute type="tns:termVector" name="termVector"/>
+  </xs:complexType>
+  <xs:complexType name="include">
+    <xs:annotation>
+      <xs:documentation>Include a configuration file dedicated to entityConfigs. Use it on large project to split your entityConfigs configuration into smaller pieces.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence/>
+    <xs:attribute type="xs:string" use="required" name="filename"/>
+  </xs:complexType>
+  <xs:complexType name="pattern">
+    <xs:sequence/>
+    <xs:attribute type="xs:string" use="required" name="pattern"/>
+    <xs:attribute type="xs:boolean" use="required" name="include"/>
+  </xs:complexType>
+  <xs:complexType name="pack">
     <xs:sequence>
       <xs:element name="properties" minOccurs="0">
         <xs:complexType>
@@ -907,14 +1046,76 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="entityContextProperties" minOccurs="0">
+      <xs:element name="filenames" minOccurs="0">
         <xs:complexType>
           <xs:sequence>
-            <xs:element type="tns:entityContextProperty" name="entityContextProperty" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element type="tns:pattern" name="filename" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="templates" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:pattern" name="template" minOccurs="0" maxOccurs="unbounded"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
     </xs:sequence>
+    <xs:attribute type="xs:string" use="required" name="name"/>
+    <xs:attribute type="xs:string" name="path"/>
+    <xs:attribute type="xs:boolean" use="required" name="enable"/>
+    <xs:attribute type="xs:int" name="order"/>
+  </xs:complexType>
+  <xs:element type="tns:celerio" name="celerio"/>
+  <xs:complexType name="generatedPackageOverride">
+    <xs:sequence/>
+    <xs:attribute type="tns:generatedPackage" use="required" name="generatedPackage"/>
+    <xs:attribute type="xs:string" name="rootPackage"/>
+    <xs:attribute type="xs:string" name="subPackage"/>
+  </xs:complexType>
+  <xs:complexType name="oneToManyConfig">
+    <xs:sequence>
+      <xs:element name="labels" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="cascades" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
+      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
+      <xs:element name="metaAttributes" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="var"/>
+    <xs:attribute type="xs:string" name="elementVar"/>
+    <xs:attribute type="xs:boolean" name="orphanRemoval"/>
+    <xs:attribute type="tns:fetchType" name="fetch"/>
+    <xs:attribute type="xs:string" name="orderBy"/>
+    <xs:attribute type="xs:int" name="displayOrder"/>
+  </xs:complexType>
+  <xs:complexType name="numberMapping">
+    <xs:sequence/>
+    <xs:attribute type="tns:mappedType" name="mappedType"/>
+    <xs:attribute type="xs:int" name="columnSizeMin"/>
+    <xs:attribute type="xs:int" name="columnSizeMax"/>
+    <xs:attribute type="xs:int" name="columnDecimalDigitsMin"/>
+    <xs:attribute type="xs:int" name="columnDecimalDigitsMax"/>
   </xs:complexType>
   <xs:complexType name="xmlFormatter">
     <xs:sequence/>
@@ -922,9 +1123,66 @@
     <xs:attribute type="xs:int" name="maximumLineWidth"/>
     <xs:attribute type="xs:int" name="indent"/>
   </xs:complexType>
-  <xs:complexType name="customAnnotation">
-    <xs:sequence/>
-    <xs:attribute type="xs:string" name="annotation"/>
+  <xs:complexType name="entityConfig">
+    <xs:sequence>
+      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
+      <xs:element name="usages" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="xs:string" name="usage" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="labels" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element type="tns:inheritance" name="inheritance" minOccurs="0"/>
+      <xs:element type="tns:extendsClass" name="extendsClass" minOccurs="0"/>
+      <xs:element name="implementsInterfaces" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:implementsInterface" name="implementsInterface" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="metaAttributes" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="columnConfigs" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:columnConfig" name="columnConfig" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="customAnnotations" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element type="tns:customAnnotation" name="customAnnotation" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:boolean" name="skip"/>
+    <xs:attribute type="xs:string" name="entityName"/>
+    <xs:attribute type="xs:string" name="sequenceName"/>
+    <xs:attribute type="xs:string" name="tableName"/>
+    <xs:attribute type="xs:boolean" name="indexed"/>
+    <xs:attribute type="xs:boolean" name="middleTable"/>
+    <xs:attribute type="xs:string" name="comment"/>
+    <xs:attribute type="xs:string" name="rootPackage"/>
+    <xs:attribute type="xs:string" name="subPackage"/>
+    <xs:attribute type="xs:string" name="label"/>
+    <xs:attribute type="tns:associationDirection" name="associationDirection"/>
+    <xs:attribute type="tns:collectionType" name="collectionType"/>
   </xs:complexType>
   <xs:complexType name="columnConfig">
     <xs:sequence>
@@ -1011,267 +1269,15 @@
     <xs:attribute type="xs:string" name="targetColumnName"/>
     <xs:attribute type="xs:boolean" name="password"/>
   </xs:complexType>
-  <xs:complexType name="genericGenerator">
-    <xs:sequence>
-      <xs:element name="parameters" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="parameter" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" name="name"/>
-    <xs:attribute type="xs:string" name="strategy"/>
-  </xs:complexType>
-  <xs:complexType name="index">
-    <xs:sequence/>
-    <xs:attribute type="xs:string" use="required" name="columnName"/>
-    <xs:attribute type="xs:string" use="required" name="indexName"/>
-    <xs:attribute type="xs:boolean" use="required" name="nonUnique"/>
-  </xs:complexType>
-  <xs:complexType name="include">
-    <xs:annotation>
-      <xs:documentation>Include a configuration file dedicated to entityConfigs. Use it on large project to split your entityConfigs configuration into smaller pieces.</xs:documentation>
-    </xs:annotation>
-    <xs:sequence/>
-    <xs:attribute type="xs:string" use="required" name="filename"/>
-  </xs:complexType>
-  <xs:element type="tns:celerio" name="celerio"/>
-  <xs:complexType name="generatedValue">
-    <xs:sequence/>
-    <xs:attribute type="xs:string" name="generator"/>
-    <xs:attribute type="tns:generationType" name="strategy"/>
-  </xs:complexType>
-  <xs:complexType name="table">
-    <xs:sequence>
-      <xs:element name="columns">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:column" name="column" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="indexes" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:index" name="indexe" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="importedKeys" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:importedKey" name="importedKey" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="primaryKeys" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="xs:string" name="primaryKey" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" use="required" name="name"/>
-    <xs:attribute type="tns:tableType" use="required" name="type"/>
-    <xs:attribute type="xs:string" name="remarks"/>
-  </xs:complexType>
-  <xs:complexType name="manyToOneConfig">
-    <xs:sequence>
-      <xs:element name="labels" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="cascades" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
-      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
-      <xs:element name="metaAttributes" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" name="var"/>
-    <xs:attribute type="tns:fetchType" name="fetch"/>
-    <xs:attribute type="xs:string" name="targetEntityName"/>
-  </xs:complexType>
-  <xs:complexType name="entityContextProperty">
-    <xs:annotation>
-      <xs:documentation>Used to introduce a new 'namer' property on each Celerio's entity context instance. Entity namer properties are convenient when writing template for classes that support entities, for example: Controller, Service, Dao, Validator etc. Example: var name is obtained with ${entity.property.var} and has the value "prefixEntityNameSuffix". Similarly ${entity.property.getter} returns "getPrefixEntityNameSuffix".</xs:documentation>
-    </xs:annotation>
-    <xs:sequence/>
-    <xs:attribute type="xs:string" name="property"/>
-    <xs:attribute type="xs:string" name="rootPackage"/>
-    <xs:attribute type="xs:string" name="subPackage"/>
-    <xs:attribute type="xs:string" name="prefix"/>
-    <xs:attribute type="xs:string" name="suffix"/>
-  </xs:complexType>
-  <xs:complexType name="headerComment">
-    <xs:sequence>
-      <xs:element name="lines" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="xs:string" name="line" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:boolean" name="include"/>
-    <xs:attribute type="xs:boolean" name="showTemplateName"/>
-  </xs:complexType>
   <xs:complexType name="generation">
     <xs:sequence/>
     <xs:attribute type="xs:string" name="modelBasePrefix"/>
     <xs:attribute type="xs:boolean" use="required" name="useMavenCelerioPlugin"/>
     <xs:attribute type="xs:string" name="version"/>
   </xs:complexType>
-  <xs:complexType name="oneToOneConfig">
-    <xs:sequence>
-      <xs:element name="labels" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="cascades" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:cascade" name="cascade" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
-      <xs:element type="tns:associationAction" name="associationAction" minOccurs="0"/>
-      <xs:element name="metaAttributes" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Meta attributes are free form key value pairs.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:string" name="var"/>
-    <xs:attribute type="xs:boolean" name="orphanRemoval"/>
-    <xs:attribute type="tns:fetchType" name="fetch"/>
-    <xs:attribute type="xs:string" name="targetEntityName"/>
-  </xs:complexType>
-  <xs:complexType name="entityConfig">
-    <xs:sequence>
-      <xs:element type="tns:cacheConfig" name="cacheConfig" minOccurs="0"/>
-      <xs:element name="usages" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="xs:string" name="usage" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="labels" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:label" name="label" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element type="tns:inheritance" name="inheritance" minOccurs="0"/>
-      <xs:element type="tns:extendsClass" name="extendsClass" minOccurs="0"/>
-      <xs:element name="implementsInterfaces" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:implementsInterface" name="implementsInterface" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="metaAttributes" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:metaAttribute" name="metaAttribute" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="columnConfigs" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:columnConfig" name="columnConfig" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="customAnnotations" minOccurs="0">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element type="tns:customAnnotation" name="customAnnotation" minOccurs="0" maxOccurs="unbounded"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-    <xs:attribute type="xs:boolean" name="skip"/>
-    <xs:attribute type="xs:string" name="entityName"/>
-    <xs:attribute type="xs:string" name="sequenceName"/>
-    <xs:attribute type="xs:string" name="tableName"/>
-    <xs:attribute type="xs:boolean" name="indexed"/>
-    <xs:attribute type="xs:boolean" name="middleTable"/>
-    <xs:attribute type="xs:string" name="comment"/>
-    <xs:attribute type="xs:string" name="rootPackage"/>
-    <xs:attribute type="xs:string" name="subPackage"/>
-    <xs:attribute type="xs:string" name="label"/>
-    <xs:attribute type="tns:associationDirection" name="associationDirection"/>
-    <xs:attribute type="tns:collectionType" name="collectionType"/>
-  </xs:complexType>
-  <xs:complexType name="renamer">
-    <xs:annotation>
-      <xs:documentation><![CDATA[By default Celerio calculates Java field name based on the underlying column name. <br> This setting allows you to change the column name that is passed to Celerio to calculate the default field name. <br> You can for example remove well known prefix pattern from your column names.]]></xs:documentation>
-    </xs:annotation>
+  <xs:complexType name="label">
     <xs:sequence/>
-    <xs:attribute type="xs:string" name="regexp"/>
-    <xs:attribute type="xs:string" name="replace"/>
-  </xs:complexType>
-  <xs:complexType name="associationAction">
-    <xs:sequence/>
-    <xs:attribute type="xs:boolean" name="create"/>
-    <xs:attribute type="xs:boolean" name="edit"/>
-    <xs:attribute type="xs:boolean" name="view"/>
-    <xs:attribute type="xs:boolean" name="select"/>
-    <xs:attribute type="xs:boolean" name="autoComplete"/>
-    <xs:attribute type="xs:boolean" name="remove"/>
-  </xs:complexType>
-  <xs:complexType name="databaseInfo">
-    <xs:annotation>
-      <xs:documentation>Information about the database where celerio extracted the metadata</xs:documentation>
-    </xs:annotation>
-    <xs:sequence/>
-    <xs:attribute type="xs:int" use="required" name="databaseMajorVersion"/>
-    <xs:attribute type="xs:int" use="required" name="databaseMinorVersion"/>
-    <xs:attribute type="xs:string" name="databaseProductName"/>
-    <xs:attribute type="xs:string" name="databaseProductVersion"/>
-    <xs:attribute type="xs:int" use="required" name="driverMajorVersion"/>
-    <xs:attribute type="xs:int" use="required" name="driverMinorVersion"/>
-    <xs:attribute type="xs:string" name="driverName"/>
-    <xs:attribute type="xs:string" name="driverVersion"/>
-    <xs:attribute type="xs:string" name="extraInfo"/>
-  </xs:complexType>
-  <xs:complexType name="wellKnownFolderOverride">
-    <xs:sequence/>
-    <xs:attribute type="tns:wellKnownFolder" use="required" name="wellKnownFolder"/>
-    <xs:attribute type="xs:string" name="folder"/>
-    <xs:attribute type="xs:string" name="generatedFolder"/>
+    <xs:attribute type="xs:string" name="lang"/>
+    <xs:attribute type="xs:string" name="value"/>
   </xs:complexType>
 </xs:schema>

@@ -18,7 +18,7 @@
         <!-- global date mapping (optional) -->
         <dateMappings>
             <!-- <dateMapping columnNameRegExp="VERSION" mappedType="M_UTILDATE"/> -->
-            <dateMapping columnJdbcType="TIMESTAMP" mappedType="M_LOCALDATETIME"/>
+            <dateMapping columnJdbcType="TIMESTAMP" mappedType="M_INSTANT"/>
             <dateMapping columnJdbcType="DATE" mappedType="M_LOCALDATE"/>
         </dateMappings>
 

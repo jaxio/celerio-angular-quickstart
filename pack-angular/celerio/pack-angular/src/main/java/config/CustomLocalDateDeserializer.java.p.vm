@@ -6,7 +6,10 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 public class $output.currentClass extends JsonDeserializer<LocalDate> {
 
@@ -14,11 +17,12 @@ public class $output.currentClass extends JsonDeserializer<LocalDate> {
 
         if (parser.hasTokenId(JsonTokenId.ID_STRING)) {
             String date = parser.getText().trim();
+
             if (date.isEmpty()) {
                 return null;
             }
-            date = date.substring(0, 10); // yyyy-mm-dd
-            return LocalDate.parse(date);
+
+            return LocalDateTime.ofInstant(Instant.parse(date), ZoneOffset.UTC).toLocalDate();
         }
 
         return null;

@@ -67,7 +67,7 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detai
                 date and time not supported yet
 #elseif($attr.isLocalDate())
                     <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
-#elseif($attr.isLocalDateTime())
+#elseif($attr.isLocalDateTime() || $attr.isInstant())
                     <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
 #else
                 Date type not supported, do it manually and send us the solution!
