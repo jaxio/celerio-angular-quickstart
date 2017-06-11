@@ -42,6 +42,7 @@ Then open [http://localhost:4200/](http://localhost:4200/)
 * Commands above are explained [here](#generate-it-and-run-it)
 * [Delete all generated files](#delete-all-generated-files)
 * [How-to use your own database](#how-to-use-your-own-database)
+* [How-to package front/back in a single jar and run it](#how-package)
 
 ## Generate it and run it
 
@@ -157,3 +158,32 @@ Follow the steps 2-3 from the [Generate it and run it](#generate-it-and-run-it) 
 
 [pom.xml]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart/pom.xml
 [entity.service.ts.e.vm]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/pack-angular/celerio/pack-angular/web/src/app/entities/entity.service.ts.e.vm
+
+## How-to package front/back in a single jar and run it
+
+Let's go one step further. Wouldn't it be convenient for production to only have a single jar to run ?
+
+To create a single jar (Java archive), in addition to the steps above we need to compile the front end code (typescript etc.) 
+using Angular Cli and to copy the compilation result (dist folder) in our springboot backend (in a special folder 
+for static content) so it can be packaged into a jar file along with the backend.
+
+Here are the command lines (hope it is self explanatory):
+
+    git clone https://github.com/jaxio/celerio-angular-quickstart.git
+    cd celerio-angular-quickstart/quickstart
+    ng new web
+    rm web/src/main.ts web/src/app/app.module.ts web/src/app/app.component.* web/src/styles.css
+    mvn -Pdb,metadata,gen generate-sources
+    cd web
+    npm install --save @angular/animations
+    npm install --save @angular/material@2.0.0-beta.3
+    npm install --save primeng@4.0.0
+    npm install --save font-awesome
+    ng build --prod
+    cp dist/* ../src/main/resources/static
+    cd ..
+    mvn package
+    java -jar target/celerio-angular-quickstart-1.0.0-SNAPSHOT.jar
+
+Access it at http://localhost:8080/
+
