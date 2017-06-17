@@ -9,7 +9,7 @@ export class PageResponse<E> {
     // remove the passed element from the content array.
     remove(element : E) {
         let indexToRemove : number = this.content.indexOf(element);
-        this.content.splice(indexToRemove, 1);
+        this.content = this.content.filter((val,i) => i!=indexToRemove);
         this.totalElements = this.totalElements - 1;
     }
 }

@@ -156,12 +156,10 @@ $output.require("org.springframework.web.bind.annotation.RequestParam")##
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
 
-#if ($attribute.fileSize)
-#if($attribute.isLong())
+#if ($attribute.fileSize && $attribute.fileSize.isLong())
         ${entity.model.var}.${attribute.fileSize.setter}(multipartFile.getSize());
 #else
         // ${entity.model.var}.${attribute.fileSize.setter}(multipartFile.getSize());
-#end
 #end
 #if ($attribute.fileContentType)
         ${entity.model.var}.${attribute.fileContentType.setter}(multipartFile.getContentType());
@@ -194,7 +192,7 @@ $output.require("org.springframework.web.bind.annotation.RequestParam")##
 #if ($attribute.filename)
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ${entity.model.var}.${attribute.filename.getter}() + "\"")
 #end
-#if ($attribute.fileSize)
+#if ($attribute.fileSize && $attribute.fileSize.isLong())
             .contentLength(${entity.model.var}.${attribute.fileSize.getter}())
 #end
             .body(${entity.model.var}.${attribute.getter}());

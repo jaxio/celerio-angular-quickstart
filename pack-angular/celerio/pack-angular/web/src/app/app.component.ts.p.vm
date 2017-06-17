@@ -2,6 +2,7 @@ $output.file("web/src/app/app.component.ts")##
 import { Component,OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 import { Message, MenuItem } from 'primeng/primeng';
 import { AuthService} from './service/auth.service';
 import { MessageService} from './service/message.service';

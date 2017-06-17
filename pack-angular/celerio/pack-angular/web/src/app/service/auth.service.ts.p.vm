@@ -3,6 +3,9 @@ $output.file("web/src/app/service/auth.service.ts")##
 import { Injectable } from '@angular/core'
 import { HttpModule, RequestOptions, Headers, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
