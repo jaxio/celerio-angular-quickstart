@@ -15,8 +15,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <version>1.5.2.RELEASE</version>
     </parent>
 
     <properties>
@@ -76,7 +75,7 @@
         <!-- Version dependencies when used in multiple dependencies -->
         <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
         <celerio-maven-plugin.outputDir>${project.basedir}</celerio-maven-plugin.outputDir>
-        <celerio-maven-plugin.version>4.0.17</celerio-maven-plugin.version>
+        <celerio-maven-plugin.version>4.0.18</celerio-maven-plugin.version>
 
         <celerio-maven-plugin.configuration>../quickstart-conf/celerio-maven-plugin.xml</celerio-maven-plugin.configuration>
         <celerio-maven-plugin.packs.configuration>../quickstart-conf/celerio-template-packs.xml</celerio-maven-plugin.packs.configuration>
@@ -163,12 +162,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
@@ -196,9 +189,14 @@
         <!-- TEST -->
         <!-- ~~~~ -->
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -259,6 +257,7 @@
                     <include>node_modules/zone.js/dist/zone.min.js</include>
                     <include>node_modules/json.date-extensions/json.date-extensions.min.js</include>
                     <include>node_modules/primeng/resources/**</include>
+                    <include>node_modules/@angular/material/core/theming/**</include>
                 </includes>
                 <targetPath>static</targetPath>
             </resource>
