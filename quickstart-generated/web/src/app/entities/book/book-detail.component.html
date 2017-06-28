@@ -1,0 +1,103 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="book" ngForm #bookForm="ngForm">
+        <md-card-title>Book Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="title">Title  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="title" [(ngModel)]="book.title"  required placeholder="Required"  name="title" #title="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!title.valid && title.dirty && title.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Title is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="summary">Summary </label></div>
+                <div class="ui-grid-col-6">
+                    <textarea pInputTextarea id="summary" [(ngModel)]="book.summary" autoResize="true" name="summary" #summary="ngModel"></textarea>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="extractBinary">Extract (file)... </label></div>
+                <div class="ui-grid-col-6">
+                    <ul *ngIf="book.extractFileName">
+                        <li><a href="/api/books/{{book.id}}/download/extractBinary">Download {{book.extractFileName}}</a></li>
+                        <li>Content-Type: {{book.extractContentType}}</li>
+                        <li>Size in bytes: {{book.extractSize}}</li>
+                    </ul>
+
+                    <p-fileUpload *ngIf="book.id" name="extractBinary" url="/api/books/{{book.id}}/upload/extractBinary" (onUpload)="onExtractBinaryUpload($event)" >
+                    </p-fileUpload>
+                    <!-- visual hack -->
+                    <p-fileUpload *ngIf="!book.id" disabled="true" name="extractBinary" url="/api/books/{{book.id}}/upload/extractBinary" (onUpload)="onExtractBinaryUpload($event)" >
+                        <ng-template pTemplate="content">
+                            <div>For the moment, you must save the form before being able to upload a file...</div>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="author">Author*</label></div>
+                <div class="ui-grid-col-4">
+                    <author-auto-complete [(ngModel)]="book.author" id="author" name="author" [disabled]="sub"></author-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoAuthor" type="button" (click)="gotoAuthor()" *ngIf="book.author" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearAuthor" type="button" (click)="clearAuthor()" *ngIf="book.author" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="coAuthor">Co Author</label></div>
+                <div class="ui-grid-col-4">
+                    <author-auto-complete [(ngModel)]="book.coAuthor" id="coAuthor" name="coAuthor" [disabled]="sub"></author-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoCoAuthor" type="button" (click)="gotoCoAuthor()" *ngIf="book.coAuthor" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearCoAuthor" type="button" (click)="clearCoAuthor()" *ngIf="book.coAuthor" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="publicationDate">Publication Date </label></div>
+                <div class="ui-grid-col-6">
+                    <p-calendar [(ngModel)]="book.publicationDate" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="bestSeller">Best Seller </label></div>
+                <div class="ui-grid-col-6">
+                    <p-triStateCheckbox [(ngModel)]="book.bestSeller" name="bestSeller"></p-triStateCheckbox>{{book.bestSeller}}
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="price">Price  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="price" type="number" [(ngModel)]="book.price"  name="price" #price="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!bookForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>

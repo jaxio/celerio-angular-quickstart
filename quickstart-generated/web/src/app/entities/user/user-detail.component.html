@@ -1,0 +1,102 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="user" ngForm #userForm="ngForm">
+        <md-card-title>User Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="login">Login  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="login" [(ngModel)]="user.login"  required placeholder="Required"  name="login" #login="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!login.valid && login.dirty && login.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Login is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="password">Password  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input type="password" pPassword [(ngModel)]="user.password" name="password" #password="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="email">Email </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="email" [(ngModel)]="user.email"   validateEmail name="email" #email="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors['validateEmail']">
+                        <i class="fa fa-close"></i>
+                        Email is invalid. Expecting a valid email address.
+                    </div>
+                                    </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="isEnabled">Is Enabled?  *</label></div>
+                <div class="ui-grid-col-6">
+                    <p-triStateCheckbox [(ngModel)]="user.isEnabled" name="isEnabled"></p-triStateCheckbox>{{user.isEnabled}}
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="civility">Civility </label></div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="civilityOptions" [(ngModel)]="user.civility" name="civility" #civility="ngModel"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="countryCode">Country Code </label></div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="countryCodeOptions" [(ngModel)]="user.countryCode" name="countryCode" #countryCode="ngModel"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="firstName">First Name </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="firstName" [(ngModel)]="user.firstName"   name="firstName" #firstName="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="lastName">Last Name </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="lastName" [(ngModel)]="user.lastName"   name="lastName" #lastName="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+          </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!userForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+    <md-card *ngIf="user && user.id">
+    <md-card-subtitle>User db relations</md-card-subtitle>
+    <md-card-content>
+    <md-tab-group>
+        <md-tab label="Passports">
+            <passport-list [holder]="user" sub="true"></passport-list>
+        </md-tab>
+        <md-tab label="Roles">
+            <p-pickList [source]="sourceRoles" [target]="user.roles" sourceHeader="Available" targetHeader="Selected" [responsive]="true">
+                <ng-template let-role pTemplate="item">
+{{ role.roleName }}                 </ng-template>
+            </p-pickList>
+        </md-tab>
+
+    </md-tab-group>
+    </md-card-content>
+    </md-card>
+</div>

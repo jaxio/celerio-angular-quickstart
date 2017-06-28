@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+
+@import '~primeng/resources/themes/omega/theme.css';
+@import '~primeng/resources/primeng.min.css';
+
+@import '~font-awesome/css/font-awesome.css';
+
+
+button.ui-button.ui-state-default {
+    background: #f2f2f2;
+    color: #757575;
+    border-color: #888888;
+}
+
+.col-icon {
+    width: 60px;
+}
+
+.ui-button-icon-only .ui-button-text {
+    padding-top: 0em;
+    padding-right: 0em;
+    padding-bottom: 0em;
+    padding-left: 0em;
+}

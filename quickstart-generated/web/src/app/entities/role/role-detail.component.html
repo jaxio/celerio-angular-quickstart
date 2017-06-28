@@ -1,0 +1,26 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="role" ngForm #roleForm="ngForm">
+        <md-card-title>Role Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="roleName">Role Name  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="roleName" [(ngModel)]="role.roleName"  required placeholder="Required"  name="roleName" #roleName="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!roleName.valid && roleName.dirty && roleName.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Role Name is required
+                    </div>
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!roleForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>

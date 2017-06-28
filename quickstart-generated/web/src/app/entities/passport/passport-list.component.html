@@ -1,0 +1,68 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="!sub">
+        <md-card-title>Search Passport with search criterias</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #passportForm="ngForm">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    <label for="passportNumber">Passport Number</label>
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="passportNumber" [(ngModel)]="example.passportNumber" name="passportNumber" #passportNumber="ngModel"/>
+                </div>
+            </div>
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+        <label for="holder">Holder</label>
+    </div>
+    <div class="ui-grid-col-6">
+        <user-auto-complete [(ngModel)]="example.holder" id="holder" name="holder"></user-auto-complete>
+    </div>
+</div>
+        </div>
+
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button (click)="search(dt)"><md-icon>search</md-icon>Search</button>
+        </md-card-actions>
+    </md-card>
+
+    <md-card>
+    <md-card-content>
+    <p>The list of results below is server-side paginated...</p>
+
+    <p-dataTable #dt [value]="currentPage.content"
+                 [lazy]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
+                 [totalRecords]="currentPage.totalElements"
+                 (onLazyLoad)="loadPage($event)"
+                 selectionMode="single"
+                 (onRowSelect)="onRowSelect($event)"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
+                 [responsive]="true">
+        <p-header>{{header}} (count: {{currentPage.totalElements}})</p-header>
+        <p-column field="passportNumber" header="Passport Number" sortable="true">
+        </p-column>
+        <p-column field="expirationDate" header="Expiration Date" sortable="true">
+            <ng-template let-passport="rowData" pTemplate="body">
+                {{passport.expirationDate | date:"yyyy-MM-dd" }}
+            </ng-template>
+        </p-column>
+        <p-column header="Holder" sortable="false">
+            <ng-template let-holder="rowData['holder']" pTemplate="body">
+                <user-line [user]="holder"></user-line>
+            </ng-template>
+        </p-column>
+        <p-column styleClass="col-icon">
+            <ng-template let-passport="rowData" pTemplate="body">
+                <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(passport)" style="float:left"></button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
+    </md-card-actions>
+    </md-card>
+</div>

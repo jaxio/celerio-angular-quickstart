@@ -1,0 +1,37 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="useCase2" ngForm #useCase2Form="ngForm">
+        <md-card-title>UseCase2 Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="dummy">Dummy  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="dummy" [(ngModel)]="useCase2.dummy"  required placeholder="Required"  name="dummy" #dummy="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!dummy.valid && dummy.dirty && dummy.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Dummy is required
+                    </div>
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!useCase2Form.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+    <md-card *ngIf="useCase2 && useCase2.id">
+    <md-card-subtitle>UseCase2 db relations</md-card-subtitle>
+    <md-card-content>
+    <md-tab-group>
+        <md-tab label="UseCase3s">
+            <useCase3-list *ngIf="showUseCase3s" [id2]="useCase2" sub="true" [header]="'UseCase3s of this useCase2'" (onAddNewClicked)="showUseCase3s = false"></useCase3-list>
+            <useCase3-detail *ngIf="!showUseCase3s" [id2]="useCase2" sub="true" (onSaveClicked)="showUseCase3s = true" (onCancelClicked)="showUseCase3s = true"></useCase3-detail>
+        </md-tab>
+
+    </md-tab-group>
+    </md-card-content>
+    </md-card>
+</div>

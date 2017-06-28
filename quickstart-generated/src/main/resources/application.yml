@@ -1,0 +1,49 @@
+---
+#
+# https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+#
+
+server:
+    port: 8080
+
+security:
+    basic:
+        enabled: false
+
+# Note: the properties surounded by arobase are defined in the pom.xml file
+#       and get replaced by maven during build time. Resulting file can
+#       be found in target/classes folder
+
+spring:
+
+    datasource:
+        driver-class-name: @jdbc.driver@
+        url: @jdbc.url@
+        name:
+        username: @jdbc.user@
+        password: @jdbc.password@
+
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: none
+            naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+        database-platform: @hibernate.dialect@
+        database: H2
+        show_sql: true
+        properties:
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+
+    mail:
+        host: localhost
+
+    messages:
+        cache-seconds: 1
+
+    resources:
+        chain:
+            cache: false
+
