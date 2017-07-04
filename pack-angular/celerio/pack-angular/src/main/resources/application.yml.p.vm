@@ -48,3 +48,10 @@ spring:
         chain:
             cache: false
 
+---
+
+#
+# profile used by Dockerfile... just for convenient demo
+#
+spring.profiles: demowithdocker
+spring.datasource.url: jdbc:h2:/db/angulardb;MVCC=TRUE;FILE_LOCK=NO

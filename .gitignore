@@ -21,3 +21,6 @@ hs_err_pid*
 # app
 quickstart/src/main/webapp/node_modules
 quickstart/src/main/webapp/typings
+
+#docker
+docker/*

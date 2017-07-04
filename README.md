@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/jaxio/celerio-angular-quickstart.svg?branch=master)](https://travis-ci.org/jaxio/celerio-angular-quickstart)
 
+
 This Angular quickstart uses Angular Cli to create the application skeleton and Celerio 
 to **reverse your relational database schema** and **generate** the Angular + Spring Boot code 
 to access your database content. The generated code covers much more areas than a simple Hello World app (search,
 pagination, validation, auto-complete, etc.) 
 
 To generate an application from a sample database, follow the instructions from the [quickstart][] folder.
-The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
 
 Take a look at the generated code for yourself. Out of this 
 [sample SQL schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql)
@@ -19,6 +19,16 @@ thanks to these [templates](https://github.com/jaxio/celerio-angular-quickstart/
 
 By default we use a sample H2 database schema. Using your own database schema and database engine 
 is just a matter of configuration. Check as an example our instructions to [use MySQL][] instead of H2.
+
+## What to expect?
+
+The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
+
+You may also run a docker image of the sample generated web:
+
+    docker run -p 8080:8080 nromanetti/celerio-angular-quickstart
+
+Remember, this is just a generated sample, the idea is to generate your own application using a more realistic database schema.
 
 ## About the project
 
@@ -39,7 +49,7 @@ Here is the folder organization:
 The generated Angular CRUD web app uses the following technologies/frameworks:
 
 * [Angular Cli](http://cli.angular.io/) a command line interface for Angular
-* [Angular 4.0.0](http://angular.io/) web framework: we try to always use the most recent version
+* [Angular 4.2](http://angular.io/) web framework: we try to always use the most recent version
 * [TypeScript](https://www.typescriptlang.org/): much easier than JavaScript... 
 * [PrimeNG](http://primefaces.org/primeng/): Angular components library, we leverage file upload, auto-complete, calendar, tri-state checkbox, server-side pagination, etc.
 * [Angular Material](https://material.angular.io/): Material Design components for Angular apps

@@ -1,5 +1,18 @@
 # Change log
 
+
+## current -
+ 
+### Upgrades
+
+ * primeng from 4.1.0-rc.2 to 4.1.0-rc.3
+ * spring-boot from 1.5.2 to 1.5.4
+ * material from 2.0.0-beta.6 to 2.0.0-beta.7
+
+### Other
+
+ * provide a Docker image of the sample generated app (see README.md)
+  
 ## v0.9.0 - 2017-06-18
 
 ### Upgrades
