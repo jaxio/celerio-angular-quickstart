@@ -2,13 +2,12 @@
 
 [![Build Status](https://travis-ci.org/jaxio/celerio-angular-quickstart.svg?branch=master)](https://travis-ci.org/jaxio/celerio-angular-quickstart)
 
-
-This Angular quickstart uses Angular Cli to create the application skeleton and Celerio 
+This Angular quickstart uses Angular Cli to create an application skeleton and Celerio 
 to **reverse your relational database schema** and **generate** the Angular + Spring Boot code 
 to access your database content. The generated code covers much more areas than a simple Hello World app (search,
 pagination, validation, auto-complete, etc.) 
 
-To generate an application from a sample database, follow the instructions from the [quickstart][] folder.
+To generate an application from our sample database, follow the instructions from the [quickstart][] folder.
 
 Take a look at the generated code for yourself. Out of this 
 [sample SQL schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql)
@@ -24,7 +23,7 @@ is just a matter of configuration. Check as an example our instructions to [use 
 
 The following [screencast](https://www.youtube.com/watch?v=MBrgeykyTGs) shows you what to expect.
 
-You may also run a docker image of the sample generated web:
+You may also run a docker image of the sample generated webapp:
 
     docker run -p 8080:8080 nromanetti/celerio-angular-quickstart
 
