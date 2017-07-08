@@ -1,183 +1,198 @@
----
--- Example Schema using MySQL database
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jun 17, 2017 at 10:04 AM
+-- Server version: 5.7.18-0ubuntu0.16.04.1
+-- PHP Version: 7.0.18-0ubuntu0.16.04.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `monitor`
 --
 
-DROP TABLE IF EXISTS USE_CASE_3, USE_CASE_2, USE_CASE_1, PROJECT, BOOK, AUTHOR, USER_ROLE, ROLE, PASSPORT, USER;
+-- --------------------------------------------------------
 
-CREATE TABLE USER (
-    id                       int not null AUTO_INCREMENT,
-    login                    varchar(100) not null COMMENT 'The login used to login',
-    password                 varchar(100) not null,
-    email                    varchar(100),
-    is_enabled               bool not null default true,
-    civility                 char(2) default 'MR',
-    country_code             varchar(6) default '+33',
-    first_name               varchar(100),
-    last_name                varchar(100),
+--
+-- Table structure for table `account`
+--
 
--- audit (detected by celerio by convention)
-    creation_date            timestamp default current_timestamp,
-    creation_author          varchar(200),
-    last_modification_date   timestamp default current_timestamp,
-    last_modification_author varchar(200),
+CREATE TABLE `account` (
+  `id` bigint(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- optimistic lock (detected by celerio by convention)
-    version                  int default 0,
+-- --------------------------------------------------------
 
-    constraint user_unique_1 unique (login),
-    primary key (id)
-) COMMENT='The User is a human that can connect to this web application';
+--
+-- Table structure for table `alarm_reading`
+--
 
+CREATE TABLE `alarm_reading` (
+  `id` bigint(20) NOT NULL,
+  `date_recorded` datetime NOT NULL,
+  `rule_fk` bigint(20) DEFAULT NULL,
+  `device_fk` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE PASSPORT (
-    id                       int not null AUTO_INCREMENT,
-    passport_number          varchar(100) not null,
-    expiration_date          date,
-    holder_id                int not null,
-    foreign key (holder_id) references USER(id),
-    constraint passport_holder_unique_1 unique (holder_id),
-    primary key (id)
-) COMMENT='Use case for one-to-one relation';
+-- --------------------------------------------------------
 
-CREATE TABLE ROLE (
-    id              int not null AUTO_INCREMENT,
-    role_name       varchar(100) not null,
-    constraint role_unique_1 unique (role_name),
-    primary key (id)
-);
+--
+-- Table structure for table `alarm_rule`
+--
 
-CREATE TABLE USER_ROLE (
-    user_id     int not null,
-    role_id     int not null,
+CREATE TABLE `alarm_rule` (
+  `id` bigint(20) NOT NULL,
+  `alarm_type` int(11) DEFAULT NULL,
+  `email_to_alert` varchar(255) DEFAULT NULL,
+  `high` float DEFAULT NULL,
+  `low` float DEFAULT NULL,
+  `account_fk` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-    foreign key (user_id) references USER(id),
-    foreign key (role_id) references ROLE(id),
-    primary key (user_id, role_id)
-);
+-- --------------------------------------------------------
 
-CREATE TABLE AUTHOR (
-    id                  int not null AUTO_INCREMENT,
-    civility            char(2) default 'MR',
-    first_name          varchar(100) not null,
-    last_name           varchar(100),
-    email               varchar(100),
-    birth_date          date,
-    birth_date_time     timestamp,
-    favorite_author_id  int,
-    FOREIGN key (favorite_author_id) REFERENCES AUTHOR(id),
-    primary key (id)
-) COMMENT='Author has various dates for demo';
+--
+-- Table structure for table `device`
+--
 
+CREATE TABLE `device` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(40) NOT NULL,
+  `height_above_sea_level` float DEFAULT NULL,
+  `lat` float DEFAULT NULL,
+  `longitue` float DEFAULT NULL,
+  `name` varchar(15) NOT NULL,
+  `account_fk` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE BOOK (
-    id                      int not null AUTO_INCREMENT,
-    title                   varchar(100) not null,
-    summary                 varchar(255),
+-- --------------------------------------------------------
 
--- celerio convention for file upload/download:
-    extract_binary             blob,
-    extract_file_name          varchar(100),
-    extract_content_type       varchar(100),
-    extract_size               NUMERIC (11),
+--
+-- Table structure for table `temp_reading`
+--
 
-    author_id               int not null,
-    co_author_id            int,
-    publication_date        date,
-    best_seller             boolean default false,
-    price                   decimal(20, 2) not null,
+CREATE TABLE `temp_reading` (
+  `id` bigint(20) NOT NULL,
+  `date_recorded` datetime DEFAULT NULL,
+  `reading` float NOT NULL,
+  `temp_type` varchar(255) DEFAULT NULL,
+  `device_fk` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-    foreign key (author_id) references AUTHOR(id),
-    foreign key (co_author_id) references AUTHOR(id),
-    primary key (id)
-) COMMENT='BOOK supports file upload/download for demo';
+--
+-- Indexes for dumped tables
+--
 
-CREATE TABLE PROJECT (
-    id                      int not null AUTO_INCREMENT,
-    name                    varchar(100) not null,
-    url                     varchar(100),
-    author_id               int not null,
-    open_source             boolean default false,
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_q0uja26qgu1atulenwup9rxyr` (`email`);
 
-    foreign key (author_id) references AUTHOR(id),
-    primary key (id)
-);
+--
+-- Indexes for table `alarm_reading`
+--
+ALTER TABLE `alarm_reading`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKh96bscqk6im01irng0wj3qsoq` (`rule_fk`),
+  ADD KEY `FK6mfg0kaoog4fx0p94e81wuuhx` (`device_fk`);
 
-CREATE TABLE USE_CASE_1 (
-    id1               timestamp not null,
-    id2               varchar(100) not null,
-    dummy             varchar(100) not null,
-    primary key (id1, id2)
-) COMMENT='USE_CASE_1 has a composite pk, just for demo';
+--
+-- Indexes for table `alarm_rule`
+--
+ALTER TABLE `alarm_rule`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK90whqmd681ys0matkq0tnge34` (`account_fk`);
 
+--
+-- Indexes for table `device`
+--
+ALTER TABLE `device`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKf880yd6pu34310uhf4hg07c5v` (`account_fk`);
 
-CREATE TABLE USE_CASE_2 (
-    id               varchar(32) not null,
-    dummy             varchar(100) not null,
-    primary key (id)
-) COMMENT='USE_CASE_2 has a string pk, just for demo';
+--
+-- Indexes for table `temp_reading`
+--
+ALTER TABLE `temp_reading`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKtllo4ffyelrcigta0jhxx58bb` (`device_fk`);
 
-CREATE TABLE USE_CASE_3 (
-    id1               timestamp not null,
-    id2               varchar(32) not null,
-    dummy             varchar(100) not null,
+--
+-- AUTO_INCREMENT for dumped tables
+--
 
-    foreign key (id2) references USE_CASE_2(id),
-    primary key (id1, id2)
-) COMMENT='USE_CASE_3 has a composite pk with one member being also an FK, just for demo';
+--
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `alarm_reading`
+--
+ALTER TABLE `alarm_reading`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `alarm_rule`
+--
+ALTER TABLE `alarm_rule`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `device`
+--
+ALTER TABLE `device`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `temp_reading`
+--
+ALTER TABLE `temp_reading`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
 
+--
+-- Constraints for table `alarm_reading`
+--
+ALTER TABLE `alarm_reading`
+  ADD CONSTRAINT `FK6mfg0kaoog4fx0p94e81wuuhx` FOREIGN KEY (`device_fk`) REFERENCES `device` (`id`),
+  ADD CONSTRAINT `FKh96bscqk6im01irng0wj3qsoq` FOREIGN KEY (`rule_fk`) REFERENCES `alarm_rule` (`id`);
 
-INSERT INTO USER (id, login, password, email, is_enabled, version) VALUES (-1, 'admin', 'admin', 'admin@example.com', true, 1);
+--
+-- Constraints for table `alarm_rule`
+--
+ALTER TABLE `alarm_rule`
+  ADD CONSTRAINT `FK90whqmd681ys0matkq0tnge34` FOREIGN KEY (`account_fk`) REFERENCES `account` (`id`);
 
-INSERT INTO ROLE (id, role_name) VALUES (-1, 'ROLE_ADMIN');
-INSERT INTO ROLE (id, role_name) VALUES (-2, 'ROLE_USER');
-INSERT INTO ROLE (id, role_name) VALUES (-3, 'ROLE_MONITORING');
+--
+-- Constraints for table `device`
+--
+ALTER TABLE `device`
+  ADD CONSTRAINT `FKf880yd6pu34310uhf4hg07c5v` FOREIGN KEY (`account_fk`) REFERENCES `account` (`id`);
 
-INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -1);
-INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -2);
-INSERT INTO USER_ROLE (user_id, role_id) VALUES (-1, -3);
+--
+-- Constraints for table `temp_reading`
+--
+ALTER TABLE `temp_reading`
+  ADD CONSTRAINT `FKtllo4ffyelrcigta0jhxx58bb` FOREIGN KEY (`device_fk`) REFERENCES `device` (`id`);
 
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-1,  'John01', 'Doe01');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-2,  'John02', 'Doe02');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-3,  'John03', 'Doe03');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-4,  'John04', 'Doe04');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-5,  'John05', 'Doe05');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-6,  'John06', 'Doe06');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-7,  'John07', 'Doe07');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-8,  'John08', 'Doe08');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-9,  'John09', 'Doe09');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-10, 'John10', 'Doe10');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-11, 'John11', 'Doe11');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-12, 'John12', 'Doe12');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-13, 'John13', 'Doe13');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-14, 'John14', 'Doe14');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-15, 'John15', 'Doe15');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-16, 'John16', 'Doe16');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-17, 'John17', 'Doe17');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-18, 'John18', 'Doe18');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-19, 'John19', 'Doe19');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-20, 'John20', 'Doe20');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-21, 'John21', 'Doe21');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-22, 'John22', 'Doe22');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-23, 'Alice', 'Bee');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-24, 'Bob', 'Sponge');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-25, 'Mick', 'Jagger');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-26, 'Charlie', 'Watts');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-27, 'Bob', 'Dylan');
-INSERT INTO AUTHOR(id, first_name, last_name)  VALUES (-28, 'Jim', 'Morrison');
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-1, 'Learn Angular', 'Angular for beginners', -1, null, false, 12.34);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-2, 'Learn Angular2', 'Angular2 for beginners', -1, null, true, 32.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-3, 'Book 3', 'The Book 3', -1, null, true, 11.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-4, 'Book 4', 'The Book 4', -1, null, true, 4.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-5, 'Book 5', 'The Book 5', -1, null, true, 3.50);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-6, 'Book 6', 'The Book 6', -1, null, true, 36.30);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-7, 'Book 7', 'The Book 7', -1, null, true, 30.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-8, 'Book 8', 'The Book 8', -1, null, true, 27.72);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-9, 'Book 9', 'The Book 9', -1, null, true, 39.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-10, 'Book 10', 'The Book 10', -1, null, true, 14.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-11, 'Book 11', 'The Book 11', -1, null, true, 35.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-12, 'Book 12', 'The Book 12', -1, null, true, 90.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-13, 'Book 13', 'The Book 13', -2, null, true, 120.00);
-INSERT INTO BOOK(id, title, summary, author_id, publication_date, best_seller, price) VALUES (-14, 'Book 14', 'The Book 14', -2, null, true, 99.00);
-
-INSERT INTO PROJECT(id, name, url, author_id, open_source) VALUES (-1, 'PrimeNG', 'http://www.primefaces.org/primeng/', -1, true);
+insert into monitor.account(id,email,password,first_name,last_name) values(1,'polinchw@netscape.net','password','William','Polinchak');
+insert into monitor.account(id,email,password,first_name,last_name) values(2,'admin','admin','William','Polinchak');
