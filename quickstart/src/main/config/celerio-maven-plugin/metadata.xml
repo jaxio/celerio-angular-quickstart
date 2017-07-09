@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.jaxio.com/schema/celerio">
+  <jdbcConnectivity driver="com.mysql.jdbc.Driver" url="jdbc:mysql://127.0.0.1:3306/monitor" user="monitor" password="password" schemaName="" oracleRetrieveRemarks="false" oracleRetrieveSynonyms="true" reverseIndexes="true" reverseOnlyUniqueIndexes="true" catalog="">
+    <tableNamePatterns/>
+    <tableTypes>
+      <tableType>TABLE</tableType>
+    </tableTypes>
+  </jdbcConnectivity>
+  <databaseInfo databaseMajorVersion="5" databaseMinorVersion="7" databaseProductName="MySQL" databaseProductVersion="5.7.18-0ubuntu0.16.04.1" driverMajorVersion="5" driverMinorVersion="1" driverName="MySQL Connector Java" driverVersion="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )" extraInfo=""/>
+  <tables>
+    <table name="account" type="TABLE">
+      <columns>
+        <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+        <column name="email" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="255" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(255)"/>
+          </metaAttributes>
+        </column>
+        <column name="first_name" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="255" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(255)"/>
+          </metaAttributes>
+        </column>
+        <column name="last_name" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="4" size="255" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(255)"/>
+          </metaAttributes>
+        </column>
+        <column name="password" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="5" size="255" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(255)"/>
+          </metaAttributes>
+        </column>
+      </columns>
+      <indexes>
+        <indexe columnName="id" indexName="PRIMARY" nonUnique="false"/>
+        <indexe columnName="email" indexName="UK_q0uja26qgu1atulenwup9rxyr" nonUnique="false"/>
+      </indexes>
+      <importedKeys/>
+      <primaryKeys>
+        <primaryKey>id</primaryKey>
+      </primaryKeys>
+    </table>
+    <table name="alarm_reading" type="TABLE">
+      <columns>
+        <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+        <column name="date_recorded" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="19" type="TIMESTAMP">
+          <metaAttributes>
+            <metaAttribute name="type" value="datetime"/>
+          </metaAttributes>
+        </column>
+        <column name="rule_fk" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+        <column name="device_fk" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="4" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+      </columns>
+      <indexes>
+        <indexe columnName="id" indexName="PRIMARY" nonUnique="false"/>
+      </indexes>
+      <importedKeys>
+        <importedKey fkColumnName="device_fk" fkName="FK6mfg0kaoog4fx0p94e81wuuhx" pkColumnName="id" pkTableName="device"/>
+        <importedKey fkColumnName="rule_fk" fkName="FKh96bscqk6im01irng0wj3qsoq" pkColumnName="id" pkTableName="alarm_rule"/>
+      </importedKeys>
+      <primaryKeys>
+        <primaryKey>id</primaryKey>
+      </primaryKeys>
+    </table>
+    <table name="alarm_rule" type="TABLE">
+      <columns>
+        <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+        <column name="alarm_type" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="2" size="10" type="INTEGER">
+          <metaAttributes>
+            <metaAttribute name="type" value="int(11)"/>
+          </metaAttributes>
+        </column>
+        <column name="email_to_alert" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="255" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(255)"/>
+          </metaAttributes>
+        </column>
+        <column name="high" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="12" type="REAL">
+          <metaAttributes>
+            <metaAttribute name="type" value="float"/>
+          </metaAttributes>
+        </column>
+        <column name="low" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="5" size="12" type="REAL">
+          <metaAttributes>
+            <metaAttribute name="type" value="float"/>
+          </metaAttributes>
+        </column>
+        <column name="account_fk" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="6" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+      </columns>
+      <indexes>
+        <indexe columnName="id" indexName="PRIMARY" nonUnique="false"/>
+      </indexes>
+      <importedKeys>
+        <importedKey fkColumnName="account_fk" fkName="FK90whqmd681ys0matkq0tnge34" pkColumnName="id" pkTableName="account"/>
+      </importedKeys>
+      <primaryKeys>
+        <primaryKey>id</primaryKey>
+      </primaryKeys>
+    </table>
+    <table name="device" type="TABLE">
+      <columns>
+        <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+        <column name="description" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="40" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(40)"/>
+          </metaAttributes>
+        </column>
+        <column name="height_above_sea_level" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="3" size="12" type="REAL">
+          <metaAttributes>
+            <metaAttribute name="type" value="float"/>
+          </metaAttributes>
+        </column>
+        <column name="lat" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="12" type="REAL">
+          <metaAttributes>
+            <metaAttribute name="type" value="float"/>
+          </metaAttributes>
+        </column>
+        <column name="longitue" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="5" size="12" type="REAL">
+          <metaAttributes>
+            <metaAttribute name="type" value="float"/>
+          </metaAttributes>
+        </column>
+        <column name="name" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="6" size="15" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(15)"/>
+          </metaAttributes>
+        </column>
+        <column name="account_fk" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="7" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+      </columns>
+      <indexes>
+        <indexe columnName="id" indexName="PRIMARY" nonUnique="false"/>
+      </indexes>
+      <importedKeys>
+        <importedKey fkColumnName="account_fk" fkName="FKf880yd6pu34310uhf4hg07c5v" pkColumnName="id" pkTableName="account"/>
+      </importedKeys>
+      <primaryKeys>
+        <primaryKey>id</primaryKey>
+      </primaryKeys>
+    </table>
+    <table name="temp_reading" type="TABLE">
+      <columns>
+        <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+        <column name="date_recorded" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="2" size="19" type="TIMESTAMP">
+          <metaAttributes>
+            <metaAttribute name="type" value="datetime"/>
+          </metaAttributes>
+        </column>
+        <column name="reading" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="3" size="12" type="REAL">
+          <metaAttributes>
+            <metaAttribute name="type" value="float"/>
+          </metaAttributes>
+        </column>
+        <column name="temp_type" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="4" size="255" type="VARCHAR">
+          <metaAttributes>
+            <metaAttribute name="type" value="varchar(255)"/>
+          </metaAttributes>
+        </column>
+        <column name="device_fk" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="5" size="19" type="BIGINT">
+          <metaAttributes>
+            <metaAttribute name="type" value="bigint(20)"/>
+          </metaAttributes>
+        </column>
+      </columns>
+      <indexes>
+        <indexe columnName="id" indexName="PRIMARY" nonUnique="false"/>
+      </indexes>
+      <importedKeys>
+        <importedKey fkColumnName="device_fk" fkName="FKtllo4ffyelrcigta0jhxx58bb" pkColumnName="id" pkTableName="device"/>
+      </importedKeys>
+      <primaryKeys>
+        <primaryKey>id</primaryKey>
+      </primaryKeys>
+    </table>
+  </tables>
+</metadata>

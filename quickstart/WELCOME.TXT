@@ -1,0 +1,41 @@
+This is a sample 'per project' template.
+
+Templates doc: http://www.jaxio.com/documentation/celerio/templates.html
+
+Here is a simple script:
+
+    ${entity.model.type}: Account
+    ${entity.model.var}: account
+    ${entity.model.getter}: getAccount
+    ${entity.service.type}: AccountService
+    ${entity.service.var}: accountService
+    ${entity.service.getter}: getAccountService
+
+    ${entity.model.type}: AlarmReading
+    ${entity.model.var}: alarmReading
+    ${entity.model.getter}: getAlarmReading
+    ${entity.service.type}: AlarmReadingService
+    ${entity.service.var}: alarmReadingService
+    ${entity.service.getter}: getAlarmReadingService
+
+    ${entity.model.type}: AlarmRule
+    ${entity.model.var}: alarmRule
+    ${entity.model.getter}: getAlarmRule
+    ${entity.service.type}: AlarmRuleService
+    ${entity.service.var}: alarmRuleService
+    ${entity.service.getter}: getAlarmRuleService
+
+    ${entity.model.type}: Device
+    ${entity.model.var}: device
+    ${entity.model.getter}: getDevice
+    ${entity.service.type}: DeviceService
+    ${entity.service.var}: deviceService
+    ${entity.service.getter}: getDeviceService
+
+    ${entity.model.type}: TempReading
+    ${entity.model.var}: tempReading
+    ${entity.model.getter}: getTempReading
+    ${entity.service.type}: TempReadingService
+    ${entity.service.var}: tempReadingService
+    ${entity.service.getter}: getTempReadingService
+

@@ -1,0 +1,58 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="!sub">
+        <md-card-title>Search AlarmReading with search criterias</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #alarmReadingForm="ngForm">
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+        <label for="ruleFk">Rule Fk</label>
+    </div>
+    <div class="ui-grid-col-6">
+        <alarmRule-auto-complete [(ngModel)]="example.ruleFk" id="ruleFk" name="ruleFk"></alarmRule-auto-complete>
+    </div>
+</div>
+<div class="ui-grid-row">
+    <div class="ui-grid-col-2">
+        <label for="deviceFk">Device Fk</label>
+    </div>
+    <div class="ui-grid-col-6">
+        <device-auto-complete [(ngModel)]="example.deviceFk" id="deviceFk" name="deviceFk"></device-auto-complete>
+    </div>
+</div>
+        </div>
+
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button (click)="search(dt)"><md-icon>search</md-icon>Search</button>
+        </md-card-actions>
+    </md-card>
+
+    <md-card>
+    <md-card-content>
+    <p>The list of results below is server-side paginated...</p>
+
+    <p-dataTable #dt [value]="currentPage.content"
+                 [lazy]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
+                 [totalRecords]="currentPage.totalElements"
+                 (onLazyLoad)="loadPage($event)"
+                 selectionMode="single"
+                 (onRowSelect)="onRowSelect($event)"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
+                 [responsive]="true">
+        <p-header>{{header}} (count: {{currentPage.totalElements}})</p-header>
+        <p-column field="dateRecorded" header="Date Recorded" sortable="true">
+        </p-column>
+        <p-column styleClass="col-icon">
+            <ng-template let-alarmReading="rowData" pTemplate="body">
+                <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(alarmReading)" style="float:left"></button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
+    </md-card-actions>
+    </md-card>
+</div>

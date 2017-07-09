@@ -1,0 +1,62 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="account" ngForm #accountForm="ngForm">
+        <md-card-title>Account Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="email">Email  *</label></div>
+                <div class="ui-grid-col-6">
+                    <textarea pInputTextarea id="email" [(ngModel)]="account.email" autoResize="true" name="email" #email="ngModel"></textarea>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Email is required
+                    </div>
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors['validateEmail']">
+                        <i class="fa fa-close"></i>
+                        Email is invalid. Expecting a valid email address.
+                    </div>
+                                    </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="firstName">First Name  *</label></div>
+                <div class="ui-grid-col-6">
+                    <textarea pInputTextarea id="firstName" [(ngModel)]="account.firstName" autoResize="true" name="firstName" #firstName="ngModel"></textarea>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!firstName.valid && firstName.dirty && firstName.errors['required']">
+                        <i class="fa fa-close"></i>
+                        First Name is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="lastName">Last Name  *</label></div>
+                <div class="ui-grid-col-6">
+                    <textarea pInputTextarea id="lastName" [(ngModel)]="account.lastName" autoResize="true" name="lastName" #lastName="ngModel"></textarea>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!lastName.valid && lastName.dirty && lastName.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Last Name is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="password">Password  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input type="password" pPassword [(ngModel)]="account.password" name="password" #password="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!accountForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>

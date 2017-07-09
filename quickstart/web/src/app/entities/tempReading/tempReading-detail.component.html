@@ -1,0 +1,50 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="tempReading" ngForm #tempReadingForm="ngForm">
+        <md-card-title>TempReading Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="dateRecorded">Date Recorded </label></div>
+                <div class="ui-grid-col-6">
+                    <p-calendar [(ngModel)]="tempReading.dateRecorded" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="reading">Reading  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="reading" type="number" [(ngModel)]="tempReading.reading"  name="reading" #reading="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="tempType">Temp Type </label></div>
+                <div class="ui-grid-col-6">
+                    <textarea pInputTextarea id="tempType" [(ngModel)]="tempReading.tempType" autoResize="true" name="tempType" #tempType="ngModel"></textarea>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="deviceFk">Device Fk*</label></div>
+                <div class="ui-grid-col-4">
+                    <device-auto-complete [(ngModel)]="tempReading.deviceFk" id="deviceFk" name="deviceFk" [disabled]="sub"></device-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoDeviceFk" type="button" (click)="gotoDeviceFk()" *ngIf="tempReading.deviceFk" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearDeviceFk" type="button" (click)="clearDeviceFk()" *ngIf="tempReading.deviceFk" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!tempReadingForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>
