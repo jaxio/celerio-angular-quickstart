@@ -85,6 +85,7 @@
 
         <!-- use latest versions-->
         <spring-data-releasetrain.version>Hopper-SR1</spring-data-releasetrain.version>
+        <docker.image.prefix>${user.name}</docker.image.prefix>
 
     </properties>
 
@@ -241,6 +242,84 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+            <!-- Copy Dockerfile -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/docker</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/docker</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>rename-file</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>rename</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>${project.build.directory}/docker/Dockerfile.txt</sourceFile>
+                            <destinationFile>${project.build.directory}/docker/Dockerfile</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>zip-files</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <zip destfile="${project.build.directory}/app.zip">
+                                    <zipfileset dir="${project.build.directory}/docker" />
+                                    <zipfileset dir="${project.build.directory}" includes="${project.artifactId}.jar" />
+                                </zip>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>

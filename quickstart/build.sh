@@ -1,5 +1,5 @@
 #!/bin/bash
-rm -rf web
+#rm -rf web
 ng new web
 rm web/src/app/app.module.ts web/src/app/app.component.* web/src/styles.css
 mvn -Pdb,metadata,gen generate-sources
@@ -11,4 +11,4 @@ npm install --save font-awesome
 ng build --prod
 cp dist/* ../src/main/resources/static
 cd ..
-mvn package
+mvn package docker:build
