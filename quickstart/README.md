@@ -187,12 +187,12 @@ Here are the command lines (hope it is self explanatory):
 
 Access it at http://localhost:8080/
 
-##Docker Build
+## Docker Build
 Run ./build.sh 
 This will build the overall docker image with Spring Boot and Angular2 shipped together.
 
-##Docker Run
-###Local
+## Docker Run
+### Local
 This is in my /etc/host on my host pc: 
 127.0.0.1       mysql
 
