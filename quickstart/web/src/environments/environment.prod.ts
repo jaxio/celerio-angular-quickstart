@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  url: 'http://localhost:8080'
+  url: 'http://monitor-dev-slb-2083129347.us-east-1.elb.amazonaws.com'
 };
 
 
