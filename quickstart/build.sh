@@ -1,5 +1,4 @@
 #!/bin/bash
-#rm -rf web
 ng new web
 rm web/src/app/app.module.ts web/src/app/app.component.* web/src/styles.css
 mvn -Pdb,metadata,gen generate-sources
