@@ -186,3 +186,16 @@ Here are the command lines (hope it is self explanatory):
     java -jar target/celerio-angular-quickstart.jar
 
 Access it at http://localhost:8080/
+
+##Docker Build
+Run ./build.sh 
+This will build the overall docker image with Spring Boot and Angular2 shipped together.
+
+##Docker Run
+###Local
+This is in my /etc/host on my host pc: 
+127.0.0.1       mysql
+
+Docker will reference the mysql db running on the host for easy testing.
+
+docker run -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=devlocal" --net=host polinchw/celerio-angular-quickstart
