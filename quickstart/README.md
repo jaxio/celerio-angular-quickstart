@@ -199,3 +199,7 @@ This is in my /etc/host on my host pc:
 Docker will reference the mysql db running on the host for easy testing.
 
 docker run -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=devlocal" --net=host polinchw/celerio-angular-quickstart
+
+### Docker Machine
+docker-machine ssh app-tier-swarm-master 'docker service create -e "SPRING_PROFILES_ACTIVE=aws-dev" -e "JASYPT_ENCRYPTOR_PASSWORD=xxx" --replicas 2 --name monitor-crud -p 8080:8080 polinchw/celerio-angular-quickstart'
+
