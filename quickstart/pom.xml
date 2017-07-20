@@ -85,7 +85,7 @@
 
         <!-- use latest versions-->
         <spring-data-releasetrain.version>Hopper-SR1</spring-data-releasetrain.version>
-        <docker.image.prefix>${user.name}</docker.image.prefix>
+        <docker.image.prefix>polinchw</docker.image.prefix>
 
     </properties>
 

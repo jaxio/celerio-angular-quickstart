@@ -4,4 +4,4 @@ VOLUME /tmp
 ADD celerio-angular-quickstart.jar /opt/docker/
 EXPOSE 8080
 WORKDIR /opt/docker/
-CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Xms512m", "-Xmx1g", "-jar", "celerio-angular-quickstart.jar"]
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-Xms512m", "-Xmx512m", "-jar", "celerio-angular-quickstart.jar"]
