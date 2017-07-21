@@ -5,9 +5,9 @@
  
 ### Upgrades
 
- * primeng from 4.1.0-rc.2 to 4.1.0-rc.3
+ * primeng from 4.1.0-rc.2 to 4.1.1
  * spring-boot from 1.5.2 to 1.5.4
- * material from 2.0.0-beta.6 to 2.0.0-beta.7
+ * material from 2.0.0-beta.6 to 2.0.0-beta.8
 
 ### Other
 
