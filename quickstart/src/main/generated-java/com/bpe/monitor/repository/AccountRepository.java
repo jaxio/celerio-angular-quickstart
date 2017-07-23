@@ -15,6 +15,7 @@ import org.springframework.data.jpa.repository.*;
 
 import com.bpe.monitor.domain.Account;
 import com.bpe.monitor.domain.Account_;
+import org.springframework.data.repository.query.*;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
@@ -37,4 +38,8 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
         Page<Account> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();
     }
+
+    Account findByLastName(@Param("lastName") String lastName);
+
+    Account findByEmail(@Param("email") String email);
 }

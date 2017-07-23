@@ -12,10 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -38,6 +42,21 @@ public class Account implements Identifiable<Long>, Serializable {
     private String firstName;
     private String lastName;
     private String password;
+
+    private List<Device> devices;
+
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+    @JoinColumn(name="account_fk")
+    public List<Device> getDevices() {
+        if(devices == null) {
+            devices = new ArrayList<Device>();
+        }
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
 
     @Override
     public String entityClassName() {
