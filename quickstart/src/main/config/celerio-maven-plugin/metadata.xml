@@ -6,14 +6,14 @@
       <tableType>TABLE</tableType>
     </tableTypes>
   </jdbcConnectivity>
-  <databaseInfo databaseMajorVersion="5" databaseMinorVersion="7" databaseProductName="MySQL" databaseProductVersion="5.7.18-0ubuntu0.16.04.1" driverMajorVersion="5" driverMinorVersion="1" driverName="MySQL Connector Java" driverVersion="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )" extraInfo=""/>
+  <databaseInfo databaseMajorVersion="5" databaseMinorVersion="7" databaseProductName="MySQL" databaseProductVersion="5.7.19-0ubuntu0.16.04.1" driverMajorVersion="5" driverMinorVersion="1" driverName="MySQL Connector Java" driverVersion="mysql-connector-java-5.1.40 ( Revision: 402933ef52cad9aa82624e80acbea46e3a701ce6 )" extraInfo=""/>
   <tables>
     <table name="account" type="TABLE">
       <columns>
         <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
           <metaAttributes>
-            <metaAttribute name="type" value="bigint(20)"/>
             <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
           </metaAttributes>
         </column>
         <column name="email" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="255" type="VARCHAR">
@@ -129,8 +129,8 @@
       <columns>
         <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
           <metaAttributes>
-            <metaAttribute name="extra" value="auto_increment"/>
             <metaAttribute name="type" value="bigint(20)"/>
+            <metaAttribute name="extra" value="auto_increment"/>
           </metaAttributes>
         </column>
         <column name="description" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="40" type="VARCHAR">
@@ -178,8 +178,8 @@
       <columns>
         <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
           <metaAttributes>
-            <metaAttribute name="type" value="bigint(20)"/>
             <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
           </metaAttributes>
         </column>
         <column name="date_recorded" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="2" size="19" type="TIMESTAMP">
