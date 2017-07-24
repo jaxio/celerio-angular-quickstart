@@ -1,0 +1,31 @@
+@startuml
+
+
+package "AWS VPC" {
+  folder "Non-Public Facing" {
+    folder "Database Subnet" {
+        [AWS RDS]  --> MySql
+    }
+    folder "App Server Subnet" {
+        [Spring Boot] --> [AWS RDS]
+    }
+  }
+  folder "Public Facing" {
+    folder "Web Server Subnet" {
+       [AWS Load Balancer] --> [Spring Boot]
+    }
+  }
+}
+
+cloud {
+  [Raspberry PI]
+}
+
+[Raspberry PI] --> [AWS Load Balancer]
+
+database "MySql" {
+
+}
+
+
+@enduml
