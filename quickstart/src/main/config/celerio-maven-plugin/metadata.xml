@@ -50,8 +50,8 @@
       <columns>
         <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
           <metaAttributes>
-            <metaAttribute name="extra" value="auto_increment"/>
             <metaAttribute name="type" value="bigint(20)"/>
+            <metaAttribute name="extra" value="auto_increment"/>
           </metaAttributes>
         </column>
         <column name="date_recorded" decimalDigits="0" autoIncrement="false" nullable="false" ordinalPosition="2" size="19" type="TIMESTAMP">
@@ -85,8 +85,8 @@
       <columns>
         <column name="id" decimalDigits="0" autoIncrement="true" nullable="false" ordinalPosition="1" size="19" type="BIGINT">
           <metaAttributes>
-            <metaAttribute name="type" value="bigint(20)"/>
             <metaAttribute name="extra" value="auto_increment"/>
+            <metaAttribute name="type" value="bigint(20)"/>
           </metaAttributes>
         </column>
         <column name="alarm_type" decimalDigits="0" autoIncrement="false" nullable="true" ordinalPosition="2" size="10" type="INTEGER">
