@@ -23,6 +23,11 @@ import com.bpe.monitor.security.AjaxAuthenticationFailureHandler;
 import com.bpe.monitor.security.AjaxAuthenticationSuccessHandler;
 import com.bpe.monitor.security.AlwaysSendUnauthorized401AuthenticationEntryPoint;
 
+/**
+ * This is where security happens.
+ *
+ * @see http://www.baeldung.com/spring-security-authentication-with-a-database
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -49,7 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring(). //
                 antMatchers(HttpMethod.OPTIONS, "/**"). //
-                antMatchers("/"). //
+                antMatchers("/"). //,
+                antMatchers("/signup"). //
                 antMatchers("/*.{js,html}"). //
                 antMatchers("/img/**"). //
                 antMatchers("/node_modules/**"). //

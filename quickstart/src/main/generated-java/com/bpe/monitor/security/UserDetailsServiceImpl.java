@@ -28,18 +28,17 @@ import com.bpe.monitor.repository.AccountRepository;
  * An implementation of Spring Security's {@link UserDetailsService}.
  * 
  * @see http://static.springsource.org/spring-security/site/reference.html
+ *
+ * @see http://www.baeldung.com/spring-security-authentication-with-a-database
+ *
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
-    private AccountRepository accountRepository;
-
     @Inject
-    public UserDetailsServiceImpl(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+    private AccountRepository accountRepository;
 
     /**
      * Retrieve an account depending on its login this method is not case sensitive.
