@@ -1,6 +1,7 @@
 package com.bpe.monitor.quickstart.test;
 
 import com.bpe.monitor.Application;
+import com.bpe.monitor.domain.Account;
 import com.bpe.monitor.dto.AccountDTO;
 import org.apache.coyote.http11.Constants;
 import org.junit.Test;
@@ -29,13 +30,13 @@ public class RestTests {
 
     @Test
     public void testFileWrite() throws Exception {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.email = "polinchw@netscape.net";
-        accountDTO.firstName = "Bill";
-        accountDTO.lastName = "Polinchak";
-        accountDTO.password = "password";
+        Account account = new Account();
+        account.setEmail("polinchw@netscape.net");
+        account.setFirstName("Bill");
+        account.setLastName("Polinchak");
+        account.setPassword("password");
 
-        String body = this.restTemplate.postForObject("/api/accounts", accountDTO, String.class);
+        String body = this.restTemplate.postForObject("/signup", account, String.class);
         assertThat(body).contains("Request Received Successfully");
     }
 }
