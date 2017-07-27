@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * This test will fire up a test db and test the repositories against it.
+ *
  * Created by polinchw on 6/10/17.
  */
 

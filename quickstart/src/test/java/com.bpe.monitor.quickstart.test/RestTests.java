@@ -20,10 +20,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
+/**
+ * This will deploy the app and start it up.  It will then test the Rest APIs.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
-//@DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class RestTests {
 
