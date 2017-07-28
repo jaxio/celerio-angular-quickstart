@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -222,7 +223,7 @@ public class Account implements Identifiable<Long>, Serializable {
                 .add("email", getEmail()) //
                 .add("firstName", getFirstName()) //
                 .add("lastName", getLastName()) //
-                .add("password", "XXXX") //
+                .add("password", getPassword()) //
                 .toString();
     }
 }

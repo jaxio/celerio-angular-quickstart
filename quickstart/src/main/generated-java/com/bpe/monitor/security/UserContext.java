@@ -11,16 +11,22 @@ import static java.util.Collections.emptyList;
 import java.util.List;
 import java.util.Locale;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * Get Spring security context to access user data security infos
  */
 public final class UserContext {
+
     public static final String ANONYMOUS_USER = "anonymousUser";
+
+    private final static Logger log = LoggerFactory.getLogger(UserContext.class);
 
     private UserContext() {
     }
@@ -70,7 +76,10 @@ public final class UserContext {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null && auth.getPrincipal() instanceof UserDetails) {
-            return ((UserDetails) auth.getPrincipal());
+            UserDetails ud = ((UserDetails) auth.getPrincipal());
+            MyUserDetails myUserDetails = new MyUserDetails(ud,new BCryptPasswordEncoder(11));
+            log.info("myUserDetails username: "+myUserDetails.getUsername());
+            log.info("myUserDetails password: "+myUserDetails.getPassword());
         }
 
         return null;

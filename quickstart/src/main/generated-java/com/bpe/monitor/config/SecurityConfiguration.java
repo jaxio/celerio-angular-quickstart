@@ -6,10 +6,13 @@
 package com.bpe.monitor.config;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +20,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
 import com.bpe.monitor.security.AjaxAuthenticationFailureHandler;
@@ -27,6 +32,8 @@ import com.bpe.monitor.security.AlwaysSendUnauthorized401AuthenticationEntryPoin
  * This is where security happens.
  *
  * @see http://www.baeldung.com/spring-security-authentication-with-a-database
+ *
+ * @see https://www.mkyong.com/spring-security/spring-security-password-hashing-example/
  */
 @Configuration
 @EnableWebSecurity
@@ -46,8 +53,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AlwaysSendUnauthorized401AuthenticationEntryPoint alwaysSendUnauthorized401AuthenticationEntryPoint;
 
     @Inject
+    DataSource dataSource;
+
+    @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
+    }
+
+    @Inject
+    public void configAuthentication(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(encoder()).usersByUsernameQuery("select email as principal, password as credentials, true from account where email = ?")
+                .authoritiesByUsernameQuery("select email as principal, email as role from account where email = ?");
     }
 
     @Override
@@ -94,5 +111,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider
+                = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(encoder());
+        return authProvider;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder(11);
     }
 }
