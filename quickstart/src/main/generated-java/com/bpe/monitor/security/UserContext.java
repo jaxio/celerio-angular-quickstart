@@ -77,9 +77,7 @@ public final class UserContext {
 
         if (auth != null && auth.getPrincipal() instanceof UserDetails) {
             UserDetails ud = ((UserDetails) auth.getPrincipal());
-            MyUserDetails myUserDetails = new MyUserDetails(ud,new BCryptPasswordEncoder(11));
-            log.info("myUserDetails username: "+myUserDetails.getUsername());
-            log.info("myUserDetails password: "+myUserDetails.getPassword());
+            return ud;
         }
 
         return null;
