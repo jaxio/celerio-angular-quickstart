@@ -24,3 +24,5 @@ quickstart/src/main/webapp/typings
 
 #docker
 docker/*
+/quickstart/web/node_modules/
+/quickstart/target/

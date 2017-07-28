@@ -1,0 +1,74 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="device" ngForm #deviceForm="ngForm">
+        <md-card-title>Device Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="description">Description  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="description" [(ngModel)]="device.description"  required placeholder="Required"  name="description" #description="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!description.valid && description.dirty && description.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Description is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="heightAboveSeaLevel">Height Above Sea Level </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="heightAboveSeaLevel" type="number" [(ngModel)]="device.heightAboveSeaLevel"  name="heightAboveSeaLevel" #heightAboveSeaLevel="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="lat">Lat </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="lat" type="number" [(ngModel)]="device.lat"  name="lat" #lat="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="longitue">Longitue </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="longitue" type="number" [(ngModel)]="device.longitue"  name="longitue" #longitue="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="name">Name  *</label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="name" [(ngModel)]="device.name"  required placeholder="Required"  name="name" #name="ngModel"/>
+                </div>
+                <div class="ui-grid-col-4">
+                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!name.valid && name.dirty && name.errors['required']">
+                        <i class="fa fa-close"></i>
+                        Name is required
+                    </div>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="accountFk">Account Fk*</label></div>
+                <div class="ui-grid-col-4">
+                    <account-auto-complete [(ngModel)]="device.accountFk" id="accountFk" name="accountFk" [disabled]="sub"></account-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoAccountFk" type="button" (click)="gotoAccountFk()" *ngIf="device.accountFk" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearAccountFk" type="button" (click)="clearAccountFk()" *ngIf="device.accountFk" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!deviceForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>

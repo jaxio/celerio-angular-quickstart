@@ -1,0 +1,46 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="alarmReading" ngForm #alarmReadingForm="ngForm">
+        <md-card-title>AlarmReading Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="dateRecorded">Date Recorded  *</label></div>
+                <div class="ui-grid-col-6">
+                    <p-calendar [(ngModel)]="alarmReading.dateRecorded" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="ruleFk">Rule Fk</label></div>
+                <div class="ui-grid-col-4">
+                    <alarmRule-auto-complete [(ngModel)]="alarmReading.ruleFk" id="ruleFk" name="ruleFk" [disabled]="sub"></alarmRule-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoRuleFk" type="button" (click)="gotoRuleFk()" *ngIf="alarmReading.ruleFk" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearRuleFk" type="button" (click)="clearRuleFk()" *ngIf="alarmReading.ruleFk" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="deviceFk">Device Fk*</label></div>
+                <div class="ui-grid-col-4">
+                    <device-auto-complete [(ngModel)]="alarmReading.deviceFk" id="deviceFk" name="deviceFk" [disabled]="sub"></device-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoDeviceFk" type="button" (click)="gotoDeviceFk()" *ngIf="alarmReading.deviceFk" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearDeviceFk" type="button" (click)="clearDeviceFk()" *ngIf="alarmReading.deviceFk" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!alarmReadingForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>

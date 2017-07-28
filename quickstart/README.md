@@ -185,3 +185,24 @@ Here are the command lines (hope it is self explanatory):
     java -jar target/celerio-angular-quickstart.jar
 
 Access it at http://localhost:8080/
+
+## Docker Build
+Run ./build.sh 
+This will build the overall docker image with Spring Boot and Angular2 shipped together.
+
+## Docker Run
+### Local
+This is in my /etc/host on my host pc: 
+127.0.0.1       mysql
+
+Docker will reference the mysql db running on the host for easy testing.
+
+docker run -p 8080:8080 -e "SPRING_PROFILES_ACTIVE=dev-local" --net=host polinchw/celerio-angular-quickstart
+
+### Docker Swarm AWS creation
+./docker-tools/docker-machine/docker-swarm/aws/bash-scripts/create-swarm-instances.sh AKIAJB7DZD4I6QA2XBRA xxx vpc-9dc174e4 subnet-8102b5ad polinchw app-tier 1 ami-8887be9e AppSecurityGroup
+
+
+### Docker Machine
+docker-machine ssh app-tier-swarm-master 'docker service create -e "SPRING_PROFILES_ACTIVE=aws-dev" -e "JASYPT_ENCRYPTOR_PASSWORD=xxx" --replicas 2 --name monitor-crud -p 8080:8080 polinchw/celerio-angular-quickstart'
+

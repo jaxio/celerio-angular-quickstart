@@ -1,0 +1,58 @@
+<div class="ContentSideSections Implementation">
+    <md-card *ngIf="alarmRule" ngForm #alarmRuleForm="ngForm">
+        <md-card-title>AlarmRule Details</md-card-title>
+        <md-card-content>
+        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="alarmType">Alarm Type </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="alarmType" type="number" [(ngModel)]="alarmRule.alarmType"  name="alarmType" #alarmType="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="emailToAlert">Email To Alert </label></div>
+                <div class="ui-grid-col-6">
+                    <textarea pInputTextarea id="emailToAlert" [(ngModel)]="alarmRule.emailToAlert" autoResize="true" name="emailToAlert" #emailToAlert="ngModel"></textarea>
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="high">High </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="high" type="number" [(ngModel)]="alarmRule.high"  name="high" #high="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="low">Low </label></div>
+                <div class="ui-grid-col-6">
+                    <input pInputText id="low" type="number" [(ngModel)]="alarmRule.low"  name="low" #low="ngModel" />
+                </div>
+                <div class="ui-grid-col-4">
+                </div>
+            </div>
+             <div class="ui-grid-row">
+                <div class="ui-grid-col-2"><label for="accountFk">Account Fk</label></div>
+                <div class="ui-grid-col-4">
+                    <account-auto-complete [(ngModel)]="alarmRule.accountFk" id="accountFk" name="accountFk" [disabled]="sub"></account-auto-complete>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="gotoAccountFk" type="button" (click)="gotoAccountFk()" *ngIf="alarmRule.accountFk" icon="fa-pencil" label="Edit"></button>
+                </div>
+                <div class="ui-grid-col-1" *ngIf="!sub">
+                    <button pButton id="clearAccountFk" type="button" (click)="clearAccountFk()" *ngIf="alarmRule.accountFk" icon="fa-chain-broken" label="Clear"></button>
+                </div>
+            </div>
+         </div>
+        </md-card-content>
+        <md-card-actions>
+            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
+            <button md-raised-button (click)="onSave()" [disabled]="!alarmRuleForm.form.valid"><md-icon>save</md-icon>Save</button>
+        </md-card-actions>
+    </md-card>
+
+</div>
