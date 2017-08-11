@@ -21,12 +21,12 @@ is just a matter of configuration. Check as an example our instructions to [use 
 
 ## What to expect?
 
-To see it in action with no effort you may run our sample docker or watch a screencast.
+To see it in action with no effort you may run our sample docker image or watch a screencast.
 Remember, this is just a generated sample, the idea is to generate your own application using a more realistic database schema.
 
 ### Sample Docker image
 
-You may run a docker image of the sample generated webapp:
+To run the docker image of the sample generated webapp:
 
     docker run -p 8080:8080 nromanetti/celerio-angular-quickstart
 
