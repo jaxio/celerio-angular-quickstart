@@ -83,12 +83,9 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detai
 
                     <p-fileUpload *ngIf="${entity.model.var}.${identifiableProperty.var}" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
                     </p-fileUpload>
-                    <!-- visual hack -->
-                    <p-fileUpload *ngIf="!${entity.model.var}.${identifiableProperty.var}" disabled="true" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
-                        <ng-template pTemplate="content">
-                            <div>For the moment, you must save the form before being able to upload a file...</div>
-                        </ng-template>
-                    </p-fileUpload>
+                    <p *ngIf="!${entity.model.var}.${identifiableProperty.var}">
+                        Please save the form before being able to upload a file
+                    </p>
 #else
 
                     <input pInputText id="$attr.var" [(ngModel)]="$valuePath" #required($attr) name="$attr.var" #name="ngModel"/>

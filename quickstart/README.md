@@ -33,7 +33,7 @@ Make sure you wait until spring boot starts and listen on port 8080
     cd celerio-angular-quickstart/quickstart/web
     npm install --save @angular/material@2.0.0-beta.8 @angular/cdk@2.0.0-beta.8
     npm install --save @angular/animations
-    npm install --save primeng@4.1.1
+    npm install --save primeng@4.1.3
     npm install --save font-awesome
     ng serve --proxy-config proxy.conf.json
 
@@ -93,7 +93,7 @@ The 4 command below install some additional dependencies required by the code ge
 
     npm install --save @angular/material@2.0.0-beta.8 @angular/cdk@2.0.0-beta.8
     npm install --save @angular/animations
-    npm install --save primeng@4.1.1
+    npm install --save primeng@4.1.3
     npm install --save font-awesome
 
 Starts a node server on port 4200 using angular cli. The node server proxies the calls to /api and /img to the 
@@ -176,7 +176,7 @@ Here are the command lines (hope it is self explanatory):
     cd web
     npm install --save @angular/material@2.0.0-beta.8 @angular/cdk@2.0.0-beta.8
     npm install --save @angular/animations
-    npm install --save primeng@4.1.1
+    npm install --save primeng@4.1.3
     npm install --save font-awesome
     ng build --prod
     cp dist/* ../src/main/resources/static
