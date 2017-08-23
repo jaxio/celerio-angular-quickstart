@@ -42,7 +42,7 @@ Then open [http://localhost:4200/](http://localhost:4200/)
 * Commands above are explained [here](#generate-it-and-run-it)
 * [Delete all generated files](#delete-all-generated-files)
 * [How-to use your own database](#how-to-use-your-own-database)
-* [How-to package it in a single jar and run it](How-to-package-it-in-a-single-jar-and-run-it)
+* [How-to package it in a single jar and run it](#how-to-package-it-in-a-single-jar-and-run-it)
 
 ## Generate it and run it
 
