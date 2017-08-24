@@ -6,5 +6,25 @@
   "/img": {
     "target": "http://localhost:8080",
     "secure": false
+  },
+  "/webjars": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/v2": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/swagger*": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/configuration/security": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/configuration/ui": {
+    "target": "http://localhost:8080",
+    "secure": false
   }
 }
