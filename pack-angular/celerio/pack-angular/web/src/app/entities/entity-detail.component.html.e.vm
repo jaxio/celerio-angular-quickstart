@@ -2,20 +2,20 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detai
 ## -- [MACRO]
 #macro(xToOneEdit $relation)
             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="$relation.to.var">${relation.labels.label}#{if}($relation.isMandatory())*#{end}</label></div>
+                <div class="ui-grid-col-2"><label for="$relation.to.var">${relation.labels.label}#{if}($relation.isMandatory()) *#{end}</label></div>
                 <div class="ui-grid-col-4">
                     <${relation.toEntity.model.var}-auto-complete [(ngModel)]="${entity.model.var}.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}" [disabled]="sub"></${relation.toEntity.model.var}-auto-complete>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="goto${relation.to.varUp}" type="button" (click)="goto${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-pencil" label="Edit"></button>
+                <div class="ui-grid-col-1">
+                    <button pButton id="goto${relation.to.varUp}" type="button" (click)="goto${relation.to.varUp}()" *ngIf="!sub && ${entity.model.var}.${relation.to.var}" icon="fa-pencil" label="Edit"></button>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="clear${relation.to.varUp}" type="button" (click)="clear${relation.to.varUp}()" *ngIf="${entity.model.var}.${relation.to.var}" icon="fa-chain-broken" label="Clear"></button>
+                <div class="ui-grid-col-1">
+                    <button pButton id="clear${relation.to.varUp}" type="button" (click)="clear${relation.to.varUp}()" *ngIf="!sub && ${entity.model.var}.${relation.to.var}" icon="fa-chain-broken" label="Clear"></button>
                 </div>
             </div>
 #end
 #macro(required $attribute)
-#if($attribute.isRequired() && $attribute.isString()) required placeholder="Required"#end
+#if($attribute.isRequired() && $attribute.isString()) required #end
 #end
 #macro(minlength $attribute)
 #if($attribute.columnConfig.hasMin()) minlength="$attribute.columnConfig.min"#end
@@ -23,8 +23,30 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detai
 #macro(asterisk $attribute)
 #if($attribute.isRequired()) *#end
 #end
+#macro(mderror $attribute)
+
+#if($attribute.isRequired() && $attribute.isString())
+                    <md-error *ngIf="!${attribute.var}.valid && ${attribute.var}.dirty && ${attribute.var}.errors['required']">
+                        $attribute.labels.label is required.
+                    </md-error>
+#end
+#if($attribute.columnConfig.hasMin() && $attribute.isString())
+                    <md-error *ngIf="!${attribute.var}.valid && ${attribute.var}.dirty && ${attribute.var}.errors['minlength']">
+                        $attribute.labels.label must have at least $attribute.columnConfig.min characters.
+                    </md-error>
+#end
+#if($attribute.isEmail())
+                    <md-error *ngIf="!${attribute.var}.valid && ${attribute.var}.dirty && ${attribute.var}.errors['validateEmail']">
+                        $attribute.labels.label is invalid. Expecting a valid email address.
+                    </md-error>
+#end
+#if($attribute.isUrl())
+                    <md-error *ngIf="!${attribute.var}.valid && ${attribute.var}.dirty && ${attribute.var}.errors['pattern']">
+                        $attribute.labels.label is invalid. Expecting a valid URL.
+                    </md-error>
+#end
+#end
 ## -- [/MACROS]
-<div class="ContentSideSections Implementation">
     <md-card *ngIf="$entity.model.var" ngForm #${entity.model.var}Form="ngForm">
         <md-card-title>$entity.model.type Details</md-card-title>
         <md-card-content>
@@ -43,84 +65,91 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detai
 #end
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2"><label for="$attr.var">$attr.labels.label #asterisk($attr)</label></div>
-                <div class="ui-grid-col-6">
 #if($attr.springMvc.isPassword())
-                    <input type="password" pPassword [(ngModel)]="$valuePath" name="$attr.var" ${p}$attr.var="ngModel"/>
+                <div class="ui-grid-col-2">
+                <md-input-container style="width: 100%">
+                    <input mdInput type="password" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+                    #mderror($attr)
+                </md-input-container>
 #elseif($attr.isHtml())
                 todo html
 #elseif($attr.isTextArea())
-                    <textarea pInputTextarea id="$attr.var" [(ngModel)]="$valuePath" autoResize="true" name="$attr.var" ${p}$attr.var="ngModel"></textarea>
+                <div class="ui-grid-col-6">
+                <md-input-container style="width: 100%">
+                    <textarea mdInput id="$attr.var" [(ngModel)]="$valuePath" autoResize="true" name="$attr.var" ${p}$attr.var="ngModel"></textarea>
+                    #mderror($attr)
+                </md-input-container>
 #elseif($attr.isEnum())
-                    <p-dropdown [options]="${attr.var}Options" [(ngModel)]="$valuePath" name="$attr.var" ${p}$attr.var="ngModel"></p-dropdown>
+                <div class="ui-grid-col-2">
+                <md-select [(ngModel)]="$valuePath" name="$attr.var" ${p}$attr.var="ngModel" style="width: 100%">
+                    <md-option *ngFor="let ${attr.var}Option of ${attr.var}Options" [value]="${attr.var}Option.value">{{ ${attr.var}Option.label }}</md-option>
+                </md-select>
 #elseif($attr.isEmail())
-                    <input pInputText id="$attr.var" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) validateEmail name="$attr.var" ${p}$attr.var="ngModel"/>
+                <div class="ui-grid-col-3">
+                <md-input-container style="width: 100%">
+                    <input mdInput id="$attr.var" type="email" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) validateEmail name="$attr.var" ${p}$attr.var="ngModel"/>
+                    #mderror($attr)
+                </md-input-container>
 #elseif($attr.isUrl())
-                    <input pInputText id="$attr.var" pattern="^http.*" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+                <div class="ui-grid-col-4">
+                <md-input-container style="width: 100%">
+                    <input mdInput id="$attr.var" type="url" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+                    #mderror($attr)
+                </md-input-container>
 #elseif($attr.isString())
-                    <input pInputText id="$attr.var" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+                <div class="ui-grid-col-4">
+                <md-input-container style="width: 100%">
+                    <input mdInput id="$attr.var" type="text" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+                    #mderror($attr)
+                </md-input-container>
 #elseif($attr.isNumeric())
-                    <input pInputText id="$attr.var" type="number" [(ngModel)]="$valuePath" #required($attr) name="$attr.var" ${p}$attr.var="ngModel" />
+                <div class="ui-grid-col-2">
+                <md-input-container style="width: 100%">
+                    <input mdInput id="$attr.var" type="number" [(ngModel)]="$valuePath" #required($attr) name="$attr.var" ${p}$attr.var="ngModel" />
+                    #mderror($attr)
+                </md-input-container>
 #elseif($attr.isDate() && !$attr.isVersion())
-#if($attr.isJavaUtilOnlyDate())
-                    <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
-#elseif($attr.isJavaUtilDateAndTime())
-                date and time not supported yet
-#elseif($attr.isLocalDate())
-                    <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+#if($attr.isJavaUtilOnlyDate() || $attr.isLocalDate())
+                <div class="ui-grid-col-2">
+                <md-input-container>
+                  <input mdInput id="$attr.var" [mdDatepicker]="${attr.var}Picker" [(ngModel)]="$valuePath" #required($attr) name="$attr.var" ${p}$attr.var="ngModel">
+                  <button mdSuffix [mdDatepickerToggle]="${attr.var}Picker"></button>
+                </md-input-container>
+                <md-datepicker ${pound}${attr.var}Picker></md-datepicker>
 #elseif($attr.isLocalDateTime() || $attr.isInstant())
-                    <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                <div class="ui-grid-col-2">
+                <p-calendar [(ngModel)]="$valuePath" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
 #else
+                <div class="ui-grid-col-2">
                 Date type not supported, do it manually and send us the solution!
 #end
 #elseif($attr.isBoolean())
-                    <p-triStateCheckbox [(ngModel)]="$valuePath" name="$attr.var"></p-triStateCheckbox>{{$valuePath}}
+                <div class="ui-grid-col-2">
+                <p-triStateCheckbox [(ngModel)]="$valuePath" name="$attr.var"></p-triStateCheckbox>{{$valuePath}}
 #elseif($attr.isFile() && $attr.filename)
-                    <ul *ngIf="${entity.model.var}.${attr.filename.var}">
-                        <li><a href="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/download/${attr.var}">Download {{${entity.model.var}.${attr.filename.var}}}</a></li>
-                        <li>Content-Type: {{${entity.model.var}.${attr.fileContentType.var}}}</li>
-                        <li>Size in bytes: {{${entity.model.var}.${attr.fileSize.var}}}</li>
-                    </ul>
+                <div class="ui-grid-col-8">
+                <ul *ngIf="${entity.model.var}.${attr.filename.var}">
+                    <li><a href="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/download/${attr.var}">Download {{${entity.model.var}.${attr.filename.var}}}</a></li>
+                    <li>Content-Type: {{${entity.model.var}.${attr.fileContentType.var}}}</li>
+                    <li>Size in bytes: {{${entity.model.var}.${attr.fileSize.var}}}</li>
+                </ul>
 
-                    <p-fileUpload *ngIf="${entity.model.var}.${identifiableProperty.var}" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
-                    </p-fileUpload>
-                    <p *ngIf="!${entity.model.var}.${identifiableProperty.var}">
-                        Please save the form before being able to upload a file
-                    </p>
+                <p-fileUpload *ngIf="${entity.model.var}.${identifiableProperty.var}" name="${attr.var}" url="/api/${entity.model.vars}/{{${entity.model.var}.${identifiableProperty.var}}}/upload/${attr.var}" (onUpload)="on${attr.varUp}Upload(${d}event)" >
+                </p-fileUpload>
+                <p *ngIf="!${entity.model.var}.${identifiableProperty.var}">
+                    Please save the form before being able to upload a file
+                </p>
 #else
-
-                    <input pInputText id="$attr.var" [(ngModel)]="$valuePath" #required($attr) name="$attr.var" #name="ngModel"/>
-#end
-                </div>
                 <div class="ui-grid-col-4">
-#if($attr.isRequired() && $attr.isString() && !$attr.isPassword())
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['required']">
-                        <i class="fa fa-close"></i>
-                        $attr.labels.label is required
-                    </div>
-#end
-#if($attr.columnConfig.hasMin() && $attr.isString() && !$attr.isPassword())
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['minlength']">
-                        <i class="fa fa-close"></i>
-                        $attr.labels.label must have at least $attr.columnConfig.min characters.
-                    </div>
-#end
-#if($attr.isEmail())
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['validateEmail']">
-                        <i class="fa fa-close"></i>
-                        $attr.labels.label is invalid. Expecting a valid email address.
-                    </div>
-                    #end
-#if($attr.isUrl())
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!${attr.var}.valid && ${attr.var}.dirty && ${attr.var}.errors['pattern']">
-                        <i class="fa fa-close"></i>
-                        $attr.labels.label is invalid. Expecting an URL starting with 'http'.
-                    </div>
+                <md-input-container style="width: 100%">
+                    <input mdInput id="$attr.var" type="text" [(ngModel)]="$valuePath" #required($attr) #minlength($attr) name="$attr.var" ${p}$attr.var="ngModel"/>
+                    #mderror($attr)
+                </md-input-container>
 #end
                 </div>
             </div>
+#end ##---------- [/NON VERSION]
 #end ## foreach(....
-##---------- [/NON VERSION]
-#end
 ## ---------------------------------------------------------
         </div>
         </md-card-content>
@@ -164,4 +193,3 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detai
     </md-card-content>
     </md-card>
 #end
-</div>

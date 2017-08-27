@@ -25,3 +25,7 @@ button.ui-button.ui-state-default {
     padding-bottom: 0em;
     padding-left: 0em;
 }
+
+.ui-grid-row {
+    align-items: center;
+}
