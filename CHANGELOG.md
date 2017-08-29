@@ -1,19 +1,21 @@
 # Change log
 
 
-## current -
+## tag v0.9.1 - 2017-08-29
  
 ### Upgrades
 
  * primeng from 4.1.0-rc.2 to 4.1.3
  * spring-boot from 1.5.2 to 1.5.4
  * material from 2.0.0-beta.6 to 2.0.0-beta.8
+ * swagger from 2.0.2 to 2.7.0
 
 ### Other
 
  * provide a Docker image of the sample generated app (see README.md)
+ * more material 2 components usage
   
-## v0.9.0 - 2017-06-18
+## tag v0.9.0 - 2017-06-18
 
 ### Upgrades
 
