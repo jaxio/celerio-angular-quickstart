@@ -26,6 +26,17 @@ button.ui-button.ui-state-default {
     padding-left: 0em;
 }
 
-.ui-grid-row {
-    align-items: center;
+
+label.required  {
+    font-weight: bold;
+}
+
+label.required:after {
+    color: red;
+    content: ' *';
+    display:inline;
+}
+
+.alignlabels {
+    align-items: baseline;
 }

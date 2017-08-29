@@ -38,6 +38,7 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.
         </md-card-actions>
     </md-card>
 
+    <br/>
     <md-card>
 #if($entity.hasComment())
     <md-card-subtitle>DB comment: ${entity.comment}</md-card-subtitle>
