@@ -80,3 +80,4 @@ You may of course [report issues](https://github.com/jaxio/celerio-angular-quick
 [use MySQL]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart/README-MYSQL.md
 [Celerio]: https://github.com/jaxio/celerio
 [Velocity]: http://velocity.apache.org/
+
