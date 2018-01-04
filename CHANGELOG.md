@@ -1,6 +1,14 @@
 # Change log
 
 
+## tag v5.0 - 2018-01-04
+ 
+### Upgrades
+
+ * Use the new angular HttpClient
+ * primeng from 4.1.3 to 5.0.2
+ * material from 2.0.0-beta.8 to latest (5.0)
+
 ## tag v0.9.1 - 2017-08-29
  
 ### Upgrades
