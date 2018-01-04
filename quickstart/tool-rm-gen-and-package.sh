@@ -17,8 +17,8 @@ rm web/src/app/app.module.ts web/src/app/app.component.* web/src/styles.css
 mvn -Pdb,metadata,gen generate-sources
 cd web
 npm install --save @angular/animations
-npm install --save @angular/material@2.0.0-beta.8 @angular/cdk@2.0.0-beta.8
-npm install --save primeng@4.1.3
+npm install --save @angular/material @angular/cdk
+npm install --save primeng@5.0.2
 npm install --save font-awesome
 ng build --prod
 cp dist/* ../src/main/resources/static

@@ -107,8 +107,8 @@ export class AppComponent implements OnInit {
                     {label: "Source code", icon: 'fa-github-alt', url: "https://github.com/jaxio/celerio-angular-quickstart"},
                     {label: "Celerio Documentation", icon: 'fa-external-link', url: "http://www.jaxio.com/documentation/celerio/"},
                     {label: "Angular Cli", icon: 'fa-external-link', url: "https://cli.angular.io/"},
-                    {label: "Angular 4", icon: 'fa-external-link', url: "https://angular.io/"},
-                    {label: "Material 2", icon: 'fa-external-link', url: "https://material.angular.io/"},
+                    {label: "Angular 5", icon: 'fa-external-link', url: "https://angular.io/"},
+                    {label: "Material 5", icon: 'fa-external-link', url: "https://material.angular.io/"},
                     {label: "PrimeNG Showcase", icon: 'fa-external-link', url: "http://www.primefaces.org/primeng"},
                     {label: "TypeScript", icon: 'fa-external-link', url: "https://www.typescriptlang.org/"},
                     {label: "Spring Boot", icon: 'fa-external-link', url: "http://projects.spring.io/spring-boot/"},
@@ -157,13 +157,5 @@ export class AppComponent implements OnInit {
                     this.authenticated = false;
                 }
         );
-    }
-
-    // sample method from angular doc
-    private handleError (error: any) {
-        let errMsg = (error.message) ? error.message :
-        error.status ? `Status: ${d}{error.status} - Text: ${d}{error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
-        return Observable.throw(errMsg);
     }
 }

@@ -1,10 +1,10 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.component.ts")##
-import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTable, LazyLoadEvent } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from "../../support/confirm-delete-dialog.component";
 import { $entity.model.type } from './${entity.model.var}';
 import { ${entity.model.type}DetailComponent } from './${entity.model.var}-detail.component';
@@ -57,7 +57,7 @@ export class ${entity.model.type}ListComponent {
     constructor(private router : Router,
         private $entity.service.var : $entity.service.type,
         private messageService : MessageService,
-        private confirmDeleteDialog: MdDialog) {
+        private confirmDeleteDialog: MatDialog) {
     }
 
     /**

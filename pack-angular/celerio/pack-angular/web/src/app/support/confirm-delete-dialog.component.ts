@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-confirm-delete-dialog',
   template: `
-    <h2 md-dialog-title>Delete Confirmation</h2>
-    <md-dialog-content>
+    <h2 mat-dialog-title>Delete Confirmation</h2>
+    <mat-dialog-content>
       Do you want to delete this record?
-    </md-dialog-content>
+    </mat-dialog-content>
 
-    <md-dialog-actions>
-      <button md-raised-button (click)="dialogRef.close('cancel')">No</button>&nbsp;
-      <button md-raised-button (click)="dialogRef.close('delete')">Yes</button>
-    </md-dialog-actions>
+    <mat-dialog-actions>
+      <button mat-raised-button (click)="dialogRef.close('cancel')">No</button>&nbsp;
+      <button mat-raised-button (click)="dialogRef.close('delete')">Yes</button>
+    </mat-dialog-actions>
   `
 })
 export class ConfirmDeleteDialogComponent {
-  constructor(public dialogRef: MdDialogRef<ConfirmDeleteDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<ConfirmDeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 }

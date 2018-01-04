@@ -7,7 +7,7 @@ to **reverse your relational database schema** and **generate** the Angular + Sp
 to access your database content. The generated code covers much more areas than a simple Hello World app (search,
 pagination, validation, auto-complete, etc.) 
 
-To generate an application from our sample database, follow the instructions from the [quickstart][] folder.
+**To generate an application from our sample database, follow the instructions from the [quickstart][] folder.**
 
 Take a look at the generated code for yourself. Out of this 
 [sample SQL schema](https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart-conf/01-create.sql)
@@ -55,7 +55,7 @@ Here is the folder organization:
 The generated Angular CRUD web app uses the following technologies/frameworks:
 
 * [Angular Cli](http://cli.angular.io/) a command line interface for Angular
-* [Angular 4.2](http://angular.io/) web framework: we try to always use the most recent version
+* [Angular 5](http://angular.io/) web framework: we try to always use the most recent version
 * [TypeScript](https://www.typescriptlang.org/): much easier than JavaScript... 
 * [PrimeNG](http://primefaces.org/primeng/): Angular components library, we leverage file upload, auto-complete, calendar, tri-state checkbox, server-side pagination, etc.
 * [Angular Material](https://material.angular.io/): Material Design components for Angular apps

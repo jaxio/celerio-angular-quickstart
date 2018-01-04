@@ -1,29 +1,30 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}.service.ts")##
 import { Injectable } from '@angular/core';
-import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClientModule, HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { LazyLoadEvent } from 'primeng/primeng';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import { MessageService } from '../../service/message.service';
 import { PageResponse, PageRequestByExample } from '../../support/paging';
 import { ${entity.model.type} } from './${entity.model.var}';
+import { Observable } from 'rxjs/Rx';
+import { catchError, map } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ${entity.service.type} {
 
-    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
+    private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
-    constructor(private http: Http, private messageService : MessageService) {}
+    constructor(private http: HttpClient, private messageService : MessageService) {}
 
     /**
      * Get a $entity.model.type by id.
      */
     ${entity.model.getter}(id : any) : Observable<$entity.model.type> {
         return this.http.get('/api/${entity.model.vars}/' + id)
-            .map(response => new ${entity.model.type}(response.json()))
-            .catch(this.handleError);
+            .pipe(
+                map(response => new ${entity.model.type}(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -33,8 +34,10 @@ export class ${entity.service.type} {
         let body = JSON.stringify($entity.model.var);
 
         return this.http.put('/api/$entity.model.vars/', body, this.options)
-            .map(response => new ${entity.model.type}(response.json()))
-            .catch(this.handleError);
+            .pipe(
+                map(response => new ${entity.model.type}(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -46,11 +49,13 @@ export class ${entity.service.type} {
         let body = JSON.stringify(req);
 
         return this.http.post('/api/$entity.model.vars/page', body, this.options)
-            .map(response => {
-                let pr : any = response.json();
-                return new PageResponse<$entity.model.type>(pr.totalPages, pr.totalElements, ${entity.model.type}.toArray(pr.content));
-            })
-            .catch(this.handleError);
+            .pipe(
+                map(response => {
+                    let pr : any = response;
+                    return new PageResponse<$entity.model.type>(pr.totalPages, pr.totalElements, ${entity.model.type}.toArray(pr.content));
+                }),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -59,24 +64,26 @@ export class ${entity.service.type} {
      */
     complete(query : string) : Observable<${entity.model.type}[]> {
         let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post('/api/$entity.model.vars/complete', body, this.options)
-            .map(response => ${entity.model.type}.toArray(response.json()))
-            .catch(this.handleError);
+        return this.http.post<any[]>('/api/$entity.model.vars/complete', body, this.options)
+            .pipe(
+                map(response => ${entity.model.type}.toArray(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
      * Delete an $entity.model.type by id.
      */
     delete(id : any) {
-        return this.http.delete('/api/${entity.model.vars}/' + id).catch(this.handleError);
+        return this.http.delete('/api/${entity.model.vars}/' + id)
+            .pipe(catchError(this.handleError));
     }
 
     // sample method from angular doc
-    private handleError (error: any) {
+    private handleError (error: HttpErrorResponse) {
         // TODO: seems we cannot use messageService from here...
-        let errMsg = (error.message) ? error.message :
-        error.status ? `Status: ${d}{error.status} - Text: ${d}{error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
+        let errMsg = (error.message) ? error.message : 'Server error';
+        console.error(errMsg);
         if (error.status === 401 ) {
             window.location.href = '/';
         }
