@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.4.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
     </parent>
 
     <properties>
@@ -22,12 +22,7 @@
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-
-        <hibernate.version>5.0.2.Final</hibernate.version>
-        <spring-security.version>4.0.4.RELEASE</spring-security.version>
+        <java.version>1.8</java.version>
 
         <!-- ~~~~~~~~ -->
         <!-- Database -->
@@ -39,7 +34,7 @@
         <!-- H2 DATABASE SETTINGS -->
         <jdbc.groupId>com.h2database</jdbc.groupId>
         <jdbc.artifactId>h2</jdbc.artifactId>
-        <jdbc.version>1.4.187</jdbc.version>
+        <jdbc.version>${h2.version}</jdbc.version>
 
         <jdbc.driver>org.h2.Driver</jdbc.driver>
         <jdbc.url>jdbc:h2:${project.build.directory}/db/angulardb;MVCC=TRUE;FILE_LOCK=NO</jdbc.url>
@@ -55,7 +50,7 @@
         <!-- MYSQL DATABASE SETTINGS
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.1.40</jdbc.version>
+        <jdbc.version>${mysql.version}</jdbc.version>
 
         <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
         <jdbc.url>jdbc:mysql://127.0.0.1:3306/angulardb</jdbc.url>
@@ -100,21 +95,17 @@
         <hibernate.use.second.level.cache>false</hibernate.use.second.level.cache>
         <hibernate.use.query.cache>false</hibernate.use.query.cache>
 
-        <!-- use latest versions-->
-        <spring-data-releasetrain.version>Hopper-SR11</spring-data-releasetrain.version>
-
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
             <artifactId>${jdbc.artifactId}</artifactId>
-            <version>${jdbc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
-            <version>5.0.2.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <!-- Celerio code completion support in velocity templates -->
         <!-- See pack-angular/META-INF/velocity_implicit.vm -->
@@ -137,14 +128,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -191,16 +174,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
+            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -264,7 +242,7 @@
                 <!-- http://maven.apache.org/plugins/maven-resources-plugin/ -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
+                <version>3.0.2</version>
                 <configuration>
                     <delimiters>
                         <delimiter>@*@</delimiter>
@@ -282,7 +260,7 @@
                 <!-- http://mojo.codehaus.org/build-helper-maven-plugin/ -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.9.1</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>Adding generated java folder to build</id>
@@ -314,16 +292,6 @@
             </plugin>
 
 
-            <!-- Compiler plugin enforces Java compatibility and activates
-                annotation processors -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

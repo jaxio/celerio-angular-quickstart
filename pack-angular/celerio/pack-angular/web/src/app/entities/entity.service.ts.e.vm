@@ -1,6 +1,6 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}.service.ts")##
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { MessageService } from '../../service/message.service';
 import { PageResponse, PageRequestByExample } from '../../support/paging';
@@ -11,8 +11,6 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ${entity.service.type} {
-
-    private options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
     constructor(private http: HttpClient, private messageService : MessageService) {}
 
@@ -31,9 +29,9 @@ export class ${entity.service.type} {
      * Update the passed ${entity.model.var}.
      */
     update($entity.model.var : $entity.model.type) : Observable<$entity.model.type> {
-        let body = JSON.stringify($entity.model.var);
+        let body = $entity.model.var;
 
-        return this.http.put('/api/$entity.model.vars/', body, this.options)
+        return this.http.put('/api/$entity.model.vars/', body)
             .pipe(
                 map(response => new ${entity.model.type}(response)),
                 catchError(this.handleError)
@@ -46,14 +44,11 @@ export class ${entity.service.type} {
      */
     getPage($entity.model.var : $entity.model.type, event : LazyLoadEvent) : Observable<PageResponse<$entity.model.type>> {
         let req = new PageRequestByExample($entity.model.var, event);
-        let body = JSON.stringify(req);
+        let body = req;
 
-        return this.http.post('/api/$entity.model.vars/page', body, this.options)
+        return this.http.post<PageResponse<any>>('/api/$entity.model.vars/page', body)
             .pipe(
-                map(response => {
-                    let pr : any = response;
-                    return new PageResponse<$entity.model.type>(pr.totalPages, pr.totalElements, ${entity.model.type}.toArray(pr.content));
-                }),
+                map(pr =>  new PageResponse<$entity.model.type>(pr.totalPages, pr.totalElements, ${entity.model.type}.toArray(pr.content))),
                 catchError(this.handleError)
             );
     }
@@ -63,8 +58,8 @@ export class ${entity.service.type} {
      * Used by ${entity.model.type}CompleteComponent.
      */
     complete(query : string) : Observable<${entity.model.type}[]> {
-        let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post<any[]>('/api/$entity.model.vars/complete', body, this.options)
+        let body = {'query': query, 'maxResults': 10};
+        return this.http.post<any[]>('/api/$entity.model.vars/complete', body)
             .pipe(
                 map(response => ${entity.model.type}.toArray(response)),
                 catchError(this.handleError)
