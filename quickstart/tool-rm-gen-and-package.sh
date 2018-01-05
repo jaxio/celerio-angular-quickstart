@@ -16,10 +16,9 @@ ng new web
 rm web/src/app/app.module.ts web/src/app/app.component.* web/src/styles.css
 mvn -Pdb,metadata,gen generate-sources
 cd web
-npm install --save @angular/animations
-npm install --save @angular/material @angular/cdk
-npm install --save primeng@5.0.2
-npm install --save font-awesome
+npm i @angular/material @angular/cdk
+npm i primeng@5.0.2
+npm i font-awesome
 ng build --prod
 cp dist/* ../src/main/resources/static
 cd ..
