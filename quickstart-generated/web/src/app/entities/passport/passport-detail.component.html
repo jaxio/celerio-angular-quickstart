@@ -1,46 +1,44 @@
-<div class="ContentSideSections Implementation">
-    <md-card *ngIf="passport" ngForm #passportForm="ngForm">
-        <md-card-title>Passport Details</md-card-title>
-        <md-card-content>
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="passportNumber">Passport Number  *</label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="passportNumber" [(ngModel)]="passport.passportNumber"  required placeholder="Required"  name="passportNumber" #passportNumber="ngModel"/>
+    <mat-card *ngIf="passport" ngForm #passportForm="ngForm">
+        <mat-card-title>Passport Details</mat-card-title>
+        <mat-card-content>
+        <div class="ui-g alignlabels">
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="passportNumber"  class="required">Passport Number</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="passportNumber" type="text" [(ngModel)]="passport.passportNumber"  required   name="passportNumber" #passportNumber="ngModel"/>
+                    
+                    <mat-error *ngIf="!passportNumber.valid && passportNumber.dirty && passportNumber.errors['required']">
+                        Passport Number is required.
+                    </mat-error>
+                </mat-input-container>
                 </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!passportNumber.valid && passportNumber.dirty && passportNumber.errors['required']">
-                        <i class="fa fa-close"></i>
-                        Passport Number is required
-                    </div>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="expirationDate" >Expiration Date</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container>
+                  <input matInput id="expirationDate" [matDatepicker]="expirationDatePicker" [(ngModel)]="passport.expirationDate"  name="expirationDate" #expirationDate="ngModel">
+                  <mat-datepicker-toggle matSuffix [for]="expirationDatePicker"></mat-datepicker-toggle>
+                </mat-input-container>
+                <mat-datepicker #expirationDatePicker></mat-datepicker>
                 </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="expirationDate">Expiration Date </label></div>
-                <div class="ui-grid-col-6">
-                    <p-calendar [(ngModel)]="passport.expirationDate" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
-                </div>
-                <div class="ui-grid-col-4">
-                </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="holder">Holder*</label></div>
-                <div class="ui-grid-col-4">
+             <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="holder" class="required">Holder</label></div>
+            <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <div class="ui-g">
+                <div class="ui-g-12 ui-md-5 ui-lg-5">
                     <user-auto-complete [(ngModel)]="passport.holder" id="holder" name="holder" [disabled]="sub"></user-auto-complete>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="gotoHolder" type="button" (click)="gotoHolder()" *ngIf="passport.holder" icon="fa-pencil" label="Edit"></button>
+                <div class="ui-g-12 ui-md-2 ui-lg-2">
+                    <button pButton id="gotoHolder" type="button" (click)="gotoHolder()" *ngIf="!sub && passport.holder" icon="fa-pencil" label="Edit"></button>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="clearHolder" type="button" (click)="clearHolder()" *ngIf="passport.holder" icon="fa-chain-broken" label="Clear"></button>
+                <div class="ui-g-12 ui-md-2 ui-lg-2">
+                    <button pButton id="clearHolder" type="button" (click)="clearHolder()" *ngIf="!sub && passport.holder" icon="fa-chain-broken" label="Clear"></button>
+                </div>
                 </div>
             </div>
-         </div>
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
-            <button md-raised-button (click)="onSave()" [disabled]="!passportForm.form.valid"><md-icon>save</md-icon>Save</button>
-        </md-card-actions>
-    </md-card>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button *ngIf="sub" (click)="onCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+            <button mat-raised-button (click)="onSave()" [disabled]="!passportForm.form.valid"><mat-icon>save</mat-icon>Save</button>
+        </mat-card-actions>
+    </mat-card>
 
-</div>

@@ -9,41 +9,42 @@
 // Template pack-angular:web/src/app/entities/entity.service.ts.e.vm
 //
 import { Injectable } from '@angular/core';
-import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { LazyLoadEvent } from 'primeng/primeng';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import { MessageService } from '../../service/message.service';
 import { PageResponse, PageRequestByExample } from '../../support/paging';
 import { Passport } from './passport';
+import { Observable } from 'rxjs/Rx';
+import { catchError, map } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class PassportService {
 
-    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
-
-    constructor(private http: Http, private messageService : MessageService) {}
+    constructor(private http: HttpClient, private messageService : MessageService) {}
 
     /**
      * Get a Passport by id.
      */
     getPassport(id : any) : Observable<Passport> {
         return this.http.get('/api/passports/' + id)
-            .map(response => new Passport(response.json()))
-            .catch(this.handleError);
+            .pipe(
+                map(response => new Passport(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
      * Update the passed passport.
      */
     update(passport : Passport) : Observable<Passport> {
-        let body = JSON.stringify(passport);
+        let body = passport;
 
-        return this.http.put('/api/passports/', body, this.options)
-            .map(response => new Passport(response.json()))
-            .catch(this.handleError);
+        return this.http.put('/api/passports/', body)
+            .pipe(
+                map(response => new Passport(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -52,14 +53,13 @@ export class PassportService {
      */
     getPage(passport : Passport, event : LazyLoadEvent) : Observable<PageResponse<Passport>> {
         let req = new PageRequestByExample(passport, event);
-        let body = JSON.stringify(req);
+        let body = req;
 
-        return this.http.post('/api/passports/page', body, this.options)
-            .map(response => {
-                let pr : any = response.json();
-                return new PageResponse<Passport>(pr.totalPages, pr.totalElements, Passport.toArray(pr.content));
-            })
-            .catch(this.handleError);
+        return this.http.post<PageResponse<any>>('/api/passports/page', body)
+            .pipe(
+                map(pr =>  new PageResponse<Passport>(pr.totalPages, pr.totalElements, Passport.toArray(pr.content))),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -67,25 +67,27 @@ export class PassportService {
      * Used by PassportCompleteComponent.
      */
     complete(query : string) : Observable<Passport[]> {
-        let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post('/api/passports/complete', body, this.options)
-            .map(response => Passport.toArray(response.json()))
-            .catch(this.handleError);
+        let body = {'query': query, 'maxResults': 10};
+        return this.http.post<any[]>('/api/passports/complete', body)
+            .pipe(
+                map(response => Passport.toArray(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
      * Delete an Passport by id.
      */
     delete(id : any) {
-        return this.http.delete('/api/passports/' + id).catch(this.handleError);
+        return this.http.delete('/api/passports/' + id)
+            .pipe(catchError(this.handleError));
     }
 
     // sample method from angular doc
-    private handleError (error: any) {
+    private handleError (error: HttpErrorResponse) {
         // TODO: seems we cannot use messageService from here...
-        let errMsg = (error.message) ? error.message :
-        error.status ? `Status: ${error.status} - Text: ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
+        let errMsg = (error.message) ? error.message : 'Server error';
+        console.error(errMsg);
         if (error.status === 401 ) {
             window.location.href = '/';
         }

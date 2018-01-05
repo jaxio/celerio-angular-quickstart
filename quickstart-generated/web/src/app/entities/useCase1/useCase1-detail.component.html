@@ -1,46 +1,36 @@
-<div class="ContentSideSections Implementation">
-    <md-card *ngIf="useCase1" ngForm #useCase1Form="ngForm">
-        <md-card-title>UseCase1 Details</md-card-title>
-        <md-card-content>
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="id1">Id1  *</label></div>
-                <div class="ui-grid-col-6">
-                    <p-calendar [(ngModel)]="useCase1.id.id1" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+    <mat-card *ngIf="useCase1" ngForm #useCase1Form="ngForm">
+        <mat-card-title>UseCase1 Details</mat-card-title>
+        <mat-card-content>
+        <div class="ui-g alignlabels">
+                <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="id1"  class="required">Id1</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <p-calendar [(ngModel)]="useCase1.id.id1" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
                 </div>
-                <div class="ui-grid-col-4">
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="id2"  class="required">Id2</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="id2" type="text" [(ngModel)]="useCase1.id.id2"  required   name="id2" #id2="ngModel"/>
+                    
+                    <mat-error *ngIf="!id2.valid && id2.dirty && id2.errors['required']">
+                        Id2 is required.
+                    </mat-error>
+                </mat-input-container>
                 </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="id2">Id2  *</label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="id2" [(ngModel)]="useCase1.id.id2"  required placeholder="Required"  name="id2" #id2="ngModel"/>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="dummy"  class="required">Dummy</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="dummy" type="text" [(ngModel)]="useCase1.dummy"  required   name="dummy" #dummy="ngModel"/>
+                    
+                    <mat-error *ngIf="!dummy.valid && dummy.dirty && dummy.errors['required']">
+                        Dummy is required.
+                    </mat-error>
+                </mat-input-container>
                 </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!id2.valid && id2.dirty && id2.errors['required']">
-                        <i class="fa fa-close"></i>
-                        Id2 is required
-                    </div>
-                </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="dummy">Dummy  *</label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="dummy" [(ngModel)]="useCase1.dummy"  required placeholder="Required"  name="dummy" #dummy="ngModel"/>
-                </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!dummy.valid && dummy.dirty && dummy.errors['required']">
-                        <i class="fa fa-close"></i>
-                        Dummy is required
-                    </div>
-                </div>
-            </div>
-         </div>
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
-            <button md-raised-button (click)="onSave()" [disabled]="!useCase1Form.form.valid"><md-icon>save</md-icon>Save</button>
-        </md-card-actions>
-    </md-card>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button *ngIf="sub" (click)="onCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+            <button mat-raised-button (click)="onSave()" [disabled]="!useCase1Form.form.valid"><mat-icon>save</mat-icon>Save</button>
+        </mat-card-actions>
+    </mat-card>
 
-</div>

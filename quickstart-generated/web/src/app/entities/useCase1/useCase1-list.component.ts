@@ -8,12 +8,12 @@
 // This header can be customized in Celerio conf...
 // Template pack-angular:web/src/app/entities/entity-list.component.ts.e.vm
 //
-import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTable, LazyLoadEvent } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from "../../support/confirm-delete-dialog.component";
 import { UseCase1 } from './useCase1';
 import { UseCase1DetailComponent } from './useCase1-detail.component';
@@ -48,7 +48,7 @@ export class UseCase1ListComponent {
     constructor(private router : Router,
         private useCase1Service : UseCase1Service,
         private messageService : MessageService,
-        private confirmDeleteDialog: MdDialog) {
+        private confirmDeleteDialog: MatDialog) {
     }
 
     /**

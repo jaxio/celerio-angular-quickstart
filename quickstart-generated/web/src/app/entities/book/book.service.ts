@@ -9,41 +9,42 @@
 // Template pack-angular:web/src/app/entities/entity.service.ts.e.vm
 //
 import { Injectable } from '@angular/core';
-import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { LazyLoadEvent } from 'primeng/primeng';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import { MessageService } from '../../service/message.service';
 import { PageResponse, PageRequestByExample } from '../../support/paging';
 import { Book } from './book';
+import { Observable } from 'rxjs/Rx';
+import { catchError, map } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class BookService {
 
-    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
-
-    constructor(private http: Http, private messageService : MessageService) {}
+    constructor(private http: HttpClient, private messageService : MessageService) {}
 
     /**
      * Get a Book by id.
      */
     getBook(id : any) : Observable<Book> {
         return this.http.get('/api/books/' + id)
-            .map(response => new Book(response.json()))
-            .catch(this.handleError);
+            .pipe(
+                map(response => new Book(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
      * Update the passed book.
      */
     update(book : Book) : Observable<Book> {
-        let body = JSON.stringify(book);
+        let body = book;
 
-        return this.http.put('/api/books/', body, this.options)
-            .map(response => new Book(response.json()))
-            .catch(this.handleError);
+        return this.http.put('/api/books/', body)
+            .pipe(
+                map(response => new Book(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -52,14 +53,13 @@ export class BookService {
      */
     getPage(book : Book, event : LazyLoadEvent) : Observable<PageResponse<Book>> {
         let req = new PageRequestByExample(book, event);
-        let body = JSON.stringify(req);
+        let body = req;
 
-        return this.http.post('/api/books/page', body, this.options)
-            .map(response => {
-                let pr : any = response.json();
-                return new PageResponse<Book>(pr.totalPages, pr.totalElements, Book.toArray(pr.content));
-            })
-            .catch(this.handleError);
+        return this.http.post<PageResponse<any>>('/api/books/page', body)
+            .pipe(
+                map(pr =>  new PageResponse<Book>(pr.totalPages, pr.totalElements, Book.toArray(pr.content))),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -67,25 +67,27 @@ export class BookService {
      * Used by BookCompleteComponent.
      */
     complete(query : string) : Observable<Book[]> {
-        let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post('/api/books/complete', body, this.options)
-            .map(response => Book.toArray(response.json()))
-            .catch(this.handleError);
+        let body = {'query': query, 'maxResults': 10};
+        return this.http.post<any[]>('/api/books/complete', body)
+            .pipe(
+                map(response => Book.toArray(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
      * Delete an Book by id.
      */
     delete(id : any) {
-        return this.http.delete('/api/books/' + id).catch(this.handleError);
+        return this.http.delete('/api/books/' + id)
+            .pipe(catchError(this.handleError));
     }
 
     // sample method from angular doc
-    private handleError (error: any) {
+    private handleError (error: HttpErrorResponse) {
         // TODO: seems we cannot use messageService from here...
-        let errMsg = (error.message) ? error.message :
-        error.status ? `Status: ${error.status} - Text: ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
+        let errMsg = (error.message) ? error.message : 'Server error';
+        console.error(errMsg);
         if (error.status === 401 ) {
             window.location.href = '/';
         }

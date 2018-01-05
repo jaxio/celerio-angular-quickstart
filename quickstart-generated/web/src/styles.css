@@ -25,3 +25,18 @@ button.ui-button.ui-state-default {
     padding-bottom: 0em;
     padding-left: 0em;
 }
+
+
+label.required  {
+    font-weight: bold;
+}
+
+label.required:after {
+    color: red;
+    content: ' *';
+    display:inline;
+}
+
+.alignlabels {
+    align-items: baseline;
+}

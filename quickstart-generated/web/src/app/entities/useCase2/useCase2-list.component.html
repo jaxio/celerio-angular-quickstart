@@ -1,7 +1,7 @@
 <div class="ContentSideSections Implementation">
-    <md-card *ngIf="!sub">
-        <md-card-title>Search UseCase2 with search criterias</md-card-title>
-        <md-card-content>
+    <mat-card *ngIf="!sub">
+        <mat-card-title>Search UseCase2 with search criterias</mat-card-title>
+        <mat-card-content>
         <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #useCase2Form="ngForm">
             <div class="ui-grid-row">
                 <div class="ui-grid-col-2">
@@ -13,15 +13,16 @@
             </div>
         </div>
 
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button (click)="search(dt)"><md-icon>search</md-icon>Search</button>
-        </md-card-actions>
-    </md-card>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="search(dt)"><mat-icon>search</mat-icon>Search</button>
+        </mat-card-actions>
+    </mat-card>
 
-    <md-card>
-    <md-card-subtitle>DB comment: USE_CASE_2 has a string pk, just for demo</md-card-subtitle>
-    <md-card-content>
+    <br/>
+    <mat-card>
+    <mat-card-subtitle>DB comment: USE_CASE_2 has a string pk, just for demo</mat-card-subtitle>
+    <mat-card-content>
     <p>The list of results below is server-side paginated...</p>
 
     <p-dataTable #dt [value]="currentPage.content"
@@ -43,9 +44,9 @@
             </ng-template>
         </p-column>
     </p-dataTable>
-    </md-card-content>
-    <md-card-actions>
-        <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Add</button>
-    </md-card-actions>
-    </md-card>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button (click)="addNew()"><mat-icon>add</mat-icon>Add</button>
+    </mat-card-actions>
+    </mat-card>
 </div>

@@ -1,58 +1,50 @@
-<div class="ContentSideSections Implementation">
-    <md-card *ngIf="project" ngForm #projectForm="ngForm">
-        <md-card-title>Project Details</md-card-title>
-        <md-card-content>
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="name">Name  *</label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="name" [(ngModel)]="project.name"  required placeholder="Required"  name="name" #name="ngModel"/>
+    <mat-card *ngIf="project" ngForm #projectForm="ngForm">
+        <mat-card-title>Project Details</mat-card-title>
+        <mat-card-content>
+        <div class="ui-g alignlabels">
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="name"  class="required">Name</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="name" type="text" [(ngModel)]="project.name"  required   name="name" #name="ngModel"/>
+                    
+                    <mat-error *ngIf="!name.valid && name.dirty && name.errors['required']">
+                        Name is required.
+                    </mat-error>
+                </mat-input-container>
                 </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!name.valid && name.dirty && name.errors['required']">
-                        <i class="fa fa-close"></i>
-                        Name is required
-                    </div>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="url" >Url</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="url" type="url" pattern="^http.*" [(ngModel)]="project.url"   name="url" #url="ngModel"/>
+                    
+                    <mat-error *ngIf="!url.valid && url.dirty && url.errors['pattern']">
+                        Url is invalid. Expecting a valid URL.
+                    </mat-error>
+                </mat-input-container>
                 </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="url">Url </label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="url" pattern="^http.*" [(ngModel)]="project.url"   name="url" #url="ngModel"/>
-                </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!url.valid && url.dirty && url.errors['pattern']">
-                        <i class="fa fa-close"></i>
-                        Url is invalid. Expecting an URL starting with 'http'.
-                    </div>
-                </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="author">Author*</label></div>
-                <div class="ui-grid-col-4">
+             <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="author" class="required">Author</label></div>
+            <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <div class="ui-g">
+                <div class="ui-g-12 ui-md-5 ui-lg-5">
                     <author-auto-complete [(ngModel)]="project.author" id="author" name="author" [disabled]="sub"></author-auto-complete>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="gotoAuthor" type="button" (click)="gotoAuthor()" *ngIf="project.author" icon="fa-pencil" label="Edit"></button>
+                <div class="ui-g-12 ui-md-2 ui-lg-2">
+                    <button pButton id="gotoAuthor" type="button" (click)="gotoAuthor()" *ngIf="!sub && project.author" icon="fa-pencil" label="Edit"></button>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="clearAuthor" type="button" (click)="clearAuthor()" *ngIf="project.author" icon="fa-chain-broken" label="Clear"></button>
+                <div class="ui-g-12 ui-md-2 ui-lg-2">
+                    <button pButton id="clearAuthor" type="button" (click)="clearAuthor()" *ngIf="!sub && project.author" icon="fa-chain-broken" label="Clear"></button>
                 </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="openSource">Open Source </label></div>
-                <div class="ui-grid-col-6">
-                    <p-triStateCheckbox [(ngModel)]="project.openSource" name="openSource"></p-triStateCheckbox>{{project.openSource}}
-                </div>
-                <div class="ui-grid-col-4">
                 </div>
             </div>
-         </div>
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
-            <button md-raised-button (click)="onSave()" [disabled]="!projectForm.form.valid"><md-icon>save</md-icon>Save</button>
-        </md-card-actions>
-    </md-card>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="openSource" >Open Source</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <p-triStateCheckbox [(ngModel)]="project.openSource" name="openSource"></p-triStateCheckbox>{{project.openSource}}
+                </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button *ngIf="sub" (click)="onCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+            <button mat-raised-button (click)="onSave()" [disabled]="!projectForm.form.valid"><mat-icon>save</mat-icon>Save</button>
+        </mat-card-actions>
+    </mat-card>
 
-</div>

@@ -1,26 +1,22 @@
-<div class="ContentSideSections Implementation">
-    <md-card *ngIf="role" ngForm #roleForm="ngForm">
-        <md-card-title>Role Details</md-card-title>
-        <md-card-content>
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="roleName">Role Name  *</label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="roleName" [(ngModel)]="role.roleName"  required placeholder="Required"  name="roleName" #roleName="ngModel"/>
+    <mat-card *ngIf="role" ngForm #roleForm="ngForm">
+        <mat-card-title>Role Details</mat-card-title>
+        <mat-card-content>
+        <div class="ui-g alignlabels">
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="roleName"  class="required">Role Name</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="roleName" type="text" [(ngModel)]="role.roleName"  required   name="roleName" #roleName="ngModel"/>
+                    
+                    <mat-error *ngIf="!roleName.valid && roleName.dirty && roleName.errors['required']">
+                        Role Name is required.
+                    </mat-error>
+                </mat-input-container>
                 </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!roleName.valid && roleName.dirty && roleName.errors['required']">
-                        <i class="fa fa-close"></i>
-                        Role Name is required
-                    </div>
-                </div>
-            </div>
-         </div>
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
-            <button md-raised-button (click)="onSave()" [disabled]="!roleForm.form.valid"><md-icon>save</md-icon>Save</button>
-        </md-card-actions>
-    </md-card>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button *ngIf="sub" (click)="onCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+            <button mat-raised-button (click)="onSave()" [disabled]="!roleForm.form.valid"><mat-icon>save</mat-icon>Save</button>
+        </mat-card-actions>
+    </mat-card>
 
-</div>

@@ -9,41 +9,42 @@
 // Template pack-angular:web/src/app/entities/entity.service.ts.e.vm
 //
 import { Injectable } from '@angular/core';
-import { HttpModule, Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { LazyLoadEvent } from 'primeng/primeng';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 import { MessageService } from '../../service/message.service';
 import { PageResponse, PageRequestByExample } from '../../support/paging';
 import { UseCase1 } from './useCase1';
+import { Observable } from 'rxjs/Rx';
+import { catchError, map } from 'rxjs/operators';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class UseCase1Service {
 
-    private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
-
-    constructor(private http: Http, private messageService : MessageService) {}
+    constructor(private http: HttpClient, private messageService : MessageService) {}
 
     /**
      * Get a UseCase1 by id.
      */
     getUseCase1(id : any) : Observable<UseCase1> {
         return this.http.get('/api/useCase1s/' + id)
-            .map(response => new UseCase1(response.json()))
-            .catch(this.handleError);
+            .pipe(
+                map(response => new UseCase1(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
      * Update the passed useCase1.
      */
     update(useCase1 : UseCase1) : Observable<UseCase1> {
-        let body = JSON.stringify(useCase1);
+        let body = useCase1;
 
-        return this.http.put('/api/useCase1s/', body, this.options)
-            .map(response => new UseCase1(response.json()))
-            .catch(this.handleError);
+        return this.http.put('/api/useCase1s/', body)
+            .pipe(
+                map(response => new UseCase1(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -52,14 +53,13 @@ export class UseCase1Service {
      */
     getPage(useCase1 : UseCase1, event : LazyLoadEvent) : Observable<PageResponse<UseCase1>> {
         let req = new PageRequestByExample(useCase1, event);
-        let body = JSON.stringify(req);
+        let body = req;
 
-        return this.http.post('/api/useCase1s/page', body, this.options)
-            .map(response => {
-                let pr : any = response.json();
-                return new PageResponse<UseCase1>(pr.totalPages, pr.totalElements, UseCase1.toArray(pr.content));
-            })
-            .catch(this.handleError);
+        return this.http.post<PageResponse<any>>('/api/useCase1s/page', body)
+            .pipe(
+                map(pr =>  new PageResponse<UseCase1>(pr.totalPages, pr.totalElements, UseCase1.toArray(pr.content))),
+                catchError(this.handleError)
+            );
     }
 
     /**
@@ -67,25 +67,27 @@ export class UseCase1Service {
      * Used by UseCase1CompleteComponent.
      */
     complete(query : string) : Observable<UseCase1[]> {
-        let body = JSON.stringify({'query': query, 'maxResults': 10});
-        return this.http.post('/api/useCase1s/complete', body, this.options)
-            .map(response => UseCase1.toArray(response.json()))
-            .catch(this.handleError);
+        let body = {'query': query, 'maxResults': 10};
+        return this.http.post<any[]>('/api/useCase1s/complete', body)
+            .pipe(
+                map(response => UseCase1.toArray(response)),
+                catchError(this.handleError)
+            );
     }
 
     /**
      * Delete an UseCase1 by id.
      */
     delete(id : any) {
-        return this.http.delete('/api/useCase1s/' + id).catch(this.handleError);
+        return this.http.delete('/api/useCase1s/' + id)
+            .pipe(catchError(this.handleError));
     }
 
     // sample method from angular doc
-    private handleError (error: any) {
+    private handleError (error: HttpErrorResponse) {
         // TODO: seems we cannot use messageService from here...
-        let errMsg = (error.message) ? error.message :
-        error.status ? `Status: ${error.status} - Text: ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
+        let errMsg = (error.message) ? error.message : 'Server error';
+        console.error(errMsg);
         if (error.status === 401 ) {
             window.location.href = '/';
         }

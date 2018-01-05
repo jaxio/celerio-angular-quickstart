@@ -1,105 +1,93 @@
-<div class="ContentSideSections Implementation">
-    <md-card *ngIf="author" ngForm #authorForm="ngForm">
-        <md-card-title>Author Details</md-card-title>
-        <md-card-content>
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="civility">Civility </label></div>
-                <div class="ui-grid-col-6">
-                    <p-dropdown [options]="civilityOptions" [(ngModel)]="author.civility" name="civility" #civility="ngModel"></p-dropdown>
+    <mat-card *ngIf="author" ngForm #authorForm="ngForm">
+        <mat-card-title>Author Details</mat-card-title>
+        <mat-card-content>
+        <div class="ui-g alignlabels">
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="civility" >Civility</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-select [(ngModel)]="author.civility" name="civility" #civility="ngModel" style="width: 90%">
+                    <mat-option *ngFor="let civilityOption of civilityOptions" [value]="civilityOption.value">{{ civilityOption.label }}</mat-option>
+                </mat-select>
                 </div>
-                <div class="ui-grid-col-4">
-                </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="lastName">Last Name </label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="lastName" [(ngModel)]="author.lastName"   minlength="2" name="lastName" #lastName="ngModel"/>
-                </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!lastName.valid && lastName.dirty && lastName.errors['minlength']">
-                        <i class="fa fa-close"></i>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="lastName" >Last Name</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="lastName" type="text" [(ngModel)]="author.lastName"   minlength="2" name="lastName" #lastName="ngModel"/>
+                    
+                    <mat-error *ngIf="!lastName.valid && lastName.dirty && lastName.errors['minlength']">
                         Last Name must have at least 2 characters.
-                    </div>
+                    </mat-error>
+                </mat-input-container>
                 </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="firstName">First Name  *</label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="firstName" [(ngModel)]="author.firstName"  required placeholder="Required"  minlength="2" name="firstName" #firstName="ngModel"/>
-                </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!firstName.valid && firstName.dirty && firstName.errors['required']">
-                        <i class="fa fa-close"></i>
-                        First Name is required
-                    </div>
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!firstName.valid && firstName.dirty && firstName.errors['minlength']">
-                        <i class="fa fa-close"></i>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="firstName"  class="required">First Name</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="firstName" type="text" [(ngModel)]="author.firstName"  required   minlength="2" name="firstName" #firstName="ngModel"/>
+                    
+                    <mat-error *ngIf="!firstName.valid && firstName.dirty && firstName.errors['required']">
+                        First Name is required.
+                    </mat-error>
+                    <mat-error *ngIf="!firstName.valid && firstName.dirty && firstName.errors['minlength']">
                         First Name must have at least 2 characters.
-                    </div>
+                    </mat-error>
+                </mat-input-container>
                 </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="favoriteAuthor">Favorite Author</label></div>
-                <div class="ui-grid-col-4">
+             <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="favoriteAuthor">Favorite Author</label></div>
+            <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <div class="ui-g">
+                <div class="ui-g-12 ui-md-5 ui-lg-5">
                     <author-auto-complete [(ngModel)]="author.favoriteAuthor" id="favoriteAuthor" name="favoriteAuthor" [disabled]="sub"></author-auto-complete>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="gotoFavoriteAuthor" type="button" (click)="gotoFavoriteAuthor()" *ngIf="author.favoriteAuthor" icon="fa-pencil" label="Edit"></button>
+                <div class="ui-g-12 ui-md-2 ui-lg-2">
+                    <button pButton id="gotoFavoriteAuthor" type="button" (click)="gotoFavoriteAuthor()" *ngIf="!sub && author.favoriteAuthor" icon="fa-pencil" label="Edit"></button>
                 </div>
-                <div class="ui-grid-col-1" *ngIf="!sub">
-                    <button pButton id="clearFavoriteAuthor" type="button" (click)="clearFavoriteAuthor()" *ngIf="author.favoriteAuthor" icon="fa-chain-broken" label="Clear"></button>
+                <div class="ui-g-12 ui-md-2 ui-lg-2">
+                    <button pButton id="clearFavoriteAuthor" type="button" (click)="clearFavoriteAuthor()" *ngIf="!sub && author.favoriteAuthor" icon="fa-chain-broken" label="Clear"></button>
+                </div>
                 </div>
             </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="email">Email </label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="email" [(ngModel)]="author.email"   validateEmail name="email" #email="ngModel"/>
-                </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors['validateEmail']">
-                        <i class="fa fa-close"></i>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="email" >Email</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="email" type="email" [(ngModel)]="author.email"   validateEmail name="email" #email="ngModel"/>
+                    
+                    <mat-error *ngIf="!email.valid && email.dirty && email.errors['validateEmail']">
                         Email is invalid. Expecting a valid email address.
-                    </div>
-                                    </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="birthDate">Birth Date </label></div>
-                <div class="ui-grid-col-6">
-                    <p-calendar [(ngModel)]="author.birthDate" dateFormat="yy-mm-dd" [ngModelOptions]="{standalone: true}"></p-calendar>
+                    </mat-error>
+                </mat-input-container>
                 </div>
-                <div class="ui-grid-col-4">
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="birthDate" >Birth Date</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container>
+                  <input matInput id="birthDate" [matDatepicker]="birthDatePicker" [(ngModel)]="author.birthDate"  name="birthDate" #birthDate="ngModel">
+                  <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                </mat-input-container>
+                <mat-datepicker #birthDatePicker></mat-datepicker>
                 </div>
-            </div>
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="birthDateTime">Birth Date Time </label></div>
-                <div class="ui-grid-col-6">
-                    <p-calendar [(ngModel)]="author.birthDateTime" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="birthDateTime" >Birth Date Time</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <p-calendar [(ngModel)]="author.birthDateTime" dateFormat="yy-mm-dd" showTime="true" [ngModelOptions]="{standalone: true}"></p-calendar>
                 </div>
-                <div class="ui-grid-col-4">
-                </div>
-            </div>
-         </div>
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
-            <button md-raised-button (click)="onSave()" [disabled]="!authorForm.form.valid"><md-icon>save</md-icon>Save</button>
-        </md-card-actions>
-    </md-card>
-    <md-card *ngIf="author && author.id">
-    <md-card-subtitle>Author db relations</md-card-subtitle>
-    <md-card-content>
-    <md-tab-group>
-        <md-tab label="Books">
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button *ngIf="sub" (click)="onCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+            <button mat-raised-button (click)="onSave()" [disabled]="!authorForm.form.valid"><mat-icon>save</mat-icon>Save</button>
+        </mat-card-actions>
+    </mat-card>
+    <br/>
+    <mat-card *ngIf="author && author.id">
+    <mat-card-subtitle>Author db relations</mat-card-subtitle>
+    <mat-card-content>
+    <mat-tab-group>
+        <mat-tab label="Books">
             <book-list *ngIf="showBooks" [author]="author" sub="true" [header]="'Books of this author'" (onAddNewClicked)="showBooks = false"></book-list>
             <book-detail *ngIf="!showBooks" [author]="author" sub="true" (onSaveClicked)="showBooks = true" (onCancelClicked)="showBooks = true"></book-detail>
-        </md-tab>
-        <md-tab label="Projects">
+        </mat-tab>
+        <mat-tab label="Projects">
             <project-list *ngIf="showProjects" [author]="author" sub="true" [header]="'Projects of this author'" (onAddNewClicked)="showProjects = false"></project-list>
             <project-detail *ngIf="!showProjects" [author]="author" sub="true" (onSaveClicked)="showProjects = true" (onCancelClicked)="showProjects = true"></project-detail>
-        </md-tab>
+        </mat-tab>
 
-    </md-tab-group>
-    </md-card-content>
-    </md-card>
-</div>
+    </mat-tab-group>
+    </mat-card-content>
+    </mat-card>

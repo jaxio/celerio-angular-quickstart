@@ -12,9 +12,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule  }  from '@angular/router';
-import { MaterialModule } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatCardModule, MatIconModule, MatSelectModule, MatTabsModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { ConfirmDialogModule, FileUploadModule, PanelModule, GrowlModule, MenubarModule, DialogModule, ButtonModule, AutoCompleteModule, DataTableModule, SharedModule, DropdownModule,PickListModule,CheckboxModule,TriStateCheckboxModule, InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule } from 'primeng/primeng';
 import { ConfirmationService } from 'primeng/primeng';
 import { AppComponent }   from './app.component';
@@ -146,10 +146,18 @@ import { UserCompleteComponent } from './entities/user/user-auto-complete.compon
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
 
 // angular material,
-        MaterialModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatDialogModule,
+        MatCardModule,
+        MatIconModule,
+        MatSelectModule,
+        MatTabsModule,
+        MatInputModule,
+        MatButtonModule,
 
 // primeng
         ConfirmDialogModule,

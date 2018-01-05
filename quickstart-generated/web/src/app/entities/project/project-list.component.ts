@@ -8,12 +8,12 @@
 // This header can be customized in Celerio conf...
 // Template pack-angular:web/src/app/entities/entity-list.component.ts.e.vm
 //
-import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTable, LazyLoadEvent } from 'primeng/primeng';
 import { PageResponse } from "../../support/paging";
 import { MessageService } from '../../service/message.service';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { ConfirmDeleteDialogComponent } from "../../support/confirm-delete-dialog.component";
 import { Project } from './project';
 import { ProjectDetailComponent } from './project-detail.component';
@@ -53,7 +53,7 @@ export class ProjectListComponent {
     constructor(private router : Router,
         private projectService : ProjectService,
         private messageService : MessageService,
-        private confirmDeleteDialog: MdDialog) {
+        private confirmDeleteDialog: MatDialog) {
     }
 
     /**

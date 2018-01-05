@@ -1,37 +1,34 @@
-<div class="ContentSideSections Implementation">
-    <md-card *ngIf="useCase2" ngForm #useCase2Form="ngForm">
-        <md-card-title>UseCase2 Details</md-card-title>
-        <md-card-content>
-        <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
-             <div class="ui-grid-row">
-                <div class="ui-grid-col-2"><label for="dummy">Dummy  *</label></div>
-                <div class="ui-grid-col-6">
-                    <input pInputText id="dummy" [(ngModel)]="useCase2.dummy"  required placeholder="Required"  name="dummy" #dummy="ngModel"/>
+    <mat-card *ngIf="useCase2" ngForm #useCase2Form="ngForm">
+        <mat-card-title>UseCase2 Details</mat-card-title>
+        <mat-card-content>
+        <div class="ui-g alignlabels">
+                 <div class="ui-g-12 ui-md-2 ui-lg-1"><label for="dummy"  class="required">Dummy</label></div>
+                <div class="ui-g-12 ui-md-10 ui-lg-5">
+                <mat-input-container style="width: 90%">
+                    <input matInput id="dummy" type="text" [(ngModel)]="useCase2.dummy"  required   name="dummy" #dummy="ngModel"/>
+                    
+                    <mat-error *ngIf="!dummy.valid && dummy.dirty && dummy.errors['required']">
+                        Dummy is required.
+                    </mat-error>
+                </mat-input-container>
                 </div>
-                <div class="ui-grid-col-4">
-                    <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!dummy.valid && dummy.dirty && dummy.errors['required']">
-                        <i class="fa fa-close"></i>
-                        Dummy is required
-                    </div>
-                </div>
-            </div>
-         </div>
-        </md-card-content>
-        <md-card-actions>
-            <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Cancel</button>
-            <button md-raised-button (click)="onSave()" [disabled]="!useCase2Form.form.valid"><md-icon>save</md-icon>Save</button>
-        </md-card-actions>
-    </md-card>
-    <md-card *ngIf="useCase2 && useCase2.id">
-    <md-card-subtitle>UseCase2 db relations</md-card-subtitle>
-    <md-card-content>
-    <md-tab-group>
-        <md-tab label="UseCase3s">
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button *ngIf="sub" (click)="onCancel()"><mat-icon>cancel</mat-icon>Cancel</button>
+            <button mat-raised-button (click)="onSave()" [disabled]="!useCase2Form.form.valid"><mat-icon>save</mat-icon>Save</button>
+        </mat-card-actions>
+    </mat-card>
+    <br/>
+    <mat-card *ngIf="useCase2 && useCase2.id">
+    <mat-card-subtitle>UseCase2 db relations</mat-card-subtitle>
+    <mat-card-content>
+    <mat-tab-group>
+        <mat-tab label="UseCase3s">
             <useCase3-list *ngIf="showUseCase3s" [id2]="useCase2" sub="true" [header]="'UseCase3s of this useCase2'" (onAddNewClicked)="showUseCase3s = false"></useCase3-list>
             <useCase3-detail *ngIf="!showUseCase3s" [id2]="useCase2" sub="true" (onSaveClicked)="showUseCase3s = true" (onCancelClicked)="showUseCase3s = true"></useCase3-detail>
-        </md-tab>
+        </mat-tab>
 
-    </md-tab-group>
-    </md-card-content>
-    </md-card>
-</div>
+    </mat-tab-group>
+    </mat-card-content>
+    </mat-card>
