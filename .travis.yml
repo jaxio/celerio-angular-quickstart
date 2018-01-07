@@ -18,7 +18,7 @@ before_install:
   - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   - export PATH=$JAVA_HOME/bin:$PATH
   - java -version
-  - npm install -g @angular/cli@latest
+  - npm install -g @angular/cli
   - export DISPLAY=:99.0
   - export CHROME_BIN=/usr/bin/google-chrome
   - sh -e /etc/init.d/xvfb start
