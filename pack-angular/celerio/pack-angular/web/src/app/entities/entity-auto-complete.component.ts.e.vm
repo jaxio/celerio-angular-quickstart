@@ -1,7 +1,6 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-auto-complete.component.ts")##
-import {Component, Input, Output, EventEmitter, forwardRef} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {AutoCompleteModule} from 'primeng/primeng';
+import {Component, Input, forwardRef} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {MessageService} from '../../service/message.service';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
@@ -15,69 +14,63 @@ export const ${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCE
 };
 
 @Component({
-	template: `
-        <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${d}event)" (onSelect)="select(${d}event)">
-            <ng-template let-$entity.model.var pTemplate="item">
-                <${entity.model.var}-line [$entity.model.var]="$entity.model.var"></${entity.model.var}-line>
-            </ng-template>
-        </p-autoComplete>
-	`,
-	selector: '${entity.model.var}-auto-complete',
-    providers: [${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR]
+  templateUrl: '${entity.model.var}-auto-complete.component.html',
+  selector: 'app-${entity.model.var}-auto-complete',
+  providers: [${entity.model.type.toUpperCase()}_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR]
 })
 export class ${entity.model.type}CompleteComponent implements ControlValueAccessor {
-    @Input() disabled : boolean = false;
-    @Input() id : string;
-    @Input() name : string;
+    @Input() disabled = false;
+    @Input() id: string;
+    @Input() name: string;
 
-    //The internal data model
+    // The internal data model
     private _value: $entity.model.type = null;
 
-    public suggestions : ${entity.model.type}[] = [];
+    public suggestions: ${entity.model.type}[] = [];
 
-    //Placeholders for the callbacks
+    // Placeholders for the callbacks
     private _onTouchedCallback: () => void = () => {};
-    private _onChangeCallback: (_:any) => void = () => {};
+    private _onChangeCallback: (_: any) => void = () => {};
 
-    constructor(private $entity.service.var : ${entity.service.type}, private messageService : MessageService) {
+    constructor(private $entity.service.var: ${entity.service.type}, private messageService: MessageService) {
     }
 
     @Input()
-    get value(): any { return this._value; };
+    get value(): any { return this._value; }
 
-    //set accessor including call the onchange callback
+    // set accessor including call the onchange callback
     set value(v: any) {
-        if (this._value != null && (v == null || v == "")) {
+        if (this._value != null && !v) {
             this.select(null);
         }
         // nop, see writeValue and select method
     }
 
-    //Set touched on blur
-    onTouched(){
+    // Set touched on blur
+    onTouched() {
         this._onTouchedCallback();
     }
 
-    //From ControlValueAccessor interface
+    // From ControlValueAccessor interface
     writeValue(value: any) {
         this._value = <$entity.model.type> value;
     }
 
-    //From ControlValueAccessor interface
+    // From ControlValueAccessor interface
     registerOnChange(fn: any) {
         this._onChangeCallback = fn;
     }
 
-    //From ControlValueAccessor interface
+    // From ControlValueAccessor interface
     registerOnTouched(fn: any) {
         this._onTouchedCallback = fn;
     }
 
-    //From ControlValueAccessor interface
+    // From ControlValueAccessor interface
     setDisabledState(isDisabled: boolean) {
     }
 
-    complete(event:any) {
+    complete(event: any) {
         this.${entity.service.var}.complete(event.query).
             subscribe(
                 results => this.suggestions = results,
@@ -85,7 +78,7 @@ export class ${entity.model.type}CompleteComponent implements ControlValueAccess
             );
     }
 
-    select(v : any) {
+    select(v: any) {
         this._value = v;
         this._onChangeCallback(v);
     }

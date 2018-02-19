@@ -1,0 +1,6 @@
+$output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-auto-complete.component.html")##
+<p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="#foreach($attr in $entity.printerAttributes.flatUp.list)${attr.var}#{break}#end" [suggestions]="suggestions" (completeMethod)="complete(${d}event)" (onSelect)="select(${d}event)">
+    <ng-template let-$entity.model.var pTemplate="item">
+        <app-${entity.model.var}-line [$entity.model.var]="$entity.model.var"></app-${entity.model.var}-line>
+    </ng-template>
+</p-autoComplete>

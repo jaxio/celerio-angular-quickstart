@@ -2,12 +2,11 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.
 import { Component, Input, Output, OnChanges, EventEmitter, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { DataTable, LazyLoadEvent } from 'primeng/primeng';
-import { PageResponse } from "../../support/paging";
+import { PageResponse } from '../../support/paging';
 import { MessageService } from '../../service/message.service';
 import { MatDialog } from '@angular/material';
-import { ConfirmDeleteDialogComponent } from "../../support/confirm-delete-dialog.component";
+import { ConfirmDeleteDialogComponent } from '../../support/confirm-delete-dialog.component';
 import { $entity.model.type } from './${entity.model.var}';
-import { ${entity.model.type}DetailComponent } from './${entity.model.var}-detail.component';
 import { $entity.service.type } from './${entity.model.var}.service';
 #set($imports = [])
 #foreach ($relation in $entity.xToOne.list)
@@ -15,35 +14,33 @@ import { $entity.service.type } from './${entity.model.var}.service';
 #if(!$relation.to.type.equals($entity.model.type))
 import { $relation.to.type } from '../$relation.toEntity.model.var/$relation.toEntity.model.var';
 #end
-import { ${relation.to.type}LineComponent } from '../$relation.toEntity.model.var/${relation.toEntity.model.var}-line.component';
 #set($temp = $imports.add($relation.to.type))
 #end
 #end
 
 @Component({
-    moduleId: module.id,
-	templateUrl: '${entity.model.var}-list.component.html',
-	selector: '${entity.model.var}-list'
+  templateUrl: '${entity.model.var}-list.component.html',
+  // selector: '${entity.model.var}-list'
 })
-export class ${entity.model.type}ListComponent {
+export class ${entity.model.type}ListComponent implements OnChanges {
 
-    @Input() header = "${entity.model.varsUp}...";
+    @Input() header = '${entity.model.varsUp}...';
 
     // When 'sub' is true, it means this list is used as a one-to-many list.
     // It belongs to a parent entity, as a result the addNew operation
     // must prefill the parent entity. The prefill is not done here, instead we
     // emit an event.
     // When 'sub' is false, we display basic search criterias
-    @Input() sub : boolean;
-    @Output() onAddNewClicked = new EventEmitter();
+    @Input() sub: boolean;
+    @Output() addNewClicked = new EventEmitter();
 
-    ${entity.model.var}ToDelete : $entity.model.type;
+    ${entity.model.var}ToDelete: $entity.model.type;
 
     // basic search criterias (visible if not in 'sub' mode)
-    example : $entity.model.type = new ${entity.model.type}();
+    example: $entity.model.type = new ${entity.model.type}();
 
     // list is paginated
-    currentPage : PageResponse<$entity.model.type> = new PageResponse<$entity.model.type>(0,0,[]);
+    currentPage: PageResponse<$entity.model.type> = new PageResponse<$entity.model.type>(0, 0, []);
 
 ## --------------- Many to One
 #foreach ($relation in $entity.forwardXToOne.list)
@@ -51,12 +48,12 @@ export class ${entity.model.type}ListComponent {
     // X to one: input param is used to filter the list when displayed
     // as a one-to-many list by the other side.
 #end
-    private _$relation.to.var : $relation.to.type;
+    private _$relation.to.var: $relation.to.type;
 #end
 
-    constructor(private router : Router,
-        private $entity.service.var : $entity.service.type,
-        private messageService : MessageService,
+    constructor(private router: Router,
+        private $entity.service.var: $entity.service.type,
+        private messageService: MessageService,
         private confirmDeleteDialog: MatDialog) {
     }
 
@@ -71,17 +68,18 @@ export class ${entity.model.type}ListComponent {
     /**
      * Invoked when user presses the search button.
      */
-    search(dt : DataTable) {
+    search(dt: DataTable) {
         if (!this.sub) {
             dt.reset();
-            this.loadPage({ first: 0, rows: dt.rows, sortField: dt.sortField, sortOrder: dt.sortOrder, filters: null, multiSortMeta: dt.multiSortMeta });
+            this.loadPage({ first: 0, rows: dt.rows, sortField: dt.sortField, sortOrder: dt.sortOrder,
+        filters: null, multiSortMeta: dt.multiSortMeta });
         }
     }
 
     /**
      * Invoked automatically by primeng datatable.
      */
-    loadPage(event : LazyLoadEvent) {
+    loadPage(event: LazyLoadEvent) {
         this.${entity.service.var}.getPage(this.example, event).
             subscribe(
                 pageResponse => this.currentPage = pageResponse,
@@ -96,7 +94,7 @@ export class ${entity.model.type}ListComponent {
     // as a one-to-many list by the other side.
 #end
     @Input()
-    set ${relation.to.var}($relation.to.var : $relation.to.type) {
+    set ${relation.to.var}($relation.to.var: $relation.to.type) {
         if ($relation.to.var == null) {
             return;
         }
@@ -109,29 +107,29 @@ export class ${entity.model.type}ListComponent {
 
 #end
 
-    onRowSelect(event : any) {
+    onRowSelect(event: any) {
 #if($entity.hasCompositePk())
-        let id = #foreach($a in $primaryKey.attributes)event.data.${identifiableProperty.var}.${a.var}#{if}($a.isDate()).toISOString().substring(0,19)#{end}#{if}($velocityHasNext) + '_' + #{else};#{end}
+        const id = #foreach($a in $primaryKey.attributes)event.data.${identifiableProperty.var}.${a.var}#{if}($a.isDate()).toISOString().substring(0,19)#{end}#{if}($velocityHasNext) + '_' + #{else};#{end}
 
 #{end}
 #else
-        let id =  event.data.${identifiableProperty.var};
+        const id =  event.data.${identifiableProperty.var};
 #end
         this.router.navigate(['/${entity.model.var}', id]);
     }
 
     addNew() {
         if (this.sub) {
-            this.onAddNewClicked.emit("addNew");
+            this.addNewClicked.emit('addNew');
         } else {
             this.router.navigate(['/${entity.model.var}', 'new']);
         }
     }
 
-    showDeleteDialog(rowData : any) {
-        let ${entity.model.var}ToDelete : $entity.model.type = <$entity.model.type> rowData;
+    showDeleteDialog(rowData: any) {
+        const ${entity.model.var}ToDelete: $entity.model.type = <$entity.model.type> rowData;
 
-        let dialogRef = this.confirmDeleteDialog.open(ConfirmDeleteDialogComponent);
+        const dialogRef = this.confirmDeleteDialog.open(ConfirmDeleteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             if (result === 'delete') {
                 this.delete(${entity.model.var}ToDelete);
@@ -139,12 +137,12 @@ export class ${entity.model.type}ListComponent {
         });
     }
 
-    private delete(${entity.model.var}ToDelete : $entity.model.type) {
+    private delete(${entity.model.var}ToDelete: $entity.model.type) {
 #if($entity.hasCompositePk())
-        let id = #foreach($a in $primaryKey.attributes)${entity.model.var}ToDelete.${identifiableProperty.var}.${a.var}#{if}($a.isDate()).toISOString().substring(0,19)#{end}#{if}($velocityHasNext) + '_' + #{else};#{end}#{end}
+        const id = #foreach($a in $primaryKey.attributes)${entity.model.var}ToDelete.${identifiableProperty.var}.${a.var}#{if}($a.isDate()).toISOString().substring(0,19)#{end}#{if}($velocityHasNext) + '_' + #{else};#{end}#{end}
 
 #else
-        let id =  ${entity.model.var}ToDelete.${identifiableProperty.var};
+        const id =  ${entity.model.var}ToDelete.${identifiableProperty.var};
 #end
 
         this.${entity.service.var}.delete(id).

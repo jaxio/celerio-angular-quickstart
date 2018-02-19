@@ -1,7 +1,5 @@
 $output.file("web/src/app/app.component.ts")##
-import { Component,OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from '@angular/core';
 import 'rxjs/add/observable/throw';
 import { Message, MenuItem } from 'primeng/primeng';
 import { AuthService} from './service/auth.service';
@@ -12,80 +10,27 @@ import { MessageService} from './service/message.service';
  * Defines the main layout and handles user login in a dialog.
  */
 @Component({
-    moduleId: module.id,
-    selector: 'app-root',
-    template: `
-        <p-growl [value]="msgs"></p-growl>
-
-        <div class="ui-g layout">
-            <div class="ui-g-12 ui-md-1">The West...</div>
-            <div class="ui-g-12 ui-md-11 ui-g-nopad">
-                <div class="ui-g-12 ui-g-nopad" style="font-size: 14px;">
-                    <p-menubar [model]="items"></p-menubar>
-                </div>
-                <div class="ui-g-12">
-                    <router-outlet></router-outlet>
-                </div>
-                <div class="ui-g-12" style="text-align: center;">
-                    <i class="fa fa-twitter"></i> <a href="https://twitter.com/jaxiosoft">@jaxiosoft</a> -
-                    <i class="fa fa-github-alt"></i> <a href="https://github.com/jaxio/celerio-angular-quickstart">https://github.com/jaxio/celerio-angular-quickstart</a>
-                </div>
-            </div>
-        </div>
-        <p-dialog header="Please login" [visible]="displayLoginDialog" [responsive]="true" showEffect="fade" [modal]="true" [closable]="false" *ngIf="!authenticated">
-            <p>When using the sample database, use admin/admin</p>
-            <div ngForm class="ui-g">
-                <div class="ui-g-12" *ngIf="loginFailed">
-                    <div class="ui-message ui-messages-error ui-corner-all">
-                        Invalid login or password
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label for="j_username">Username</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <input pInputText id="j_username" [(ngModel)]="j_username" name="username"/>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label for="j_password">Password</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <input type="password" pPassword id="j_password" [(ngModel)]="j_password" name="password"/>
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button pButton (click)="login()" icon="fa-sign-in" label="Login"></button>
-                </div>
-            </footer>
-        </p-dialog>
-               `,
-    styles:[`
-        .layout div {
-            background-color: white;
-            border: 1px solid #f5f7f8;
-        }
-    `]
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styles: [`
+    .layout div {
+      background-color: white;
+      border: 1px solid #f5f7f8;
+    }
+  `]
 })
 export class AppComponent implements OnInit {
-    public items : MenuItem[] = [{label: 'hello'}];
-    msgs : Message[] = [];
+    items: MenuItem[] = [{label: 'hello'}];
+    msgs: Message[] = [];
 
-    displayLoginDialog : boolean = false;
-    loginFailed : boolean = false;
-    authenticated : boolean = false;
-    j_username : string = "admin";
-    j_password : string = "admin";
+    displayLoginDialog = false;
+    loginFailed = false;
+    authenticated = false;
+    j_username = 'admin';
+    j_password = 'admin';
 
     constructor(private authService: AuthService, private messageService: MessageService) {
-        messageService.messageSource${d}.subscribe(
-            msg => {
-                this.msgs.push(msg);
-            });
+        messageService.messageSource${d}.subscribe(msg => this.msgs.push(msg));
     }
 
     ngOnInit() {
@@ -94,33 +39,37 @@ export class AppComponent implements OnInit {
 
             { label: 'Entities', icon: 'fa-search', items: [
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-                    {label: '${entity.model.type} Search', routerLink: ['/${entity.model.var}-list']},
-                    {label: '${entity.model.type} Create', routerLink: ['/${entity.model.var}/new']}#if($velocityHasNext),
+          {
+            label: '${entity.model.type}',
+            items: [
+              {label: 'Search', routerLink: ['/${entity.model.var}-list']},
+              {label: 'Create', routerLink: ['/${entity.model.var}/new']}
+            ]
+          }#if($velocityHasNext),
 #end
 #end
                 ]
             },
-            { label: 'Swagger', url : "/swagger-ui.html", icon: 'fa-gear' },
+            { label: 'Swagger', url : '/swagger-ui.html', icon: 'fa-gear' },
             { label: 'Documentation',
                 icon: 'fa-book',
                 items: [
-                    {label: "Source code", icon: 'fa-github-alt', url: "https://github.com/jaxio/celerio-angular-quickstart"},
-                    {label: "Celerio Documentation", icon: 'fa-external-link', url: "http://www.jaxio.com/documentation/celerio/"},
-                    {label: "Angular Cli", icon: 'fa-external-link', url: "https://cli.angular.io/"},
-                    {label: "Angular 5", icon: 'fa-external-link', url: "https://angular.io/"},
-                    {label: "Material 5", icon: 'fa-external-link', url: "https://material.angular.io/"},
-                    {label: "PrimeNG Showcase", icon: 'fa-external-link', url: "http://www.primefaces.org/primeng"},
-                    {label: "TypeScript", icon: 'fa-external-link', url: "https://www.typescriptlang.org/"},
-                    {label: "Spring Boot", icon: 'fa-external-link', url: "http://projects.spring.io/spring-boot/"},
-                    {label: "Spring Data JPA", icon: 'fa-external-link', url: "http://projects.spring.io/spring-data-jpa/"}
+                    {label: 'Source code', icon: 'fa-github-alt', url: 'https://github.com/jaxio/celerio-angular-quickstart'},
+                    {label: 'Celerio Documentation', icon: 'fa-external-link', url: 'http://www.jaxio.com/documentation/celerio/'},
+                    {label: 'Angular Cli', icon: 'fa-external-link', url: 'https://cli.angular.io/'},
+                    {label: 'Angular 5', icon: 'fa-external-link', url: 'https://angular.io/'},
+                    {label: 'Material 5', icon: 'fa-external-link', url: 'https://material.angular.io/'},
+                    {label: 'PrimeNG Showcase', icon: 'fa-external-link', url: 'http://www.primefaces.org/primeng'},
+                    {label: 'TypeScript', icon: 'fa-external-link', url: 'https://www.typescriptlang.org/'},
+                    {label: 'Spring Boot', icon: 'fa-external-link', url: 'http://projects.spring.io/spring-boot/'},
+                    {label: 'Spring Data JPA', icon: 'fa-external-link', url: 'http://projects.spring.io/spring-data-jpa/'}
                 ]
             }
         ];
 
         this.authService.isAuthenticated().
             subscribe(
-                resp =>
-                    {
+                resp => {
                         this.authenticated = resp;
                         this.displayLoginDialog = !this.authenticated;
                         if (this.authenticated) {

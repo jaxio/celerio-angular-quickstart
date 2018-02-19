@@ -1,40 +1,38 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}.service.ts")##
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { LazyLoadEvent } from 'primeng/primeng';
 import { MessageService } from '../../service/message.service';
 import { PageResponse, PageRequestByExample } from '../../support/paging';
 import { ${entity.model.type} } from './${entity.model.var}';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ${entity.service.type} {
 
-    constructor(private http: HttpClient, private messageService : MessageService) {}
+    constructor(private http: HttpClient) {}
 
     /**
      * Get a $entity.model.type by id.
      */
-    ${entity.model.getter}(id : any) : Observable<$entity.model.type> {
+    ${entity.model.getter}(id: any): Observable<$entity.model.type> {
         return this.http.get('/api/${entity.model.vars}/' + id)
             .pipe(
                 map(response => new ${entity.model.type}(response)),
-                catchError(this.handleError)
+                catchError(MessageService.handleError)
             );
     }
 
     /**
      * Update the passed ${entity.model.var}.
      */
-    update($entity.model.var : $entity.model.type) : Observable<$entity.model.type> {
-        let body = $entity.model.var;
-
-        return this.http.put('/api/$entity.model.vars/', body)
+    update($entity.model.var: $entity.model.type): Observable<$entity.model.type> {
+         return this.http.put('/api/$entity.model.vars/', $entity.model.var)
             .pipe(
                 map(response => new ${entity.model.type}(response)),
-                catchError(this.handleError)
+                catchError(MessageService.handleError)
             );
     }
 
@@ -42,14 +40,13 @@ export class ${entity.service.type} {
      * Load a page (for paginated datatable) of $entity.model.type using the passed
      * $entity.model.var as an example for the search by example facility.
      */
-    getPage($entity.model.var : $entity.model.type, event : LazyLoadEvent) : Observable<PageResponse<$entity.model.type>> {
-        let req = new PageRequestByExample($entity.model.var, event);
-        let body = req;
+    getPage($entity.model.var: $entity.model.type, event: LazyLoadEvent): Observable<PageResponse<$entity.model.type>> {
+        const body = new PageRequestByExample($entity.model.var, event);
 
         return this.http.post<PageResponse<any>>('/api/$entity.model.vars/page', body)
             .pipe(
                 map(pr =>  new PageResponse<$entity.model.type>(pr.totalPages, pr.totalElements, ${entity.model.type}.toArray(pr.content))),
-                catchError(this.handleError)
+                catchError(MessageService.handleError)
             );
     }
 
@@ -57,31 +54,21 @@ export class ${entity.service.type} {
      * Performs a search by example on 1 attribute (defined on server side) and returns at most 10 results.
      * Used by ${entity.model.type}CompleteComponent.
      */
-    complete(query : string) : Observable<${entity.model.type}[]> {
-        let body = {'query': query, 'maxResults': 10};
+    complete(query: string): Observable<${entity.model.type}[]> {
+        const body = {query: query, maxResults: 10};
         return this.http.post<any[]>('/api/$entity.model.vars/complete', body)
             .pipe(
                 map(response => ${entity.model.type}.toArray(response)),
-                catchError(this.handleError)
+                catchError(MessageService.handleError)
             );
     }
 
     /**
      * Delete an $entity.model.type by id.
      */
-    delete(id : any) {
+    delete(id: any) {
         return this.http.delete('/api/${entity.model.vars}/' + id)
-            .pipe(catchError(this.handleError));
+            .pipe(catchError(MessageService.handleError));
     }
 
-    // sample method from angular doc
-    private handleError (error: HttpErrorResponse) {
-        // TODO: seems we cannot use messageService from here...
-        let errMsg = (error.message) ? error.message : 'Server error';
-        console.error(errMsg);
-        if (error.status === 401 ) {
-            window.location.href = '/';
-        }
-        return Observable.throw(errMsg);
-    }
 }
