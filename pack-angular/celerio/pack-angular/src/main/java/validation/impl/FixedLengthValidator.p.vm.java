@@ -14,7 +14,7 @@
 ##
 $output.java($ValidationImpl, "FixedLengthValidator")##
 
-$output.requireStatic("org.apache.commons.lang.StringUtils.isEmpty")##
+$output.requireStatic("org.apache.commons.lang3.StringUtils.isEmpty")##
 $output.require("javax.validation.ConstraintValidator")##
 $output.require("javax.validation.ConstraintValidatorContext")##
 $output.require($Validation, "FixedLength")##
