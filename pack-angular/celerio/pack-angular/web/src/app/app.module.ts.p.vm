@@ -22,7 +22,6 @@ import { ConfirmDeleteDialogComponent } from './support/confirm-delete-dialog.co
 import { ${entity.service.type} } from './entities/$entity.model.var/${entity.model.var}.service';
 import { ${entity.model.type}ListComponent } from './entities/$entity.model.var/${entity.model.var}-list.component';
 import { ${entity.model.type}DetailComponent } from './entities/$entity.model.var/${entity.model.var}-detail.component';
-import { ${entity.model.type}LineComponent } from './entities/$entity.model.var/${entity.model.var}-line.component';
 import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.var/${entity.model.var}-auto-complete.component';
 #end
 
@@ -36,7 +35,6 @@ import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.
     
     ${entity.model.type}ListComponent,
     ${entity.model.type}DetailComponent,
-    ${entity.model.type}LineComponent,
     ${entity.model.type}CompleteComponent,
 #end
     ],
