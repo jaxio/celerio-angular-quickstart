@@ -30,7 +30,7 @@ $output.require("springfox.documentation.builders.RequestHandlerSelectors")##
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
-    private final Logger log = LoggerFactory.getLogger(SwaggerConfiguration.class);
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Bean
     public Docket swaggerSpringfoxDocket() {

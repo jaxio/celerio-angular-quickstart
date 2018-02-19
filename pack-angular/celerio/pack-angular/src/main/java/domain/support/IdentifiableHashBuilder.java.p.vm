@@ -16,6 +16,7 @@ $output.java($ModelSupport, "IdentifiableHashBuilder")##
 
 $output.require("java.io.Serializable")##
 $output.require("java.util.logging.Logger")
+$output.require("java.rmi.dgc.VMID")
 $output.require("${ModelSupport.packageName}.Identifiable")##
 
 /**
@@ -34,7 +35,7 @@ public class $output.currentClass implements Serializable {
             if (identifiable.${identifiableProperty.iser}()) {
                 technicalId = identifiable.${identifiableProperty.getter}();
             } else {
-                technicalId = new java.rmi.dgc.VMID();
+                technicalId = new VMID();
                 log.warning("DEVELOPER: hashCode is not safe." //
                         + "If you encounter this message you should take the time to carefuly " //
                         + "review the equals/hashCode methods for: " + identifiable.getClass().getCanonicalName() //

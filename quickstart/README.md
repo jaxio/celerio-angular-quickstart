@@ -3,7 +3,7 @@
 
 * [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven 3.5.x](https://maven.apache.org/download.cgi) 
-* [Angular cli 1.6.3 ](https://github.com/angular/angular-cli#installation)
+* [Angular cli 1.7.x ](https://github.com/angular/angular-cli#installation)
 * [Npm 5.x.x](https://nodejs.org/en/)
 * [NodeJS 8.x](https://nodejs.org/en/)
 

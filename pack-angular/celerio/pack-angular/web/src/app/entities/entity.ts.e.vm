@@ -1,6 +1,6 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}.ts")##
 #macro(tstype $attr)
-#if($attr.isString()) : string#elseif($attr.isNumeric()) : number#elseif($attr.isBoolean()) : boolean#elseif($attr.isDate()) : Date#end
+#if($attr.isString()): string#elseif($attr.isNumeric()): number#elseif($attr.isBoolean()): boolean#elseif($attr.isDate()): Date#end
 #end
 ## --------------- Composite PK
 #if($entity.hasCompositePk())
@@ -32,7 +32,7 @@ import {${relation.to.type}} from '../${relation.toEntity.model.var}/${relation.
 export class $entity.model.type {
 ## --------------- Compiste PK
 #if ($entity.hasCompositePk())
-    ${identifiableProperty.var} : $entity.primaryKey.type = new ${entity.primaryKey.type}();
+    ${identifiableProperty.var}: $entity.primaryKey.type = new ${entity.primaryKey.type}();
 #end
 ## --------------- Raw attributes (except the one involved in XtoOneRelation)
 #foreach ($attribute in $entity.nonCpkAttributes.list)
@@ -48,18 +48,18 @@ export class $entity.model.type {
 #if ($velocityCount == 1)
     // x-to-one
 #end
-    $relation.to.var : $relation.to.type;
+    $relation.to.var: $relation.to.type;
 #end
 ## --------------- many to many
 #foreach ($relation in $entity.manyToMany.list)
 #if ($velocityCount == 1)
     // many-to-many
 #end
-    $relation.to.vars : ${relation.to.type}[];
+    $relation.to.vars: ${relation.to.type}[];
 #end
 
 
-    constructor(json? : any) {
+    constructor(json?: any) {
         if (json != null) {
 ## --------------- Composite PK
 #if ($entity.hasCompositePk())
@@ -96,13 +96,7 @@ export class $entity.model.type {
 
     // Utils
 
-    static toArray(jsons : any[]) : ${entity.model.type}[] {
-        let $entity.model.vars : ${entity.model.type}[] = [];
-        if (jsons != null) {
-            for (let json of jsons) {
-                ${entity.model.vars}.push(new ${entity.model.type}(json));
-            }
-        }
-        return $entity.model.vars;
+    static toArray(jsons: any[]): ${entity.model.type}[] {
+        return jsons ? jsons.map(json => new ${entity.model.type}(json)) : [];
     }
 }
