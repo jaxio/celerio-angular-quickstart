@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-confirm-delete-dialog',
