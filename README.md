@@ -81,4 +81,3 @@ You may of course [report issues](https://github.com/jaxio/celerio-angular-quick
 [Celerio]: https://github.com/jaxio/celerio
 [Velocity]: http://velocity.apache.org/
 
-
