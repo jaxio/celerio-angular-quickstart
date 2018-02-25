@@ -13,17 +13,16 @@
 ## limitations under the License.
 ##
 $output.java("${Root.packageName}.rest","SecurityResource")##
-$output.requireStatic("org.springframework.web.bind.annotation.RequestMethod.GET")##
+
 $output.require("org.springframework.web.bind.annotation.*")##
-$output.requireStatic("org.springframework.http.MediaType.APPLICATION_JSON_VALUE")##
-$output.require("javax.servlet.http.HttpServletRequest")##
+
 $output.require($Security, "UserContext")##
 
 @RestController
 @RequestMapping("/api")
 public class $output.currentClass{
 
-    @RequestMapping(value = "/authenticated", method = GET, produces = APPLICATION_JSON_VALUE)
+    @GetMapping("authenticated")
     public boolean isAuthenticated() {
         return UserContext.getId() != null;
     }

@@ -5,7 +5,7 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detai
             <div class="ui-g-12 ui-md-10 ui-lg-5">
                 <div class="ui-g">
                 <div class="ui-g-12 ui-md-5 ui-lg-5">
-                    <${relation.toEntity.model.var}-auto-complete [(ngModel)]="${entity.model.var}.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}" [disabled]="sub"></${relation.toEntity.model.var}-auto-complete>
+                    <app-${relation.toEntity.model.var}-auto-complete [(ngModel)]="${entity.model.var}.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}" [disabled]="sub"></app-${relation.toEntity.model.var}-auto-complete>
                 </div>
                 <div class="ui-g-12 ui-md-2 ui-lg-2">
                     <button pButton id="goto${relation.to.varUp}" type="button" (click)="goto${relation.to.varUp}()" *ngIf="!sub && ${entity.model.var}.${relation.to.var}" icon="fa-pencil" label="Edit"></button>

@@ -6,7 +6,7 @@ $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-list.
         <label for="${relation.to.var}">$relation.labels.label</label>
     </div>
     <div class="ui-grid-col-6">
-        <${relation.toEntity.model.var}-auto-complete [(ngModel)]="example.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}"></${relation.toEntity.model.var}-auto-complete>
+        <app-${relation.toEntity.model.var}-auto-complete [(ngModel)]="example.${relation.to.var}" id="${relation.to.var}" name="${relation.to.var}"></app-${relation.toEntity.model.var}-auto-complete>
     </div>
 </div>
 #end

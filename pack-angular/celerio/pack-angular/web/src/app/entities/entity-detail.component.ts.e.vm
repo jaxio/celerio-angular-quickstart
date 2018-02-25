@@ -1,8 +1,7 @@
 $output.file("web/src/app/entities/${entity.model.var}/${entity.model.var}-detail.component.ts")##
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { SelectItem } from 'primeng/primeng';
-import { MessageService} from '../../service/message.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {MessageService} from '../../service/message.service';
 import {${entity.model.type}} from './${entity.model.var}';
 import {${entity.service.type}} from './${entity.model.var}.service';
 #set($imports = [])
@@ -21,26 +20,25 @@ import {${relation.toEntity.service.type}} from '../$relation.toEntity.model.var
 #end
 
 @Component({
-    moduleId: module.id,
-	templateUrl: '${entity.model.var}-detail.component.html',
-	selector: '${entity.model.var}-detail',
+  templateUrl: '${entity.model.var}-detail.component.html',
+  // selector: '${entity.model.var}-detail',
 })
 export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
-    $entity.model.var : $entity.model.type;
+    $entity.model.var: $entity.model.type;
 
     private params_subscription: any;
 
 #foreach ($relation in $entity.oneToMany.flatUp.list)
-    show$relation.to.varsUp : boolean = true;
+    show$relation.to.varsUp = true;
 #end
 #foreach ($relation in $entity.manyToMany.list)
-    source$relation.to.varsUp : ${relation.toEntity.model.type}[] = [];
+    source$relation.to.varsUp: ${relation.toEntity.model.type}[] = [];
 #end
 
-    @Input() sub : boolean = false;
+    @Input() sub = false;
 #foreach ($relation in $entity.forwardXToOne.list)
     @Input() // used to pass the parent when creating a new $entity.model.type
-    set ${relation.to.var}($relation.to.var : $relation.to.type) {
+    set ${relation.to.var}($relation.to.var: $relation.to.type) {
         this.$entity.model.var = new ${entity.model.type}();
         this.${entity.model.var}.$relation.to.var = $relation.to.var;
 #if($relation.fromAttribute.isInCpk())
@@ -50,17 +48,18 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
     }
 
 #end
-    @Output() onSaveClicked = new EventEmitter<$entity.model.type>();
-    @Output() onCancelClicked = new EventEmitter();
+    @Output() saveClicked = new EventEmitter<$entity.model.type>();
+    @Output() cancelClicked = new EventEmitter();
 #foreach($attr in $entity.enumAttributes.list)
     ${attr.var}Options: SelectItem[];
 #end
 
-    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private ${entity.service.var}: ${entity.service.type}#foreach ($relation in $entity.manyToMany.list), private ${relation.toEntity.service.var} : ${relation.toEntity.service.type}#end) {
+    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService,
+              private ${entity.service.var}: ${entity.service.type}#foreach ($relation in $entity.manyToMany.list), private ${relation.toEntity.service.var}: ${relation.toEntity.service.type}#end) {
 #foreach($attr in $entity.enumAttributes.list)
         this.${attr.var}Options = [];
 #foreach($enumValue in $attr.enumConfig.enumValues)
-        this.${attr.var}Options.push({"label": "$enumValue.labels().label", 'value': "$enumValue.name"});
+        this.${attr.var}Options.push({label: '$enumValue.labels().label', value: '$enumValue.name'});
 #end
 #end
 #foreach ($relation in $entity.manyToMany.list)
@@ -76,7 +75,7 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
         }
 
         this.params_subscription = this.route.params.subscribe(params => {
-            let id = params['id'];
+            const id = params['id'];
             console.log('ngOnInit for ${entity.model.var}-detail ' + id);
 
             if (id === 'new') {
@@ -130,10 +129,10 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
                 $entity.model.var => {
                     this.$entity.model.var = $entity.model.var;
                     if (this.sub) {
-                        this.onSaveClicked.emit(this.$entity.model.var);
-                        this.messageService.info('Saved OK and msg emitted', 'Angular Rocks!')
+                        this.saveClicked.emit(this.$entity.model.var);
+                        this.messageService.info('Saved OK and msg emitted', 'Angular Rocks!');
                     } else {
-                        this.messageService.info('Saved OK', 'Angular Rocks!')
+                        this.messageService.info('Saved OK', 'Angular Rocks!');
                     }
                 },
                 error =>  this.messageService.error('Could not save', error)
@@ -142,8 +141,8 @@ export class ${entity.model.type}DetailComponent implements OnInit, OnDestroy {
 
     onCancel() {
         if (this.sub) {
-            this.onCancelClicked.emit("cancel");
-            this.messageService.info('Cancel clicked and msg emitted', 'Angular Rocks!')
+            this.cancelClicked.emit('cancel');
+            this.messageService.info('Cancel clicked and msg emitted', 'Angular Rocks!');
         }
     }
 

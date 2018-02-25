@@ -31,11 +31,16 @@ $output.require("java.io.Serializable")##
  */
 public class $output.currentClass extends User {
     private static final long serialVersionUID = 1L;
-    private $idType id;
+    private final $idType id;
 
     public ${output.currentClass}(String username, String password, boolean enabled, boolean accountNonExpired,
             boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities, $idType id) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        this.id = id;
+    }
+	
+	public UserWithId(String username, String password, Collection<? extends GrantedAuthority> authorities, $idType id) {
+        super(username, password, authorities);
         this.id = id;
     }
 

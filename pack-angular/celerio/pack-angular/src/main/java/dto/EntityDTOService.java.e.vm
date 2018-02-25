@@ -93,12 +93,10 @@ $output.require($relation.toEntity.model) ##
             example = Example.of($entity.model.var, matcher);
         }
 
-        Page<$entity.model.type> page;
-        if (example != null){
-            page = ${entity.repository.var}.findAll(example, req.toPageable());
-        } else {
-            page = ${entity.repository.var}.findAll(req.toPageable());
-        }
+        Page<$entity.model.type> page = example != null ?
+			${entity.repository.var}.findAll(example, req.toPageable()) :
+			${entity.repository.var}.findAll(req.toPageable());
+
 
         List<$entity.dto.type> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
@@ -138,7 +136,7 @@ $output.require($relation.toEntity.model) ##
             ${entity.model.var}.${relation.to.setter}(null);
         } else {
             $relation.to.type $relation.to.var = ${entity.model.var}.${relation.to.getter}();
-            if ($relation.to.var == null || (${relation.to.var}.getId().compareTo(dto.${relation.to.var}.id) != 0)) {
+            if ($relation.to.var == null || ${relation.to.var}.getId().compareTo(dto.${relation.to.var}.id) != 0) {
                 ${entity.model.var}.${relation.to.setter}(${relation.toEntity.repository.var}.findOne(dto.${relation.to.var}.id));
             }
         }

@@ -165,7 +165,7 @@ $output.require($manyToMany.to)##
     @Override
     $output.dynamicAnnotation("javax.persistence.Transient")
  public boolean ${entity.primaryKey.has}() {
-        return ${entity.primaryKey.getter}() != null && ${entity.primaryKey.getter}().areFieldsSet();
+        return $entity.primaryKey.var != null && $entity.primaryKey.var.areFieldsSet();
     }
 #end
 #if ($entity.isAccount())
@@ -609,7 +609,7 @@ $output.require("$entity.collectionType.implementationFullType")##
      */
     @Override
     public boolean equals(Object other) {
-        return ${output.currentRootCast}this == other || (other instanceof $output.currentClass && hashCode() == other.hashCode());
+        return ${output.currentRootCast}this == other || other instanceof $output.currentClass && hashCode() == other.hashCode();
     }
 
 #if($entity.useBusinessKey())
@@ -667,7 +667,7 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
         String language = LocaleHolder.getLocale().getLanguage().toLowerCase();
 #foreach($attribute in $bundle.attributes)
         if (language.equals("$attribute.columnNameLanguage")) {
-            return ${attribute.getter}();
+            return $attribute.var;
         }
 #end
         throw new IllegalStateException("Could not find the proper getter for current locale's language " + language);
@@ -684,7 +684,7 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
         return #if ($entity.hasParent())super.toString() + #{end}MoreObjects.toStringHelper(this) //
 #foreach ($attribute in $entity.nonCpkAttributes.list)
 #if(!$attribute.isInFk() || $attribute.isSimplePk())
-            .add("${attribute.var}", #if($attribute.isPassword())"XXXX"#else${attribute.getter}()#end) //
+            .add("${attribute.var}", #if($attribute.isPassword())"XXXX"#else$attribute.var#end) //
 #end
 #end
             .toString();
@@ -709,13 +709,13 @@ $output.require("com.jaxio.jpa.querybyexample.LocaleHolder")##
     $output.dynamicAnnotation("javax.persistence.Transient")
     public void copyTo($entity.model.type $entity.model.var) {
 #if ($entity.isRoot() && $entity.primaryKey.isComposite())
-		if (${entity.primaryKey.getter}() != null) {
-			${entity.model.var}.${entity.primaryKey.setter}(${entity.primaryKey.getter}().copy());
+		if ($entity.primaryKey.var != null) {
+			${entity.model.var}.${entity.primaryKey.setter}($entity.primaryKey.var.copy());
 		}
 #end
 #foreach ($attribute in $entity.nonCpkAttributes.list)
 #if ($attribute.isSetterAccessibilityPublic())
-        ${entity.model.var}.${attribute.setter}(${attribute.getter}());
+        ${entity.model.var}.${attribute.setter}($attribute.var);
 #end
 #end
 #foreach ($xToOne in $entity.xToOne.list)

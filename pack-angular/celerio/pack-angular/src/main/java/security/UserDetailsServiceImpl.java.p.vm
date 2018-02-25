@@ -81,30 +81,22 @@ $output.require($project.accountEntity.repository)##
 #else
         if ("user".equals(username)) {
             String password = "user";
-            boolean enabled = true;
-            boolean accountNonExpired = true;
-            boolean credentialsNonExpired = true;
-            boolean accountNonLocked = true;
-            List<String> roles = new ArrayList();
+            List<String> roles = new ArrayList<>();
             roles.add("ROLE_USER");
-            return new UserWithId(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, toGrantedAuthorities(roles), null);
+            return new UserWithId(username, password, toGrantedAuthorities(roles), null);
         }
         if ("admin".equals(username)) {
             String password = "admin";
-            boolean enabled = true;
-            boolean accountNonExpired = true;
-            boolean credentialsNonExpired = true;
-            boolean accountNonLocked = true;
-            List<String> roles = new ArrayList();
+            List<String> roles = new ArrayList<>();
             roles.add("ROLE_ADMIN");
-            return new UserWithId(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, toGrantedAuthorities(roles), null);
+            return new UserWithId(username, password, toGrantedAuthorities(roles), null);
         }
         return null;
 #end
     }
 
     private Collection<GrantedAuthority> toGrantedAuthorities(List<String> roles) {
-        List<GrantedAuthority> result = new ArrayList();
+        List<GrantedAuthority> result = new ArrayList<>();
         for (String role : roles) {
             result.add(new SimpleGrantedAuthority(role));
         }
