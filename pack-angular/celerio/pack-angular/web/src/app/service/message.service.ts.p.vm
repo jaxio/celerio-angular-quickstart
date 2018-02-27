@@ -1,21 +1,35 @@
-$output.file("web/src/app/service/message.service.ts")##
-import { Injectable } from '@angular/core'
-import { Subject } from 'rxjs/Subject';
-import { Message } from 'primeng/primeng';
+$output.file('web/src/app/service/message.service.ts')##
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
+import {Message} from 'primeng/primeng';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class MessageService {
-    private messageSource = new Subject<Message>();
+  private messageSource = new Subject<Message>();
 
-    messageSource${d} = this.messageSource.asObservable();
+  messageSource$ = this.messageSource.asObservable();
 
-    info(summary : string, detail : string) {
-        this.messageSource.next({severity:'info', summary: summary, detail: detail});
-        console.log("INFO: " + summary + " DETAIL: " + detail);
+  // sample method from angular doc
+  static handleError(error: HttpErrorResponse) {
+    // TODO: seems we cannot use messageService from here...
+    const errMsg = error.message || 'Server error';
+    console.error(errMsg);
+    if (error.status === 401) {
+      location.href = '/';
     }
+    return Observable.throw(errMsg);
+  }
 
-    error(summary : string, detail : string) {
-        this.messageSource.next({severity:'error', summary: summary, detail: detail});
-        console.log("ERROR: " + summary + " DETAIL: " + detail);
-    }
+  info(summary: string, detail: string) {
+    this.messageSource.next({severity: 'info', summary: summary, detail: detail});
+    console.log('INFO: ' + summary + ' DETAIL: ' + detail);
+  }
+
+  error(summary: string, detail: string) {
+    this.messageSource.next({severity: 'error', summary: summary, detail: detail});
+    console.log('ERROR: ' + summary + ' DETAIL: ' + detail);
+  }
+
 }

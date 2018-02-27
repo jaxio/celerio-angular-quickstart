@@ -4,15 +4,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule  }  from '@angular/router';
-import { MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatCardModule, MatIconModule, MatSelectModule, MatTabsModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule, MatDialogModule, MatCardModule, MatIconModule, MatSelectModule,
+ MatTabsModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { ConfirmDialogModule, FileUploadModule, PanelModule, GrowlModule, MenubarModule, DialogModule, ButtonModule, AutoCompleteModule, DataTableModule, SharedModule, DropdownModule,PickListModule,CheckboxModule,TriStateCheckboxModule, InputTextModule,InputTextareaModule,CalendarModule,PasswordModule,TabViewModule } from 'primeng/primeng';
 import { ConfirmationService } from 'primeng/primeng';
-import { AppComponent }   from './app.component';
-import { HomeComponent }  from './home.component';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home.component';
 import { AuthService } from './service/auth.service';
 import { MessageService } from './service/message.service';
-import { routing }        from './app.routes';
+import { routing } from './app.routes';
 import { EmailValidator } from './support/email.validator';
 import { ConfirmDeleteDialogComponent } from './support/confirm-delete-dialog.component';
 
@@ -22,7 +22,6 @@ import { ConfirmDeleteDialogComponent } from './support/confirm-delete-dialog.co
 import { ${entity.service.type} } from './entities/$entity.model.var/${entity.model.var}.service';
 import { ${entity.model.type}ListComponent } from './entities/$entity.model.var/${entity.model.var}-list.component';
 import { ${entity.model.type}DetailComponent } from './entities/$entity.model.var/${entity.model.var}-detail.component';
-import { ${entity.model.type}LineComponent } from './entities/$entity.model.var/${entity.model.var}-line.component';
 import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.var/${entity.model.var}-auto-complete.component';
 #end
 
@@ -31,13 +30,12 @@ import { ${entity.model.type}CompleteComponent } from './entities/$entity.model.
     AppComponent,
     HomeComponent,
     EmailValidator,
-    ConfirmDeleteDialogComponent
+    ConfirmDeleteDialogComponent,
 #foreach($entity in $project.withoutManyToManyJoinEntities.list)
-    ,
+    
     ${entity.model.type}ListComponent,
     ${entity.model.type}DetailComponent,
-    ${entity.model.type}LineComponent,
-    ${entity.model.type}CompleteComponent
+    ${entity.model.type}CompleteComponent,
 #end
     ],
     imports: [

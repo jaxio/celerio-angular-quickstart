@@ -14,7 +14,7 @@
 ##
 $output.java($Audit, "AuditContextHolder")##
 
-$output.requireStatic("org.apache.commons.lang.StringUtils.trimToNull")##
+$output.requireStatic("org.apache.commons.lang3.StringUtils.trimToNull")##
 $output.require("javax.persistence.PrePersist")##
 $output.require("javax.persistence.PreUpdate")##
 $output.require($Security, "UserContext")##
@@ -24,8 +24,8 @@ $output.require($Security, "UserContext")##
  * Please note that you are in charge of reseting the context properties if you use them directly.
  */
 public final class $output.currentClass {
-    private static final ThreadLocal<Boolean> audit = new ThreadLocal<Boolean>();
-    private static final ThreadLocal<String> username = new ThreadLocal<String>();
+    private static final ThreadLocal<Boolean> audit = new ThreadLocal<>();
+    private static final ThreadLocal<String> username = new ThreadLocal<>();
 
     private ${output.currentClass}(){
     }
