@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity.service.ts.e.vm
 //
 import { Injectable } from '@angular/core';
@@ -26,10 +26,10 @@ export class UserService {
     /**
      * Get a User by id.
      */
-    getUser(id : any) : Observable<User> {
+    get User(id : any) : Observable<User> {
         return this.http.get('/api/users/' + id)
             .pipe(
-                map(response => new User(response)),
+                map(response => new User (response)),
                 catchError(this.handleError)
             );
     }
@@ -37,8 +37,8 @@ export class UserService {
     /**
      * Update the passed user.
      */
-    update(user : User) : Observable<User> {
-        let body = user;
+    update(user : User ) : Observable< User> {
+        let body =  user;
 
         return this.http.put('/api/users/', body)
             .pipe(
@@ -52,13 +52,13 @@ export class UserService {
      * user as an example for the search by example facility.
      */
     getPage(user : User, event : LazyLoadEvent) : Observable<PageResponse<User>> {
-        let req = new PageRequestByExample(user, event);
+        let req  = new PageRequestByExample(user, event);
         let body = req;
 
         return this.http.post<PageResponse<any>>('/api/users/page', body)
             .pipe(
-                map(pr =>  new PageResponse<User>(pr.totalPages, pr.totalElements, User.toArray(pr.content))),
-                catchError(this.handleError)
+                map(pr =>  new PageResponse<User>(pr.totalPages, pr.totalElements, User.toArray(pr.content)),
+                catchError(this.handleError))
             );
     }
 
@@ -85,7 +85,7 @@ export class UserService {
 
     // sample method from angular doc
     private handleError (error: HttpErrorResponse) {
-        // TODO: seems we cannot use messageService from here...
+        // TODO: seems we cannot use messageService from her
         let errMsg = (error.message) ? error.message : 'Server error';
         console.error(errMsg);
         if (error.status === 401 ) {

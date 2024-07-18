@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/repository/EntityRepository.java.e.vm
  */
 package com.mycompany.myapp.repository;
@@ -21,25 +21,19 @@ import org.springframework.data.jpa.repository.*;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.User_;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
-
-    /**
-     * Return the persistent instance of {@link User} with the given unique property value login,
-     * or null if there is no such persistent instance.
-     *
-     * @param login the unique value
-     * @return the corresponding {@link User} persistent instance or null
-     */
-    User getByLogin(String login);
-
-    default List<User> complete(String query, int maxResults) {
+public interface UserRepository extends JpaRepository<User, Integer> {     
+         User getByLogin(String login);// added
+         
+         default List<User> complete(String query, int maxResults) {
         User probe = new User();
-        probe.setLogin(query);
-
-        ExampleMatcher matcher = ExampleMatcher.matching() //
+           probe.setLogin(query);
+             ExampleMatcher matcher = ExampleMatcher.matching() //
                 .withMatcher(User_.login.getName(), match -> match.ignoreCase().startsWith());
-
         Page<User> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();
+          
+         
     }
+  
+
 }

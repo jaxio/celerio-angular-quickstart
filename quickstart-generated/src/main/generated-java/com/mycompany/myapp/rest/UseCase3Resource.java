@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/rest/EntityResource.java.e.vm
  */
 package com.mycompany.myapp.rest;
@@ -16,7 +16,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-import java.beans.PropertyEditorSupport;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -29,12 +28,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.mycompany.myapp.domain.UseCase3;
-import com.mycompany.myapp.domain.UseCase3Pk;
 import com.mycompany.myapp.dto.UseCase3DTO;
 import com.mycompany.myapp.dto.UseCase3DTOService;
 import com.mycompany.myapp.dto.support.PageRequestByExample;
@@ -43,57 +40,44 @@ import com.mycompany.myapp.repository.UseCase3Repository;
 import com.mycompany.myapp.rest.support.AutoCompleteQuery;
 
 @RestController
-@RequestMapping("/api/useCase3s")
+@RequestMapping("/api/usecase3s")
 public class UseCase3Resource {
 
     private final Logger log = LoggerFactory.getLogger(UseCase3Resource.class);
 
     @Inject
-    private UseCase3Repository useCase3Repository;
+    private UseCase3Repository usecase3Repository;
     @Inject
-    private UseCase3DTOService useCase3DTOService;
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(UseCase3Pk.class, new PropertyEditorSupport() {
-            @Override
-            public String getAsText() {
-                return getValue().toString();
-            }
-
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException {
-                setValue(UseCase3Pk.fromString(text));
-            }
-        });
-    }
+    private UseCase3DTOService usecase3DTOService;
 
     /**
-     * Create a new UseCase3.
-     */
+    * Create by id UseCase3.
+    */
     @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase3DTO> create(@RequestBody UseCase3DTO useCase3DTO) throws URISyntaxException {
+    public ResponseEntity<UseCase3DTO> create(@RequestBody UseCase3DTO usecase3DTO) throws URISyntaxException {
 
-        log.debug("Create UseCase3DTO : {}", useCase3DTO);
+        log.debug("Create UseCase3DTO : {}", usecase3DTO);
 
-        if (useCase3DTO.isIdSet()) {
+        if (usecase3DTO.isIdSet()) {
             return ResponseEntity.badRequest().header("Failure", "Cannot create UseCase3 with existing ID").body(null);
         }
 
-        UseCase3DTO result = useCase3DTOService.save(useCase3DTO);
+        UseCase3DTO result = usecase3DTOService.save(usecase3DTO);
 
-        return ResponseEntity.created(new URI("/api/useCase3s/" + result.id)).body(result);
+        return ResponseEntity.created(new URI("/api/usecase3s/" + result.id)).body(result);
     }
 
     /**
     * Find by id UseCase3.
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase3DTO> findById(@PathVariable UseCase3Pk id) throws URISyntaxException {
-
+     
+      public ResponseEntity<UseCase3DTO> findById(@PathVariable UseCase3Pk id) throws URISyntaxException 
+    
+     {
         log.debug("Find by id UseCase3 : {}", id);
 
-        return Optional.ofNullable(useCase3DTOService.findOne(id)).map(useCase3DTO -> new ResponseEntity<>(useCase3DTO, HttpStatus.OK))
+        return Optional.ofNullable(usecase3DTOService.findOne(id)).map(usecase3DTO -> new ResponseEntity<>(usecase3DTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -101,15 +85,15 @@ public class UseCase3Resource {
      * Update UseCase3.
      */
     @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase3DTO> update(@RequestBody UseCase3DTO useCase3DTO) throws URISyntaxException {
+    public ResponseEntity<UseCase3DTO> update(@RequestBody UseCase3DTO usecase3DTO) throws URISyntaxException {
 
-        log.debug("Update UseCase3DTO : {}", useCase3DTO);
+        log.debug("Update UseCase3DTO : {}", usecase3DTO);
 
-        if (!useCase3DTO.isIdSet()) {
-            return create(useCase3DTO);
+        if (!usecase3DTO.isIdSet()) {
+            return create(usecase3DTO);
         }
 
-        UseCase3DTO result = useCase3DTOService.save(useCase3DTO);
+        UseCase3DTO result = usecase3DTOService.save(usecase3DTO);
 
         return ResponseEntity.ok().body(result);
     }
@@ -119,7 +103,7 @@ public class UseCase3Resource {
      */
     @RequestMapping(value = "/page", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResponse<UseCase3DTO>> findAll(@RequestBody PageRequestByExample<UseCase3DTO> prbe) throws URISyntaxException {
-        PageResponse<UseCase3DTO> pageResponse = useCase3DTOService.findAll(prbe);
+        PageResponse<UseCase3DTO> pageResponse = usecase3DTOService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -129,7 +113,7 @@ public class UseCase3Resource {
     @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UseCase3DTO>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
 
-        List<UseCase3DTO> results = useCase3DTOService.complete(acq.query, acq.maxResults);
+        List<UseCase3DTO> results = usecase3DTOService.complete(acq.query, acq.maxResults);
 
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
@@ -138,12 +122,16 @@ public class UseCase3Resource {
      * Delete by id UseCase3.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> delete(@PathVariable UseCase3Pk id) throws URISyntaxException {
+    
+    
+    public ResponseEntity<Void> delete(@PathVariable UseCase3Pk id) throws URISyntaxException 
+    
+    {
 
         log.debug("Delete by id UseCase3 : {}", id);
 
         try {
-            useCase3Repository.delete(id);
+            usecase3Repository.delete(id);
             return ResponseEntity.ok().build();
         } catch (Exception x) {
             // todo: dig exception, most likely org.hibernate.exception.ConstraintViolationException

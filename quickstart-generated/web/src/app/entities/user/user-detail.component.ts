@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -14,39 +14,35 @@ import { SelectItem } from 'primeng/primeng';
 import { MessageService} from '../../service/message.service';
 import {User} from './user';
 import {UserService} from './user.service';
-import {Passport} from '../passport/passport';
-import {Role} from '../role/role';
-import {RoleService} from '../role/role.service';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'user-detail.component.html',
-	selector: 'user-detail',
+    templateUrl: 'user-detail.component.html',
+    selector: 'user-detail',
 })
 export class UserDetailComponent implements OnInit, OnDestroy {
     user : User;
 
     private params_subscription: any;
 
-    sourceRoles : Role[] = [];
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
+    @Input() // used to pass the parent when creating a new User
+    set favoriteUser(favoriteUser : User) {
+        this.user= new User();
+        this.user.favoriteUser = favoriteUser;
+    }
+
     @Output() onSaveClicked = new EventEmitter<User>();
     @Output() onCancelClicked = new EventEmitter();
     civilityOptions: SelectItem[];
-    countryCodeOptions: SelectItem[];
 
-    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private userService: UserService, private roleService : RoleService) {
+    constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private userService: UserService) {
         this.civilityOptions = [];
         this.civilityOptions.push({"label": "Mister", 'value': "MR"});
         this.civilityOptions.push({"label": "Miss", 'value': "MS"});
-        this.countryCodeOptions = [];
-        this.countryCodeOptions.push({"label": "France", 'value': "FRANCE"});
-        this.countryCodeOptions.push({"label": "Italy", 'value': "ITALY"});
-        this.countryCodeOptions.push({"label": "United-States", 'value': "USA"});
-        roleService.complete(null).
-            subscribe(roles => this.sourceRoles = roles,
-                        error =>  this.messageService.error('Constructor error', error));
     }
 
     ngOnInit() {
@@ -64,7 +60,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
                 this.userService.getUser(id)
                     .subscribe(user => {
                             this.user = user;
-                            this.sourceRoles = this.sourceRoles.filter(item => this.user.roles.map((e) => e.id).indexOf(item.id) < 0);
                         },
                         error =>  this.messageService.error('ngOnInit error', error)
                     );
@@ -76,6 +71,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         if (!this.sub) {
             this.params_subscription.unsubscribe();
         }
+    }
+
+    gotoFavoriteUser() {
+        this.router.navigate(['/user', this.user.favoriteUser.id]);
+    }
+
+    clearFavoriteUser() {
+        this.user.favoriteUser = null;
     }
 
     onSave() {

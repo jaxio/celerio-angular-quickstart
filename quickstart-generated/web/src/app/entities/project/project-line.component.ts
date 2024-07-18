@@ -5,16 +5,18 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-line.component.ts.e.vm
 //
 import {Component, Input} from '@angular/core';
 import {Project} from './project';
 
 @Component({
-	template: `
-        {{ project?.name }} 	`,
-	selector: 'project-line',
+    template: `
+       
+            {{  {{ project?.name }}  }} 
+            ,
+        selector: 'project-line',
 })
 export class ProjectLineComponent {
     @Input() project : Project;

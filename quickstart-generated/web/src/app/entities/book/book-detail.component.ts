@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -14,36 +14,35 @@ import { SelectItem } from 'primeng/primeng';
 import { MessageService} from '../../service/message.service';
 import {Book} from './book';
 import {BookService} from './book.service';
-import {Author} from '../author/author';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'book-detail.component.html',
-	selector: 'book-detail',
+    templateUrl: 'book-detail.component.html',
+    selector: 'book-detail',
 })
 export class BookDetailComponent implements OnInit, OnDestroy {
     book : Book;
 
     private params_subscription: any;
 
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
     @Input() // used to pass the parent when creating a new Book
-    set author(author : Author) {
-        this.book = new Book();
-        this.book.author = author;
-    }
-
-    @Input() // used to pass the parent when creating a new Book
-    set coAuthor(coAuthor : Author) {
-        this.book = new Book();
-        this.book.coAuthor = coAuthor;
+    set favoriteBook(favoriteBook : Book) {
+        this.book= new Book();
+        this.book.favoriteBook = favoriteBook;
     }
 
     @Output() onSaveClicked = new EventEmitter<Book>();
     @Output() onCancelClicked = new EventEmitter();
+    civilityOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private bookService: BookService) {
+        this.civilityOptions = [];
+        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
+        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
     }
 
     ngOnInit() {
@@ -74,20 +73,12 @@ export class BookDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    gotoAuthor() {
-        this.router.navigate(['/author', this.book.author.id]);
+    gotoFavoriteBook() {
+        this.router.navigate(['/book', this.book.favoriteBook.id]);
     }
 
-    clearAuthor() {
-        this.book.author = null;
-    }
-
-    gotoCoAuthor() {
-        this.router.navigate(['/author', this.book.coAuthor.id]);
-    }
-
-    clearCoAuthor() {
-        this.book.coAuthor = null;
+    clearFavoriteBook() {
+        this.book.favoriteBook = null;
     }
 
     onSave() {
@@ -113,16 +104,4 @@ export class BookDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-
-    /**
-     * Refresh the form to display the download link.
-     * TODO: sthg smarter.
-     */
-    onExtractBinaryUpload(event: any) {
-        this.bookService.getBook(this.book.id)
-            .subscribe(
-                book => this.book = book,
-                error =>  this.messageService.error('onExtractBinaryUpload error', error)
-            );
-    }
 }

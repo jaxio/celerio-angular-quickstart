@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity.service.ts.e.vm
 //
 import { Injectable } from '@angular/core';
@@ -26,10 +26,10 @@ export class PassportService {
     /**
      * Get a Passport by id.
      */
-    getPassport(id : any) : Observable<Passport> {
+    get Passport(id : any) : Observable<Passport> {
         return this.http.get('/api/passports/' + id)
             .pipe(
-                map(response => new Passport(response)),
+                map(response => new Passport (response)),
                 catchError(this.handleError)
             );
     }
@@ -37,8 +37,8 @@ export class PassportService {
     /**
      * Update the passed passport.
      */
-    update(passport : Passport) : Observable<Passport> {
-        let body = passport;
+    update(passport : Passport ) : Observable< Passport> {
+        let body =  passport;
 
         return this.http.put('/api/passports/', body)
             .pipe(
@@ -52,13 +52,13 @@ export class PassportService {
      * passport as an example for the search by example facility.
      */
     getPage(passport : Passport, event : LazyLoadEvent) : Observable<PageResponse<Passport>> {
-        let req = new PageRequestByExample(passport, event);
+        let req  = new PageRequestByExample(passport, event);
         let body = req;
 
         return this.http.post<PageResponse<any>>('/api/passports/page', body)
             .pipe(
-                map(pr =>  new PageResponse<Passport>(pr.totalPages, pr.totalElements, Passport.toArray(pr.content))),
-                catchError(this.handleError)
+                map(pr =>  new PageResponse<Passport>(pr.totalPages, pr.totalElements, Passport.toArray(pr.content)),
+                catchError(this.handleError))
             );
     }
 
@@ -85,7 +85,7 @@ export class PassportService {
 
     // sample method from angular doc
     private handleError (error: HttpErrorResponse) {
-        // TODO: seems we cannot use messageService from here...
+        // TODO: seems we cannot use messageService from her
         let errMsg = (error.message) ? error.message : 'Server error';
         console.error(errMsg);
         if (error.status === 401 ) {

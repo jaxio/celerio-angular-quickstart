@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -14,30 +14,35 @@ import { SelectItem } from 'primeng/primeng';
 import { MessageService} from '../../service/message.service';
 import {Passport} from './passport';
 import {PassportService} from './passport.service';
-import {User} from '../user/user';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'passport-detail.component.html',
-	selector: 'passport-detail',
+    templateUrl: 'passport-detail.component.html',
+    selector: 'passport-detail',
 })
 export class PassportDetailComponent implements OnInit, OnDestroy {
     passport : Passport;
 
     private params_subscription: any;
 
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
     @Input() // used to pass the parent when creating a new Passport
-    set holder(holder : User) {
-        this.passport = new Passport();
-        this.passport.holder = holder;
+    set favoritePassport(favoritePassport : Passport) {
+        this.passport= new Passport();
+        this.passport.favoritePassport = favoritePassport;
     }
 
     @Output() onSaveClicked = new EventEmitter<Passport>();
     @Output() onCancelClicked = new EventEmitter();
+    civilityOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private passportService: PassportService) {
+        this.civilityOptions = [];
+        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
+        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
     }
 
     ngOnInit() {
@@ -68,12 +73,12 @@ export class PassportDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    gotoHolder() {
-        this.router.navigate(['/user', this.passport.holder.id]);
+    gotoFavoritePassport() {
+        this.router.navigate(['/passport', this.passport.favoritePassport.id]);
     }
 
-    clearHolder() {
-        this.passport.holder = null;
+    clearFavoritePassport() {
+        this.passport.favoritePassport = null;
     }
 
     onSave() {

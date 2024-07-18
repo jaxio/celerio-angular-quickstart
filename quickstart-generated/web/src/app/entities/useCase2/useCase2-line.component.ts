@@ -5,16 +5,18 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-line.component.ts.e.vm
 //
 import {Component, Input} from '@angular/core';
 import {UseCase2} from './useCase2';
 
 @Component({
-	template: `
-        {{ useCase2?.dummy }} 	`,
-	selector: 'useCase2-line',
+    template: `
+       
+            {{  {{ useCase2?.dummy }}  }} 
+            ,
+        selector: 'useCase2-line',
 })
 export class UseCase2LineComponent {
     @Input() useCase2 : UseCase2;

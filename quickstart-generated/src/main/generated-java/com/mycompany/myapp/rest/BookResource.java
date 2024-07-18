@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/rest/EntityResource.java.e.vm
  */
 package com.mycompany.myapp.rest;
@@ -16,7 +16,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -31,8 +30,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.mycompany.myapp.domain.Book;
 import com.mycompany.myapp.dto.BookDTO;
@@ -54,8 +51,8 @@ public class BookResource {
     private BookDTOService bookDTOService;
 
     /**
-     * Create a new Book.
-     */
+    * Create by id Book.
+    */
     @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<BookDTO> create(@RequestBody BookDTO bookDTO) throws URISyntaxException {
 
@@ -74,8 +71,10 @@ public class BookResource {
     * Find by id Book.
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<BookDTO> findById(@PathVariable Integer id) throws URISyntaxException {
-
+     
+      public ResponseEntity<BookDTO> findById(@PathVariable Integer id) throws URISyntaxException 
+    
+     {
         log.debug("Find by id Book : {}", id);
 
         return Optional.ofNullable(bookDTOService.findOne(id)).map(bookDTO -> new ResponseEntity<>(bookDTO, HttpStatus.OK))
@@ -97,46 +96,6 @@ public class BookResource {
         BookDTO result = bookDTOService.save(bookDTO);
 
         return ResponseEntity.ok().body(result);
-    }
-
-    /**
-     * Target url for extractBinary file upload.
-     */
-    @RequestMapping(value = "/{id}/upload/extractBinary", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> extractBinaryFileUpload(@PathVariable Integer id, @RequestParam("extractBinary") MultipartFile multipartFile) {
-
-        log.debug("File Upload: {}", multipartFile.getName());
-
-        Book book = bookRepository.findOne(id);
-
-        try {
-            book.setExtractBinary(multipartFile.getBytes());
-        } catch (IOException ioe) {
-            // todo: appropriate status code
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-
-        book.setExtractSize(multipartFile.getSize());
-        book.setExtractContentType(multipartFile.getContentType());
-        book.setExtractFileName(multipartFile.getOriginalFilename());
-        bookRepository.save(book);
-
-        return ResponseEntity.ok().build();
-    }
-
-    /**
-     * File download facility for extractBinary.
-     */
-    @RequestMapping(value = "/{id}/download/extractBinary", method = GET)
-    @ResponseBody
-    public ResponseEntity<byte[]> extractBinaryFileDownload(@PathVariable Integer id) {
-
-        Book book = bookRepository.findOne(id);
-
-        log.debug("File Download: {}", book.getExtractFileName());
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, book.getExtractContentType())
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + book.getExtractFileName() + "\"").contentLength(book.getExtractSize())
-                .body(book.getExtractBinary());
     }
 
     /**
@@ -163,7 +122,11 @@ public class BookResource {
      * Delete by id Book.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
+    
+    
+    public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException 
+    
+    {
 
         log.debug("Delete by id Book : {}", id);
 

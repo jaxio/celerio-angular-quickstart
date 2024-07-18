@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/rest/EntityResource.java.e.vm
  */
 package com.mycompany.myapp.rest;
@@ -16,7 +16,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
-import java.beans.PropertyEditorSupport;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -29,12 +28,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.mycompany.myapp.domain.UseCase1;
-import com.mycompany.myapp.domain.UseCase1Pk;
 import com.mycompany.myapp.dto.UseCase1DTO;
 import com.mycompany.myapp.dto.UseCase1DTOService;
 import com.mycompany.myapp.dto.support.PageRequestByExample;
@@ -43,57 +40,44 @@ import com.mycompany.myapp.repository.UseCase1Repository;
 import com.mycompany.myapp.rest.support.AutoCompleteQuery;
 
 @RestController
-@RequestMapping("/api/useCase1s")
+@RequestMapping("/api/usecase1s")
 public class UseCase1Resource {
 
     private final Logger log = LoggerFactory.getLogger(UseCase1Resource.class);
 
     @Inject
-    private UseCase1Repository useCase1Repository;
+    private UseCase1Repository usecase1Repository;
     @Inject
-    private UseCase1DTOService useCase1DTOService;
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(UseCase1Pk.class, new PropertyEditorSupport() {
-            @Override
-            public String getAsText() {
-                return getValue().toString();
-            }
-
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException {
-                setValue(UseCase1Pk.fromString(text));
-            }
-        });
-    }
+    private UseCase1DTOService usecase1DTOService;
 
     /**
-     * Create a new UseCase1.
-     */
+    * Create by id UseCase1.
+    */
     @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase1DTO> create(@RequestBody UseCase1DTO useCase1DTO) throws URISyntaxException {
+    public ResponseEntity<UseCase1DTO> create(@RequestBody UseCase1DTO usecase1DTO) throws URISyntaxException {
 
-        log.debug("Create UseCase1DTO : {}", useCase1DTO);
+        log.debug("Create UseCase1DTO : {}", usecase1DTO);
 
-        if (useCase1DTO.isIdSet()) {
+        if (usecase1DTO.isIdSet()) {
             return ResponseEntity.badRequest().header("Failure", "Cannot create UseCase1 with existing ID").body(null);
         }
 
-        UseCase1DTO result = useCase1DTOService.save(useCase1DTO);
+        UseCase1DTO result = usecase1DTOService.save(usecase1DTO);
 
-        return ResponseEntity.created(new URI("/api/useCase1s/" + result.id)).body(result);
+        return ResponseEntity.created(new URI("/api/usecase1s/" + result.id)).body(result);
     }
 
     /**
     * Find by id UseCase1.
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase1DTO> findById(@PathVariable UseCase1Pk id) throws URISyntaxException {
-
+     
+      public ResponseEntity<UseCase1DTO> findById(@PathVariable UseCase1Pk id) throws URISyntaxException 
+    
+     {
         log.debug("Find by id UseCase1 : {}", id);
 
-        return Optional.ofNullable(useCase1DTOService.findOne(id)).map(useCase1DTO -> new ResponseEntity<>(useCase1DTO, HttpStatus.OK))
+        return Optional.ofNullable(usecase1DTOService.findOne(id)).map(usecase1DTO -> new ResponseEntity<>(usecase1DTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -101,15 +85,15 @@ public class UseCase1Resource {
      * Update UseCase1.
      */
     @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase1DTO> update(@RequestBody UseCase1DTO useCase1DTO) throws URISyntaxException {
+    public ResponseEntity<UseCase1DTO> update(@RequestBody UseCase1DTO usecase1DTO) throws URISyntaxException {
 
-        log.debug("Update UseCase1DTO : {}", useCase1DTO);
+        log.debug("Update UseCase1DTO : {}", usecase1DTO);
 
-        if (!useCase1DTO.isIdSet()) {
-            return create(useCase1DTO);
+        if (!usecase1DTO.isIdSet()) {
+            return create(usecase1DTO);
         }
 
-        UseCase1DTO result = useCase1DTOService.save(useCase1DTO);
+        UseCase1DTO result = usecase1DTOService.save(usecase1DTO);
 
         return ResponseEntity.ok().body(result);
     }
@@ -119,7 +103,7 @@ public class UseCase1Resource {
      */
     @RequestMapping(value = "/page", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResponse<UseCase1DTO>> findAll(@RequestBody PageRequestByExample<UseCase1DTO> prbe) throws URISyntaxException {
-        PageResponse<UseCase1DTO> pageResponse = useCase1DTOService.findAll(prbe);
+        PageResponse<UseCase1DTO> pageResponse = usecase1DTOService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -129,7 +113,7 @@ public class UseCase1Resource {
     @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UseCase1DTO>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
 
-        List<UseCase1DTO> results = useCase1DTOService.complete(acq.query, acq.maxResults);
+        List<UseCase1DTO> results = usecase1DTOService.complete(acq.query, acq.maxResults);
 
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
@@ -138,12 +122,16 @@ public class UseCase1Resource {
      * Delete by id UseCase1.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> delete(@PathVariable UseCase1Pk id) throws URISyntaxException {
+    
+    
+    public ResponseEntity<Void> delete(@PathVariable UseCase1Pk id) throws URISyntaxException 
+    
+    {
 
         log.debug("Delete by id UseCase1 : {}", id);
 
         try {
-            useCase1Repository.delete(id);
+            usecase1Repository.delete(id);
             return ResponseEntity.ok().build();
         } catch (Exception x) {
             // todo: dig exception, most likely org.hibernate.exception.ConstraintViolationException

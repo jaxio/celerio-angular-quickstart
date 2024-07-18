@@ -18,20 +18,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.*;
 
-import com.mycompany.myapp.domain.UseCase3;
-import com.mycompany.myapp.domain.UseCase3Pk;
-import com.mycompany.myapp.domain.UseCase3_;
+import com.mycompany.myapp.domain.[[[zg-entity...zg-name]]];
+import com.mycompany.myapp.domain.[[[zg-entity...zg-name]]]Pk;
+import com.mycompany.myapp.domain.[[[zg-entity...zg-name]]]_;
+//Code generation
+public interface [[[zg-entity...zg-name]]]Repository extends JpaRepository<[[[zg-entity...zg-name]]], [[[zg-entity...zg-name]]]Pk> {
 
-public interface UseCase3Repository extends JpaRepository<UseCase3, UseCase3Pk> {
-
-    default List<UseCase3> complete(String query, int maxResults) {
-        UseCase3 probe = new UseCase3();
+    default List<[[[zg-entity...zg-name]]]> complete(String query, int maxResults) {
+        [[[zg-entity...zg-name]]] probe = new [[[zg-entity...zg-name]]]();
         probe.setDummy(query);
 
         ExampleMatcher matcher = ExampleMatcher.matching() //
-                .withMatcher(UseCase3_.dummy.getName(), match -> match.ignoreCase().startsWith());
+                .withMatcher([[[zg-entity...zg-name]]]_.dummy.getName(), match -> match.ignoreCase().startsWith());
 
-        Page<UseCase3> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
+        Page<[[[zg-entity...zg-name]]]> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();
     }
 }

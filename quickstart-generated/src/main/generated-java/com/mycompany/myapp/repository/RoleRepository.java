@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/repository/EntityRepository.java.e.vm
  */
 package com.mycompany.myapp.repository;
@@ -22,24 +22,21 @@ import com.mycompany.myapp.domain.Role;
 import com.mycompany.myapp.domain.Role_;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
+     
+          Role getByRoleName(String roleName); // added
 
-    /**
-     * Return the persistent instance of {@link Role} with the given unique property value roleName,
-     * or null if there is no such persistent instance.
-     *
-     * @param roleName the unique value
-     * @return the corresponding {@link Role} persistent instance or null
-     */
-    Role getByRoleName(String roleName);
-
-    default List<Role> complete(String query, int maxResults) {
+         default List<Role> complete(String query, int maxResults) {
         Role probe = new Role();
-        probe.setRoleName(query);
-
-        ExampleMatcher matcher = ExampleMatcher.matching() //
-                .withMatcher(Role_.roleName.getName(), match -> match.ignoreCase().startsWith());
-
+        
+         
+           probe.setRoleName(query);
+             ExampleMatcher matcher = ExampleMatcher.matching() //
+                .withMatcher(Role_.rolename.getName(), match -> match.ignoreCase().startsWith());
         Page<Role> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();
+          
+         
     }
+  
+
 }

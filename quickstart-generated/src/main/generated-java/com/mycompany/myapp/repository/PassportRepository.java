@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/repository/EntityRepository.java.e.vm
  */
 package com.mycompany.myapp.repository;
@@ -23,14 +23,18 @@ import com.mycompany.myapp.domain.Passport_;
 
 public interface PassportRepository extends JpaRepository<Passport, Integer> {
 
-    default List<Passport> complete(String query, int maxResults) {
+         default List<Passport> complete(String query, int maxResults) {
         Passport probe = new Passport();
-        probe.setPassportNumber(query);
-
-        ExampleMatcher matcher = ExampleMatcher.matching() //
-                .withMatcher(Passport_.passportNumber.getName(), match -> match.ignoreCase().startsWith());
-
+        
+         
+           probe.setPassportNumber(query);
+             ExampleMatcher matcher = ExampleMatcher.matching() //
+                .withMatcher(Passport_.passportnumber.getName(), match -> match.ignoreCase().startsWith());
         Page<Passport> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();
+          
+         
     }
+  
+
 }

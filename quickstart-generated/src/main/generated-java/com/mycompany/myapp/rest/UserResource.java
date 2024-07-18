@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/rest/EntityResource.java.e.vm
  */
 package com.mycompany.myapp.rest;
@@ -51,8 +51,8 @@ public class UserResource {
     private UserDTOService userDTOService;
 
     /**
-     * Create a new User.
-     */
+    * Create by id User.
+    */
     @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) throws URISyntaxException {
 
@@ -71,8 +71,10 @@ public class UserResource {
     * Find by id User.
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> findById(@PathVariable Integer id) throws URISyntaxException {
-
+     
+      public ResponseEntity<UserDTO> findById(@PathVariable Integer id) throws URISyntaxException 
+    
+     {
         log.debug("Find by id User : {}", id);
 
         return Optional.ofNullable(userDTOService.findOne(id)).map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
@@ -120,7 +122,11 @@ public class UserResource {
      * Delete by id User.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
+    
+    
+    public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException 
+    
+    {
 
         log.debug("Delete by id User : {}", id);
 

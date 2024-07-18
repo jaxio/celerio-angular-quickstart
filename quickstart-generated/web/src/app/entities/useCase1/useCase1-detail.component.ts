@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -17,20 +17,32 @@ import {UseCase1Service} from './useCase1.service';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'useCase1-detail.component.html',
-	selector: 'useCase1-detail',
+    templateUrl: 'useCase1-detail.component.html',
+    selector: 'useCase1-detail',
 })
 export class UseCase1DetailComponent implements OnInit, OnDestroy {
     useCase1 : UseCase1;
 
     private params_subscription: any;
 
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
+    @Input() // used to pass the parent when creating a new UseCase1
+    set favoriteUseCase1(favoriteUseCase1 : UseCase1) {
+        this.useCase1= new UseCase1();
+        this.useCase1.favoriteUseCase1 = favoriteUseCase1;
+    }
+
     @Output() onSaveClicked = new EventEmitter<UseCase1>();
     @Output() onCancelClicked = new EventEmitter();
+    civilityOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private useCase1Service: UseCase1Service) {
+        this.civilityOptions = [];
+        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
+        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
     }
 
     ngOnInit() {
@@ -59,6 +71,14 @@ export class UseCase1DetailComponent implements OnInit, OnDestroy {
         if (!this.sub) {
             this.params_subscription.unsubscribe();
         }
+    }
+
+    gotoFavoriteUseCase1() {
+        this.router.navigate(['/useCase1', this.useCase1.favoriteUseCase1.id]);
+    }
+
+    clearFavoriteUseCase1() {
+        this.useCase1.favoriteUseCase1 = null;
     }
 
     onSave() {

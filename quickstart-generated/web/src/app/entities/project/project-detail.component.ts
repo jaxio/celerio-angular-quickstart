@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -14,30 +14,35 @@ import { SelectItem } from 'primeng/primeng';
 import { MessageService} from '../../service/message.service';
 import {Project} from './project';
 import {ProjectService} from './project.service';
-import {Author} from '../author/author';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'project-detail.component.html',
-	selector: 'project-detail',
+    templateUrl: 'project-detail.component.html',
+    selector: 'project-detail',
 })
 export class ProjectDetailComponent implements OnInit, OnDestroy {
     project : Project;
 
     private params_subscription: any;
 
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
     @Input() // used to pass the parent when creating a new Project
-    set author(author : Author) {
-        this.project = new Project();
-        this.project.author = author;
+    set favoriteProject(favoriteProject : Project) {
+        this.project= new Project();
+        this.project.favoriteProject = favoriteProject;
     }
 
     @Output() onSaveClicked = new EventEmitter<Project>();
     @Output() onCancelClicked = new EventEmitter();
+    civilityOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private projectService: ProjectService) {
+        this.civilityOptions = [];
+        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
+        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
     }
 
     ngOnInit() {
@@ -68,12 +73,12 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    gotoAuthor() {
-        this.router.navigate(['/author', this.project.author.id]);
+    gotoFavoriteProject() {
+        this.router.navigate(['/project', this.project.favoriteProject.id]);
     }
 
-    clearAuthor() {
-        this.project.author = null;
+    clearFavoriteProject() {
+        this.project.favoriteProject = null;
     }
 
     onSave() {

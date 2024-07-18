@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -14,32 +14,35 @@ import { SelectItem } from 'primeng/primeng';
 import { MessageService} from '../../service/message.service';
 import {UseCase3} from './useCase3';
 import {UseCase3Service} from './useCase3.service';
-import {UseCase2} from '../useCase2/useCase2';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'useCase3-detail.component.html',
-	selector: 'useCase3-detail',
+    templateUrl: 'useCase3-detail.component.html',
+    selector: 'useCase3-detail',
 })
 export class UseCase3DetailComponent implements OnInit, OnDestroy {
     useCase3 : UseCase3;
 
     private params_subscription: any;
 
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
     @Input() // used to pass the parent when creating a new UseCase3
-    set id2(id2 : UseCase2) {
-        this.useCase3 = new UseCase3();
-        this.useCase3.id2 = id2;
-        // special hack for composite key with x-to-one relation...
-        this.useCase3.id.id2 = id2.id;
+    set favoriteUseCase3(favoriteUseCase3 : UseCase3) {
+        this.useCase3= new UseCase3();
+        this.useCase3.favoriteUseCase3 = favoriteUseCase3;
     }
 
     @Output() onSaveClicked = new EventEmitter<UseCase3>();
     @Output() onCancelClicked = new EventEmitter();
+    civilityOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private useCase3Service: UseCase3Service) {
+        this.civilityOptions = [];
+        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
+        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
     }
 
     ngOnInit() {
@@ -70,20 +73,15 @@ export class UseCase3DetailComponent implements OnInit, OnDestroy {
         }
     }
 
-    gotoId2() {
-        this.router.navigate(['/useCase2', this.useCase3.id2.id]);
+    gotoFavoriteUseCase3() {
+        this.router.navigate(['/useCase3', this.useCase3.favoriteUseCase3.id]);
     }
 
-    clearId2() {
-        this.useCase3.id2 = null;
-        // special hack for composite key with x-to-one relation...
-        this.useCase3.id.id2 = null;
+    clearFavoriteUseCase3() {
+        this.useCase3.favoriteUseCase3 = null;
     }
 
     onSave() {
-        // special hack for composite key with x-to-one relation...
-        this.useCase3.id.id2 = this.useCase3.id2.id;
-
         this.useCase3Service.update(this.useCase3).
             subscribe(
                 useCase3 => {

@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -17,8 +17,8 @@ import {AuthorService} from './author.service';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'author-detail.component.html',
-	selector: 'author-detail',
+    templateUrl: 'author-detail.component.html',
+    selector: 'author-detail',
 })
 export class AuthorDetailComponent implements OnInit, OnDestroy {
     author : Author;
@@ -31,7 +31,7 @@ export class AuthorDetailComponent implements OnInit, OnDestroy {
     @Input() sub : boolean = false;
     @Input() // used to pass the parent when creating a new Author
     set favoriteAuthor(favoriteAuthor : Author) {
-        this.author = new Author();
+        this.author= new Author();
         this.author.favoriteAuthor = favoriteAuthor;
     }
 

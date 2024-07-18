@@ -1,3 +1,4 @@
+
 # Celerio Angular Quickstart
 
 [![Build Status](https://travis-ci.org/jaxio/celerio-angular-quickstart.svg?branch=master)](https://travis-ci.org/jaxio/celerio-angular-quickstart)
@@ -80,4 +81,17 @@ You may of course [report issues](https://github.com/jaxio/celerio-angular-quick
 [use MySQL]: https://github.com/jaxio/celerio-angular-quickstart/blob/master/quickstart/README-MYSQL.md
 [Celerio]: https://github.com/jaxio/celerio
 [Velocity]: http://velocity.apache.org/
+
+# Code Generation
+Zontroy Code Generator is used to add code generation templates to the project. By minimizing the parts prone to code repetition with Zontroy code generator, I reduced the complexity of the project and made it more user-friendly. I generated code using zsif, zref and ziref file types. When I wanted to produce more than one repeated folder, I used the ziref file type by taking entities from the mssql database. I used zsif to prevent code repetition in the same file, and zref to create different files suitable for code repetition. For more information you can visit https://zontroy.com/.
+# Ziref:
+
+![image](https://github.com/tolgahanipek/celerio-angular-quickstart/assets/69389540/0fd9577d-4deb-4982-a2ee-20950f3e5258)
+
+# Zref:
+![image](https://github.com/tolgahanipek/celerio-angular-quickstart/assets/69389540/6e6bbca5-62ce-42fc-bfad-f22ea9de79f7)
+
+# Zsif:
+![image](https://github.com/tolgahanipek/celerio-angular-quickstart/assets/69389540/0cd22459-c596-4260-90da-b5d1e63943a8)
+
 

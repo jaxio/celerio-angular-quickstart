@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -17,21 +17,32 @@ import {UseCase2Service} from './useCase2.service';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'useCase2-detail.component.html',
-	selector: 'useCase2-detail',
+    templateUrl: 'useCase2-detail.component.html',
+    selector: 'useCase2-detail',
 })
 export class UseCase2DetailComponent implements OnInit, OnDestroy {
     useCase2 : UseCase2;
 
     private params_subscription: any;
 
-    showUseCase3s : boolean = true;
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
+    @Input() // used to pass the parent when creating a new UseCase2
+    set favoriteUseCase2(favoriteUseCase2 : UseCase2) {
+        this.useCase2= new UseCase2();
+        this.useCase2.favoriteUseCase2 = favoriteUseCase2;
+    }
+
     @Output() onSaveClicked = new EventEmitter<UseCase2>();
     @Output() onCancelClicked = new EventEmitter();
+    civilityOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private useCase2Service: UseCase2Service) {
+        this.civilityOptions = [];
+        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
+        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
     }
 
     ngOnInit() {
@@ -60,6 +71,14 @@ export class UseCase2DetailComponent implements OnInit, OnDestroy {
         if (!this.sub) {
             this.params_subscription.unsubscribe();
         }
+    }
+
+    gotoFavoriteUseCase2() {
+        this.router.navigate(['/useCase2', this.useCase2.favoriteUseCase2.id]);
+    }
+
+    clearFavoriteUseCase2() {
+        this.useCase2.favoriteUseCase2 = null;
     }
 
     onSave() {

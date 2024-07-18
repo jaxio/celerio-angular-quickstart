@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/rest/EntityResource.java.e.vm
  */
 package com.mycompany.myapp.rest;
@@ -40,42 +40,44 @@ import com.mycompany.myapp.repository.UseCase2Repository;
 import com.mycompany.myapp.rest.support.AutoCompleteQuery;
 
 @RestController
-@RequestMapping("/api/useCase2s")
+@RequestMapping("/api/usecase2s")
 public class UseCase2Resource {
 
     private final Logger log = LoggerFactory.getLogger(UseCase2Resource.class);
 
     @Inject
-    private UseCase2Repository useCase2Repository;
+    private UseCase2Repository usecase2Repository;
     @Inject
-    private UseCase2DTOService useCase2DTOService;
+    private UseCase2DTOService usecase2DTOService;
 
     /**
-     * Create a new UseCase2.
-     */
+    * Create by id UseCase2.
+    */
     @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase2DTO> create(@RequestBody UseCase2DTO useCase2DTO) throws URISyntaxException {
+    public ResponseEntity<UseCase2DTO> create(@RequestBody UseCase2DTO usecase2DTO) throws URISyntaxException {
 
-        log.debug("Create UseCase2DTO : {}", useCase2DTO);
+        log.debug("Create UseCase2DTO : {}", usecase2DTO);
 
-        if (useCase2DTO.isIdSet()) {
+        if (usecase2DTO.isIdSet()) {
             return ResponseEntity.badRequest().header("Failure", "Cannot create UseCase2 with existing ID").body(null);
         }
 
-        UseCase2DTO result = useCase2DTOService.save(useCase2DTO);
+        UseCase2DTO result = usecase2DTOService.save(usecase2DTO);
 
-        return ResponseEntity.created(new URI("/api/useCase2s/" + result.id)).body(result);
+        return ResponseEntity.created(new URI("/api/usecase2s/" + result.id)).body(result);
     }
 
     /**
     * Find by id UseCase2.
     */
     @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase2DTO> findById(@PathVariable String id) throws URISyntaxException {
-
+     
+      public ResponseEntity<UseCase2DTO> findById(@PathVariable String id) throws URISyntaxException 
+    
+     {
         log.debug("Find by id UseCase2 : {}", id);
 
-        return Optional.ofNullable(useCase2DTOService.findOne(id)).map(useCase2DTO -> new ResponseEntity<>(useCase2DTO, HttpStatus.OK))
+        return Optional.ofNullable(usecase2DTOService.findOne(id)).map(usecase2DTO -> new ResponseEntity<>(usecase2DTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -83,15 +85,15 @@ public class UseCase2Resource {
      * Update UseCase2.
      */
     @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<UseCase2DTO> update(@RequestBody UseCase2DTO useCase2DTO) throws URISyntaxException {
+    public ResponseEntity<UseCase2DTO> update(@RequestBody UseCase2DTO usecase2DTO) throws URISyntaxException {
 
-        log.debug("Update UseCase2DTO : {}", useCase2DTO);
+        log.debug("Update UseCase2DTO : {}", usecase2DTO);
 
-        if (!useCase2DTO.isIdSet()) {
-            return create(useCase2DTO);
+        if (!usecase2DTO.isIdSet()) {
+            return create(usecase2DTO);
         }
 
-        UseCase2DTO result = useCase2DTOService.save(useCase2DTO);
+        UseCase2DTO result = usecase2DTOService.save(usecase2DTO);
 
         return ResponseEntity.ok().body(result);
     }
@@ -101,7 +103,7 @@ public class UseCase2Resource {
      */
     @RequestMapping(value = "/page", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResponse<UseCase2DTO>> findAll(@RequestBody PageRequestByExample<UseCase2DTO> prbe) throws URISyntaxException {
-        PageResponse<UseCase2DTO> pageResponse = useCase2DTOService.findAll(prbe);
+        PageResponse<UseCase2DTO> pageResponse = usecase2DTOService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -111,7 +113,7 @@ public class UseCase2Resource {
     @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<UseCase2DTO>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
 
-        List<UseCase2DTO> results = useCase2DTOService.complete(acq.query, acq.maxResults);
+        List<UseCase2DTO> results = usecase2DTOService.complete(acq.query, acq.maxResults);
 
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
@@ -120,12 +122,16 @@ public class UseCase2Resource {
      * Delete by id UseCase2.
      */
     @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> delete(@PathVariable String id) throws URISyntaxException {
+    
+    
+    public ResponseEntity<Void> delete(@PathVariable String id) throws URISyntaxException 
+    
+    {
 
         log.debug("Delete by id UseCase2 : {}", id);
 
         try {
-            useCase2Repository.delete(id);
+            usecase2Repository.delete(id);
             return ResponseEntity.ok().build();
         } catch (Exception x) {
             // todo: dig exception, most likely org.hibernate.exception.ConstraintViolationException

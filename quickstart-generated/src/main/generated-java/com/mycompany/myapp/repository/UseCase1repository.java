@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/repository/EntityRepository.java.e.vm
  */
 package com.mycompany.myapp.repository;
@@ -18,19 +18,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.*;
 
-import com.mycompany.myapp.domain.UseCase2;
-import com.mycompany.myapp.domain.UseCase2_;
+import com.mycompany.myapp.domain.UseCase1;
+import com.mycompany.myapp.domain.UseCase1Pk;
+import com.mycompany.myapp.domain.UseCase1_;
 
-public interface UseCase2Repository extends JpaRepository<UseCase2, String> {
+public interface UseCase1Repository extends JpaRepository<UseCase1, UseCase1Pk> {
 
-    default List<UseCase2> complete(String query, int maxResults) {
-        UseCase2 probe = new UseCase2();
+    default List<UseCase1> complete(String query, int maxResults) {
+        UseCase1 probe = new UseCase1();
         probe.setDummy(query);
 
         ExampleMatcher matcher = ExampleMatcher.matching() //
-                .withMatcher(UseCase2_.dummy.getName(), match -> match.ignoreCase().startsWith());
+                .withMatcher(UseCase1_.dummy.getName(), match -> match.ignoreCase().startsWith());
 
-        Page<UseCase2> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
+        Page<UseCase1> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();
     }
 }

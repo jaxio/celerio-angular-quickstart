@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity.service.ts.e.vm
 //
 import { Injectable } from '@angular/core';
@@ -26,10 +26,10 @@ export class UseCase3Service {
     /**
      * Get a UseCase3 by id.
      */
-    getUseCase3(id : any) : Observable<UseCase3> {
+    get UseCase3(id : any) : Observable<UseCase3> {
         return this.http.get('/api/useCase3s/' + id)
             .pipe(
-                map(response => new UseCase3(response)),
+                map(response => new UseCase3 (response)),
                 catchError(this.handleError)
             );
     }
@@ -37,8 +37,8 @@ export class UseCase3Service {
     /**
      * Update the passed useCase3.
      */
-    update(useCase3 : UseCase3) : Observable<UseCase3> {
-        let body = useCase3;
+    update(useCase3 : UseCase3 ) : Observable< UseCase3> {
+        let body =  useCase3;
 
         return this.http.put('/api/useCase3s/', body)
             .pipe(
@@ -52,13 +52,13 @@ export class UseCase3Service {
      * useCase3 as an example for the search by example facility.
      */
     getPage(useCase3 : UseCase3, event : LazyLoadEvent) : Observable<PageResponse<UseCase3>> {
-        let req = new PageRequestByExample(useCase3, event);
+        let req  = new PageRequestByExample(useCase3, event);
         let body = req;
 
         return this.http.post<PageResponse<any>>('/api/useCase3s/page', body)
             .pipe(
-                map(pr =>  new PageResponse<UseCase3>(pr.totalPages, pr.totalElements, UseCase3.toArray(pr.content))),
-                catchError(this.handleError)
+                map(pr =>  new PageResponse<UseCase3>(pr.totalPages, pr.totalElements, UseCase3.toArray(pr.content)),
+                catchError(this.handleError))
             );
     }
 
@@ -85,7 +85,7 @@ export class UseCase3Service {
 
     // sample method from angular doc
     private handleError (error: HttpErrorResponse) {
-        // TODO: seems we cannot use messageService from here...
+        // TODO: seems we cannot use messageService from her
         let errMsg = (error.message) ? error.message : 'Server error';
         console.error(errMsg);
         if (error.status === 401 ) {

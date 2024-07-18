@@ -1,3 +1,4 @@
+
 //
 // Project home: https://github.com/jaxio/celerio-angular-quickstart
 // 
@@ -5,7 +6,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-auto-complete.component.ts.e.vm
 //
 import {Component, Input, Output, EventEmitter, forwardRef} from '@angular/core';
@@ -15,7 +16,7 @@ import {MessageService} from '../../service/message.service';
 import {User} from './user';
 import {UserService} from './user.service';
 
-// Resource: http://almerosteyn.com/2016/04/linkup-custom-control-to-ngcontrol-ngmodel
+// Resource: http://almerosteyn.com/2016/4/linkup-custom-control-to-ngcontrol-ngmodel
 
 export const USER_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -24,14 +25,14 @@ export const USER_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-	template: `
-        <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to search..." field="login" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
+    template: `
+        <p-autoComplete [(ngModel)]="value" [disabled]="disabled" placeholder="Hint: type to searc field="lastName" [suggestions]="suggestions" (completeMethod)="complete($event)" (onSelect)="select($event)">
             <ng-template let-user pTemplate="item">
-                <user-line [user]="user"></user-line>
+                <user-line user="user"></user-line>
             </ng-template>
         </p-autoComplete>
-	`,
-	selector: 'user-auto-complete',
+    `,
+    selector: 'user-auto-complete',
     providers: [USER_AUTO_COMPLETE_CONTROL_VALUE_ACCESSOR]
 })
 export class UserCompleteComponent implements ControlValueAccessor {

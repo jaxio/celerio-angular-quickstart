@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity-detail.component.ts.e.vm
 //
 import {Component, OnInit, OnDestroy, Input, Output, EventEmitter} from '@angular/core';
@@ -17,20 +17,32 @@ import {RoleService} from './role.service';
 
 @Component({
     moduleId: module.id,
-	templateUrl: 'role-detail.component.html',
-	selector: 'role-detail',
+    templateUrl: 'role-detail.component.html',
+    selector: 'role-detail',
 })
 export class RoleDetailComponent implements OnInit, OnDestroy {
     role : Role;
 
     private params_subscription: any;
 
+    showBooks : boolean = true;
+    showProjects : boolean = true;
 
     @Input() sub : boolean = false;
+    @Input() // used to pass the parent when creating a new Role
+    set favoriteRole(favoriteRole : Role) {
+        this.role= new Role();
+        this.role.favoriteRole = favoriteRole;
+    }
+
     @Output() onSaveClicked = new EventEmitter<Role>();
     @Output() onCancelClicked = new EventEmitter();
+    civilityOptions: SelectItem[];
 
     constructor(private route: ActivatedRoute, private router: Router, private messageService: MessageService, private roleService: RoleService) {
+        this.civilityOptions = [];
+        this.civilityOptions.push({"label": "Mister", 'value': "MR"});
+        this.civilityOptions.push({"label": "Miss", 'value': "MS"});
     }
 
     ngOnInit() {
@@ -59,6 +71,14 @@ export class RoleDetailComponent implements OnInit, OnDestroy {
         if (!this.sub) {
             this.params_subscription.unsubscribe();
         }
+    }
+
+    gotoFavoriteRole() {
+        this.router.navigate(['/role', this.role.favoriteRole.id]);
+    }
+
+    clearFavoriteRole() {
+        this.role.favoriteRole = null;
     }
 
     onSave() {

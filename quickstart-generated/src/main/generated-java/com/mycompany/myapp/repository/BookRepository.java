@@ -5,7 +5,7 @@
  * Documentation: http://www.jaxio.com/documentation/celerio/
  * Source code: https://github.com/jaxio/celerio/
  * Follow us on twitter: @jaxiosoft
- * This header can be customized in Celerio conf...
+ * This header can be customized in Celerio con
  * Template pack-angular:src/main/java/repository/EntityRepository.java.e.vm
  */
 package com.mycompany.myapp.repository;
@@ -23,14 +23,18 @@ import com.mycompany.myapp.domain.Book_;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-    default List<Book> complete(String query, int maxResults) {
+         default List<Book> complete(String query, int maxResults) {
         Book probe = new Book();
-        probe.setTitle(query);
-
-        ExampleMatcher matcher = ExampleMatcher.matching() //
+        
+         
+           probe.setTitle(query);
+             ExampleMatcher matcher = ExampleMatcher.matching() //
                 .withMatcher(Book_.title.getName(), match -> match.ignoreCase().startsWith());
-
         Page<Book> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
         return page.getContent();
+          
+         
     }
+  
+
 }

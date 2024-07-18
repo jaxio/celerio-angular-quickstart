@@ -5,7 +5,7 @@
 // Documentation: http://www.jaxio.com/documentation/celerio/
 // Source code: https://github.com/jaxio/celerio/
 // Follow us on twitter: @jaxiosoft
-// This header can be customized in Celerio conf...
+// This header can be customized in Celerio con
 // Template pack-angular:web/src/app/entities/entity.service.ts.e.vm
 //
 import { Injectable } from '@angular/core';
@@ -26,10 +26,10 @@ export class ProjectService {
     /**
      * Get a Project by id.
      */
-    getProject(id : any) : Observable<Project> {
+    get Project(id : any) : Observable<Project> {
         return this.http.get('/api/projects/' + id)
             .pipe(
-                map(response => new Project(response)),
+                map(response => new Project (response)),
                 catchError(this.handleError)
             );
     }
@@ -37,8 +37,8 @@ export class ProjectService {
     /**
      * Update the passed project.
      */
-    update(project : Project) : Observable<Project> {
-        let body = project;
+    update(project : Project ) : Observable< Project> {
+        let body =  project;
 
         return this.http.put('/api/projects/', body)
             .pipe(
@@ -52,13 +52,13 @@ export class ProjectService {
      * project as an example for the search by example facility.
      */
     getPage(project : Project, event : LazyLoadEvent) : Observable<PageResponse<Project>> {
-        let req = new PageRequestByExample(project, event);
+        let req  = new PageRequestByExample(project, event);
         let body = req;
 
         return this.http.post<PageResponse<any>>('/api/projects/page', body)
             .pipe(
-                map(pr =>  new PageResponse<Project>(pr.totalPages, pr.totalElements, Project.toArray(pr.content))),
-                catchError(this.handleError)
+                map(pr =>  new PageResponse<Project>(pr.totalPages, pr.totalElements, Project.toArray(pr.content)),
+                catchError(this.handleError))
             );
     }
 
@@ -85,7 +85,7 @@ export class ProjectService {
 
     // sample method from angular doc
     private handleError (error: HttpErrorResponse) {
-        // TODO: seems we cannot use messageService from here...
+        // TODO: seems we cannot use messageService from her
         let errMsg = (error.message) ? error.message : 'Server error';
         console.error(errMsg);
         if (error.status === 401 ) {
